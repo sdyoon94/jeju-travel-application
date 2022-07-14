@@ -23,7 +23,7 @@ public class UserController {
     public ResponseEntity<Map<String, String>> registerUser(@RequestBody User user){
         HashMap<String, String> map = new HashMap<>();
         try{
-            //userService.save(user)
+            userService.registUser(user);
             map.put("message", "Success");
             return new ResponseEntity<>(map, HttpStatus.OK);
         }catch(Exception e){
@@ -32,8 +32,8 @@ public class UserController {
     }
 
     @GetMapping("/users/{userId}")
-    public ResponseEntity<Map<String,String>> countById(@RequestParam String userId) {
-        int count = userService.countById();
+    public ResponseEntity<Map<String,String>> countById(@PathVariable String userId) {
+        int count = userService.idCheck(userId);
         if (count == 1) {
             HashMap<String, String> map = new HashMap<>();
             map.put("messsage", "이미 존재하는 사용자 ID 입니다.");
@@ -42,7 +42,7 @@ public class UserController {
         return null;
     }
     @DeleteMapping("/users/{userId}")
-    public ResponseEntity<Map<String, String>> deleteUser(@RequestParam String userId){
+    public ResponseEntity<Map<String, String>> deleteUser(@PathVariable String userId){
         HashMap<String, String> map = new HashMap<>();
         userService.deleteUser(userId);
         map.put("message", "Success");
