@@ -4,9 +4,9 @@ import a609.backend.db.entity.User;
 import a609.backend.db.repository.UserRepository;
 import a609.backend.util.MailUtil;
 import org.apache.commons.lang3.RandomStringUtils;
+import a609.backend.util.EncryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Random;
 
 @Service
@@ -20,6 +20,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User registUser(User user) {
+        String encryPassword = EncryptUtil.encrypt(user.getPassword());
+        user.setPassword(encryPassword);
         return userRepository.save(user);
     }
 
