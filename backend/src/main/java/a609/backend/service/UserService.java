@@ -11,6 +11,6 @@ public interface UserService {
     User showInfo(String id);//내 프로필 조회
   //  User login(User user);//로그인
     void findPassword(String id);
-
+    void confirmUser(String key);
 
 }

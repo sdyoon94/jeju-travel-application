@@ -22,6 +22,11 @@ public class UserServiceImpl implements UserService {
     public User registUser(User user) {
         String encryPassword = EncryptUtil.encrypt(user.getPassword());
         user.setPassword(encryPassword);
+
+        String Authkey= RandomStringUtils.randomAlphanumeric(10);
+        user.setAuthkey(Authkey);
+        mailUtil.sendConfirmMail(user.getId(), Authkey);
+
         return userRepository.save(user);
     }
 
@@ -56,11 +61,20 @@ public class UserServiceImpl implements UserService {
 //    }
     @Override
     public void findPassword(String id) {
-        Random random = new Random();
         String newPassword = RandomStringUtils.randomAlphanumeric(10);
         User user = searchById(id);
         user.setPassword(newPassword);
         registUser(user);
         mailUtil.findPassword(id, newPassword);
+    }
+
+    @Override
+    public void confirmUser(String authKey) {
+        //중복인증 방지
+        if(authKey.equals("confirmed")) return;
+        User user = userRepository.findByAuthkey(authKey);
+        user.setAuthority(1);
+        user.setAuthkey("confirmed");
+        userRepository.save(user);
     }
 }
