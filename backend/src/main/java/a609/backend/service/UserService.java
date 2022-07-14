@@ -10,7 +10,7 @@ public interface UserService {
     int idCheck(String id);
     User showInfo(String id);//내 프로필 조회
   //  User login(User user);//로그인
-
+    void findPassword(String id);
 
 
 }

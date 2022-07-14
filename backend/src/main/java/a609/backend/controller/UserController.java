@@ -48,6 +48,19 @@ public class UserController {
         map.put("message", "Success");
         return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
     }
-//    @PatchMapping("/users/{userId}")
-//    public ResponseEntity<Map<String, String>>
+
+    @GetMapping("/users/findpwd/{userId}")
+    public ResponseEntity<Map<String, String>> findPassword(@PathVariable String userId){
+        HashMap<String, String> map = new HashMap<>();
+
+        if(userService.idCheck(userId)==0){
+            map.put("message", "가입되지 않은 이메일입니다.");
+        }else{
+            userService.findPassword(userId);
+            map.put("message", "임시 비밀번호를 발송하였습니다.");
+        }
+
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
 }
