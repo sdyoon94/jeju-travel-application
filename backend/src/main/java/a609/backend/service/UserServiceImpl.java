@@ -33,7 +33,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(String id) {
         userRepository.deleteById(id);
-
     }
 
 //    @Override
@@ -59,8 +58,9 @@ public class UserServiceImpl implements UserService {
     public void findPassword(String id) {
         Random random = new Random();
         String newPassword = RandomStringUtils.randomAlphanumeric(10);
-        // 동시에 db의 패스워드를 업데이트 해줘야함(+암호화)
+        User user = searchById(id);
+        user.setPassword(newPassword);
+        registUser(user);
         mailUtil.findPassword(id, newPassword);
-        return;
     }
 }
