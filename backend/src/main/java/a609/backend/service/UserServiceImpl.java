@@ -7,7 +7,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import a609.backend.util.EncryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.Random;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -19,13 +18,13 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User registUser(User user) {
-        String encryPassword = EncryptUtil.encrypt(user.getPassword());
-        user.setPassword(encryPassword);
+    public User registerUser(User user) {
+        String encryptPassword = EncryptUtil.encrypt(user.getPassword());
+        user.setPassword(encryptPassword);
 
-        String Authkey= RandomStringUtils.randomAlphanumeric(10);
-        user.setAuthkey(Authkey);
-        mailUtil.sendConfirmMail(user.getId(), Authkey);
+        String authKey= RandomStringUtils.randomAlphanumeric(10);
+        user.setAuthkey(authKey);
+        mailUtil.sendConfirmMail(user.getId(), authKey);
 
         return userRepository.save(user);
     }
@@ -40,10 +39,15 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
-//    @Override
-//    public void updateUser(User user) {
-//        userRepository.updateUser(user);
-//    }
+    @Override
+    public void updateUser(String id, User user) {
+        User originUser = userRepository.findOneById(id);
+        String encryptPassword = EncryptUtil.encrypt(user.getPassword());
+        originUser.setNickname(user.getNickname());
+        originUser.setPassword(encryptPassword);
+        userRepository.save(originUser);
+
+    }
 
     @Override
     public int idCheck(String id) {
@@ -64,7 +68,7 @@ public class UserServiceImpl implements UserService {
         String newPassword = RandomStringUtils.randomAlphanumeric(10);
         User user = searchById(id);
         user.setPassword(newPassword);
-        registUser(user);
+        registerUser(user);
         mailUtil.findPassword(id, newPassword);
     }
 

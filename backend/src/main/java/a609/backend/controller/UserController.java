@@ -23,7 +23,7 @@ public class UserController {
     public ResponseEntity<Map<String, String>> registerUser(@RequestBody User user){
         HashMap<String, String> map = new HashMap<>();
         try{
-            userService.registUser(user);
+            userService.registerUser(user);
             map.put("message", "Success");
             return new ResponseEntity<>(map, HttpStatus.OK);
         }catch(Exception e){
@@ -68,6 +68,14 @@ public class UserController {
             map.put("message", "임시 비밀번호를 발송하였습니다.");
         }
         return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    @PatchMapping("/users/{userId}")
+    public ResponseEntity updateUser(@PathVariable String userId, @RequestBody User user){
+        userService.updateUser(userId, user);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("message", "Success");
+        return new ResponseEntity(map, HttpStatus.NO_CONTENT);
     }
 
 }
