@@ -6,6 +6,7 @@ import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.ContentType;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
@@ -42,6 +43,32 @@ public class MailUtil {
             System.out.println("ERROR!");
             e.printStackTrace();
         }
+    }
+
+    public void sendConfirmMail(String userId, String Authkey){
+        Session session = Session.getInstance(prop, new javax.mail.Authenticator(){
+            protected PasswordAuthentication getPasswordAuthentication(){
+                return new PasswordAuthentication(user, password);
+            }
+        });
+
+        MimeMessage message = new MimeMessage(session);
+        try{
+            message.setFrom(new InternetAddress(user));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(userId));
+            message.setSubject("인증메일입니다.");
+//            message.setContent("<form action=\"localhost:8080/api/v1/users/confirm/"+Authkey+"\" method=\"get\">\n<input type=\"submit\" value=\"인증하기\"></form>", "text/html;charset=utf-8");
+            message.setContent(" <form action=\"http://localhost:8080/api/v1/users/confirm/"+Authkey+"\" method=\"get\">\n" +
+                    "        <input type=\"submit\" value=\"인증하기\">\n" +
+                    "    </form>","text/html;charset=utf-8");
+
+
+            Transport.send(message);
+        } catch (Exception e){
+            System.out.println("ERROR!");
+            e.printStackTrace();
+        }
+
     }
 
 }

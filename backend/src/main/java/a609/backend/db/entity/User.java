@@ -20,8 +20,7 @@ public class User {
     String password;
     String nickname;
     int authority;
-    String Authkey;
-
+    String authkey;
 
 
 }
