@@ -2,6 +2,8 @@ package a609.backend.controller;
 
 import a609.backend.db.entity.User;
 import a609.backend.service.UserService;
+import a609.backend.util.EncryptUtil;
+import a609.backend.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    JwtUtil jwtUtil;
 
 
     @PostMapping("/users")
@@ -76,6 +81,25 @@ public class UserController {
         HashMap<String, String> map = new HashMap<>();
         map.put("message", "Success");
         return new ResponseEntity(map, HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/auth/login")
+    public ResponseEntity<Map<String,String>> login(@RequestBody User user){
+        Map<String, String> resultMap = new HashMap<>();
+        HttpStatus status = null;
+        String loginResult = userService.login(user);
+        if (loginResult.equals("404")){
+            status = HttpStatus.NOT_FOUND;
+            resultMap.put("message","존재하지 않는 계정입니다.");
+        } else if (loginResult.equals("401")) {
+            status = HttpStatus.UNAUTHORIZED;
+            resultMap.put("message","잘못된 비밀번호입니다.");
+        }else{
+            status = HttpStatus.OK;
+            resultMap.put("token",loginResult);
+        }
+
+        return new ResponseEntity<Map<String, String>>(resultMap, status);
     }
 
 }

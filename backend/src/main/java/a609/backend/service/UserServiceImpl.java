@@ -2,6 +2,7 @@ package a609.backend.service;
 
 import a609.backend.db.entity.User;
 import a609.backend.db.repository.UserRepository;
+import a609.backend.util.JwtUtil;
 import a609.backend.util.MailUtil;
 import org.apache.commons.lang3.RandomStringUtils;
 import a609.backend.util.EncryptUtil;
@@ -15,6 +16,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     MailUtil mailUtil;
+
+    @Autowired
+    JwtUtil jwtUtil;
+
 
 
     @Override
@@ -70,6 +75,26 @@ public class UserServiceImpl implements UserService {
         user.setPassword(newPassword);
         registerUser(user);
         mailUtil.findPassword(id, newPassword);
+    }
+
+    @Override
+    public String login(User user) {
+
+        User loginUser = userRepository.findOneById(user.getId());
+        if(loginUser!=null){
+
+            String encryptPassword = loginUser.getPassword();
+            boolean match = EncryptUtil.isMatch(user.getPassword(),encryptPassword);
+            if(match){
+                String token = jwtUtil.createToken(loginUser.getId(),loginUser.getAuthority(),loginUser.getNickname(),true);
+                return token;
+            }
+
+            return "401";
+
+        }else {
+            return "404";
+        }
     }
 
     @Override

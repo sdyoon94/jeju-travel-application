@@ -9,7 +9,7 @@ public interface UserService {
     void updateUser(String id, User user);//회원 정보 수정
     int idCheck(String id);
     User showInfo(String id);//내 프로필 조회
-  //  User login(User user);//로그인
+    String login(User user);//로그인
     void findPassword(String id);
     void confirmUser(String key);
 
