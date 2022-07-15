@@ -10,9 +10,9 @@ function Login() {
       <h2 className="login-top">이메일로 로그인</h2>
       <form>
         <label htmlFor="email" className="block">이메일</label>
-        <textarea id="email" className="input-auth" />
+        <input id="email" type="email" className="input-auth" />
         <label htmlFor="password" className="block">비밀번호</label>
-        <textarea className="input-auth" id="password" />
+        <input id="password" type="password" className="input-auth" />
         <div>
         <input type="checkbox" id="onLogin" className="input-checkbox"/>
         <label htmlFor="onLogin">로그인 유지하기</label>
