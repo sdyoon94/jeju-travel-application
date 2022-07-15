@@ -1,14 +1,14 @@
 package a609.backend.util;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.Base64;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class JwtUtil {
@@ -16,24 +16,37 @@ public class JwtUtil {
     @Value("${jwt.secret}")
     private String secretKey;
 
-    public String createToken(String userId) {
+    public String createToken(String id, int authority, String nickname, boolean keep) {
         Date now = new Date();
-        Date expiration = new Date(now.getTime() + 6 * 60 * 60 * 1000L); // 만료기간 1일
+        Date expiration = keep ? new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000L) : new Date(now.getTime() + 6 * 60 * 60 * 1000L); // 만료기간 2주 or 6시간
+
+        Map<String, Object> headers = new HashMap<>();
+        headers.put("typ", "JWT");
+        headers.put("alg", "HS256");
+
+        Map<String, Object> payloads = new HashMap<>();
+        payloads.put("id", id);
+        payloads.put("authority", authority);
+        payloads.put("nickname", nickname);
 
         return Jwts.builder()
-                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
-                .setIssuer("a609")
-                .setIssuedAt(now)
+                .setHeader(headers)
+                .setClaims(payloads)
                 .setExpiration(expiration)
-                .setSubject(userId)
-                .signWith(SignatureAlgorithm.HS512, Base64.getEncoder().encodeToString(secretKey.getBytes())) // 알고리즘, 시크릿 키
+                .signWith(SignatureAlgorithm.HS256, secretKey.getBytes()) // 알고리즘, 시크릿 키
                 .compact();
     }
 
     public Claims parseJwtToken(String token) {
-        return Jwts.parser()
-                .setSigningKey(Base64.getEncoder().encodeToString(secretKey.getBytes()))
-                .parseClaimsJws(token)
-                .getBody();
+        Claims claims = null;
+        try{
+            claims = Jwts.parser()
+                    .setSigningKey(secretKey.getBytes("UTF-8"))
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch(Exception e){
+            System.out.println(e);
+        }
+        return claims;
     }
 }
