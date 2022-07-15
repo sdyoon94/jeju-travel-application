@@ -2,19 +2,31 @@ package a609.backend.service;
 
 import a609.backend.db.entity.User;
 import a609.backend.db.repository.UserRepository;
+import a609.backend.util.MailUtil;
+import org.apache.commons.lang3.RandomStringUtils;
 import a609.backend.util.EncryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.Random;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    MailUtil mailUtil;
+
+
     @Override
     public User registUser(User user) {
         String encryPassword = EncryptUtil.encrypt(user.getPassword());
         user.setPassword(encryPassword);
+
+        String Authkey= RandomStringUtils.randomAlphanumeric(10);
+        user.setAuthkey(Authkey);
+        mailUtil.sendConfirmMail(user.getId(), Authkey);
+
         return userRepository.save(user);
     }
 
@@ -26,7 +38,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(String id) {
         userRepository.deleteById(id);
-
     }
 
 //    @Override
@@ -48,4 +59,22 @@ public class UserServiceImpl implements UserService {
 //    public User login(User user) {
 //        return userRepository.login(user);
 //    }
+    @Override
+    public void findPassword(String id) {
+        String newPassword = RandomStringUtils.randomAlphanumeric(10);
+        User user = searchById(id);
+        user.setPassword(newPassword);
+        registUser(user);
+        mailUtil.findPassword(id, newPassword);
+    }
+
+    @Override
+    public void confirmUser(String authKey) {
+        //중복인증 방지
+        if(authKey.equals("confirmed")) return;
+        User user = userRepository.findByAuthkey(authKey);
+        user.setAuthority(1);
+        user.setAuthkey("confirmed");
+        userRepository.save(user);
+    }
 }

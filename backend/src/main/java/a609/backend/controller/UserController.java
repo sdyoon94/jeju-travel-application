@@ -30,6 +30,14 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+    @GetMapping("/users/confirm/{authKey}")
+    public void confirmUser(@PathVariable String authKey){
+        System.out.println("HI");
+        userService.confirmUser(authKey);
+        //링크 누르면 blank, 새 탭으로 열어야 반응함 이유 파악 필요
+        //차후 로그인 창으로 리다이렉트한다(response.redirect(url))
+        return;
+    }
 
     @GetMapping("/users/{userId}")
     public ResponseEntity<Map<String,String>> countById(@PathVariable String userId) {
@@ -48,6 +56,18 @@ public class UserController {
         map.put("message", "Success");
         return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
     }
-//    @PatchMapping("/users/{userId}")
-//    public ResponseEntity<Map<String, String>>
+
+    @GetMapping("/users/findpwd/{userId}")
+    public ResponseEntity<Map<String, String>> findPassword(@PathVariable String userId){
+        HashMap<String, String> map = new HashMap<>();
+
+        if(userService.idCheck(userId)==0){
+            map.put("message", "가입되지 않은 이메일입니다.");
+        }else{
+            userService.findPassword(userId);
+            map.put("message", "임시 비밀번호를 발송하였습니다.");
+        }
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
 }
