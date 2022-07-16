@@ -106,9 +106,19 @@ public class UserController {
     }
 
     @GetMapping("/users/me")
-    public ResponseEntity<Map<String, Object>> myProfile(@RequestBody String token) {
+    public ResponseEntity<Map<String, Object>> myProfile(@RequestBody Map<String, String> tokenMap) {
         Map<String, Object> resultMap = new HashMap<>();
-        Claims claims = jwtUtil.parseJwtToken(token);
+        Claims claims = userService.verifyToken(tokenMap.get("token"));
+        resultMap.put("id", claims.get("id"));
+        resultMap.put("authority", claims.get("authority"));
+        resultMap.put("nickname", claims.get("nickname"));
+        return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+    }
+
+    @GetMapping("/auth/verify")
+    public ResponseEntity<Map<String, Object>> verifyToken(@RequestBody Map<String, String> tokenMap){
+        Map<String, Object> resultMap = new HashMap<>();
+        Claims claims = userService.verifyToken(tokenMap.get("token"));
         HttpStatus status = null;
         if (claims == null) {
             resultMap.put("message", "토큰 에러");
