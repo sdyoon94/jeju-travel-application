@@ -1,20 +1,24 @@
-// 예시 코드
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"
+
+const initialState = {
+  token: localStorage.getItem("token") || "",
+  email: "",
+  nickname: ""
+}
 
 
-const postsSlice = createSlice({
-  name: 'posts',
-  initialState: [],
+const loginSlice = createSlice({
+  name: "auth",
+  initialState,
   reducers: {
-    createPost(state, action) {},
-    updatePost(state, action) {},
-    deletePost(state, action) {},
+    login(state, action) {
+      console.log('s', state)
+      console.log('a', action)
+    },
+    signup(state, action) {},
   },
 })
 
-const { actions, reducer } = postsSlice
-// Extract and export each action creator by name
-export const { createPost, updatePost, deletePost } = actions
-// Export the reducer, either as a default or named export
-export default reducer
 
+export const { login, signup } = loginSlice.actions
+export default loginSlice.reducer
