@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
+
     @Autowired
     UserRepository userRepository;
 
@@ -22,13 +23,12 @@ public class UserServiceImpl implements UserService {
     JwtUtil jwtUtil;
 
 
-
     @Override
     public User registerUser(User user) {
         String encryptPassword = EncryptUtil.encrypt(user.getPassword());
         user.setPassword(encryptPassword);
 
-        String authKey= RandomStringUtils.randomAlphanumeric(10);
+        String authKey = RandomStringUtils.randomAlphanumeric(10);
         user.setAuthkey(authKey);
         mailUtil.sendConfirmMail(user.getId(), authKey);
 
@@ -49,8 +49,12 @@ public class UserServiceImpl implements UserService {
     public void updateUser(String id, User user) {
         User originUser = userRepository.findOneById(id);
         String encryptPassword = EncryptUtil.encrypt(user.getPassword());
-        originUser.setNickname(user.getNickname());
-        originUser.setPassword(encryptPassword);
+        if (user.getNickname() != null) {
+            originUser.setNickname(user.getNickname());
+        }
+        if (user.getPassword() != null) {
+            originUser.setPassword(encryptPassword);
+        }
         userRepository.save(originUser);
 
     }
@@ -60,7 +64,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.countById(id);
     }
 
-//    @Override
+    //    @Override
 //    public User login(User user) {
 //        return userRepository.login(user);
 //    }
@@ -77,18 +81,18 @@ public class UserServiceImpl implements UserService {
     public String login(User user) {
 
         User loginUser = userRepository.findOneById(user.getId());
-        if(loginUser!=null){
+        if (loginUser != null) {
 
             String encryptPassword = loginUser.getPassword();
-            boolean match = EncryptUtil.isMatch(user.getPassword(),encryptPassword);
-            if(match){
-                String token = jwtUtil.createToken(loginUser.getId(),loginUser.getAuthority(),loginUser.getNickname(),true);
+            boolean match = EncryptUtil.isMatch(user.getPassword(), encryptPassword);
+            if (match) {
+                String token = jwtUtil.createToken(loginUser.getId(), loginUser.getAuthority(), loginUser.getNickname(), true);
                 return token;
             }
 
             return "401";
 
-        }else {
+        } else {
             return "404";
         }
     }
@@ -96,7 +100,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void confirmUser(String authKey) {
         //중복인증 방지
-        if(authKey.equals("confirmed")) return;
+        if (authKey.equals("confirmed")) return;
         User user = userRepository.findByAuthkey(authKey);
         user.setAuthority(1);
         user.setAuthkey("confirmed");
@@ -106,5 +110,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public Claims verifyToken(String token) {
         return jwtUtil.parseJwtToken(token);
+    }
+
+    @Override
+    public boolean pwCheck(String jwt, String password) {
+        Claims claims = jwtUtil.parseJwtToken(jwt);
+        String id = (String) claims.get("id");
+        String originPassword = userRepository.findOneById(id).getPassword();
+        boolean result = EncryptUtil.isMatch(password, originPassword);
+//        System.out.println(password);
+//        System.out.println(id);
+//        System.out.println(result);
+        return result;
+
     }
 }
