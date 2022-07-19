@@ -6,6 +6,7 @@ import a609.backend.util.EncryptUtil;
 import a609.backend.util.JwtUtil;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -128,5 +129,16 @@ public class UserController {
             status = HttpStatus.OK;
         }
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
+    }
+
+    @PostMapping("/users/checkpwd")
+    public ResponseEntity pwCheck(@RequestHeader HttpHeaders headers, @RequestBody Map<String, Object> params){
+        String token = headers.get("token").get(0);
+        String password = (String) params.get("password");
+        boolean result = userService.pwCheck(token, password);
+        if(result){
+            //response.sendRedirect("변경페이지");
+            return ResponseEntity.ok("비밀번호 일치");
+        }else return ResponseEntity.notFound().build();
     }
 }

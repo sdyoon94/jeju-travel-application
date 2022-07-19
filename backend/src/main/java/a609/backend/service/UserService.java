@@ -13,4 +13,6 @@ public interface UserService {
     void findPassword(String id);
     void confirmUser(String key);
     Claims verifyToken(String token);
+
+    boolean pwCheck(String token, String password);
 }
