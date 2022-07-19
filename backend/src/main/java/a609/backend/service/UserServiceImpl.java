@@ -113,14 +113,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean pwCheck(String jwt, String password) {
+    public boolean pwCheck(String jwt, String password, String newPassword) {
         Claims claims = jwtUtil.parseJwtToken(jwt);
         String id = (String) claims.get("id");
-        String originPassword = userRepository.findOneById(id).getPassword();
+        User originUser= userRepository.findOneById(id);
+        String originPassword = originUser.getPassword();
         boolean result = EncryptUtil.isMatch(password, originPassword);
-//        System.out.println(password);
-//        System.out.println(id);
-//        System.out.println(result);
+        if(result){
+            originUser.setPassword(EncryptUtil.encrypt(newPassword));
+            userRepository.save(originUser);
+        }
         return result;
 
     }

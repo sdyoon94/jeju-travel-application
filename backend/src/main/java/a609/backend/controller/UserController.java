@@ -135,10 +135,12 @@ public class UserController {
     public ResponseEntity pwCheck(@RequestHeader HttpHeaders headers, @RequestBody Map<String, Object> params){
         String token = headers.get("token").get(0);
         String password = (String) params.get("password");
-        boolean result = userService.pwCheck(token, password);
+        String newPassword = (String) params.get("newPassword");
+        boolean result = userService.pwCheck(token, password, newPassword);
         if(result){
-            //response.sendRedirect("변경페이지");
-            return ResponseEntity.ok("비밀번호 일치");
+
+            return ResponseEntity.ok("비밀번호 변경 성공");
+            //변경 후 리다이렉트? 아니면 프런트단에서?
         }else return ResponseEntity.notFound().build();
     }
 }
