@@ -57,8 +57,12 @@ public class UserServiceImpl implements UserService{
     public void updateUser(String id, User user) {
         User originUser = userRepository.findOneById(id);
         String encryptPassword = EncryptUtil.encrypt(user.getPassword());
-        originUser.setNickname(user.getNickname());
-        originUser.setPassword(encryptPassword);
+        if (user.getNickname() != null) {
+            originUser.setNickname(user.getNickname());
+        }
+        if (user.getPassword() != null) {
+            originUser.setPassword(encryptPassword);
+        }
         userRepository.save(originUser);
 
     }
@@ -82,6 +86,26 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public String login(User user) {
+
+        User loginUser = userRepository.findOneById(user.getId());
+        if (loginUser != null) {
+
+            String encryptPassword = loginUser.getPassword();
+            boolean match = EncryptUtil.isMatch(user.getPassword(), encryptPassword);
+            if (match) {
+                String token = jwtUtil.createToken(loginUser.getId(), loginUser.getAuthority(), loginUser.getNickname(), true);
+                return token;
+            }
+
+            return "401";
+
+        } else {
+            return "404";
+        }
+    }
+
+    @Override
     public void confirmUser(String authKey) {
         //중복인증 방지
         if (authKey.equals("confirmed")) return;
@@ -94,5 +118,20 @@ public class UserServiceImpl implements UserService{
     @Override
     public Claims verifyToken(String token) {
         return jwtUtil.parseJwtToken(token);
+    }
+
+    @Override
+    public boolean pwCheck(String jwt, String password, String newPassword) {
+        Claims claims = jwtUtil.parseJwtToken(jwt);
+        String id = (String) claims.get("id");
+        User originUser= userRepository.findOneById(id);
+        String originPassword = originUser.getPassword();
+        boolean result = EncryptUtil.isMatch(password, originPassword);
+        if(result){
+            originUser.setPassword(EncryptUtil.encrypt(newPassword));
+            userRepository.save(originUser);
+        }
+        return result;
+
     }
 }

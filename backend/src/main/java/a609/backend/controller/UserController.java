@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -169,5 +170,18 @@ public class UserController {
             status = HttpStatus.OK;
         }
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
+    }
+
+    @PostMapping("/users/checkpwd")
+    public ResponseEntity pwCheck(@RequestHeader HttpHeaders headers, @RequestBody Map<String, Object> params){
+        String token = headers.get("token").get(0);
+        String password = (String) params.get("password");
+        String newPassword = (String) params.get("newPassword");
+        boolean result = userService.pwCheck(token, password, newPassword);
+        if(result){
+
+            return ResponseEntity.ok("비밀번호 변경 성공");
+            //변경 후 리다이렉트? 아니면 프런트단에서?
+        }else return ResponseEntity.notFound().build();
     }
 }

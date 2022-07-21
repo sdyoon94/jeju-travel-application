@@ -13,4 +13,5 @@ public interface UserService extends UserDetailsService {
     void findPassword(String id);
     void confirmUser(String key);
     Claims verifyToken(String token);
+    boolean pwCheck(String token, String password, String newPassword);
 }
