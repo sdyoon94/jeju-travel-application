@@ -1,16 +1,28 @@
 package a609.backend.controller;
 
 import a609.backend.db.entity.User;
+import a609.backend.payload.request.LoginRequest;
+import a609.backend.payload.request.SignupRequest;
+import a609.backend.payload.response.LoginResponse;
+import a609.backend.payload.response.MessageResponse;
 import a609.backend.service.UserService;
-import a609.backend.util.EncryptUtil;
 import a609.backend.util.JwtUtil;
 import io.jsonwebtoken.Claims;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,22 +32,45 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
+    AuthenticationManager authenticationManager;
+
+    @Autowired
     UserService userService;
 
     @Autowired
     JwtUtil jwtUtil;
 
+    @Autowired
+    PasswordEncoder encoder;
 
+
+    @ApiOperation(value = "회원가입 API")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "회원가입 성공", content = @Content(schema = @Schema(implementation = MessageResponse.class))),
+            @ApiResponse(responseCode = "400", description = "아이디 중복", content = @Content(schema = @Schema(implementation = MessageResponse.class)))
+    })
     @PostMapping("/users")
-    public ResponseEntity<Map<String, String>> registerUser(@RequestBody User user) {
-        HashMap<String, String> map = new HashMap<>();
-        try {
-            userService.registerUser(user);
-            map.put("message", "Success");
-            return new ResponseEntity<>(map, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> registerUser(@RequestBody SignupRequest signupRequest) {
+        if (userService.idCheck(signupRequest.getId()) != 0) {
+            return ResponseEntity.badRequest().body(new MessageResponse("이미 존재하는 아이디입니다."));
         }
+
+        User user = new User();
+        user.setId(signupRequest.getId());
+        user.setPassword(encoder.encode(signupRequest.getPassword()));
+        user.setNickname(signupRequest.getNickname());
+        userService.registerUser(user);
+        return ResponseEntity.ok(new MessageResponse("회원가입이 완료되었습니다."));
+
+
+//        HashMap<String, String> map = new HashMap<>();
+//        try {
+//            userService.registerUser(user);
+//            map.put("message", "Success");
+//            return new ResponseEntity<>(map, HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
     }
 
     @GetMapping("/users/confirm/{authKey}")
@@ -88,22 +123,28 @@ public class UserController {
     }
 
     @PostMapping("/auth/login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody User user) {
-        Map<String, String> resultMap = new HashMap<>();
-        HttpStatus status = null;
-        String loginResult = userService.login(user);
-        if (loginResult.equals("404")) {
-            status = HttpStatus.NOT_FOUND;
-            resultMap.put("message", "존재하지 않는 계정입니다.");
-        } else if (loginResult.equals("401")) {
-            status = HttpStatus.UNAUTHORIZED;
-            resultMap.put("message", "잘못된 비밀번호입니다.");
-        } else {
-            status = HttpStatus.OK;
-            resultMap.put("token", loginResult);
-        }
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getId(), loginRequest.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtil.generateJwtToken(authentication, true);
+        User user = (User) authentication.getPrincipal();
+        return ResponseEntity.ok(new LoginResponse(jwt, user.getId(), user.getNickname(), user.getAuthority()));
 
-        return new ResponseEntity<Map<String, String>>(resultMap, status);
+//        Map<String, String> resultMap = new HashMap<>();
+//        HttpStatus status = null;
+//        String loginResult = userService.login(user);
+//        if (loginResult.equals("404")) {
+//            status = HttpStatus.NOT_FOUND;
+//            resultMap.put("message", "존재하지 않는 계정입니다.");
+//        } else if (loginResult.equals("401")) {
+//            status = HttpStatus.UNAUTHORIZED;
+//            resultMap.put("message", "잘못된 비밀번호입니다.");
+//        } else {
+//            status = HttpStatus.OK;
+//            resultMap.put("token", loginResult);
+//        }
+//
+//        return new ResponseEntity<Map<String, String>>(resultMap, status);
     }
 
     @GetMapping("/users/me")
@@ -117,7 +158,7 @@ public class UserController {
     }
 
     @GetMapping("/auth/verify")
-    public ResponseEntity<Map<String, Object>> verifyToken(@RequestBody Map<String, String> tokenMap){
+    public ResponseEntity<Map<String, Object>> verifyToken(@RequestBody Map<String, String> tokenMap) {
         Map<String, Object> resultMap = new HashMap<>();
         Claims claims = userService.verifyToken(tokenMap.get("token"));
         HttpStatus status = null;
