@@ -86,26 +86,6 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public String login(User user) {
-
-        User loginUser = userRepository.findOneById(user.getId());
-        if (loginUser != null) {
-
-            String encryptPassword = loginUser.getPassword();
-            boolean match = EncryptUtil.isMatch(user.getPassword(), encryptPassword);
-            if (match) {
-                String token = jwtUtil.createToken(loginUser.getId(), loginUser.getAuthority(), loginUser.getNickname(), true);
-                return token;
-            }
-
-            return "401";
-
-        } else {
-            return "404";
-        }
-    }
-
-    @Override
     public void confirmUser(String authKey) {
         //중복인증 방지
         if (authKey.equals("confirmed")) return;
