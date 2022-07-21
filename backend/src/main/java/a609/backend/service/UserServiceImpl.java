@@ -8,10 +8,22 @@ import io.jsonwebtoken.Claims;
 import org.apache.commons.lang3.RandomStringUtils;
 import a609.backend.util.EncryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService{
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findOneById(username);
+        if (user == null) throw new UsernameNotFoundException("Not Found account.");
+
+        return user;
+    }
+
     @Autowired
     UserRepository userRepository;
 
@@ -22,13 +34,9 @@ public class UserServiceImpl implements UserService {
     JwtUtil jwtUtil;
 
 
-
     @Override
     public User registerUser(User user) {
-        String encryptPassword = EncryptUtil.encrypt(user.getPassword());
-        user.setPassword(encryptPassword);
-
-        String authKey= RandomStringUtils.randomAlphanumeric(10);
+        String authKey = RandomStringUtils.randomAlphanumeric(10);
         user.setAuthkey(authKey);
         mailUtil.sendConfirmMail(user.getId(), authKey);
 
@@ -60,7 +68,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.countById(id);
     }
 
-//    @Override
+    //    @Override
 //    public User login(User user) {
 //        return userRepository.login(user);
 //    }
@@ -74,29 +82,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String login(User user) {
-
-        User loginUser = userRepository.findOneById(user.getId());
-        if(loginUser!=null){
-
-            String encryptPassword = loginUser.getPassword();
-            boolean match = EncryptUtil.isMatch(user.getPassword(),encryptPassword);
-            if(match){
-                String token = jwtUtil.createToken(loginUser.getId(),loginUser.getAuthority(),loginUser.getNickname(),true);
-                return token;
-            }
-
-            return "401";
-
-        }else {
-            return "404";
-        }
-    }
-
-    @Override
     public void confirmUser(String authKey) {
         //중복인증 방지
-        if(authKey.equals("confirmed")) return;
+        if (authKey.equals("confirmed")) return;
         User user = userRepository.findByAuthkey(authKey);
         user.setAuthority(1);
         user.setAuthkey("confirmed");
