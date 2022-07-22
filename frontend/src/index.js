@@ -6,6 +6,7 @@ import store from './store/store'
 import App from './App';
 import Login from './routes/Login'
 import Signup from './routes/Signup'
+import Inputs from './routes/Inputs'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -16,6 +17,7 @@ root.render(
         <Route path="/" element={<App />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="inputs" element={<Inputs />} />
       </Routes>
     </BrowserRouter>
   </Provider>
