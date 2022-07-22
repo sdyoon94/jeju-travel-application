@@ -1,0 +1,55 @@
+.trip-list-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.trip-summary-box {
+  display: grid; 
+  grid-template-columns: 1fr 35px;
+  grid-template-rows: 40px 25px;
+  align-items: center;
+  margin: 12px 40px;
+  border: 5px solid #BBDEFB;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  width: 270px;
+  height: 65px;
+}
+
+.item:nth-child(1) {
+  margin-left: 15px;
+}
+
+.item:nth-child(2) {
+  grid-row-start: 1;
+  grid-row-end: 3;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  /* justify-self: center; */
+}
+
+.item:nth-child(3) {
+  margin-left: 15px;
+}
+
+.profile-box {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.person-icon {
+  width: 15px;
+  height: 15px;
+}
+
+.new-trip-btn {
+  text-align: center;
+  margin-top: 10px;
+}
+
+
+
