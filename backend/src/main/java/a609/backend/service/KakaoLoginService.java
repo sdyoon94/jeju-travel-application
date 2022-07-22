@@ -6,6 +6,6 @@ import javax.servlet.http.HttpSession;
 
 public interface KakaoLoginService {
     String login(String code);
-    String logout();
-    void deleteUser();
+    String logout(String userEmail);
+    void deleteUser(String userEmail);
 }

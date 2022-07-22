@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {
     User registerUser(User user);
-    User searchById(String id);//회원조회
+    User searchByUserEmail(String id);//회원조회
     void deleteUser(String id);
     void updateUser(String id, User user);//회원 정보 수정
     int idCheck(String id);
