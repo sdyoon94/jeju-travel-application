@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 @Slf4j
 @Service
-public class KakaoLoginServiceImpl implements KakaoLoginService {
+public class KakaoLoginServiceImple implements KakaoLoginService {
 
     @Autowired
     KaKaoUtil kaKaoUtil;
