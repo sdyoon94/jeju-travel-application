@@ -1,16 +1,14 @@
 package a609.backend.service;
 
-import a609.backend.db.entity.User;
 import a609.backend.util.JwtUtil;
 import a609.backend.util.KaKaoUtil;
-import io.jsonwebtoken.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 
 @Service
-public class KakaoLoginServiceImple implements KakaoLoginService {
+public class KakaoLoginServiceImpl implements KakaoLoginService {
 
     @Autowired
     KaKaoUtil kaKaoUtil;
@@ -34,7 +32,8 @@ public class KakaoLoginServiceImple implements KakaoLoginService {
 
         if(userInfo.get("email") != null) {
 
-            String token = jwtUtil.createToken((String) userInfo.get("email"),1, (String) userInfo.get("name"),true);
+//            String token = jwtUtil.createToken((String) userInfo.get("email"),1, (String) userInfo.get("name"),true);
+            String token = "token"; // 임시 더미
             return token;
         }else {
             return "fail";

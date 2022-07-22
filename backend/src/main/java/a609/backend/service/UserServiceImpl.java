@@ -37,8 +37,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public User registerUser(User user) {
         String authKey = RandomStringUtils.randomAlphanumeric(10);
-        user.setAuthkey(authKey);
-        mailUtil.sendConfirmMail(user.getId(), authKey);
+        mailUtil.sendConfirmMail(user.getUsername(), authKey);
 
         return userRepository.save(user);
     }
@@ -60,9 +59,6 @@ public class UserServiceImpl implements UserService{
         if (user.getNickname() != null) {
             originUser.setNickname(user.getNickname());
         }
-        if (user.getPassword() != null) {
-            originUser.setPassword(encryptPassword);
-        }
         userRepository.save(originUser);
 
     }
@@ -76,62 +72,62 @@ public class UserServiceImpl implements UserService{
 //    public User login(User user) {
 //        return userRepository.login(user);
 //    }
-    @Override
-    public void findPassword(String id) {
-        String newPassword = RandomStringUtils.randomAlphanumeric(10);
-        User user = searchById(id);
-        user.setPassword(newPassword);
-        registerUser(user);
-        mailUtil.findPassword(id, newPassword);
-    }
+//    @Override
+//    public void findPassword(String id) {
+//        String newPassword = RandomStringUtils.randomAlphanumeric(10);
+//        User user = searchById(id);
+//        user.setPassword(newPassword);
+//        registerUser(user);
+//        mailUtil.findPassword(id, newPassword);
+//    }
 
-    @Override
-    public String login(User user) {
+//    @Override
+//    public String login(User user) {
+//
+//        User loginUser = userRepository.findOneById(user.getUsername());
+//        if (loginUser != null) {
+//
+//            String encryptPassword = loginUser.getPassword();
+//            boolean match = EncryptUtil.isMatch(user.getPassword(), encryptPassword);
+//            if (match) {
+//                String token = jwtUtil.createToken(loginUser.getUsername(), loginUser.getAuthority(), loginUser.getNickname(), true);
+//                return token;
+//            }
+//
+//            return "401";
+//
+//        } else {
+//            return "404";
+//        }
+//    }
 
-        User loginUser = userRepository.findOneById(user.getId());
-        if (loginUser != null) {
-
-            String encryptPassword = loginUser.getPassword();
-            boolean match = EncryptUtil.isMatch(user.getPassword(), encryptPassword);
-            if (match) {
-                String token = jwtUtil.createToken(loginUser.getId(), loginUser.getAuthority(), loginUser.getNickname(), true);
-                return token;
-            }
-
-            return "401";
-
-        } else {
-            return "404";
-        }
-    }
-
-    @Override
-    public void confirmUser(String authKey) {
-        //중복인증 방지
-        if (authKey.equals("confirmed")) return;
-        User user = userRepository.findByAuthkey(authKey);
-        user.setAuthority(1);
-        user.setAuthkey("confirmed");
-        userRepository.save(user);
-    }
+//    @Override
+//    public void confirmUser(String authKey) {
+//        //중복인증 방지
+//        if (authKey.equals("confirmed")) return;
+//        User user = userRepository.findByAuthkey(authKey);
+//        user.ority(1);
+//        user.key("confirmed");
+//        userRepository.save(user);
+//    }
 
     @Override
     public Claims verifyToken(String token) {
         return jwtUtil.parseJwtToken(token);
     }
 
-    @Override
-    public boolean pwCheck(String jwt, String password, String newPassword) {
-        Claims claims = jwtUtil.parseJwtToken(jwt);
-        String id = (String) claims.get("id");
-        User originUser= userRepository.findOneById(id);
-        String originPassword = originUser.getPassword();
-        boolean result = EncryptUtil.isMatch(password, originPassword);
-        if(result){
-            originUser.setPassword(EncryptUtil.encrypt(newPassword));
-            userRepository.save(originUser);
-        }
-        return result;
-
-    }
+//    @Override
+//    public boolean pwCheck(String jwt, String password, String newPassword) {
+//        Claims claims = jwtUtil.parseJwtToken(jwt);
+//        String id = (String) claims.get("id");
+//        User originUser= userRepository.findOneById(id);
+//        String originPassword = originUser.getPassword();
+//        boolean result = EncryptUtil.isMatch(password, originPassword);
+//        if(result){
+//            originUser.setPassword(EncryptUtil.encrypt(newPassword));
+//            userRepository.save(originUser);
+//        }
+//        return result;
+//
+//    }
 }

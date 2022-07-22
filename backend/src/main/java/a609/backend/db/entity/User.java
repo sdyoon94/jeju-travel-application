@@ -8,8 +8,7 @@ import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -21,12 +20,21 @@ import java.util.Collection;
 public class User implements UserDetails {
 
     @Id
-    String id;
-    String password;
-    String nickname;
-    int authority;
-    String authkey;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "UID", length = 50)
+    private Long uid;
 
+    @Column(name = "user_email")
+    String userEmail;
+
+    @Column(length = 10)
+    String nickname;
+
+    @Column(name = "image_path")
+    String imagePath;
+
+    @Column(name = "refresh_token")
+    String refreshToken;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -39,13 +47,13 @@ public class User implements UserDetails {
     }
 
     @Override
-    public String getPassword(){
-        return this.password;
+    public String getPassword() {
+        return null;
     }
 
     @Override
     public String getUsername() {
-        return this.id;
+        return null;
     }
 
     @Override
