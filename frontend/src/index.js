@@ -7,6 +7,7 @@ import App from './App';
 import Login from './routes/Login'
 import Signup from './routes/Signup'
 import Inputs from './routes/Inputs'
+import Home from './routes/Home';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -14,7 +15,7 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
         <Route path="inputs" element={<Inputs />} />

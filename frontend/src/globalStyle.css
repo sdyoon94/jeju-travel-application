@@ -10,7 +10,7 @@
   display: block;
 }
 
-.auth-btn {
+.btn {
   margin-top: 20px;
   background-color: #1E88E5;
   width: 250px;
@@ -20,26 +20,29 @@
   border-radius: 15px;
 }
 
-.input-auth:focus {
-  outline: none;
-  border: 2px solid #1E88E5;
-}
-
-.input-auth {
-  margin-top: 15px;
-  margin-bottom: 15px;
-  height: 40px;
-  width: 230px;
-  border-radius: 10px;
-  border: 1px solid black;
-}
-
 .link {
   text-decoration: none ;
   color: inherit;
 }
 
-.text-align {
-  /* text-align: center; */
+.title-size {
+  font-size: 25px;
 }
+
+.subtitle-size {
+  font-size: 20px;
+}
+
+.content-size {
+  font-size: 15px;
+}
+
+.subcontent-size {
+  font-size: 12px;
+}
+
+.text-center {
+  text-align: center;
+}
+
 
