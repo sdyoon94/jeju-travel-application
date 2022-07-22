@@ -11,6 +11,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 
 
 @Slf4j
@@ -20,7 +21,8 @@ public class KaKaoUtil {
     @Value("${restapi.key}")
     private String secretKey;
 
-    public String getAccessToken(String code) {
+    public Map<String, Object> getAccessToken(String code) {
+        Map<String, Object> resultMap = new HashMap<>();
         String accessToken = "";
         String refreshToken = "";
 
@@ -65,6 +67,9 @@ public class KaKaoUtil {
             accessToken = jsonObject.get("access_token").getAsString();
             refreshToken = jsonObject.get("refresh_token").getAsString();
 
+            resultMap.put("accessToken",accessToken);
+            resultMap.put("refreshToken",refreshToken);
+
             //리프레쉬토큰 DB에 저장하기
             log.info("리프레쉬토큰:"+refreshToken);
 
@@ -74,7 +79,7 @@ public class KaKaoUtil {
         }catch (Exception e) {
             e.printStackTrace();
         }
-        return accessToken;
+        return resultMap;
     }
 
 
@@ -105,11 +110,14 @@ public class KaKaoUtil {
             JsonObject properties = jsonObject.get("properties").getAsJsonObject();
             JsonObject kakaoAccount = jsonObject.get("kakao_account").getAsJsonObject();
 
+            String imagePath = properties.getAsJsonObject().get("profile_image_url").getAsString();
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
             String email = kakaoAccount.getAsJsonObject().get("email").getAsString();
 
+
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);
+            userInfo.put("imagePath",imagePath);
 
 
         } catch (Exception e) {

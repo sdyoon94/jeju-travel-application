@@ -83,7 +83,7 @@ public class UserController {
 //    }
 
     @GetMapping("/users/{userId}")
-    public ResponseEntity<Map<String, String>> countById(@PathVariable String userId) {
+    public ResponseEntity<Map<String, String>> countByUserEmail(@PathVariable String userId) {
         int count = userService.idCheck(userId);
         if (count == 1) {
             HashMap<String, String> map = new HashMap<>();

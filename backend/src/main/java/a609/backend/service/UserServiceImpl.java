@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService{
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findOneById(username);
+        User user = userRepository.findOneByUserEmail(username);
         if (user == null) throw new UsernameNotFoundException("Not Found account.");
 
         return user;
@@ -43,18 +43,18 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User searchById(String id) {
-        return userRepository.findOneById(id);
+    public User searchByUserEmail(String id) {
+        return userRepository.findOneByUserEmail(id);
     }
 
     @Override
     public void deleteUser(String id) {
-        userRepository.deleteById(id);
+        userRepository.deleteByUserEmail(id);
     }
 
     @Override
     public void updateUser(String id, User user) {
-        User originUser = userRepository.findOneById(id);
+        User originUser = userRepository.findOneByUserEmail(id);
         String encryptPassword = EncryptUtil.encrypt(user.getPassword());
         if (user.getNickname() != null) {
             originUser.setNickname(user.getNickname());
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public int idCheck(String id) {
-        return userRepository.countById(id);
+        return userRepository.countByUserEmail(id);
     }
 
     //    @Override
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService{
 //    @Override
 //    public void findPassword(String id) {
 //        String newPassword = RandomStringUtils.randomAlphanumeric(10);
-//        User user = searchById(id);
+//        User user = searchByUserEmail(id);
 //        user.setPassword(newPassword);
 //        registerUser(user);
 //        mailUtil.findPassword(id, newPassword);
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService{
 //    @Override
 //    public String login(User user) {
 //
-//        User loginUser = userRepository.findOneById(user.getUsername());
+//        User loginUser = userRepository.findOneByUserEmail(user.getUsername());
 //        if (loginUser != null) {
 //
 //            String encryptPassword = loginUser.getPassword();
@@ -120,7 +120,7 @@ public class UserServiceImpl implements UserService{
 //    public boolean pwCheck(String jwt, String password, String newPassword) {
 //        Claims claims = jwtUtil.parseJwtToken(jwt);
 //        String id = (String) claims.get("id");
-//        User originUser= userRepository.findOneById(id);
+//        User originUser= userRepository.findOneByUserEmail(id);
 //        String originPassword = originUser.getPassword();
 //        boolean result = EncryptUtil.isMatch(password, originPassword);
 //        if(result){

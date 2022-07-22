@@ -46,17 +46,17 @@ public class KakaoLoginController {
         //필요하면 claim에 담아서 보내줘야함
     }
 
-    @GetMapping("/logout")
-    public ResponseEntity<?> logout() {
-        kakaoLoginService.logout();
+    @GetMapping("/logout/{userEmail}")
+    public ResponseEntity<?> logout(@PathVariable String userEmail) {
+        kakaoLoginService.logout(userEmail);
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{rt}")
-    public ResponseEntity<?> deletUser(@PathVariable String rt) {
-//        String loginResult = kakaoLoginService.deleteUser();
-       String newToken=kaKaoUtil.updateAccessToken(rt);
-        return new ResponseEntity<String>(newToken, HttpStatus.OK);
+    @DeleteMapping("/delete/{userEmail}")
+    public ResponseEntity<?> deletUser(@PathVariable String userEmail) {
+         kakaoLoginService.deleteUser(userEmail);
+//       String newToken=kaKaoUtil.updateAccessToken(rt);
+        return new ResponseEntity<String>("성공", HttpStatus.OK);
     }
 
 }
