@@ -1,8 +1,8 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit"
-import auth from './modules/auth'
+import tripList from './modules/tripListSlice'
 
 const rootReducer = combineReducers({
-    auth
+    tripList
 })
 
 
