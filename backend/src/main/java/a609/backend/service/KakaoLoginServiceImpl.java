@@ -28,18 +28,18 @@ public class KakaoLoginServiceImpl implements KakaoLoginService {
         HashMap<String, Object> userInfo = kaKaoUtil.getUserInfo(getToken.get("accessToken").toString());
 
         //3.등록된 id가 없다면 카카오 id로 DB에 회원가입 처리
-        User user = new User();
-        user.setUserEmail(userInfo.get("email").toString());
-        user.setNickname(userInfo.get("nickname").toString());
-        user.setImagePath(userInfo.get("imagePath").toString());
-        user.setRefreshToken(getToken.get("refreshToken").toString());
-        userService.registerUser(user);
+        if(userService.searchByUserEmail(userInfo.get("email").toString())==null) {
+            User user = new User();
+            user.setUserEmail(userInfo.get("email").toString());
+            user.setNickname(userInfo.get("nickname").toString());
+            user.setRefreshToken(getToken.get("refreshToken").toString());
+            user.setImagePath(userInfo.get("imagePath").toString());
+
+            userService.registerUser(user);
+        }
         //4. response Header에 JWT토큰 추가
-        //인코딩해서 DB저장하기
 
-        System.out.println("login info : " + userInfo.toString());
         log.info(userInfo.toString());
-
 
         if(userInfo.get("email") != null) {
 
@@ -64,10 +64,10 @@ public class KakaoLoginServiceImpl implements KakaoLoginService {
 
     @Override
     public void deleteUser(String userEmail) {
-        String refreshToken = "/DB에서 가져오기";
+        String refreshToken = userService.searchByUserEmail(userEmail).getRefreshToken();
         String accessToken = kaKaoUtil.updateAccessToken(refreshToken);
         kaKaoUtil.unlink(accessToken);
-//        DB에서 삭제
+
         userService.deleteUser(userEmail);
 
     }
