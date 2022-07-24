@@ -4,7 +4,6 @@
   align-items: center;
 }
 
-
 .trip-summary-box {
   display: grid; 
   grid-template-columns: 1fr 35px;
@@ -27,7 +26,6 @@
   grid-row-end: 3;
   grid-column-start: 2;
   grid-column-end: 3;
-  /* justify-self: center; */
 }
 
 .item:nth-child(3) {
@@ -49,6 +47,53 @@
 .new-trip-btn {
   text-align: center;
   margin-top: 10px;
+}
+
+.hamburger-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.drawer-profile {
+  display: flex;
+  justify-content: space-between;
+}
+
+.drawer-profile-item {
+  align-self: center;
+}
+
+.user-edit-btn {
+  margin: 50px 0 10px 0;
+  background-color: #1E88E5;
+  width: 125px;
+  height: 35px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.logout-btn {
+  position: absolute;
+  right: 30px;
+  bottom: 50px;
+  border: 2px solid #f44336;
+  background-color: white;
+  width: 100px;
+  height: 35px;
+  color: red;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.logout-btn:active {
+  background: #f44336;
+  color: white;
 }
 
 

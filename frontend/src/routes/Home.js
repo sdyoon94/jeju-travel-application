@@ -1,5 +1,6 @@
 import Profile from "components/Home/Profile"
 import TripList from "components/Home/TripList"
+import Drawer from "components/Home/Drawer"
 import { Link } from "react-router-dom"
 import { Box, Button } from "@mui/material"
 import "globalStyle.css"
@@ -17,6 +18,7 @@ function Home() {
           <Button variant="outlined">새로운 여행을 떠나봐요!</Button>
         </Link>
       </Box>
+      <Drawer />
     </div>
   )
 }

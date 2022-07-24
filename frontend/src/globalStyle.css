@@ -10,6 +10,11 @@
   display: block;
 }
 
+.inline {
+  display: inline;
+}
+
+
 .btn {
   margin-top: 20px;
   background-color: #1E88E5;
@@ -23,6 +28,10 @@
 .link {
   text-decoration: none ;
   color: inherit;
+}
+
+.color-1 {
+  color: #1E88E5;
 }
 
 .title-size {
