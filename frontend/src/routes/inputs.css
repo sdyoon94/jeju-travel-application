@@ -1,0 +1,13 @@
+.inputs {
+  height:100vh;
+}
+
+.input {
+  width:150px;
+}
+
+.input-btn {
+  width:100%;
+  position: -webkit-sticky;
+  
+}
