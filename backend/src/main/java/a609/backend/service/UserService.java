@@ -5,13 +5,16 @@ import io.jsonwebtoken.Claims;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {
-    User registerUser(User user);
-    User searchByUserEmail(String id);//회원조회
-    void deleteUser(String id);
-    void updateUser(String id, User user);//회원 정보 수정
-    int idCheck(String id);
-//    void findPassword(String id);
-//    void confirmUser(String key);
+//    User registerUser(User user);
+    User searchByUserEmail(String userEmail);//회원조회
+    void updateUser(String userEmail, User user);//회원 정보 수정
+//    int idCheck(String userEmail);
     Claims verifyToken(String token);
-//    boolean pwCheck(String token, String password, String newPassword);
+
+    String login(String code);
+
+    void logout(String userEmail);
+
+    void deleteUser(String userEmail);
+
 }
