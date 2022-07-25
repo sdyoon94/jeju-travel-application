@@ -1,0 +1,13 @@
+.spot-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.spot-item {
+    align-self: center;
+}
+
+.start-time {
+    margin-left: 50px;
+    margin-bottom: 0;
+}
