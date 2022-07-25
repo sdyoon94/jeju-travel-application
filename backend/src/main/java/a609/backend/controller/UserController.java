@@ -1,6 +1,6 @@
 package a609.backend.controller;
 
-import a609.backend.db.repository.entity.User;
+import a609.backend.db.entity.User;
 import a609.backend.payload.request.SignupRequest;
 import a609.backend.payload.response.MessageResponse;
 import a609.backend.service.UserService;

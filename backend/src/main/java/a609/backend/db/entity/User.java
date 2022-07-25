@@ -1,7 +1,6 @@
-package a609.backend.db.repository.entity;
+package a609.backend.db.entity;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

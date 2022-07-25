@@ -1,6 +1,6 @@
 package a609.backend.service;
 
-import a609.backend.db.repository.entity.User;
+import a609.backend.db.entity.User;
 import a609.backend.db.repository.UserRepository;
 import a609.backend.util.JwtUtil;
 import a609.backend.util.MailUtil;

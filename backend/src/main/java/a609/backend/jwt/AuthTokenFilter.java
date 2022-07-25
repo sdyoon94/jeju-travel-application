@@ -1,6 +1,6 @@
 package a609.backend.jwt;
 
-import a609.backend.db.repository.entity.User;
+import a609.backend.db.entity.User;
 import a609.backend.service.UserService;
 import a609.backend.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;

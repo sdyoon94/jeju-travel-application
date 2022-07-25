@@ -1,6 +1,6 @@
 package a609.backend.util;
 
-import a609.backend.db.repository.entity.User;
+import a609.backend.db.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
