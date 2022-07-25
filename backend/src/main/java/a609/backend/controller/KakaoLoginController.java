@@ -24,12 +24,10 @@ public class KakaoLoginController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     public ResponseEntity<?> login(@RequestParam("code") String code) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
-        log.info("log info start");
-        log.debug("log debug start");
 
 
         String loginResult = userService.login(code);

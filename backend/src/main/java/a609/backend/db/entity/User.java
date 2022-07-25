@@ -5,12 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 
 @Getter
@@ -18,6 +17,17 @@ import java.util.List;
 @ToString
 @Entity
 public class User implements UserDetails {
+    @Transient
+    private final Set<GrantedAuthority> authorities = new HashSet<>();
+
+    public User() {
+        authorities.add(new SimpleGrantedAuthority("USER"));
+    }
+
+    @Override
+    public Collection<GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,16 +46,6 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy="user")
     private List<UserTrip> usersTrip = new ArrayList<>();
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> collectors = new ArrayList<>();
-        collectors.add(()->{
-            return "계정별 등록할 권한";
-        });
-
-        return collectors;
-    }
 
     @Override
     public String getPassword() {

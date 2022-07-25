@@ -18,7 +18,7 @@ import java.util.Map;
 @Component
 public class KaKaoUtil {
 
-    @Value("${restapi.key}")
+    @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
     private String secretKey;
 
     public Map<String, Object> getAccessToken(String code) {

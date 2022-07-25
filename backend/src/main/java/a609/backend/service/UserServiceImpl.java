@@ -4,20 +4,25 @@ import a609.backend.db.entity.User;
 import a609.backend.db.repository.UserRepository;
 import a609.backend.util.JwtUtil;
 import a609.backend.util.KaKaoUtil;
-import a609.backend.util.MailUtil;
 import io.jsonwebtoken.Claims;
-import org.apache.commons.lang3.RandomStringUtils;
-import a609.backend.util.EncryptUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService, OAuth2UserService<OAuth2UserRequest, OAuth2User> {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findOneByUserEmail(username);
@@ -34,6 +39,23 @@ public class UserServiceImpl implements UserService{
     @Autowired
     KaKaoUtil KakaoUtil;
 
+    @Override
+    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+        OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
+        OAuth2User oAuth2User = delegate.loadUser(userRequest);
+
+        Map<String, Object> attributes = oAuth2User.getAttributes();
+        log.info(attributes.toString());
+
+        // OAuth2 로그인 진행 시 키가 되는 필드 값(PK)
+        String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
+
+        // OAuth2UserService
+        //OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
+        User user = userRepository.findOneByUserEmail(String.valueOf(attributes.get("Email")));
+
+        return new DefaultOAuth2User(user.getAuthorities(), attributes, userNameAttributeName);
+    }
 
 //    @Override
 //    public User registerUser(User user) {
@@ -114,4 +136,6 @@ public class UserServiceImpl implements UserService{
 
         userRepository.deleteUserByUserEmail(userEmail);
     }
+
+
 }
