@@ -1,9 +1,9 @@
 // import { Link } from "react-router-dom"
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import "globalStyle.css"
-import "routes/Inputs.css"
-import Departure from "components/Inputs/Departure"
+import * as React from "react";
+// import Button from "@mui/material/Button";
+import "globalStyle.css";
+import "routes/Inputs.css";
+import Departure from "components/Inputs/Departure";
 
 // import Box from '@mui/material/Box';
 // import Switch from '@mui/material/Switch';
@@ -11,14 +11,7 @@ import Departure from "components/Inputs/Departure"
 // import Slide from '@mui/material/Slide';
 // import FormControlLabel from '@mui/material/FormControlLabel';
 
-
-
-
-
-
-
 // 입력 전체
-
 
 function Inputs() {
   // const [checked, setChecked] = React.useState(false);
@@ -32,13 +25,10 @@ function Inputs() {
   // }
 
   return (
-    <div className="inputs">
+    <div>
       <Departure></Departure>
-      <Button className="input-btn" variant="contained">확인</Button>
-    
     </div>
-    
-    
+
     // <Box >
     //   <Box >
     //     <FormControlLabel
@@ -52,9 +42,7 @@ function Inputs() {
 
     //   </Box>
     // </Box>
-    
-  )
+  );
 }
 
-
-export default Inputs
+export default Inputs;
