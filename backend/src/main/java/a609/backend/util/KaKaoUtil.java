@@ -110,7 +110,7 @@ public class KaKaoUtil {
             JsonObject properties = jsonObject.get("properties").getAsJsonObject();
             JsonObject kakaoAccount = jsonObject.get("kakao_account").getAsJsonObject();
 
-            String imagePath = properties.getAsJsonObject().get("profile_image_url").getAsString();
+            String imagePath = properties.getAsJsonObject().get("profile_image").getAsString();
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
             String email = kakaoAccount.getAsJsonObject().get("email").getAsString();
 
@@ -146,7 +146,7 @@ public class KaKaoUtil {
             while((line = br.readLine()) != null) {
                 result+=line;
             }
-            System.out.println(result);
+            log.info(result);
         } catch (Exception e) {
             e.printStackTrace();
         }

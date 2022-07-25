@@ -40,7 +40,7 @@ public class KakaoLoginController {
             resultMap.put("message", "존재하지 않는 계정입니다.");
         }else {
             status = HttpStatus.OK;
-            resultMap.put("사용자 정보", loginResult);//차후수정
+            resultMap.put("토큰", loginResult);//차후수정
         }
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
         //필요하면 claim에 담아서 보내줘야함
