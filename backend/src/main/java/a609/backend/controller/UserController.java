@@ -1,9 +1,7 @@
 package a609.backend.controller;
 
 import a609.backend.db.entity.User;
-import a609.backend.payload.request.LoginRequest;
 import a609.backend.payload.request.SignupRequest;
-import a609.backend.payload.response.LoginResponse;
 import a609.backend.payload.response.MessageResponse;
 import a609.backend.service.UserService;
 import a609.backend.util.JwtUtil;
@@ -14,13 +12,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 

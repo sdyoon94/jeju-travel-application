@@ -1,7 +1,6 @@
 package a609.backend.service;
 
 import a609.backend.db.entity.User;
-import a609.backend.util.JwtUtil;
 import a609.backend.util.KaKaoUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,6 @@
 package a609.backend.db.entity;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 
 @Getter
@@ -21,20 +21,21 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "UID", length = 50)
-    private Long uid;
+    @Column(name = "USER_ID", length = 50)
+    private int userId;
 
-    @Column(name = "user_email")
+    @Column(name = "USER_EMAIL")
     String userEmail;
 
     @Column(length = 10)
     String nickname;
 
-    @Column(name = "image_path")
     String imagePath;
 
-    @Column(name = "refresh_token")
     String refreshToken;
+
+    @OneToMany(mappedBy="user")
+    private List<UserTrip> usersTrip = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -75,4 +76,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }
