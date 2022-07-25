@@ -1,6 +1,6 @@
 package a609.backend.service;
 
-import a609.backend.db.entity.User;
+import a609.backend.db.repository.entity.User;
 import a609.backend.db.repository.UserRepository;
 import a609.backend.util.JwtUtil;
 import a609.backend.util.MailUtil;
@@ -9,9 +9,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import a609.backend.util.EncryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
