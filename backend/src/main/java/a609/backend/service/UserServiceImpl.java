@@ -34,9 +34,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User registerUser(User user) {
-        String authKey = RandomStringUtils.randomAlphanumeric(10);
-        mailUtil.sendConfirmMail(user.getUsername(), authKey);
-
         return userRepository.save(user);
     }
 

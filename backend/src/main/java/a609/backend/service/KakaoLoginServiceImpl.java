@@ -22,12 +22,14 @@ public class KakaoLoginServiceImpl implements KakaoLoginService {
     public String login(String code) {
         // 1번 인증코드 요청 전달
         Map<String, Object> getToken = kaKaoUtil.getAccessToken(code);
+        log.info(getToken.toString());
 
         // 2번 인증코드로 토큰 전달
-        HashMap<String, Object> userInfo = kaKaoUtil.getUserInfo(getToken.get("accessToken").toString());
+        HashMap<String, Object> userInfo = kaKaoUtil.getUserInfo(String.valueOf(getToken.get("accessToken")));
 
         //3.등록된 id가 없다면 카카오 id로 DB에 회원가입 처리
-        if(userService.searchByUserEmail(userInfo.get("email").toString())==null) {
+        System.out.println(userInfo.get("email").toString());
+        if(userService.searchByUserEmail(String.valueOf(userInfo.get("email")))==null) {
             User user = new User();
             user.setUserEmail(userInfo.get("email").toString());
             user.setNickname(userInfo.get("nickname").toString());
