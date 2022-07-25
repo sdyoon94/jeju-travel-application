@@ -37,24 +37,24 @@ public class UserController {
     @Autowired
     PasswordEncoder encoder;
 
-
-    @ApiOperation(value = "회원가입 API")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "회원가입 성공", content = @Content(schema = @Schema(implementation = MessageResponse.class))),
-            @ApiResponse(responseCode = "400", description = "아이디 중복", content = @Content(schema = @Schema(implementation = MessageResponse.class)))
-    })
-    @PostMapping("/users")
-    public ResponseEntity<?> registerUser(@RequestBody SignupRequest signupRequest) {
-        if (userService.idCheck(signupRequest.getId()) != 0) {
-            return ResponseEntity.badRequest().body(new MessageResponse("이미 존재하는 아이디입니다."));
-        }
-
-        User user = new User();
-        user.setUserEmail(signupRequest.getId());
-//        user.setPassword(encoder.encode(signupRequest.getPassword()));
-        user.setNickname(signupRequest.getNickname());
-        userService.registerUser(user);
-        return ResponseEntity.ok(new MessageResponse("회원가입이 완료되었습니다."));
+//
+//    @ApiOperation(value = "회원가입 API")
+//    @ApiResponses({
+//            @ApiResponse(responseCode = "200", description = "회원가입 성공", content = @Content(schema = @Schema(implementation = MessageResponse.class))),
+//            @ApiResponse(responseCode = "400", description = "아이디 중복", content = @Content(schema = @Schema(implementation = MessageResponse.class)))
+//    })
+//    @PostMapping("/users")
+//    public ResponseEntity<?> registerUser(@RequestBody SignupRequest signupRequest) {
+//        if (userService.idCheck(signupRequest.getId()) != 0) {
+//            return ResponseEntity.badRequest().body(new MessageResponse("이미 존재하는 아이디입니다."));
+//        }
+//
+//        User user = new User();
+//        user.setUserEmail(signupRequest.getId());
+////        user.setPassword(encoder.encode(signupRequest.getPassword()));
+//        user.setNickname(signupRequest.getNickname());
+//        userService.registerUser(user);
+//        return ResponseEntity.ok(new MessageResponse("회원가입이 완료되었습니다."));
 
 
 //        HashMap<String, String> map = new HashMap<>();
@@ -65,7 +65,7 @@ public class UserController {
 //        } catch (Exception e) {
 //            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 //        }
-    }
+//    }
 
 //    @GetMapping("/users/confirm/{authKey}")
 //    public void confirmUser(@PathVariable String authKey) {
@@ -75,17 +75,17 @@ public class UserController {
 //        //차후 로그인 창으로 리다이렉트한다(response.redirect(url))
 //        return;
 //    }
-
-    @GetMapping("/users/{userId}")
-    public ResponseEntity<Map<String, String>> countByUserEmail(@PathVariable String userId) {
-        int count = userService.idCheck(userId);
-        if (count == 1) {
-            HashMap<String, String> map = new HashMap<>();
-            map.put("messsage", "이미 존재하는 사용자 ID 입니다.");
-            return new ResponseEntity<>(map, HttpStatus.CONFLICT);
-        }
-        return null;
-    }
+//
+//    @GetMapping("/users/{userId}")
+//    public ResponseEntity<Map<String, String>> countByUserEmail(@PathVariable String userId) {
+//        int count = userService.idCheck(userId);
+//        if (count == 1) {
+//            HashMap<String, String> map = new HashMap<>();
+//            map.put("messsage", "이미 존재하는 사용자 ID 입니다.");
+//            return new ResponseEntity<>(map, HttpStatus.CONFLICT);
+//        }
+//        return null;
+//    }
 
     @DeleteMapping("/users/{userId}")
     public ResponseEntity<Map<String, String>> deleteUser(@PathVariable String userId) {

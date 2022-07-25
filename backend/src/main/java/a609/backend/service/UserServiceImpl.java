@@ -52,7 +52,6 @@ public class UserServiceImpl implements UserService{
     @Override
     public void updateUser(String id, User user) {
         User originUser = userRepository.findOneByUserEmail(id);
-        String encryptPassword = EncryptUtil.encrypt(user.getPassword());
         if (user.getNickname() != null) {
             originUser.setNickname(user.getNickname());
         }
@@ -113,6 +112,6 @@ public class UserServiceImpl implements UserService{
         String accessToken = KakaoUtil.updateAccessToken(refreshToken);
         KakaoUtil.unlink(accessToken);
 
-        userRepository.deleteUserByEmail(userEmail);
+        userRepository.deleteUserByUserEmail(userEmail);
     }
 }
