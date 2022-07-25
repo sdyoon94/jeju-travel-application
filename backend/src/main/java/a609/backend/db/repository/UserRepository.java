@@ -11,7 +11,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     User save(User user);
     User findOneByUserEmail(String userEmail);
     @Transactional
-    void deleteByUserEmail(String userEmail);
+    void deleteUserByUserEmail(String userEmail);
     int countByUserEmail(String userEmail);
 //    User findByAuthkey(String Authkey);
     // User updateUser(User user);
