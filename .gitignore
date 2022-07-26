@@ -206,5 +206,5 @@ gradle-app.setting
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij+all,windows,eclipse,gradle
 
-application.properties
-application-oauth.yml
+#application.properties
+#application-oauth.yml

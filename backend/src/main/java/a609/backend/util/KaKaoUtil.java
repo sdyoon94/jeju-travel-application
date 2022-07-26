@@ -40,7 +40,7 @@ public class KaKaoUtil {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id="+secretKey);
-            sb.append("&redirect_uri=http://localhost:8080/api/oauth/kakao/login");
+            sb.append("&redirect_uri=http://i7a609.p.ssafy.io/api/oauth/kakao/login");
             sb.append("&code="+code);
 
             bw.write(sb.toString());
