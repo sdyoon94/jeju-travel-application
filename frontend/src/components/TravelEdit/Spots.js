@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 import "globalStyle.css"
 import "routes/TravelEdit.css"
@@ -39,11 +39,7 @@ function Spots({idx, routes, handleTravelCourses}) {
     }
 
 	const [spots, setSpots] = useState(routes)
-    const [placeholderProps, setPlaceholderProps] = useState({})
-    
-    useEffect(() => {
-        handleTravelCourses(idx, spots)
-    }, [spots])
+    const setPlaceholderProps = useState({})[1]
     
 	const onDragEnd = result => {
         // dropped outside the list
@@ -52,8 +48,10 @@ function Spots({idx, routes, handleTravelCourses}) {
 		}
         
         setPlaceholderProps({})
+        const newSpots = reorder(spots, result.source.index, result.destination.index)
 		setSpots(spots => reorder(spots, result.source.index, result.destination.index))
-	};
+        handleTravelCourses(idx, newSpots)
+    };
     
     // 드래그할 동안
 	const onDragUpdate = update => {

@@ -12,8 +12,6 @@ const reorder = (list, startIndex, endIndex) => {
 	const [removed] = result.splice(startIndex, 1)
     // 리스트에 추가하기
 	result.splice(endIndex, 0, removed)
-    
-    console.log(result)
 	return result
 }
 
