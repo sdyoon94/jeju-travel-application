@@ -1,0 +1,88 @@
+.departure-container {
+  display:grid ;
+  grid-template-rows: 3fr 7fr;
+  gap:1rem;
+  height:100%;
+}
+
+
+.departure-header {
+  display:grid;
+  align-content: end;
+  justify-content: center;
+}
+
+/* 어디서, 몇 명이서 떠나시나요? */
+.mention {
+  font-family: 'Inter';
+  font-size: 25px;
+  font-style: bold;
+  font-weight: 700;
+  line-height: 30px;
+  
+  width: 261px;
+}
+
+
+.departure-inputs {
+  display:grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  justify-content: center;
+  align-items: start;
+}
+
+
+
+
+.select-departure {
+  width:150px;
+  background-color: transparent !important;
+}
+
+.input-btn {
+  width:100%;
+  position: -webkit-sticky;
+  
+}
+
+.input-box{
+  width: 261px;
+  background-color: rgba(217, 217, 217, 1);
+  height: 60px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  left: 55px;
+
+  display: grid;
+  grid-template-columns: 4fr 7fr;
+  
+}
+
+.input-label{
+  /* 동행자 */
+
+/* position: absolute;
+width: 87px;
+height: 29px;
+left: 55px;
+top: 446px; */
+
+font-family: 'Inter';
+font-style: bold;
+font-weight: 700;
+font-size: 20px;
+line-height: 24px;
+display: flex;
+align-items: center;
+justify-content: center;
+
+color: #000000;
+
+
+}
+
+/* Rectangle 30 */
+
+
+
+

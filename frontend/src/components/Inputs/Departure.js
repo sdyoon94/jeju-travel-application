@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { TextField } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
+import { styled } from "@mui/material/styles";
 import "globalStyle.css";
-import "routes/Inputs.css";
-import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
+import "./Departure.css";
+
+
 
 const departures = [
   {
@@ -34,27 +35,32 @@ function Departure() {
     setCount(count);
   }
 
+  const ExampleTextField = styled(TextField)({
+    backgroundColor: "#eee",
+    "& .MuiOutlinedInput-notchedOutline": {
+      border: "none"
+    },
+    "&.Mui-focused": {
+      "& .MuiOutlinedInput-notchedOutline": {
+        border: "none"
+      }
+    }
+  });
+
   return (
-    <Grid className="inputs" container direction="column">
-      <Grid item xs={3} container direction="column" justifyContent="flex-end">
-        <p>어디서, 몇명이서</p>
-        <p>떠나시나요?</p>
-      </Grid>
-      <Grid
-        item
-        xs={8}
-        container
-        direction="column"
-        justifyContent="center"
-        spacing={2}
-      >
-        <Grid item className="input-box">
-          <label for="filled-select-currency">출발지</label>
-          <TextField
-            className="input"
-            id="filled-select-currency"
+    <div className="departure-container">
+      <div className="departure-header">
+        <div className="mention" style={{color:"#1E88E5"}}>어디서, 몇명이서</div>
+        <div className="mention">떠나시나요?</div>
+      </div>
+      <div className="departure-inputs">
+        <div></div>
+        <div className="input-box">
+          <label className="input-label" for="select-departure">출발지</label>
+          <ExampleTextField
+            className="select-departure"
+            id="select-departure"
             select
-            // label="출발지"
             value={departure}
             onChange={handleChange}
             variant="standard"
@@ -64,26 +70,24 @@ function Departure() {
                 {option.label}
               </MenuItem>
             ))}
-          </TextField>
-        </Grid>
-        <Grid item className="input-box">
-          <label for="filled-select-currency">동행자</label>
-          <button onClick={incrementCount}>+</button>
-          <TextField
-            id="standard-number"
-            type="number"
-            value={count}
-            variant="standard"
-          />
-          <button onClick={decrementCount}>-</button>
-        </Grid>
-      </Grid>
-      <Grid item xs={1} container direction="column" justifyContent="flex-end">
-        <Button className="input-btn" variant="contained">
-          확인
-        </Button>
-      </Grid>
-    </Grid>
+          </ExampleTextField>
+        </div>
+        <div item className="input-box">
+          <label className="input-label" for="filled-select-currency">동행자</label>
+          <div>
+            <button onClick={incrementCount}>+</button>
+            <TextField
+              id="standard-number"
+              type="number"
+              value={count}
+              // variant="filled"
+            />
+            <button onClick={decrementCount}>-</button>
+          </div>
+        </div>
+      </div>
+      
+    </div>
   );
 }
 

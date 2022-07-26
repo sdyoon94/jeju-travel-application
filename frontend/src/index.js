@@ -6,7 +6,7 @@ import store from './store/store'
 import App from './App';
 import Login from './routes/Login'
 import Signup from './routes/Signup'
-import Inputs from './routes/Inputs'
+import Inputs from './routes/Inputs/Inputs'
 import Home from './routes/Home';
 
 
