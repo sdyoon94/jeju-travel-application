@@ -43,6 +43,7 @@
         {
             "startTime": "11:00",
             "endTime": "",
+            "day": "22.07.23",
             "route": [
                 {
                     "placeUid": 1,
@@ -109,6 +110,7 @@
         {
             "startTime": "10:00",
             "endTime": "",
+            "day": "22.07.24",
             "route": [
                 {
                     "placeUid": 2,
@@ -165,6 +167,7 @@
         {
             "startTime": "10:00",
             "endTime": "17:00",
+            "day": "22.07.25",
             "route": [
                 {
                     "placeUid": 2,
