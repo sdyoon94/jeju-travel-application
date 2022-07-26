@@ -6,7 +6,8 @@ import store from './store/store'
 import App from './App';
 import Login from './routes/Login'
 import Signup from './routes/Signup'
-import Home from './routes/Home';
+import Home from './routes/Home'
+import TravelEdit from 'routes/TravelEdit';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,6 +18,7 @@ root.render(
         <Route path="/" element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="traveledit" element={<TravelEdit />} />
       </Routes>
     </BrowserRouter>
   </Provider>
