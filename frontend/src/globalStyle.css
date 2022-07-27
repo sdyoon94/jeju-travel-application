@@ -14,17 +14,6 @@
   display: inline;
 }
 
-
-.btn {
-  margin-top: 20px;
-  background-color: #1E88E5;
-  width: 250px;
-  height: 40px;
-  color: white;
-  border: none;
-  border-radius: 15px;
-}
-
 .link {
   text-decoration: none ;
   color: inherit;
@@ -33,6 +22,7 @@
 .color-1 {
   color: #1E88E5;
 }
+
 
 .title-size {
   font-size: 25px;

@@ -15,6 +15,7 @@ function Home() {
       <TripList />
       <Box className="new-trip-btn">
         <Link className="link" to="/newtrip">
+          <p className="text">한글</p>
           <Button variant="outlined">새로운 여행을 떠나봐요!</Button>
         </Link>
       </Box>

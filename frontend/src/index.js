@@ -7,6 +7,9 @@ import store from './store/store'
 import Travel from 'routes/Travel'
 import Home from './routes/Home'
 import TravelEdit from 'routes/TravelEdit'
+import KakaoLogin from 'routes/KakaoLogin';
+import KakaoLoading from "routes/KakaoLoading"
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,6 +20,8 @@ root.render(
         <Route path="/" element={<Home />} />
         <Route path="travel" element={<Travel />} />
         <Route path="traveledit" element={<TravelEdit />} />
+        <Route path="login" element={<KakaoLogin />} />
+        <Route path="kakao/callback" element={<KakaoLoading />} />
       </Routes>
     </BrowserRouter>
   </Provider>
