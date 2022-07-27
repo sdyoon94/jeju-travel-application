@@ -112,11 +112,11 @@ public class KaKaoUtil {
 
             String imagePath = properties.getAsJsonObject().get("profile_image").getAsString();
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-            String email = kakaoAccount.getAsJsonObject().get("email").getAsString();
+//            String email = kakaoAccount.getAsJsonObject().get("email").getAsString();
 
 
             userInfo.put("nickname", nickname);
-            userInfo.put("email", email);
+//            userInfo.put("email", email);
             userInfo.put("imagePath",imagePath);
 
 

@@ -115,7 +115,7 @@ public class UserServiceImpl implements UserService, OAuth2UserService<OAuth2Use
 //          String token = jwtUtil.generateJwtToken();
         String token = String.valueOf(userInfo.get("nickname"));//차후 수정
         Map<String, Object> res = new HashMap<>();
-        res.put("token",token);
+        res.put("token",id);
         return res;
 
     }
