@@ -28,6 +28,33 @@
 }
 
 /****** body ******/
+.warning {
+  position: absolute;
+  z-index:1;
+  top: 420px;
+  font-size: 10px;
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 700;
+  line-height: 30px;
+  color:rgb(190, 11, 11)
+}
+
+/* Rectangle 60 */
+
+/* position: absolute;
+width: 88px;
+height: 52px;
+left: 58px;
+top: 320px; */
+
+
+
+
+/* Rectangle 39 */
+
+
+
 .duration-body {
   display:grid;
   grid-template-rows: 1fr 1fr ;
