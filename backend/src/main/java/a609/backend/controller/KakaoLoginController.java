@@ -14,6 +14,7 @@ import java.util.Map;
 
 
 @Slf4j
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/oauth/kakao")
 public class KakaoLoginController {
