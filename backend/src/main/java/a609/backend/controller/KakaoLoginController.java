@@ -25,8 +25,8 @@ public class KakaoLoginController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/login")
-    public ResponseEntity<?> login(@RequestParam("code") String code) {
+    @GetMapping("/login/{code}")
+    public ResponseEntity<?> login(@PathVariable String code) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
 
