@@ -98,10 +98,10 @@ public class UserServiceImpl implements UserService, OAuth2UserService<OAuth2Use
         Map<String, Object> getToken = KakaoUtil.getAccessToken(code);
 
         // 2번 인증코드로 토큰 전달
-        HashMap<String, Object> userInfo = KakaoUtil.getUserInfo(getToken.get("accessToken").toString());
+        HashMap<String, Object> userInfo = KakaoUtil.getUserInfo(String.valueOf(getToken.get("accessToken")));
 
         //3.등록된 id가 없다면 카카오 id로 DB에 회원가입 처리
-        if(userRepository.countByUserEmail(userInfo.get("email").toString())==0) {
+        if(userRepository.countByUserEmail(String.valueOf(userInfo.get("email")))==0) {
             User user = new User();
             user.setUserEmail(userInfo.get("email").toString());
             user.setNickname(userInfo.get("nickname").toString());
