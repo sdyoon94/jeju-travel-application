@@ -4,6 +4,8 @@ import a609.backend.db.entity.User;
 import io.jsonwebtoken.Claims;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.util.Map;
+
 public interface UserService extends UserDetailsService {
 //    User registerUser(User user);
     User searchByUserEmail(String userEmail);//회원조회
@@ -11,7 +13,7 @@ public interface UserService extends UserDetailsService {
 //    int idCheck(String userEmail);
     Claims verifyToken(String token);
 
-    String login(String code);
+    Map<String, Object> login(String code);
 
     void logout(String userEmail);
 

@@ -25,21 +25,22 @@ public class KakaoLoginController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/login/{code}")
-    public ResponseEntity<?> login(@PathVariable String code) {
+    @GetMapping("/login")
+    public ResponseEntity<?> login(@RequestParam(value = "code") String code) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
         try {
 
-            String loginResult = userService.login(code);
-            if (loginResult.equals("fail")) {
-                status = HttpStatus.NOT_FOUND;
-                resultMap.put("message", "존재하지 않는 계정입니다.");
-            } else {
-                status = HttpStatus.OK;
-                resultMap.put("토큰", loginResult);//차후수정
-            }
-            return new ResponseEntity<Map<String, Object>>(resultMap, status);
+            Map<String, Object> loginResult = userService.login(code);
+//            if (loginResult.equals("fail")) {
+//                status = HttpStatus.NOT_FOUND;
+//                resultMap.put("message", "존재하지 않는 계정입니다.");
+//            } else {
+//                status = HttpStatus.OK;
+//                resultMap.put("토큰", loginResult);//차후수정
+//            }
+//            return new ResponseEntity<Map<String, Object>>(resultMap, status);
+            return new ResponseEntity<Map<String, Object>>(loginResult, HttpStatus.OK);
             //필요하면 claim에 담아서 보내줘야함
         }catch(Exception e){
             resultMap.put("error", e.getStackTrace());
