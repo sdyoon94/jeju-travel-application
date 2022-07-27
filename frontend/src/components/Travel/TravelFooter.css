@@ -1,0 +1,9 @@
+.travel-footer {
+    z-index: 1;
+    position: fixed;
+    bottom: 0;
+    width: 84%;
+    margin: 8%;
+    display: flex;
+    justify-content: end;
+}

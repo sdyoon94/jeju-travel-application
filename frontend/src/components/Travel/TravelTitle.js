@@ -35,13 +35,15 @@ function TravelTitle({ Dummy }) {
                 <a href="./">더보기</a>
             </div>
             <div className="travel-emoji">
-                <User width={20} height={20} display="inline" />{members.length}
+                <User className="user" width={20} height={20} display="inline" />
+                <p>{members.length}</p>
                 <img
                     width={24}
                     src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
                     alt={"카카오톡 공유 보내기 버튼" + joinAddress}
                 />
             </div>
+            <hr />
         </div>
     )
 }

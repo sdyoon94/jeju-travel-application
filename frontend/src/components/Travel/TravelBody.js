@@ -1,9 +1,10 @@
 import { ReactComponent as AngleLeft } from "assets/angle-left.svg"
 import { ReactComponent as AngleRight } from "assets/angle-right.svg"
+import { ReactComponent as Car } from "assets/car-side.svg"
 import "./TravelBody.css"
 
 const { default: React } = require("react")
-const { default: Carousel } = require("react-material-ui-carousel");
+const { default: Carousel } = require("react-material-ui-carousel")
 
 function TravelBody({ travel }) {
     const { courses, startDate, periodInDays } = travel;
@@ -12,11 +13,13 @@ function TravelBody({ travel }) {
 
     return (
         <Carousel
+            className="carousel"
+            height={ 650 }
             autoPlay={ false }
             animation={ "slide" }
             NextIcon={ <AngleRight width={20} height={20} /> }
             PrevIcon={ <AngleLeft width={20} height={20} /> }
-            fullHeightHover={false}
+            fullHeightHover={ false }
             navButtonsProps={{
                 style: {
                     backgroundColor: "#FFFFFF",
@@ -24,10 +27,14 @@ function TravelBody({ travel }) {
                     borderRadius: 0
                 }
             }} 
+            navButtonsAlwaysVisible={true}
             navButtonsWrapperProps={{
                 style: {
+                    position: "fixed",
                     bottom: 'unset',
-                    top: '-30'
+                    top: '185px',
+                    paddingLeft: "40px",
+                    paddingRight: "40px"
                 }
             }}
         >
@@ -56,6 +63,7 @@ function TravelBody({ travel }) {
 function Day({ course, timeRequired, date, day }) {
     let startTime = course.startTime
     const startTimes = [startTime]
+    const len = timeRequired.length;
     for (let i = 0; i < timeRequired.length; i++) {
         // 다음 번 시간을 계산해서 배열에 push
         startTime = addTime(startTime, course.route[i].duration, timeRequired[i])
@@ -66,12 +74,14 @@ function Day({ course, timeRequired, date, day }) {
             <div className="course-title">DAY{day}({date})</div>
             <div className="course-route">
                 {
-                    course.route.map((place, i) => 
+                    course.route.map((place, i) =>
                         <Schedule
                             key={i}
-                            isFirst={i === 0}
                             startTime={startTimes[i]}
                             place={place}
+                            timeRequired={timeRequired[i]}
+                            isFirst={i === 0}
+                            isLast={i === len}
                         />
                     )
                 }
@@ -81,10 +91,26 @@ function Day({ course, timeRequired, date, day }) {
     )
 }
 
-function Schedule({ isFirst, startTime, place }) {
+function Schedule({ startTime, place, timeRequired, isFirst, isLast }) {
     return (
-        <div>
-            {isFirst ? "true" : "false"}, {startTime}, {place.name}
+        <div className="schedule">
+            <div className="schedule-time">
+                {startTime}
+            </div>
+            <div className="schedule-info">
+                <p>{place.name}</p>
+                <p>{place.duration}</p>
+            </div>
+            {isLast && 
+                <div className="schedule-addi link">
+                    추가하기
+                </div>
+            }
+            {!isLast && 
+                <div className="schedule-addi">
+                    <Car width={12} height={12} /> {timeRequired}
+                </div>
+            }
         </div>
     )
 }

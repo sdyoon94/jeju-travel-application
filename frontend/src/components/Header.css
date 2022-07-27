@@ -1,6 +1,18 @@
 .header {
-    padding: 15px 20px;
-    height: 50px;
+    height: 4vh;
+    padding: 2vh;
     display: flex;
     justify-content: space-between;
+}
+
+.arrow-left {
+    width: 3vh;
+    height: 3vh;
+    padding: 0.5vh;
+}
+
+p {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    align-self: center;
 }
