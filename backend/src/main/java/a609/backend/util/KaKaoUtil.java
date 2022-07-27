@@ -152,6 +152,38 @@ public class KaKaoUtil {
         }
     }
 
+    public String getTokenInfo(String access_Token) {
+        String id = "";
+        String reqURL = "https://kapi.kakao.com/v1/user/access_token_info";
+        try {
+            URL url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+
+            int responseCode = conn.getResponseCode();
+            System.out.println("responseCode : " + responseCode);
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            String result = "";
+            String line = "";
+
+            while ((line = br.readLine()) != null) {
+                result += line;
+            }
+
+            JsonObject jsonObject = JsonParser.parseString(result).getAsJsonObject();
+            id = jsonObject.get("id").getAsString();
+
+            log.info(id);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
     public void unlink(String access_Token) {
         String reqURL = "https://kapi.kakao.com/v1/user/unlink";
         try {

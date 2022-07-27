@@ -96,29 +96,28 @@ public class UserServiceImpl implements UserService, OAuth2UserService<OAuth2Use
     @Override
     public Map<String, Object> login(String code) {
         Map<String, Object> getToken = KakaoUtil.getAccessToken(code);
+        String id = KakaoUtil.getTokenInfo(String.valueOf(getToken.get("accessToken")));
 
         // 2번 인증코드로 토큰 전달
         HashMap<String, Object> userInfo = KakaoUtil.getUserInfo(String.valueOf(getToken.get("accessToken")));
 
         //3.등록된 id가 없다면 카카오 id로 DB에 회원가입 처리
-        if(userRepository.countByUserEmail(String.valueOf(userInfo.get("email")))==0) {
+        if(userRepository.countByUserEmail(id)==0) {
             User user = new User();
-            user.setUserEmail(String.valueOf(userInfo.get("email")));
+            user.setUserEmail(id);
             user.setNickname(String.valueOf(userInfo.get("nickname")));
             user.setRefreshToken(String.valueOf(getToken.get("refreshToken")));
             user.setImagePath(String.valueOf(userInfo.get("imagePath")));
             userRepository.save(user);
         }
         //4. response Header에 JWT토큰 추가
-        if(userInfo.get("email") != null) {
 
 //          String token = jwtUtil.generateJwtToken();
-            String token = String.valueOf(userInfo.get("nickname"));//차후 수정
-            Map<String, Object> res = new HashMap<>();
-            return userInfo;
-        }else {
-            return userInfo;
-        }
+        String token = String.valueOf(userInfo.get("nickname"));//차후 수정
+        Map<String, Object> res = new HashMap<>();
+        res.put("token",token);
+        return res;
+
     }
 
     @Override
