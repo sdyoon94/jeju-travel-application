@@ -30,12 +30,8 @@ public class User implements UserDetails {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "USER_ID", length = 50)
-    private int userId;
-
-    @Column(name = "USER_EMAIL")
-    String userEmail;
+    @Column(name = "KAKAO_ID")
+    String kakaoId;
 
     @Column(length = 10)
     String nickname;

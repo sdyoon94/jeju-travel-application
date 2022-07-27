@@ -9,10 +9,10 @@ import javax.transaction.Transactional;
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
     User save(User user);
-    User findOneByUserEmail(String userEmail);
+    User findOneByKakaoId(String KakaoId);
     @Transactional
-    void deleteUserByUserEmail(String userEmail);
-    int countByUserEmail(String userEmail);
+    void deleteUserByKakaoId(String KakaoId);
+    int countByKakaoId(String KakaoId);
 //    User findByAuthkey(String Authkey);
     // User updateUser(User user);
     //  User login(User user);

@@ -25,7 +25,7 @@ import java.util.Map;
 public class UserServiceImpl implements UserService, OAuth2UserService<OAuth2UserRequest, OAuth2User> {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findOneByUserEmail(username);
+        User user = userRepository.findOneByKakaoId(username);
         if (user == null) throw new UsernameNotFoundException("Not Found account.");
         return user;
     }
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService, OAuth2UserService<OAuth2Use
 
         // OAuth2UserService
         //OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
-        User user = userRepository.findOneByUserEmail(String.valueOf(attributes.get("Email")));
+        User user = userRepository.findOneByKakaoId(String.valueOf(attributes.get("Email")));
 
         return new DefaultOAuth2User(user.getAuthorities(), attributes, userNameAttributeName);
     }
@@ -66,14 +66,14 @@ public class UserServiceImpl implements UserService, OAuth2UserService<OAuth2Use
 //    }
 
     @Override
-    public User searchByUserEmail(String id) {
-        return userRepository.findOneByUserEmail(id);
+    public User searchByKakaoId(String id) {
+        return userRepository.findOneByKakaoId(id);
     }
 
 
     @Override
     public void updateUser(String id, User user) {
-        User originUser = userRepository.findOneByUserEmail(id);
+        User originUser = userRepository.findOneByKakaoId(id);
         if (user.getNickname() != null) {
             originUser.setNickname(user.getNickname());
         }
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService, OAuth2UserService<OAuth2Use
 //
 //    @Override
 //    public int idCheck(String id) {
-//        return userRepository.countByUserEmail(id);
+//        return userRepository.countByKakaoId(id);
 //    }
 
 
@@ -96,15 +96,15 @@ public class UserServiceImpl implements UserService, OAuth2UserService<OAuth2Use
     @Override
     public Map<String, Object> login(String code) {
         Map<String, Object> getToken = KakaoUtil.getAccessToken(code);
-        String id = KakaoUtil.getTokenInfo(String.valueOf(getToken.get("accessToken")));
+//        String id = KakaoUtil.getTokenInfo(String.valueOf(getToken.get("accessToken")));
 
         // 2번 인증코드로 토큰 전달
         HashMap<String, Object> userInfo = KakaoUtil.getUserInfo(String.valueOf(getToken.get("accessToken")));
 
         //3.등록된 id가 없다면 카카오 id로 DB에 회원가입 처리
-        if(userRepository.countByUserEmail(id)==0) {
+        if(userRepository.countByKakaoId(String.valueOf(userInfo.get("id")))==0) {
             User user = new User();
-            user.setUserEmail(id);
+            user.setKakaoId(String.valueOf(userInfo.get("id")));
             user.setNickname(String.valueOf(userInfo.get("nickname")));
             user.setRefreshToken(String.valueOf(getToken.get("refreshToken")));
             user.setImagePath(String.valueOf(userInfo.get("imagePath")));
@@ -115,26 +115,26 @@ public class UserServiceImpl implements UserService, OAuth2UserService<OAuth2Use
 //          String token = jwtUtil.generateJwtToken();
         String token = String.valueOf(userInfo.get("nickname"));//차후 수정
         Map<String, Object> res = new HashMap<>();
-        res.put("token",id);
+        res.put("token",String.valueOf(userInfo.get("id")));
         return res;
 
     }
 
     @Override
-    public void logout(String userEmail) {
-        User user = userRepository.findOneByUserEmail(userEmail);
+    public void logout(String kakaoId) {
+        User user = userRepository.findOneByKakaoId(kakaoId);
         String refreshdToken = user.getRefreshToken();
         String accessToken = KakaoUtil.updateAccessToken(refreshdToken);
         KakaoUtil.kakaoLogout(accessToken);
     }
 
     @Override
-    public void deleteUser(String userEmail) {
-        String refreshToken = this.searchByUserEmail(userEmail).getRefreshToken();
+    public void deleteUser(String kakaoId) {
+        String refreshToken = this.searchByKakaoId(kakaoId).getRefreshToken();
         String accessToken = KakaoUtil.updateAccessToken(refreshToken);
         KakaoUtil.unlink(accessToken);
 
-        userRepository.deleteUserByUserEmail(userEmail);
+        userRepository.deleteUserByKakaoId(kakaoId);
     }
 
 

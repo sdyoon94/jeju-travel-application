@@ -28,7 +28,7 @@ public class JwtUtil {
         headers.put("alg", "HS256");
 
         Map<String, Object> payloads = new HashMap<>();
-        payloads.put("id", userPrincipal.getUserEmail());
+        payloads.put("id", userPrincipal.getKakaoId());
         payloads.put("nickname", userPrincipal.getNickname());
 
         return Jwts.builder()

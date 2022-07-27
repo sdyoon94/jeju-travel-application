@@ -40,6 +40,7 @@ public class KaKaoUtil {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id="+secretKey);
+//            sb.append("&redirect_uri=http://localhost:8080/api/oauth/kakao/login");
             sb.append("&redirect_uri=http://i7a609.p.ssafy.io:8081/api/oauth/kakao/login");
             sb.append("&code="+code);
 
@@ -108,16 +109,15 @@ public class KaKaoUtil {
             JsonObject jsonObject = JsonParser.parseString(result).getAsJsonObject();
 
             JsonObject properties = jsonObject.get("properties").getAsJsonObject();
-            JsonObject kakaoAccount = jsonObject.get("kakao_account").getAsJsonObject();
 
             String imagePath = properties.getAsJsonObject().get("profile_image").getAsString();
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-//            String email = kakaoAccount.getAsJsonObject().get("email").getAsString();
+            String id = jsonObject.get("id").getAsString();
 
 
             userInfo.put("nickname", nickname);
-//            userInfo.put("email", email);
             userInfo.put("imagePath",imagePath);
+            userInfo.put("id",id);
 
 
         } catch (Exception e) {
@@ -152,37 +152,37 @@ public class KaKaoUtil {
         }
     }
 
-    public String getTokenInfo(String access_Token) {
-        String id = "";
-        String reqURL = "https://kapi.kakao.com/v1/user/access_token_info";
-        try {
-            URL url = new URL(reqURL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
-
-            int responseCode = conn.getResponseCode();
-            System.out.println("responseCode : " + responseCode);
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            String result = "";
-            String line = "";
-
-            while ((line = br.readLine()) != null) {
-                result += line;
-            }
-
-            JsonObject jsonObject = JsonParser.parseString(result).getAsJsonObject();
-            id = jsonObject.get("id").getAsString();
-
-            log.info(id);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return id;
-    }
+//    public String getTokenInfo(String access_Token) {
+//        String id = "";
+//        String reqURL = "https://kapi.kakao.com/v1/user/access_token_info";
+//        try {
+//            URL url = new URL(reqURL);
+//            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//            conn.setRequestMethod("POST");
+//            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+//
+//            int responseCode = conn.getResponseCode();
+//            System.out.println("responseCode : " + responseCode);
+//
+//            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//
+//            String result = "";
+//            String line = "";
+//
+//            while ((line = br.readLine()) != null) {
+//                result += line;
+//            }
+//
+//            JsonObject jsonObject = JsonParser.parseString(result).getAsJsonObject();
+//            id = jsonObject.get("id").getAsString();
+//
+//            log.info("안녕"+jsonObject.getAsString());
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return id;
+//    }
 
     public void unlink(String access_Token) {
         String reqURL = "https://kapi.kakao.com/v1/user/unlink";

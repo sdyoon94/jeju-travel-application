@@ -25,10 +25,10 @@ public class FileServiceImpl implements FileService{
                 new File(savePath).mkdir();
             }
 
-            User user = userService.searchByUserEmail(email);
+            User user = userService.searchByKakaoId(email);
 
             //이미 등록된 사진이 있으면 삭제
-            if(userRepository.findOneByUserEmail(email)!=null){
+            if(userRepository.findOneByKakaoId(email)!=null){
                user.setImagePath("");
                userRepository.save(user);
             }
@@ -50,7 +50,7 @@ public class FileServiceImpl implements FileService{
     @Override
     public User findImageByEmail(String email) {
 
-        return userRepository.findOneByUserEmail(email);
+        return userRepository.findOneByKakaoId(email);
     }
 
     @Override

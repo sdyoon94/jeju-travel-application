@@ -30,18 +30,9 @@ public class KakaoLoginController {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
         try {
-
             Map<String, Object> loginResult = userService.login(code);
-//            if (loginResult.equals("fail")) {
-//                status = HttpStatus.NOT_FOUND;
-//                resultMap.put("message", "존재하지 않는 계정입니다.");
-//            } else {
-//                status = HttpStatus.OK;
-//                resultMap.put("토큰", loginResult);//차후수정
-//            }
-//            return new ResponseEntity<Map<String, Object>>(resultMap, status);
             return new ResponseEntity<Map<String, Object>>(loginResult, HttpStatus.OK);
-            //필요하면 claim에 담아서 보내줘야함
+
         }catch(Exception e){
             resultMap.put("error", e.getStackTrace());
             status=HttpStatus.FOUND;
@@ -49,15 +40,15 @@ public class KakaoLoginController {
         }
     }
 
-    @GetMapping("/logout/{userEmail}")
-    public ResponseEntity<?> logout(@PathVariable String userEmail) {
-        userService.logout(userEmail);
+    @GetMapping("/logout/{kakaoId}")
+    public ResponseEntity<?> logout(@PathVariable String kakaoId) {
+        userService.logout(kakaoId);
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{userEmail}")
-    public ResponseEntity<?> deletUser(@PathVariable String userEmail) {
-         userService.deleteUser(userEmail);
+    @DeleteMapping("/delete/{kakaoId}")
+    public ResponseEntity<?> deletUser(@PathVariable String kakaoId) {
+         userService.deleteUser(kakaoId);
 //       String newToken=kaKaoUtil.updateAccessToken(rt);
         return new ResponseEntity<String>("성공", HttpStatus.OK);
     }
