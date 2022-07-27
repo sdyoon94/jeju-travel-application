@@ -29,18 +29,23 @@ public class KakaoLoginController {
     public ResponseEntity<?> login(@PathVariable String code) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
+        try {
 
-
-        String loginResult = userService.login(code);
-        if(loginResult.equals("fail")) {
-            status = HttpStatus.NOT_FOUND;
-            resultMap.put("message", "존재하지 않는 계정입니다.");
-        }else {
-            status = HttpStatus.OK;
-            resultMap.put("토큰", loginResult);//차후수정
+            String loginResult = userService.login(code);
+            if (loginResult.equals("fail")) {
+                status = HttpStatus.NOT_FOUND;
+                resultMap.put("message", "존재하지 않는 계정입니다.");
+            } else {
+                status = HttpStatus.OK;
+                resultMap.put("토큰", loginResult);//차후수정
+            }
+            return new ResponseEntity<Map<String, Object>>(resultMap, status);
+            //필요하면 claim에 담아서 보내줘야함
+        }catch(Exception e){
+            resultMap.put("error", e.toString());
+            status=HttpStatus.FOUND;
+            return new ResponseEntity<Map<String, Object>>(resultMap, status);
         }
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
-        //필요하면 claim에 담아서 보내줘야함
     }
 
     @GetMapping("/logout/{userEmail}")
