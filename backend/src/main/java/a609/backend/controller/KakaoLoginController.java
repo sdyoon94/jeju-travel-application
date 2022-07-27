@@ -42,7 +42,7 @@ public class KakaoLoginController {
             return new ResponseEntity<Map<String, Object>>(resultMap, status);
             //필요하면 claim에 담아서 보내줘야함
         }catch(Exception e){
-            resultMap.put("error", e.toString());
+            resultMap.put("error", e.getStackTrace().toString());
             status=HttpStatus.FOUND;
             return new ResponseEntity<Map<String, Object>>(resultMap, status);
         }
