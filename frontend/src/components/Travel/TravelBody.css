@@ -1,58 +1,8 @@
-.carousel {
-    overflow-y: scroll;
-}
-
 .course-container {
-    width: 84%;
-    margin: 8%;
-    margin-top: 200px;
-    display: grid;
-    gap: 10px 10px;
+    height: 60vh;
+    padding: 0vh 2vh 4vh 2vh;
 }
 
-.course-title {
-    position: fixed;
-    padding: 10px;
-    justify-self: center;
-    font-size: 20px;
-    font-weight: bold;
-    font-style: italic;
-}
-
-.course-route {
-    display: grid;
-    row-gap: 15px;
-    margin: 70px 10% 0px 10%;
-    overflow-y: scroll;
-}
-
-.schedule {
-    display: grid;
-    grid-template-rows: 1fr minmax(2fr, auto) 1fr;
-}
-
-.schedule-time {
-    text-align: left;
-    font-size: 12px;
-}
-
-.schedule-info {
-    font-size: 15px;
-    font-weight: 600;
-    display: flex;
-    justify-content: space-between;
-}
-
-.schedule-info * {
-    margin-block-start: 0.3em;
-    margin-block-end: 0.3em;
-}
-
-.schedule-addi {
-    justify-self: center;
-    align-self: center;
-    font-size: 12px;
-}
 
 .link {
     font-weight: bold;

@@ -1,11 +1,11 @@
-import { ReactComponent as MapMarker } from "assets/map-marker.svg"
+import MapDrawer from "./Drawer/MapDrawer"
 
 import "./TravelFooter.css"
 
 function TravelFooter(props) {
     return (
         <div className="travel-footer">
-            <MapMarker width={40} height={40} />
+            <MapDrawer />
         </div>
     )
 }

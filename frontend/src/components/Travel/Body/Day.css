@@ -1,0 +1,20 @@
+.day {
+    height: 4vh;
+    padding: 1vh 10vw;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    justify-items: center;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.day .angle {
+    width: 3vh;
+    height: 3vh;
+}
+
+.day p {
+    font-size: 20px;
+    font-weight: bold;
+    font-style: italic;
+}

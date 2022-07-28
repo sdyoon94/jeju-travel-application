@@ -1,0 +1,10 @@
+.travel-config {
+    align-self: flex-start;
+    justify-self: right;
+}
+
+.travel-config p {
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: underline;
+}

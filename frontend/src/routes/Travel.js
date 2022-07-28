@@ -9,18 +9,21 @@ import Dummy from "dummies/DummyTravel.json"
 
 function Travel() {
     return (
-        <div className="travel-container">
-            <Header>
-                <p style={{"fontSize": "10px"}}>여행 계획 기록</p>
-            </Header>
-            <TravelTitle 
-                Dummy={{profileURL: "./icons/plane.png", ...Dummy}}
-            />
-            <TravelBody 
-                travel={Dummy}
-            />
-            <TravelFooter />
-        </div>
+        <>
+            <div className="travel-container">
+                <Header>
+                    <p style={{"fontSize": "10px"}}>여행 계획 기록</p>
+                </Header>
+                <TravelTitle 
+                    travel={{profileURL: "./icons/plane.png", ...Dummy}}
+                />
+                <TravelBody 
+                    travel={Dummy}
+                />
+                <TravelFooter />
+            </div>
+        </>
+        
     )
 }
 

@@ -2,15 +2,15 @@ import "./TravelTitle.css"
 import "globalStyle.css"
 import { ReactComponent as User } from 'assets/user.svg'
 import React from "react";
+import ConfigDrawer from "./Drawer/ConfigDrawer";
 
-function TravelTitle({ Dummy }) {
-    const { title, startDate, periodInDays, profileURL, styles, members, joinAddress, budget } = Dummy;
+function TravelTitle({ travel }) {
+    const { title, startDate, periodInDays, profileURL, styles, members, joinAddress, budget } = travel;
 
     return (
         <div className="container-title">
             <div className="travel-profile">
                 <img
-                    width={"40"}
                     src={profileURL}
                     alt="여행 프로필 이미지"
                 />
@@ -18,9 +18,7 @@ function TravelTitle({ Dummy }) {
             <div className="travel-title">
                 {title}
             </div>
-            <div className="travel-edit">
-                <a href="./">편집</a>
-            </div>
+            <ConfigDrawer />
             <div className="travel-date">
                 {startDate} ({periodInDays})
             </div>
