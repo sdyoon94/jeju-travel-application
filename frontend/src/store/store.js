@@ -1,8 +1,8 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit"
-import tripList from './modules/tripListSlice'
+import courseList from './modules/courseListSlice'
 
 const rootReducer = combineReducers({
-    tripList
+    courseList
 })
 
 
