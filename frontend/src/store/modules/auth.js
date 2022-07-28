@@ -1,20 +1,49 @@
-// 예시 코드
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+// import { api } from "api"
+import axios from "axios"
 
 
-const postsSlice = createSlice({
-  name: 'posts',
-  initialState: [],
-  reducers: {
-    createPost(state, action) {},
-    updatePost(state, action) {},
-    deletePost(state, action) {},
-  },
+const initialState = {
+  token: localStorage.getItem("token") || "",
+  email: "",
+  nickname: "",
+  error: null,
+}
+
+
+export const fetchLogin = createAsyncThunk(
+  "auth/fetchLogin",
+  async (code, thunkAPI) => {
+    try {
+      const response = await axios.get(`http://i7a609.p.ssafy.io:8081/api/oauth/kakao/login?code=${code}`)
+      return response.data
+    } catch (err) {
+      // Use `err.response.data` as `action.payload` for a `rejected` action,
+      // by explicitly returning it using the `rejectWithValue()` utility
+      return thunkAPI.rejectWithValue(err.response.data)
+    }
+  }
+  )
+  
+  
+  const loginSlice = createSlice({
+    name: "auth",
+    initialState,
+    reducers: {},
+    extraReducers: (builder) => {
+      builder
+      .addCase(fetchLogin.fulfilled, (state, { payload }) => {
+        // payload에 token, email, nickname
+        state.token = payload.token
+        state.email = payload.email
+        state.nickname = payload.nickname
+        localStorage.setItem("token", payload.token)
+      })
+      .addCase(fetchLogin.rejected, (state, { payload }) => {
+        state.error = payload
+      })
+  }
 })
 
-const { actions, reducer } = postsSlice
-// Extract and export each action creator by name
-export const { createPost, updatePost, deletePost } = actions
-// Export the reducer, either as a default or named export
-export default reducer
 
+export default loginSlice.reducer
