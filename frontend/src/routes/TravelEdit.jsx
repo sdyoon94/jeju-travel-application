@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-import Header from "components/Header"
+import Header from "components/Header/Header"
 import TravelTitle from "components/TravelEdit/TravelTitle"
 import Spots from "components/TravelEdit/Spots"
 import StartTimeInputEdit from "components/TravelEdit/StartTimeInputEdit"

@@ -38,21 +38,24 @@
   color: #1E88E5;
 }
 
+.gray {
+  color: #8C8C8C;
+}
 
 .title-size {
-  font-size: 25px;
+  font-size: 6vw;
 }
 
 .subtitle-size {
-  font-size: 20px;
+  font-size: 5vw;
 }
 
 .content-size {
-  font-size: 15px;
+  font-size: 4vw;
 }
 
 .subcontent-size {
-  font-size: 12px;
+  font-size: 3vw;
 }
 
 .text-center {
@@ -61,6 +64,22 @@
 
 input {
   cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
+
+.gamgyul {
+  width: 6vw;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 9vw;
+  left: 10vw;
 }
 
 
