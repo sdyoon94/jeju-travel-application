@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ReactComponent as HamburgertBtn } from 'assets/hamburger-button.svg'
+// import { ReactComponent as HamburgertBtn } from 'assets/hamburger-button.svg'
 import { Avatar, Box, SwipeableDrawer } from '@mui/material'
 import "globalStyle.css"
 import "routes/Home.css"
@@ -21,7 +21,7 @@ function Drawer() {
 
   return (
     <>
-      <HamburgertBtn className="hamburger-icon" onClick={handleDrawer(true)} />
+      {/* <HamburgertBtn className="hamburger-icon" onClick={handleDrawer(true)} /> */}
       <SwipeableDrawer
         anchor="right"
         open={open}

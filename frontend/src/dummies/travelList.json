@@ -1,0 +1,56 @@
+{
+  "userUid": "1",
+  "travels": [
+    {
+      "title": "진오의 여행1",
+      "startDate": "22.07.23",
+      "periodInDays": 3,
+      "members": [
+        {
+          "memberUid": 1,
+          "profileImg": "path1"
+        },
+        {
+          "memberUid": 2,
+          "profileImg": "path2"
+        },
+        {
+          "memberUid": 3,
+          "profileImg": "path3"
+        },
+        {
+          "memberUid": 4,
+          "profileImg": "path4"
+        },
+        {
+          "memberUid": 5,
+          "profileImg": "path5"
+        },
+        {
+          "memberUid": 6,
+          "profileImg": "path6"
+        }
+      ]
+    },
+    {
+      "title": "여행가자",
+      "startDate": "22.09.13",
+      "periodInDays": 3,
+      "members": [
+        {
+          "memberUid": 1,
+          "profileImg": "path1"
+        },
+        {
+          "memberUid": 2,
+          "profileImg": "path2"
+        },
+        {
+          "memberUid": 3,
+          "profileImg": "path3"
+        }
+      ]
+    }
+
+  ]
+}

@@ -5,7 +5,11 @@
 }
 
 .text {
-  font-size: 1vh;
+  font-weight: 400;
+}
+
+.margin-top {
+  margin-top: 50vw;
 }
 
 .trip-summary-box {
@@ -36,27 +40,27 @@
   margin-left: 15px;
 }
 
-.profile-box {
-  margin-top: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.hareubang{
+  width: 300px;
 }
 
-.person-icon {
-  width: 15px;
-  height: 15px;
+.phrase-margin {
+  margin: 5px;
 }
 
-.new-trip-btn {
+.new-user-btn {
+  border: none;
+  width: 210px;
+  height: 45px;
+  font-size: 4vw;
   text-align: center;
-  margin-top: 10px;
+  background: #1E88E5;
+  border-radius: 10px;
+  color: #FFFFFF;
+  margin-top: 50px;
 }
 
-.hamburger-icon {
-  width: 30px;
-  height: 30px;
-}
+
 
 .drawer-profile {
   display: flex;
@@ -99,6 +103,9 @@
   background: #f44336;
   color: white;
 }
+
+
+
 
 
 
