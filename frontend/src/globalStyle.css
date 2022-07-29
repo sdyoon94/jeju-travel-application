@@ -2,17 +2,18 @@
   --vh: 100%;
 }
 
-.App {
-  font-family: "JejuGothic.ttf";
+* {
+  font-family: "JejuGothic";
 }
 
 @font-face {
-  font-family: "JejuGothic.ttf";
+  font-family: "JejuGothic";
+  font-weight: normal;
   src: url("./fonts/JejuGothic.ttf");
 }
 
 @font-face {
-  font-family: "JejuHallasan.ttf";
+  font-family: "JejuHallasan";
   src: url("./fonts/JejuHallasan.ttf");
 }
 
