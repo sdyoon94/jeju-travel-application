@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import { useDispatch } from "react-redux"
+import { editCourses } from "store/modules/courseListSlice"
+import Spot from './Spot'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 import "globalStyle.css"
 import "routes/TravelEdit.css"
@@ -26,13 +29,12 @@ const getListStyle = () => ({
 
 const queryAttr = "data-rbd-drag-handle-draggable-id";
 
-function Spots({idx, routes, handleTravelCourses}) {
+function Spots({idx, routes}) {
+  const dispatch = useDispatch()
+
   const reorder = (list, startIndex, endIndex) => {
-  // list 얇은 복사하기
   const result = Array.from(list)
-  // 리스트에서 제거하기
   const [removed] = result.splice(startIndex, 1)
-  // 리스트에 추가하기
   result.splice(endIndex, 0, removed)
   return result
   }
@@ -44,15 +46,14 @@ function Spots({idx, routes, handleTravelCourses}) {
     // dropped outside the list
     if (!result.destination) {
       return
-	}
-        
+  }  
     setPlaceholderProps({})
     const newSpots = reorder(spots, result.source.index, result.destination.index)
     setSpots(spots => reorder(spots, result.source.index, result.destination.index))
-    handleTravelCourses(idx, newSpots)
+    console.log('new',newSpots)
+    dispatch(editCourses({idx, newSpots}))
   };
     
-  // 드래그할 동안
   const onDragUpdate = update => {
     if(!update.destination){
       return
@@ -83,7 +84,7 @@ function Spots({idx, routes, handleTravelCourses}) {
       clientX: parseFloat(window.getComputedStyle(draggedDOM.parentNode).paddingLeft)
     })
   }
-    
+  
   return (
     <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
       <Droppable droppableId="droppable">
@@ -105,14 +106,7 @@ function Spots({idx, routes, handleTravelCourses}) {
                 provided.draggableProps.style
               )}
             >
-              <div className="spot-box">
-                <h1 className="content-size inline-block">{item.name}</h1>
-                <span className="content-size spot-item">
-                  <input className="duration-input" value={item.duration} />
-                    H
-                </span>
-                {/* <span className="content-size spot-item">{item.duration}</span> */}
-              </div>
+              <Spot dayIdx={idx} courseIdx={index} item={item} />
             </div>
             )}
           </Draggable>
