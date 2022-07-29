@@ -20,23 +20,32 @@ const departures = [
 
 // 출발지,언제,인원선택
 function Departure() {
-  const [departure, setDeparture] = useState("출발지");
-  const handleChange = (event) => {
+  const [departure, setDeparture] = useState('');
+  const handleChangeDeparture = (event) => {
     setDeparture(event.target.value);
   };
+  
+  
+  let [memberCnt, setMemberCnt] = useState(1);
+  
+  const handleChangeMemberCnt = (event) => {
+    const cnt = Number(event.target.value)
+    setMemberCnt(cnt);
+  };
 
-  let [count, setCount] = useState(1);
+
+  
   function incrementCount() {
-    count = count + 1;
-    setCount(count);
+    memberCnt = memberCnt + 1;
+    setMemberCnt(memberCnt);
   }
   function decrementCount() {
-    count = count - 1;
-    setCount(count);
+    memberCnt = memberCnt - 1;
+    setMemberCnt(memberCnt);
   }
 
   const ExampleTextField = styled(TextField)({
-    backgroundColor: "#eee",
+    backgroundColor: "transparent",
     "& .MuiOutlinedInput-notchedOutline": {
       border: "none"
     },
@@ -53,17 +62,17 @@ function Departure() {
         <div className="mention" style={{color:"#1E88E5"}}>어디서, 몇명이서</div>
         <div className="mention">떠나시나요?</div>
       </div>
-      <div className="departure-inputs">
+      <div className="departure-body">
         <div></div>
-        <div className="input-box">
-          <label className="input-label" for="select-departure">출발지</label>
+        <label className="input-box" for="member-cnt-input">
+          <label className="input-label" htmlFor="select-departure">출발지</label>
           <ExampleTextField
             className="select-departure"
             id="select-departure"
             select
             value={departure}
-            onChange={handleChange}
-            variant="standard"
+            onChange={handleChangeDeparture}
+            InputProps={{style:{fontSize: 20}}}
           >
             {departures.map((option) => (
               <MenuItem key={option.value} value={option.value}>
@@ -71,20 +80,23 @@ function Departure() {
               </MenuItem>
             ))}
           </ExampleTextField>
-        </div>
-        <div item className="input-box">
-          <label className="input-label" for="filled-select-currency">동행자</label>
-          <div>
-            <button onClick={incrementCount}>+</button>
-            <TextField
-              id="standard-number"
+        </label>
+        <label item className="input-box" for="member-cnt-input">
+          <label className="input-label" for="member-cnt-input">인원수</label>
+          <div className="control-member-cnt">
+            <button className="member-cnt-btn" onClick={decrementCount}>-</button>
+            <ExampleTextField
+              id="member-cnt-input"
+              className="member-cnt-input"
               type="number"
-              value={count}
-              // variant="filled"
+              value={memberCnt}
+              onChange={handleChangeMemberCnt}
+              // variant="standard"
+              InputProps={{style:{fontSize: 20},}}
             />
-            <button onClick={decrementCount}>-</button>
+            <button className="member-cnt-btn" onClick={incrementCount}>+</button>
           </div>
-        </div>
+        </label>
       </div>
       
     </div>

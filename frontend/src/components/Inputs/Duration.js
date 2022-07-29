@@ -19,8 +19,7 @@ function Duration() {
   const { bak, il } = durations;
 
   const handleChange = (event) => {
-    const minDuration = 0;
-    const maxDuration = 20;
+    
     const { name, value } = event.target;
     if (name === "bak") {
       if (0 <= value && value <= 19) {
@@ -87,7 +86,7 @@ function Duration() {
             박
           </label>
           <TextField
-            id="standard-number"
+            id="number-il"
             name="il"
             type="number"
             value={il}

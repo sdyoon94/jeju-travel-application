@@ -15,11 +15,11 @@ function Style() {
       </div>
       <div className="style-body">
         <div className="style-select-btns">
-          <div>123</div>
-          <div>rrrrrrrrr</div>
-          <div>rrr</div>
-          <div>rrrrrrrrrrrr</div>
-          <div>rrrrr</div>
+          <div>일</div>
+          <div>단</div>
+          <div>보</div>
+          <div>류</div>
+          <div>!</div>
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@
 .input-footer{
   display:grid;
   align-items: center;
-  grid-template-columns: 261px;
+  grid-template-columns: 70vw;
   justify-content: center;
 }
 
