@@ -47,7 +47,7 @@ public class KakaoLoginController {
     }
 
     @DeleteMapping("/delete/{kakaoId}")
-    public ResponseEntity<?> deletUser(@PathVariable String kakaoId) {
+    public ResponseEntity<?> deleteUser(@PathVariable String kakaoId) {
          userService.deleteUser(kakaoId);
 //       String newToken=kaKaoUtil.updateAccessToken(rt);
         return new ResponseEntity<String>("성공", HttpStatus.OK);
