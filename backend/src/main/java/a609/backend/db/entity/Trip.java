@@ -1,10 +1,17 @@
 package a609.backend.db.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Getter
+@Setter
+@ToString
 @Entity
 public class Trip {
 
@@ -23,7 +30,8 @@ public class Trip {
     @OneToMany(mappedBy="trip")
     List<UserTrip> tripMember = new ArrayList<>();
 
-    private int budget;
-    //private int? style;
+    private Integer budget;
+
+    private Integer style;
 
 }
