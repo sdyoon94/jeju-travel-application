@@ -2,6 +2,16 @@
   --vh: 100%;
 }
 
+@font-face {
+  font-family: "JejuGothic.ttf";
+  src: url("./fonts/JejuGothic.ttf");
+}
+
+@font-face {
+  font-family: "JejuHallasan.ttf";
+  src: url("./fonts/JejuHallasan.ttf");
+}
+
 .inline-block {
   display: inline-block;
 }
