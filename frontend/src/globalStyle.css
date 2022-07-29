@@ -2,6 +2,10 @@
   --vh: 100%;
 }
 
+.App {
+  font-family: "JejuGothic.ttf";
+}
+
 @font-face {
   font-family: "JejuGothic.ttf";
   src: url("./fonts/JejuGothic.ttf");
