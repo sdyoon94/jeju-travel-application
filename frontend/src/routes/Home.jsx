@@ -1,6 +1,6 @@
-import TripList from "components/Home/TripList"
+import TravelList from "components/Home/TravelList"
 import Drawer from "components/Home/Drawer"
-// import { Link } from "react-router-dom"
+import Gamgyul from "components/Header/Gamgyul"
 import "globalStyle.css"
 import "routes/Home.css"
 
@@ -9,7 +9,8 @@ function Home() {
 
   return (
     <div>
-      <TripList />
+      <Gamgyul />
+      <TravelList />
       <Drawer />
     </div>
   )

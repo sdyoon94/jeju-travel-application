@@ -70,4 +70,16 @@ button {
   cursor: pointer;
 }
 
+.gamgyul {
+  width: 6vw;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 9vw;
+  left: 10vw;
+}
+
 

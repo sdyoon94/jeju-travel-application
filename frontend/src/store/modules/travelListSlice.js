@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import travelList from "dummies/travelList.json"
 
-
-const initialState = {
-}
+const initialState = travelList
 
 
 const travelListSlice = createSlice({
@@ -14,6 +13,5 @@ const travelListSlice = createSlice({
 })
 
 const { actions, reducer } = travelListSlice
-// Extract and export each action creator by name
 export const { createPost } = actions
 export default reducer

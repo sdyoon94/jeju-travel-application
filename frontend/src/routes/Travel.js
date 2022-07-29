@@ -1,4 +1,4 @@
-import Header from "components/Header"
+import Header from "components/Header/Header"
 import TravelTitle from "components/Travel/TravelTitle";
 import TravelBody from "components/Travel/TravelBody"
 import React from "react";

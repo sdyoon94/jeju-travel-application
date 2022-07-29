@@ -6,7 +6,7 @@ import axios from "axios"
 const initialState = {
   token: localStorage.getItem("token") || "",
   email: "",
-  nickname: "",
+  nickname: "진오",
   error: null,
 }
 
