@@ -1,35 +1,40 @@
 package a609.backend.util;
 
-import a609.backend.db.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @Component
 public class JwtUtil {
 
     @Value("${jwt.secret}")
     private String secretKey;
 
-    public String generateJwtToken(Authentication authentication, boolean keep) {
-        User userPrincipal = (User) authentication.getPrincipal();
+    public String generateJwtToken(Authentication authentication) {
+        log.info("어센티케이션 프린시플엔 무엇이 들었을까? : {}", authentication.getPrincipal().toString());
+        OAuth2User userPrincipal = (OAuth2User) authentication.getPrincipal();
         Date now = new Date();
-        Date expiration = keep ? new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000L) : new Date(now.getTime() + 6 * 60 * 60 * 1000L); // 만료기간 2주 or 6시간
+        Date expiration = new Date(now.getTime() + 3 * 60 * 1000L);
 
         Map<String, Object> headers = new HashMap<>();
         headers.put("typ", "JWT");
         headers.put("alg", "HS256");
 
         Map<String, Object> payloads = new HashMap<>();
-        payloads.put("id", userPrincipal.getKakaoId());
-        payloads.put("nickname", userPrincipal.getNickname());
+        Map<String, Object> attributes = userPrincipal.getAttributes();
+        Map<String, Object> properties = (Map<String, Object>)attributes.get("properties");
+        payloads.put("id", userPrincipal.getAttribute("name"));
+        payloads.put("nickname", properties.get("nickname"));
 
         return Jwts.builder()
                 .setHeader(headers)

@@ -40,9 +40,9 @@ public class KaKaoUtil {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id="+secretKey);
-//            sb.append("&redirect_uri=http://localhost:8080/api/oauth/kakao/login");
+            sb.append("&redirect_uri=http://localhost:8080/api/oauth/kakao/login");
 //            sb.append("&redirect_uri=http://i7a609.p.ssafy.io:8081/api/oauth/kakao/login");
-            sb.append("&redirect_uri=http://localhost:3000/kakao/callback");
+//            sb.append("&redirect_uri=http://localhost:3000/kakao/callback");
             sb.append("&code="+code);
 
             bw.write(sb.toString());

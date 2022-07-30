@@ -7,8 +7,7 @@ import a609.backend.util.KaKaoUtil;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -17,18 +16,13 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
 @Service
-public class UserServiceImpl implements UserService, OAuth2UserService<OAuth2UserRequest, OAuth2User> {
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findOneByKakaoId(username);
-        if (user == null) throw new UsernameNotFoundException("Not Found account.");
-        return user;
-    }
+public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
@@ -41,20 +35,32 @@ public class UserServiceImpl implements UserService, OAuth2UserService<OAuth2Use
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+        log.info("유저리퀘스트엔 무엇이 들었을까? : {}", userRequest.getAccessToken().toString());
+        log.info("어디셔널 : {}", userRequest.getAdditionalParameters().toString());
         OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
         Map<String, Object> attributes = oAuth2User.getAttributes();
-        log.info(attributes.toString());
+        log.info("오오스2유저 어트리뷰트엔 무엇이 들었을까? : {}", attributes.toString());
 
-        // OAuth2 로그인 진행 시 키가 되는 필드 값(PK)
-        String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
+        String kakaoId = String.valueOf(attributes.get("id"));
 
-        // OAuth2UserService
-        //OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
-        User user = userRepository.findOneByKakaoId(String.valueOf(attributes.get("Email")));
+        Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
+        String email = (String) kakaoAccount.get("email");
 
-        return new DefaultOAuth2User(user.getAuthorities(), attributes, userNameAttributeName);
+        Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
+        String nickname = (String) properties.get("nickname");
+        String imagePath = (String) properties.get("profile_image");
+
+        User user;
+        if (userRepository.countByKakaoId(kakaoId)==0) {
+            user = User.builder().kakaoId(kakaoId).nickname(nickname).imagePath(imagePath).build();
+            userRepository.save(user);
+        } else{
+            user = userRepository.findOneByKakaoId(kakaoId);
+        }
+
+        return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority("USER")), attributes, "id");
     }
 
 //    @Override

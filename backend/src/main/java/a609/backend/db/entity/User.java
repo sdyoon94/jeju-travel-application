@@ -1,9 +1,7 @@
 package a609.backend.db.entity;
 
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +14,8 @@ import java.util.*;
 @Setter
 @ToString
 @Entity
+@Builder
+@AllArgsConstructor
 public class User implements UserDetails {
     @Transient
     private final Set<GrantedAuthority> authorities = new HashSet<>();
