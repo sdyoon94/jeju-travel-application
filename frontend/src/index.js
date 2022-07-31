@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
 import store from './store/store'
 import Inputs from './routes/Inputs/Inputs'
-import Home from './routes/Home';
 // import App from './App'
 import Travel from 'routes/Travel'
 import Home from './routes/Home'
@@ -20,7 +19,6 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="login" element={<Login />} />
         <Route path="inputs" element={<Inputs />} />
         <Route path="travel" element={<Travel />} />
         <Route path="traveledit" element={<TravelEdit />} />
