@@ -8,9 +8,9 @@ function Header({ children }) {
     return (
         <div className="header">
             <ArrowLeft
-                className="arrow-left"
+                className="icon"
                 onClick={() => navigate(-1)}
-                fill="black"></ArrowLeft>
+            />
             { children }
         </div>
     )

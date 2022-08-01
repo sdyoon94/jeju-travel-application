@@ -5,10 +5,9 @@
     justify-content: space-between;
 }
 
-.arrow-left {
-    width: 3vh;
-    height: 3vh;
-    padding: 0.5vh;
+.icon {
+    width: 4vh;
+    height: 4vh;
 }
 
 p {
