@@ -10,12 +10,12 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 const grid = 8
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: "none",
-  padding: grid,
-  margin: `0 0 ${grid * 2}px 0`,
-  border: "5px solid #BBDEFB",
-  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-  borderRadius: "10px",
-  background: isDragging ? "rgba(0, 0, 0, 0.25)" : "white",
+  // padding: grid,
+  // margin: `0 0 ${grid * 2}px 0`,
+  // border: "5px solid #BBDEFB",
+  // boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+  // borderRadius: "10px",
+  // background: isDragging ? "rgba(0, 0, 0, 0.25)" : "white",
   ...draggableStyle
 })
 const getListStyle = (isDraggingOver) => ({
@@ -68,8 +68,10 @@ function Course({ day, course }) {
 		}
 
 	const setPlaceholderProps = useState({})[1]
+	const [ hold, setHold ] = useState(false)
 
 	const onDragEnd = result => {
+		setHold(false)
     if (!result.destination) {
       return
 		}
@@ -78,6 +80,7 @@ function Course({ day, course }) {
   } 
 
 	const onDragUpdate = update => {
+		setHold(true)
     if(!update.destination){
       return
     }
@@ -141,8 +144,8 @@ function Course({ day, course }) {
 						place={place}
 						startTime={startTimes[index]}
 						timeReq={timeReqs[index]}
-						isFirst={index === 0}
 						isLast={index === timeReqs.length}
+						hold={hold}
 					/>
 				</div>
 				)}
