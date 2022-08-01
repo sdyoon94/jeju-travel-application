@@ -1,22 +1,9 @@
 .course-container {
-    display: grid;
-    grid-template-rows: 50px 6fr;
-    gap: 10px 10px;
+    height: 60vh;
+    padding: 0vh 2vh 4vh 2vh;
 }
 
-.course-title {
-    justify-self: center;
-    align-self: center;
-    font-size: 20px;
+
+.link {
     font-weight: bold;
-    font-style: italic;
-}
-
-.course-route {
-    margin: 10%;
-    overflow-y: scroll;
-}
-
-.course-route * {
-    height: 50px;
 }

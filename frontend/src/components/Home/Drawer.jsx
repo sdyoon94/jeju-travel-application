@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useState } from "react"
+// import { useSelector } from "react-redux"
 import { ReactComponent as HamburgertBtn } from 'assets/hamburger-button.svg'
 import { Avatar, Box, SwipeableDrawer } from '@mui/material'
-import "globalStyle.css"
-import "routes/Home.css"
+
 
 
 
@@ -18,6 +18,8 @@ function Drawer() {
       setopen(open)
   }
 
+  // const userInfo = useSelector((state) => console.log(state))
+
 
   return (
     <>
@@ -28,19 +30,19 @@ function Drawer() {
         onOpen={handleDrawer(true)}
         onClose={handleDrawer(false)}
         >
-        <Box sx={{ width: 200, padding: 2, marginTop: 6 }}>
+        <Box sx={{ width: "50vw", padding: 2, marginTop: 6 }}>
           <div className="drawer-profile">
-            <h3 className="subtitle-size">유저네임</h3>
-            <Avatar className="drawer-profile-item" alt="profile-img" src="icons/personIcon.png" sx={{ width: 35, height: 35 }} />
+            <p className="title-size">유저네임</p>
+            <Avatar className="drawer-profile-item" alt="profile-img" src="icons/gamgyul.jpg" sx={{ width: 35, height: 35 }} />
           </div>
-            <h3 className="subtitle-size inline-block">내 여행 <span className="color-1">1</span></h3>
+            <p className="subtitle-size inline-block">내 여행 <span className="color-1">1</span></p>
           <hr />
-          <h3 className="subtitle-size">회원정보</h3>
+          <p className="subtitle-size">회원정보</p>
           <div className="drawer-profile">
             <span className="content-size">이메일</span>
             <span className="content-size">xxx@google.com</span>
           </div>
-          <button className="user-edit-btn">회원정보 수정</button>
+          <p className="subcontent-size user-edit">회원정보 수정</p>
           <hr />
           <button className="logout-btn">로그아웃</button>
 

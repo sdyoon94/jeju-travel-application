@@ -1,47 +1,62 @@
+import { AvatarGroup, Avatar, Divider } from "@mui/material";
+
+import React, { useState } from "react";
+import { getEndDate } from 'components/DateTime/date';
+
 import "./TravelTitle.css"
 import "globalStyle.css"
-import { ReactComponent as User } from 'assets/user.svg'
-import React from "react";
 
-function TravelTitle({ Dummy }) {
-    const { title, startDate, periodInDays, profileURL, styles, members, joinAddress, budget } = Dummy;
+function TravelTitle({ title, members, maxMemberCnt, startDate, periodInDays, budget, styles, joinAddress }) {
+
+    const [ endDate, setEndDate ] = useState(getEndDate(startDate, periodInDays))
+
+    const onClickJoinLinkHandler = e => {
+        e.preventDefault()
+        if (members.length < maxMemberCnt) {
+            console.log("멤버 초대 링크!");
+        }
+        // 최대 멤버 수를 초과했을 경우, 링크 비활성화
+    }
 
     return (
         <div className="container-title">
-            <div className="travel-profile">
-                <img
-                    width={"40"}
-                    src={profileURL}
-                    alt="여행 프로필 이미지"
-                />
-            </div>
             <div className="travel-title">
-                {title}
-            </div>
-            <div className="travel-edit">
-                <a href="./">편집</a>
-            </div>
-            <div className="travel-date">
-                {startDate} ({periodInDays})
+                <p>{ title }</p>
+                <AvatarGroup className="avatar-group" max={4}>
+                    {
+                        members.map((member, i) => {
+                            return <Avatar
+                                key={i} 
+                                className="avatar"
+                                alt={member.nickname} 
+                            >
+                                {member.nickname}
+                            </Avatar>
+                        })
+                    }
+                </AvatarGroup>
             </div>
             <div className="travel-info">
-                총 예산: {budget}<br />
+                <p>{startDate} ~ {endDate}</p>
+                <p>₩{budget}만원</p>
+            </div>
+            <div className="travel-style">
                 {
                     styles.map((style, i) => 
-                        <div className="inline" key={i}>#{style}</div>
+                        <p key={i}>#{style}</p>
                     )
                 }
-                <div className="inline"> </div>
-                <a href="./">더보기</a>
             </div>
-            <div className="travel-emoji">
-                <User width={20} height={20} display="inline" />{members.length}
-                <img
-                    width={24}
-                    src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-                    alt={"카카오톡 공유 보내기 버튼" + joinAddress}
-                />
+            <div className="travel-link">
+                <div onClick={onClickJoinLinkHandler}>
+                    <p>초대하기</p>
+                    <img
+                        src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+                        alt={"카카오톡 공유 보내기 버튼" + joinAddress}
+                    />
+                </div>
             </div>
+            <Divider className="divider" />
         </div>
     )
 }
