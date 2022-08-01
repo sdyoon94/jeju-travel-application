@@ -1,5 +1,5 @@
 import { useState } from "react"
-// import { useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import { ReactComponent as HamburgertBtn } from 'assets/hamburger-button.svg'
 import { Avatar, Box, SwipeableDrawer } from '@mui/material'
 
@@ -18,7 +18,8 @@ function Drawer() {
       setopen(open)
   }
 
-  // const userInfo = useSelector((state) => console.log(state))
+  const nickname = useSelector((state) => state.auth.nickname)
+  const travelLength = useSelector((state) => state.travelList.travels.length)
 
 
   return (
@@ -32,17 +33,17 @@ function Drawer() {
         >
         <Box sx={{ width: "50vw", padding: 2, marginTop: 6 }}>
           <div className="drawer-profile">
-            <p className="title-size">유저네임</p>
+            <p className="title-size">{nickname}님</p>
             <Avatar className="drawer-profile-item" alt="profile-img" src="icons/gamgyul.jpg" sx={{ width: 35, height: 35 }} />
           </div>
-            <p className="subtitle-size inline-block">내 여행 <span className="color-1">1</span></p>
-          <hr />
-          <p className="subtitle-size">회원정보</p>
+          {/* <hr /> */}
+          <span className="subtitle-size inline-block">내 여행 <span className="color-1">{travelLength}</span></span>
+          {/* <p className="subtitle-size">회원정보</p>
           <div className="drawer-profile">
             <span className="content-size">이메일</span>
             <span className="content-size">xxx@google.com</span>
-          </div>
-          <p className="subcontent-size user-edit">회원정보 수정</p>
+          </div> */}
+          {/* <p className="subcontent-size user-edit">회원정보 수정</p> */}
           <hr />
           <button className="logout-btn">로그아웃</button>
 
