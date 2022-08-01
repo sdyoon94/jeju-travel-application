@@ -35,179 +35,197 @@
     "joinAddress": "http://localhost:8080/api/v1/join-link/kakao/1",
     "isDateFixed": true,
     "startDate": "22.07.23",
+    "startDateList": {
+        "진오": "22.07.23",
+        "소정": "22.07.18",
+        "성도": "22.07.20",
+        "지운": "22.07.30",
+        "지건": "22.08.01",
+        "창현": "22.07.28"
+    },
     "periodInDays": 3,
     "startTime": "11:00",
     "endTime": "17:00",
     "lastModified": "22.07.23 17:14",
+    "vehicle": "car",
     "courses": [
         {
             "startTime": "11:00",
-            "endTime": "",
-            "day": "22.07.23",
             "route": [
                 {
                     "placeUid": 1,
                     "type": "airport",
                     "name": "제주공항",
                     "address": "제주 제주시 공항로 2 제주국제공항",
-                    "duration": "30",
+                    "duration": "00:30",
                     "isFixed": true,
-                    "tags": "공항",
-                    "introduction": "제주 최대 규모의 공항"
+                    "tag": "공항",
+                    "lat": 33.510592,
+                    "lng": 126.491085
                 },
                 {
                     "placeUid": 2,
                     "type": "residence",
                     "name": "신라스테이 제주",
                     "address": "제주 제주시 노연로 100",
-                    "duration": "60",
+                    "duration": "01:00",
                     "isFixed": true,
-                    "tags": "숙박",
-                    "introduction": "신라호텔 저렴한 버전"
+                    "tag": "숙박,가성비",
+                    "lat": 33.485598,
+                    "lng": 126.491005
                 },
                 {
                     "placeUid": 3,
                     "type": "cafe",
                     "name": "스타벅스 제주서해안로DT점",
                     "address": "제주 제주시 서해안로 624",
-                    "duration": "120",
+                    "duration": "02:00",
                     "isFixed": false,
-                    "tags": "오션뷰",
-                    "introduction": "제주 오션뷰 카페"
+                    "tag": "카페",
+                    "lat": 33.516763,
+                    "lng": 126.503561
                 },
                 {
                     "placeUid": 4,
                     "type": "arboretum",
                     "name": "한라수목원",
                     "address": "제주 제주시 수목원길 72",
-                    "duration": "120",
+                    "duration": "02:00",
                     "isFixed": false,
-                    "tags": "수목원,산책",
-                    "introduction": "제주 최대 규모의 수목원"
+                    "tag": "수목원,산책로",
+                    "lat": 33.469892,
+                    "lng": 126.493218
                 },
                 {
                     "placeUid": 5,
                     "type": "restaurant",
                     "name": "바다의향기",
                     "address": "제주 제주시 도두항서길 71",
-                    "duration": "90",
+                    "duration": "01:30",
                     "isFixed": false,
-                    "tags": "식당,횟집",
-                    "introduction": "제주 도두항 근처 맛집"
+                    "tag": "바닷가,횟집",
+                    "lat": 33.503618,
+                    "lng": 126.463650
                 },
                 {
                     "placeUid": 6,
                     "type": "park",
                     "name": "어영공원",
                     "address": "제주 제주시 용담삼동 2396-16",
-                    "duration": "60",
+                    "duration": "01:00",
                     "isFixed": false,
-                    "tags": "공원,야경",
-                    "introduction": "제주의 예쁜 야경을 볼 수 있는 공원"
+                    "tag": "바닷가,공원",
+                    "lat": 33.520364,
+                    "lng": 126.494405
                 }
             ]
         }, 
         {
             "startTime": "10:00",
-            "endTime": "",
-            "day": "22.07.24",
             "route": [
                 {
                     "placeUid": 2,
                     "type": "residence",
                     "name": "신라스테이 제주",
                     "address": "제주 제주시 노연로 100",
-                    "duration": "0",
+                    "duration": "00:00",
                     "isFixed": true,
-                    "tags": "숙박",
-                    "introduction": "신라호텔 저렴한 버전"
+                    "tag": "숙박,가성비",
+                    "lat": 33.485598,
+                    "lng": 126.491005
                 },
                 {
                     "placeUid": 7,
                     "type": "restaurant",
                     "name": "함덕골목",
                     "address": "제주 제주시 조천읍 함덕7길 6-14",
-                    "duration": "60",
+                    "duration": "01:00",
                     "isFixed": false,
-                    "tags": "한식",
-                    "introduction": "제주도 갈치 맛집"
+                    "tag": "함덕,해장국",
+                    "lat": 33.543837,
+                    "lng": 126.661836
                 },
                 {
                     "placeUid": 8,
                     "type": "beach",
                     "name": "함덕해수욕장",
                     "address": "제주 제주시 조천읍 조함해안로 525",
-                    "duration": "180",
+                    "duration": "03:00",
                     "isFixed": true,
-                    "tags": "해수욕,해변",
-                    "introduction": "제주도 최대 규모의 해수욕장"
+                    "tag": "해수욕",
+                    "lat": 33.543419,
+                    "lng": 126.669789
                 },
                 {
                     "placeUid": 9,
                     "type": "cafe",
                     "name": "설빙 제주함덕점",
                     "address": "제주 제주시 조천읍 신북로 543",
-                    "duration": "90",
+                    "duration": "01:30",
                     "isFixed": false,
-                    "tags": "빙수",
-                    "introduction": "대한민국 최고 빙수 맛집"
+                    "tag": "카페,빙수",
+                    "lat": 33.541336,
+                    "lng": 126.667916
                 },
                 {
                     "placeUid": 10,
                     "type": "restaurant",
                     "name": "함덕흑돼지우돈향",
                     "address": "제주 제주시 조천읍 조함해안로 530 2층 우돈향",
-                    "duration": "120",
+                    "duration": "02:00",
                     "isFixed": false,
-                    "tags": "흑돼지",
-                    "introduction": "함덕 해수욕장 앞 흑돼지 맛집"
+                    "tag": "흑돼지",
+                    "lat": 33.542479,
+                    "lng": 126.669593
                 }
             ]
         }, 
         {
             "startTime": "10:00",
-            "endTime": "17:00",
-            "day": "22.07.25",
             "route": [
                 {
                     "placeUid": 2,
                     "type": "residence",
                     "name": "신라스테이 제주",
                     "address": "제주 제주시 노연로 100",
-                    "duration": "0",
+                    "duration": "00:00",
                     "isFixed": true,
-                    "tags": "숙박",
-                    "introduction": "신라호텔 저렴한 버전"
+                    "tag": "숙박,가성비",
+                    "lat": 33.485598,
+                    "lng": 126.491005
                 },
                 {
                     "placeUid": 11,
                     "type": "restaurant",
                     "name": "제주돔베고기집",
                     "address": "제주 제주시 월랑로4길 6",
-                    "duration": "60",
+                    "duration": "01:00",
                     "isFixed": false,
-                    "tags": "돔베고기",
-                    "introduction": "김치와 돔베고기 한상"
+                    "tag": "돔베고기",
+                    "lat": 33.487891,
+                    "lng": 126.478544
                 },
                 {
                     "placeUid": 12,
                     "type": "mountain",
                     "name": "민오름",
                     "address": "제주 제주시 오라2동 산12",
-                    "duration": "180",
+                    "duration": "03:00",
                     "isFixed": false,
-                    "tags": "오름",
-                    "introduction": "한라산 뷰가 이쁜 제주도 오름"
+                    "tag": "오름",
+                    "lat": 33.478505,
+                    "lng": 126.502655
                 },
                 {
                     "placeUid": 1,
                     "type": "airport",
                     "name": "제주공항",
                     "address": "제주 제주시 공항로 2 제주국제공항",
-                    "duration": "30",
+                    "duration": "00:30",
                     "isFixed": true,
-                    "tags": "공항",
-                    "introduction": "제주 최대 규모의 공항"
+                    "tag": "공항",
+                    "lat": 33.510592,
+                    "lng": 126.491085
                 }
             ]
         }]

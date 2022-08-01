@@ -1,6 +1,10 @@
 .travel-config {
-    align-self: flex-start;
-    justify-self: right;
+    height: 4vh;
+}
+
+.travel-config .icon {
+    height: 4vh;
+    width: 4vh;
 }
 
 .travel-config p {

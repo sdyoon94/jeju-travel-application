@@ -1,5 +1,5 @@
 .spot-box {
-  display: block;
+  display: flex;
   justify-content: space-between;
 }
 
@@ -14,7 +14,7 @@
 }
 
 .duration-input {
-  width: 40px;
+  width: 30px;
   height: 15px;
   font-size: 15px;
   border: none;
