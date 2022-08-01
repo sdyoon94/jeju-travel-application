@@ -4,12 +4,12 @@ import "globalStyle.css";
 import "routes/Inputs/InputCommonStyle.css";
 import Button from "@mui/material/Button";
 
-import Departure from "components/Inputs/Departure";
 // import Duration from "components/Inputs/Duration";
-import Style from "components/Inputs/Style";
-// import Budget from "components/Inputs/Budget"
+// import Style from "components/Inputs/Style";
+import Budget from "components/Inputs/Budget";
+import { Outlet } from "react-router-dom";
 // import StartTime from "components/Inputs/StartTime"
-import Calender from "components/Inputs/Calender";
+// import Calender from "components/Inputs/Calender";
 
 function Inputs() {
   // const [checked, setChecked] = React.useState(false);
@@ -25,13 +25,14 @@ function Inputs() {
   return (
     <div className="input-container">
       <div className="input-content">
+        <Outlet />
         {/* <Departure></Departure> */}
         {/* <Duration></Duration> */}
         {/* <Style></Style> */}
         {/* <Budget></Budget> */}
         {/* <StartTime></StartTime> */}
         {/* <Style></Style> */}
-        <Calender></Calender>
+        {/* <Calender></Calender> */}
       </div>
       <div className="input-footer">
         <Button className="input-btn" variant="contained">

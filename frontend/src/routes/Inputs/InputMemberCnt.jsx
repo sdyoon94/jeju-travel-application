@@ -4,16 +4,11 @@ import "globalStyle.css";
 import "routes/Inputs/InputCommonStyle.css";
 import Button from "@mui/material/Button";
 
-import Departure from "components/Inputs/Departure";
-// import Duration from "components/Inputs/Duration";
-import Style from "components/Inputs/Style";
-// import Budget from "components/Inputs/Budget"
-// import StartTime from "components/Inputs/StartTime"
-import Calender from "components/Inputs/Calender"
+import MemberCnt from "components/Inputs/MemberCnt";
 
 
 
-function Inputs() {
+function InputMemberCnt() {
   // const [checked, setChecked] = React.useState(false);
 
   // const handleChange = () => {
@@ -27,7 +22,7 @@ function Inputs() {
   return (
     <div className="input-container">
       <div className="input-content">
-        <Departure></Departure>
+        <MemberCnt></MemberCnt>
         {/* <Duration></Duration> */}
         {/* <Style></Style> */}
         {/* <Budget></Budget> */}
@@ -44,4 +39,4 @@ function Inputs() {
   );
 }
 
-export default Inputs;
+export default InputMemberCnt;
