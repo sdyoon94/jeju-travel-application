@@ -1,0 +1,9 @@
+.google-map-container {
+    height: 30vh;
+    padding: 2vh 5vw;
+}
+
+.map-marker {
+    height: 4vh;
+    width: 4vh;
+}

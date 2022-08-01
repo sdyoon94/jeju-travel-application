@@ -1,0 +1,31 @@
+.schedule {
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr;
+}
+
+.schedule-time {
+    text-align: left;
+    font-size: 3vw;
+}
+
+.schedule-info {
+    font-size: 4vw;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+}
+
+.schedule-info * {
+    margin-block-start: 0.3em;
+    margin-block-end: 0.3em;
+}
+
+.schedule-addi {
+    justify-self: center;
+    align-self: center;
+    font-size: 3vw;
+}
+
+.link {
+    font-weight: bold;
+}
