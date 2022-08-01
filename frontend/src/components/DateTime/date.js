@@ -20,16 +20,36 @@ function getAllDates(date, periodInDays) {
         day++
         if (day > dayOfMonth[month-1]) {
             day = 1
-            month++
-            if (month > 12) {
+            if (++month > 12) {
                 month = 1
-                year++
+                ++year
             }
         }
         dates.push(buildDate(year, month, day))
     }
 
     return dates
+}
+
+function getEndDate(startDate, periodInDays) {
+    const ymd = startDate.split(SEPARATOR)
+    if (ymd.length !== 3)
+        return []
+
+    let year = Number(ymd[0])
+    let month = Number(ymd[1])
+    let day = Number(ymd[2])
+
+    day += periodInDays
+    while (day > dayOfMonth[month-1]) {
+        day -= dayOfMonth[month-1]
+        if (++month > 12) {
+            month = 1
+            ++year
+        }
+    }
+
+    return buildDate(year, month, day)
 }
 
 function buildDate(year, month, day) {
@@ -58,4 +78,4 @@ function buildDate(year, month, day) {
     return date
 }
 
-export { getAllDates, buildDate }
+export { getAllDates, getEndDate, buildDate }
