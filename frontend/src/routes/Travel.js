@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 
-import Header from "components/Header"
+import Header from "components/Header/Header"
 import TravelTitle from "components/Travel/TravelTitle"
 import TravelBody from "components/Travel/TravelBody"
 import TravelFooter from "components/Travel/TravelFooter"
