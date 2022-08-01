@@ -1,58 +1,69 @@
+p {
+    display: inline-block;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
 .container-title {
-    height: 16vh;
-    padding: 2vh;
+    height: 14vh;
+    padding: 2vh 4vh;
     display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
-    gap: 0.5vh;
-}
-
-.travel-profile {
-    justify-self: center;
-    grid-row: 1 / span 3;
-}
-
-.travel-profile img {
-    padding: 12%;
-    width: 76%;
+    grid-template-rows: 1fr 0.5fr 0.5fr 0.8fr auto;
 }
 
 .travel-title {
-    font-size: 25px;
-    font-weight: bold;
+    height: 5vh;
 }
 
-.travel-date {
-    grid-column: 2 / span 2;
-    font-size: 12px;
+.travel-title p {
+    padding-right: 2vw;
+    font-size: 6vw;
+    font-weight: 700;
 }
 
-.travel-info {
-    font-size: 12px;
+.travel-title .avatar-group {
+    width: fit-content;
+    display: inline-flex;
+    padding: 0.5vh;
 }
 
-.travel-emoji {
-    font-size: 10px;
-    display: grid;
-    grid-template-columns: 1fr 0.5fr auto;
-    align-content: flex-end;
+.travel-title .avatar-group * {
+    height: 3vh;
+    width: 3vh;
+    font-size: 3vw;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
 }
 
-.travel-emoji .user {
+.travel-info p {
+    padding-right: 4vw;
+    font-size: 3vw;
+    font-weight: 500;
+}
+
+.travel-style p {
+    padding-right: 1vw;
+    font-size: 3vw;
+    font-weight: 500;
+}
+
+.travel-link {
     justify-self: end;
-    align-self: flex-end;
 }
 
-.travel-emoji p {
-    justify-self: start;
-    align-self: flex-end;
+.travel-link p {
+    padding-right: 2vw;
+    font-size: 2vw;
+    font-weight: 600;
 }
 
-.travel-emoji img {
-    align-self: flex-end;
+.travel-link img {
+    height: 3vh;
+    width: auto;
 }
 
-hr {
-    height: 0;
-    width: 90%;
-    grid-column: 1 / span 3;
+.divider {
+    padding: 0vh 2vh;
 }

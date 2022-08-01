@@ -2,10 +2,13 @@ import MapDrawer from "./Drawer/MapDrawer"
 
 import "./TravelFooter.css"
 
-function TravelFooter(props) {
+function TravelFooter({ courses, courseIdx }) {
     return (
         <div className="travel-footer">
-            <MapDrawer />
+            <MapDrawer
+                courses={ courses }
+                courseIdx={ courseIdx }
+            />
         </div>
     )
 }

@@ -1,24 +1,42 @@
 import Schedule from "components/Travel/Body/Schedule"
-import { addTime } from "components/DateTime/time"
+import { addTime, secToTime } from "components/DateTime/time"
 
 import "./Course.css"
+import { useEffect, useState } from "react"
+import { fetchDirection } from "store/modules/distanceSlice"
+import { useDispatch } from "react-redux"
 
 function Course({ day, course }) {
     const className = "course day-" + day
 
-    let startTime = course.startTime
-    const startTimes = [startTime]
-    const timeReqs = []
-    const len = course.route.length
+    const [ startTimes, setStartTimes ] = useState([ course.startTime ])
+    const [ timeReqs, setTimeReqs ] = useState([])
 
-    for (let i = 1; i < len; i++) {
-        const duration = course.route[i-1].duration
-        const timeReq  = "01:00" // TODO: 경로 탐색 async 로직 추가
+    const dispatch = useDispatch()
 
-        startTime = addTime(startTime, duration, timeReq)
-        startTimes.push(startTime)
-        timeReqs.push(timeReq)
-    }
+    // course가 변경되었을 때 로직
+    useEffect(() => {
+        const fetchData = async ({ index, route }) => {
+            let startTime = course.startTime
+            let startTimes_ = [ startTime ]
+            let timeReqs_ = []
+
+            const response = await dispatch(fetchDirection({ index: day-1, route: route }))
+
+            const len = route.length
+            for (let i = 1; i < len; i++) {
+                const duration = route[i-1].duration
+                const timeReq = secToTime(response.payload.directions[i-1].duration)
+
+                startTime = addTime(startTime, duration, timeReq)
+                startTimes_.push(startTime)
+                timeReqs_.push(timeReq)
+            }
+            setStartTimes(startTimes_)
+            setTimeReqs(timeReqs_)
+        }
+        fetchData({index: day-1, ...course})
+    }, [course, day, dispatch])
 
     return (
         <div 
@@ -35,7 +53,7 @@ function Course({ day, course }) {
                         startTime={startTimes[i]}
                         timeReq={timeReqs[i]}
                         isFirst={i === 0}
-                        isLast={i === len-1}
+                        isLast={i === timeReqs.length}
                     />
                 )
             }
