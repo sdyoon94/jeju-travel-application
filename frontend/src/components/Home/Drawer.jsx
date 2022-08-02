@@ -1,36 +1,10 @@
 import { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { ReactComponent as HamburgertBtn } from 'assets/hamburger-button.svg'
-import { Avatar, Box, SwipeableDrawer } from '@mui/material'
+import { SwipeableDrawer } from '@mui/material'
 import { editProfile } from "store/modules/authSlice"
-
-function NotEdit ({ nickname, profileImg, editStart }) {
-  return (
-    <Box sx={{ width: "50vw", padding: 2, marginTop: 6 }}>
-      <div className="drawer-profile">
-        <p className="title-size drawer-profile-item">{nickname}님</p>
-        <Avatar className="drawer-profile-item" alt="profile-img" src={profileImg} sx={{ width: 85, height: 85 }} />
-        <span onClick={editStart}>회원정보 수정</span>
-      </div>
-      <hr />
-      <button className="logout-btn">로그아웃</button>
-    </Box>
-  )
-}
-
-function EditIng ({ nickname, profileImg, handleNickname, handleProfileImg, editEnd }) {
-  return (
-    <Box sx={{ width: "50vw", padding: 2, marginTop: 6 }}>
-      <div className="drawer-profile">
-        <input type="text" className="drawer-profile-item" onChange={handleNickname} value={nickname} />
-        <Avatar className="drawer-profile-item" alt="profile-img" src={profileImg} sx={{ width: 85, height: 85 }} />
-        <span onClick={editEnd}>완료</span>
-      </div>
-      <hr />
-      <button className="logout-btn">로그아웃</button>
-    </Box>
-  )
-}
+import EditIng from "./Editing"
+import NotEdit from "./NotEdit"
 
 
 function Drawer() {
@@ -55,16 +29,23 @@ function Drawer() {
   }
 
   const editEnd = () => {
-    dispatch(editProfile(nickname, profileImg))
+    dispatch(editProfile({nickname, profileImg}))
     setEdit(false)
   }
-
+  
   const handleNickname = (e) => {
     setNickname(e.target.value)
   }
-
-  const handleProfileImg = () => {
-    setProfileImg()
+  
+  const handleProfileImg = (img) => {
+    setProfileImg(img)
+  }
+  
+  const handleOnKeyPress = (e) => {
+    if (e.key === "Enter") {
+      setEdit(false)
+      dispatch(editProfile(nickname, edit))
+    }
   }
 
 
@@ -79,7 +60,7 @@ function Drawer() {
         >
         {
           edit
-          ? <EditIng nickname={nickname} profileImg={profileImg} handleNickname={handleNickname} handleProfileImg={handleProfileImg} editEnd={editEnd} />
+          ? <EditIng nickname={nickname} profileImg={profileImg} handleNickname={handleNickname} handleProfileImg={handleProfileImg} editEnd={editEnd} handleOnKeyPress={handleOnKeyPress} />
           : <NotEdit nickname={nickname} profileImg={profileImg} editStart={editStart} />
         }
       </SwipeableDrawer>
