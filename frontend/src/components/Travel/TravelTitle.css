@@ -1,0 +1,69 @@
+p {
+    display: inline-block;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.container-title {
+    height: 14vh;
+    padding: 2vh 4vh;
+    display: grid;
+    grid-template-rows: 1fr 0.5fr 0.5fr 0.8fr auto;
+}
+
+.travel-title {
+    height: 5vh;
+}
+
+.travel-title p {
+    padding-right: 2vw;
+    font-size: 6vw;
+    font-weight: 700;
+}
+
+.travel-title .avatar-group {
+    width: fit-content;
+    display: inline-flex;
+    padding: 0.5vh;
+}
+
+.travel-title .avatar-group * {
+    height: 3vh;
+    width: 3vh;
+    font-size: 3vw;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.travel-info p {
+    padding-right: 4vw;
+    font-size: 3vw;
+    font-weight: 500;
+}
+
+.travel-style p {
+    padding-right: 1vw;
+    font-size: 3vw;
+    font-weight: 500;
+}
+
+.travel-link {
+    justify-self: end;
+}
+
+.travel-link p {
+    padding-right: 2vw;
+    font-size: 2vw;
+    font-weight: 600;
+}
+
+.travel-link img {
+    height: 3vh;
+    width: auto;
+}
+
+.divider {
+    padding: 0vh 2vh;
+}

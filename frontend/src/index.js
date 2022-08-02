@@ -1,21 +1,30 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import Login from './component/Login'
-import Signup from './component/Signup'
-// import './index.css';
-// import reportWebVitals from './reportWebVitals';
+import ReactDOM from 'react-dom/client'
+import { Provider } from 'react-redux'
+import store from './store/store'
+// import App from './App'
+import Travel from 'routes/Travel'
+import Home from './routes/Home'
+import TravelEdit from 'routes/TravelEdit'
+import KakaoLogin from 'routes/KakaoLogin';
+import KakaoLoading from "routes/KakaoLoading"
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="login" element={<Login />} />
-      <Route path="signup" element={<Signup />} />
-    </Routes>
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="travel" element={<Travel />} />
+        <Route path="traveledit" element={<TravelEdit />} />
+        <Route path="login" element={<KakaoLogin />} />
+        <Route path="kakao/callback" element={<KakaoLoading />} />
+      </Routes>
+    </BrowserRouter>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

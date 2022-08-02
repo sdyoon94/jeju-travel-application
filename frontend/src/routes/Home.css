@@ -1,0 +1,119 @@
+.margin-top-no-travel {
+  margin-top: 27vh;
+}
+
+.margin-top-travel {
+  margin-top: 13vh;
+}
+
+.pin {
+  transform: scaleX(-1);
+  height: 5vw;
+  margin-top: 10px;
+  margin-right: 5px;
+}
+
+.trip-list-box {
+  background: rgba(217, 217, 217, 0.3);
+  border-radius: 5px;
+  width: 70vw;
+  margin: auto;
+  height: 50vh;
+  overflow: scroll;
+}
+
+.profiles-size {
+  size: 10px;
+}
+
+.trip-summary-box {
+  display: flex;
+  align-items: center;
+}
+
+.title-margin {
+  margin-bottom: 12vw;
+}
+
+.hareubang{
+  width: 300px;
+}
+
+.phrase-margin {
+  margin: 5px;
+}
+
+.new-user-btn {
+  border: none;
+  width: 50vw;
+  height: 12vw;
+  font-size: 4vw;
+  text-align: center;
+  background: #1E88E5;
+  border-radius: 10px;
+  color: #FFFFFF;
+  margin-top: 50px;
+}
+
+.drawer-profile {
+  display: flex;
+  justify-content: space-between;
+}
+
+.drawer-profile-item {
+  align-self: center;
+}
+
+.user-edit {
+  margin-top: 5vh;
+  cursor: pointer;
+}
+
+.logout-btn {
+  position: absolute;
+  right: 30px;
+  bottom: 50px;
+  border: 2px solid #f44336;
+  background-color: white;
+  width: 100px;
+  height: 35px;
+  color: red;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.logout-btn:active {
+  background: #f44336;
+  color: white;
+}
+
+.travel-list-title {
+  margin: 3vw;
+  text-overflow: ellipsis; 
+  overflow: hidden;
+  white-space: nowrap; 
+}
+
+.travel-list-date {
+  margin: 2vw 3vw;
+}
+
+.hr-margin {
+  margin: 0;
+}
+
+.hamburger-icon {
+  width: 5vw;
+  height: 5vw;
+  position: absolute;
+  right: 13vw;
+  top: 9vw;
+}
+
+
+
+
+
+

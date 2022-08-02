@@ -1,0 +1,187 @@
+{
+  "userUid": "1",
+  "travels": [
+    {
+      "title": "진오의 여행1",
+      "startDate": "22.07.23",
+      "periodInDays": 3,
+      "members": [
+        {
+          "memberUid": 1,
+          "nickname": "진오",
+          "profileImg": "path1"
+        },
+        {
+          "memberUid": 2,
+          "nickname": "소정",
+          "profileImg": "path2"
+        },
+        {
+          "memberUid": 3,
+          "nickname": "성도",
+          "profileImg": "path3"
+        },
+        {
+          "memberUid": 4,
+          "nickname": "창현",
+          "profileImg": "path4"
+        },
+        {
+          "memberUid": 5,
+          "nickname": "지운",
+          "profileImg": "path5"
+        },
+        {
+          "memberUid": 6,
+          "nickname": "감자",
+          "profileImg": "path6"
+        }
+      ]
+    },
+    {
+      "title": "여행가자",
+      "startDate": "22.09.13",
+      "periodInDays": 3,
+      "members": [
+        {
+          "memberUid": 1,
+          "profileImg": "path1"
+        },
+        {
+          "memberUid": 2,
+          "profileImg": "path2"
+        },
+        {
+          "memberUid": 3,
+          "profileImg": "path3"
+        }
+      ]
+    },
+    {
+      "title": "여행가자",
+      "startDate": "22.09.13",
+      "periodInDays": 3,
+      "members": [
+        {
+          "memberUid": 1,
+          "profileImg": "path1"
+        },
+        {
+          "memberUid": 2,
+          "profileImg": "path2"
+        },
+        {
+          "memberUid": 3,
+          "profileImg": "path3"
+        }
+      ]
+    },
+    {
+      "title": "여행가자",
+      "startDate": "22.09.13",
+      "periodInDays": 3,
+      "members": [
+        {
+          "memberUid": 1,
+          "profileImg": "path1"
+        },
+        {
+          "memberUid": 2,
+          "profileImg": "path2"
+        },
+        {
+          "memberUid": 3,
+          "profileImg": "path3"
+        }
+      ]
+    },
+    {
+      "title": "여행가자",
+      "startDate": "22.09.13",
+      "periodInDays": 3,
+      "members": [
+        {
+          "memberUid": 1,
+          "profileImg": "path1"
+        },
+        {
+          "memberUid": 2,
+          "profileImg": "path2"
+        },
+        {
+          "memberUid": 3,
+          "profileImg": "path3"
+        }
+      ]
+    },
+    {
+      "title": "여행가자이렇게길어지면나도몰라요",
+      "startDate": "22.09.13",
+      "periodInDays": 3,
+      "members": [
+        {
+          "memberUid": 1,
+          "profileImg": "path1"
+        },
+        {
+          "memberUid": 2,
+          "profileImg": "path2"
+        },
+        {
+          "memberUid": 3,
+          "profileImg": "path3"
+        },
+        {
+          "memberUid": 4,
+          "profileImg": "path3"
+        }
+      ]
+    },
+    {
+      "title": "여행가자",
+      "startDate": "22.09.13",
+      "periodInDays": 3,
+      "members": [
+        {
+          "memberUid": 1,
+          "profileImg": "path1"
+        },
+        {
+          "memberUid": 2,
+          "profileImg": "path2"
+        },
+        {
+          "memberUid": 3,
+          "profileImg": "path3"
+        },
+        {
+          "memberUid": 4,
+          "profileImg": "path3"
+        }
+      ]
+    },
+    {
+      "title": "여행가자",
+      "startDate": "22.09.13",
+      "periodInDays": 3,
+      "members": [
+        {
+          "memberUid": 1,
+          "profileImg": "path1"
+        },
+        {
+          "memberUid": 2,
+          "profileImg": "path2"
+        },
+        {
+          "memberUid": 3,
+          "profileImg": "path3"
+        },
+        {
+          "memberUid": 4,
+          "profileImg": "path3"
+        }
+      ]
+    }
+  ]
+}
