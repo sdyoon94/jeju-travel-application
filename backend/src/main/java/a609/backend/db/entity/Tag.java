@@ -12,12 +12,12 @@ public class Tag {
 
     private String tagName;
 
-    private double style1;
-    private double style2;
-    private double style3;
-    private double style4;
-    private double style5;
-    private double style6;
-    private double style7;
+    private Double style1;
+    private Double style2;
+    private Double style3;
+    private Double style4;
+    private Double style5;
+    private Double style6;
+    private Double style7;
 
 }

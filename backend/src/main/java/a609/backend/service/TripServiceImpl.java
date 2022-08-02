@@ -2,14 +2,19 @@ package a609.backend.service;
 
 import a609.backend.db.entity.Trip;
 import a609.backend.db.repository.TripRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class TripServiceImpl implements TripService{
 
     @Autowired
     TripRepository tripRepository;
+
+    @Autowired
+    TripScheduleService tripScheduleService;
 
     @Override
     public Trip showTripInfo(int tripId) {
@@ -18,7 +23,9 @@ public class TripServiceImpl implements TripService{
 
     @Override
     public void registerTrip(Trip trip) {
-        tripRepository.save(trip);
+        Trip saveTrip = tripRepository.save(trip);
+        tripScheduleService.registerSchedule(saveTrip);
+
     }
 
     @Override
@@ -33,9 +40,6 @@ public class TripServiceImpl implements TripService{
         if(trip.getBudget() != null){
             originTrip.setBudget(trip.getBudget());
         }
-        if(trip.getEndDate() != null){
-            originTrip.setEndDate(trip.getEndDate());
-        }
         if(trip.getStartDate() != null){
             originTrip.setStartDate(trip.getStartDate());
         }
@@ -48,5 +52,10 @@ public class TripServiceImpl implements TripService{
     @Override
     public void deleteTrip(int tripId) {
         tripRepository.deleteTripByTripId(tripId);
+    }
+
+    @Override
+    public void deleteUserTrip(int userId) {
+        //trip의 tripmember를 불러와 유저id만 삭제해야됨
     }
 }
