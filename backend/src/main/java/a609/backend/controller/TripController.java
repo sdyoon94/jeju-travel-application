@@ -12,7 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/trips")
-public class TripContoroller {
+public class TripController {
 
     @Autowired
     TripService tripService;

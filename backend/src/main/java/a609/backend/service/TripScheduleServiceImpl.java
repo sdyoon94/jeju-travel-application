@@ -29,8 +29,6 @@ public class TripScheduleServiceImpl implements TripScheduleService{
     public void registerSchedule(Trip saveTrip) {
 
         //day생성
-
-
         for (int i =1; i<=saveTrip.getPeriod();i++){
             Day day = new Day();
             day.setTripId(saveTrip.getTripId());
