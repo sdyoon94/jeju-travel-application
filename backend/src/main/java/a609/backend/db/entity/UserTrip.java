@@ -10,7 +10,7 @@ public class UserTrip {
     @Column(name="USER_TRIP_ID")
     private int userTripID;
 
-    private int style;
+    private Integer style;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TRIP_ID")

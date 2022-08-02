@@ -21,6 +21,7 @@ public class TripContoroller {
     public ResponseEntity<String> registerTrip(@RequestBody Trip trip){
         Map<String, Object> resultMap = new HashMap<>();
         tripService.registerTrip(trip);
+
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
@@ -41,10 +42,21 @@ public class TripContoroller {
         return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{tripId}")
+    //여행 전체 삭제
+    @DeleteMapping("/trip/{tripId}")
     public ResponseEntity<Map<String,Object>> deleteTrip(@PathVariable int tripId){
         Map<String, Object> resultMap = new HashMap<>();
         tripService.deleteTrip(tripId);
+
+        resultMap.put("message", "Success");
+        return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+    }
+
+    //개인의 여행 나가기
+    @DeleteMapping("/user/{userId}")
+    public ResponseEntity<Map<String,Object>> deleteUserTrip(@PathVariable int userId){
+        Map<String, Object> resultMap = new HashMap<>();
+        tripService.deleteUserTrip(userId);
 
         resultMap.put("message", "Success");
         return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);

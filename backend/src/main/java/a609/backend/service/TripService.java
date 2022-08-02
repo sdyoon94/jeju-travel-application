@@ -10,4 +10,6 @@ public interface TripService {
     void registerTrip(Trip trip);
     void updateTrip(int tripId,Trip trip);
     void deleteTrip(int tripId);
+
+    void deleteUserTrip(int userId);
 }
