@@ -5,11 +5,13 @@ import a609.backend.db.entity.User;
 import a609.backend.db.entity.UserTrip;
 import a609.backend.db.repository.TripRepository;
 import a609.backend.db.repository.UserRepository;
+import a609.backend.db.repository.UserTripRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @Slf4j
@@ -24,6 +26,9 @@ public class TripServiceImpl implements TripService{
 
     @Autowired
     TripScheduleService tripScheduleService;
+
+    @Autowired
+    UserTripRepository userTripRepository;
 
     @Override
     public Trip showTripInfo(int tripId) {
@@ -41,18 +46,22 @@ public class TripServiceImpl implements TripService{
 
     @Override
     public void registerTrip(Trip trip,String userId) {
-
-        trip.setStyle(2);
+        Trip savedTrip = tripRepository.save(trip);
         User user = userRepository.findOneByKakaoId(userId);
-        log.info("트립"+trip.toString());
         UserTrip userTrip = new UserTrip();
-        user.getUsersTrip().add(userTrip);
-        trip.getTripMember().add(userTrip);
+        userTrip.setTrip(savedTrip);
+        userTrip.setUser(user);
+        userTripRepository.save(userTrip);
 
-        Trip saveTrip = tripRepository.save(trip);
-
-        userRepository.save(user);
-        tripScheduleService.registerSchedule(saveTrip);
+        //여기는 테스트니까 지우던 말던 캡틴 맘대로 하쇼
+//        List<UserTrip> userIds = userTripRepository.findByTripTripId(savedTrip.getTripId());
+//        for (UserTrip userTrip1 : userIds) {
+//            System.out.println("userTrip1.getUser().getUsername() = " + userTrip1.getUser().getKakaoId());
+//        }
+//        List<UserTrip> tripIds = userTripRepository.findByUserKakaoId(userId);
+//        for (UserTrip tripId : tripIds) {
+//            System.out.println(tripId.getUserTripID());
+//        }
 
     }
 

@@ -15,7 +15,7 @@ public class UserTrip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="USER_TRIP_ID")
-    private int userTripID;
+    private Long userTripID;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -23,6 +23,6 @@ public class UserTrip {
     private Trip trip;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "KAKAO_ID")
     private User user;
 }

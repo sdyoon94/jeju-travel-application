@@ -21,7 +21,6 @@ public class TripContoroller {
     public ResponseEntity<String> registerTrip(@RequestBody Trip trip,@PathVariable String userId){
         Map<String, Object> resultMap = new HashMap<>();
         tripService.registerTrip(trip,userId);
-
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 

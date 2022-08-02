@@ -35,13 +35,12 @@ public class Trip {
     @Temporal(TemporalType.DATE)
     private Date startTime;
 
-    @OneToMany(mappedBy="trip")
+    @OneToMany(mappedBy="trip", cascade=CascadeType.ALL)
     List<UserTrip> tripMember = new ArrayList<>();
 
     @Column(name="BUDGET")
     private Integer budget;
 
-    @ColumnDefault("0")
     @Column(name="STYLE")
     private Integer style;
 
