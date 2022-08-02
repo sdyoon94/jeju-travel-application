@@ -1,21 +1,44 @@
-import { AvatarGroup, Avatar, Divider } from "@mui/material";
+import { AvatarGroup, Avatar, Divider } from "@mui/material"
 
-import React, { useState } from "react";
-import { getEndDate } from 'components/DateTime/date';
+import React, { useEffect, useState } from "react";
+import { getEndDate } from 'components/DateTime/date'
 
 import "./TravelTitle.css"
 import "globalStyle.css"
+
+const KAKAO_API_KEY = "03817511d5315ef223b0e6861c8f729e"
 
 function TravelTitle({ title, members, maxMemberCnt, startDate, periodInDays, budget, styles, joinAddress }) {
 
     const [ endDate, setEndDate ] = useState(getEndDate(startDate, periodInDays))
 
-    const onClickJoinLinkHandler = e => {
-        e.preventDefault()
-        if (members.length < maxMemberCnt) {
-            console.log("멤버 초대 링크!");
+    const joinUrl = "http://localhost:3000"
+
+    useEffect(() => {
+        initKakao()
+    }, [])
+
+    const initKakao = () => {
+        if (window.Kakao) {
+            const kakao = window.Kakao
+            if (!kakao.isInitialized()) {
+                kakao.init(KAKAO_API_KEY)
+            }
         }
-        // 최대 멤버 수를 초과했을 경우, 링크 비활성화
+    }
+
+    const share = () => {
+        window.Kakao.Share.sendDefault({
+            objectType: 'text',
+            text:
+              '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
+            link: {
+              mobileWebUrl:
+                joinUrl,
+              webUrl:
+                joinUrl,
+            }
+        })
     }
 
     return (
@@ -47,14 +70,13 @@ function TravelTitle({ title, members, maxMemberCnt, startDate, periodInDays, bu
                     )
                 }
             </div>
-            <div className="travel-link">
-                <div onClick={onClickJoinLinkHandler}>
-                    <p>초대하기</p>
-                    <img
-                        src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-                        alt={"카카오톡 공유 보내기 버튼" + joinAddress}
-                    />
-                </div>
+            <div id="kakao-link-btn" onClick={share}>
+                {/* Kakao share button */}
+                <p>초대하기</p>
+                <img
+                    src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+                    alt={"카카오톡 공유하기 버튼"}
+                />
             </div>
             <Divider className="divider" />
         </div>
