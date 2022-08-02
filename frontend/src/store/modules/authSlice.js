@@ -6,8 +6,9 @@ const decoded = jwt_decode(localStorage.getItem("token"))
 
 const initialState = {
   token: localStorage.getItem("token") || "",
-  nickname: decoded?.nickname,
-  profileImg: "",
+  nickname: decoded.nickname || "",
+  profileImg: decoded.image_path || "",
+  id: decoded.id || "",
   error: null,
 }
 
@@ -31,7 +32,11 @@ const initialState = {
   const loginSlice = createSlice({
     name: "auth",
     initialState,
-    reducers: {},
+    reducers: {
+      editProfile(state, { payload }) {
+        console.log(payload)
+      }
+    },
   //   extraReducers: (builder) => {
   //     builder
   //     .addCase(fetchLogin.fulfilled, (state, { payload }) => {
@@ -48,5 +53,5 @@ const initialState = {
 })
 
 const { actions, reducer } = loginSlice
-export const { login } = actions
+export const { editProfile } = actions
 export default reducer
