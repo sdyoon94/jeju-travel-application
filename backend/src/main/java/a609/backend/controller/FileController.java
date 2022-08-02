@@ -18,14 +18,14 @@ public class FileController {
     @Autowired
     FileService fileService;
 
-    @PostMapping("/upload/{email}")
-    public ResponseEntity<Map<String, String>> fileUpload(@PathVariable String email, @RequestParam("file") MultipartFile file) throws IOException {
+    @PostMapping("/upload/{id}")
+    public ResponseEntity<Map<String, String>> fileUpload(@PathVariable String id, @RequestParam("file") MultipartFile file) throws IOException {
 
         Map<String, String> resultMap = new HashMap<>();
         HttpStatus status = null;
         // 이미지 파일만 업로드 가능
         if (file.getContentType().startsWith("image") ) {
-            fileService.uploadFile(file,email);
+            fileService.uploadFile(file,id);
             resultMap.put("message","Success");
         }else {
             resultMap.put("message","이미지 파일만 업로드 가능합니다.");
@@ -35,10 +35,10 @@ public class FileController {
 
     }
 
-    @GetMapping("/view/{email}")
-    public ResponseEntity<Map<String, String>> fileView(@PathVariable String email) {
+    @GetMapping("/view/{id}")
+    public ResponseEntity<Map<String, String>> fileView(@PathVariable String id) {
         Map<String, String> resultMap = new HashMap<>();
-        User image = fileService.findImageByEmail(email);
+        User image = fileService.findImageById(id);
         if (image ==null) {
             resultMap.put("message", "등록된 사진이 없습니다.");
         } else {
@@ -47,11 +47,11 @@ public class FileController {
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{email}")
-    public ResponseEntity<Map<String, String>> fileDelete(@PathVariable String email) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Map<String, String>> fileDelete(@PathVariable String id) {
         Map<String, String> resultMap = new HashMap<>();
 
-        int check= fileService.deleteByEmail(email);
+        int check= fileService.deleteById(id);
         if(check==1){
             resultMap.put("message", "Success");
         }else {

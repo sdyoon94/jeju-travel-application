@@ -12,20 +12,19 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/trips")
-public class TripContoroller {
+public class TripController {
 
     @Autowired
     TripService tripService;
 
-    @PostMapping("/register")
-    public ResponseEntity<String> registerTrip(@RequestBody Trip trip){
+    @PostMapping("/register/{userId}")
+    public ResponseEntity<String> registerTrip(@RequestBody Trip trip,@PathVariable String userId){
         Map<String, Object> resultMap = new HashMap<>();
-        tripService.registerTrip(trip);
-
+        tripService.registerTrip(trip,userId);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
-    @GetMapping("/showTrip/{tripId}")
+    @GetMapping("/showTripInfo/{tripId}")
     public ResponseEntity<Map<String,Object>> showTripInfo(@PathVariable int tripId){
         Map<String, Object> resultMap = new HashMap<>();
         Trip tripInfo = tripService.showTripInfo(tripId);
@@ -60,6 +59,14 @@ public class TripContoroller {
 
         resultMap.put("message", "Success");
         return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+    }
+
+    @GetMapping("/showTripList/{userId}")
+    public ResponseEntity<Map<String,Object>> showTripList(@PathVariable int userId){
+        Map<String, Object> resultMap = new HashMap<>();
+
+
+        return new ResponseEntity<Map<String,Object>>(resultMap, HttpStatus.OK);
     }
 
 

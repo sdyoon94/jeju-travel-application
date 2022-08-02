@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface FileService {
 
     void uploadFile(MultipartFile file, String id);
-    User findImageByEmail(String email);
+    User findImageById(String id);
 
-    int deleteByEmail(String email);
+    int deleteById(String id);
 }
