@@ -3,6 +3,7 @@ package a609.backend.db.entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -40,8 +41,10 @@ public class Trip {
     @Column(name="BUDGET")
     private Integer budget;
 
+    @ColumnDefault("0")
     @Column(name="STYLE")
     private Integer style;
+
 
 
     //이동수단 기본 자동차

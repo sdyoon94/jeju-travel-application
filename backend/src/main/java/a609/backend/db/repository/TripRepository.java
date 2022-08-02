@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 public interface TripRepository extends JpaRepository<Trip, String> {
@@ -14,6 +15,9 @@ public interface TripRepository extends JpaRepository<Trip, String> {
 
     @Transactional
     void deleteTripByTripId(int tripId);
+
+//    //목록 불러오기
+//    List<Trip> findAllByUserId(int userId);
 
 
 }
