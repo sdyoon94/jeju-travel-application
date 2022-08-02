@@ -1,8 +1,9 @@
 .schedule-info {
 	font-size: 4vw;
-	font-weight: 600;
+	/* font-weight: 600; */
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 }
 
 .schedule-info * {
@@ -19,19 +20,15 @@
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 10px;
 	height: 4.5vh;
-	/* width: 50em; */
-}
-
-.schedule-box p {
-	padding: 0 0.3em;
+	width: 60vw;
 }
 
 .schedule-box > p {
-	padding-top: 0.3em;
+	padding: 0 0.3em;
 }
 
 .transportation {
-	margin: 1vh 0 0.5vh 0;
+	margin-top: 1vh;
 }
 
 .plus {
@@ -39,5 +36,19 @@
 }
 
 .schedule-start-time {
-	width: 70px;
+	width: 15vw;
+	height: auto;
 }
+
+.schedule-start-time > input {
+	border: none;
+	color: black;
+	padding: 0;
+}
+
+.schedule-start-time a {
+	line-height: inherit;
+	right: 9px;
+}
+
+

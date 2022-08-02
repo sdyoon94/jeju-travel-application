@@ -7,21 +7,17 @@ import { fetchDirection } from "store/modules/distanceSlice"
 import { useDispatch } from "react-redux"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
-const grid = 8
+const grid = 6
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: "none",
-	// background: isDragging ? "lightgreen" : "",
-  // padding: grid,
-  // margin: `0 0 ${grid * 2}px 0`,
-  // border: "5px solid #BBDEFB",
-  // boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-  // borderRadius: "10px",
+  padding: grid,
+  margin :isDragging ? `0 0 ${grid}px 0` : "0px",
   // background: isDragging ? "rgba(0, 0, 0, 0.25)" : "white",
   ...draggableStyle
 })
 const getListStyle = () => ({
   padding: grid,
-  width: 310,
+  width: "75vw",
   position: "relative",
   margin: "auto"
 })
@@ -29,7 +25,7 @@ const getListStyle = () => ({
 const queryAttr = "data-rbd-drag-handle-draggable-id"
 
 
-function Course({ day, course }) {
+function Course({ day, course, courseIndex }) {
 	const [route, setRoute] = useState(course.route)
 	const dispatch = useDispatch()
 
@@ -142,6 +138,8 @@ function Course({ day, course }) {
 				>
 					<Schedule
 						key={index}
+						scheduleIndex={index}
+						courseIndex={courseIndex}
 						place={place}
 						startTime={startTimes[index]}
 						timeReq={timeReqs[index]}

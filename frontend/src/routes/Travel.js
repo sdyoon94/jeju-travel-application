@@ -15,6 +15,7 @@ import { initDirections } from "store/modules/distanceSlice"
 function Travel() {
     // get travel
     const travel = useSelector((state) => state.travel)
+    console.log(travel)
     const dispatch = useDispatch()
 
     // immutable
