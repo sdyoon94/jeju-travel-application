@@ -57,16 +57,35 @@
 
 .drawer-profile {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
 }
 
 .drawer-profile-item {
-  align-self: center;
+  margin-bottom: 50px;
+}
+
+.drawer-profile > span {
+  align-self: flex-end;
+  margin-right: 10px;
 }
 
 .user-edit {
-  margin-top: 5vh;
+  margin-left: 32vw;
   cursor: pointer;
+}
+
+.drawer-profile > input {
+  border: none;
+  border-bottom: 1px solid #000000;
+  width: 40vw;
+  font-size: 6vw;
+  padding: 0.8em 0.5em;
+} 
+
+.drawer-profile > input:focus {
+  outline: none;
+  border-bottom: 2px solid #1E88E5;
 }
 
 .logout-btn {

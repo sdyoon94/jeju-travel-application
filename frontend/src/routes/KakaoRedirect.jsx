@@ -1,24 +1,18 @@
 import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { fetchLogin } from "store/modules/auth"
 import { useNavigate } from "react-router-dom"
 
 
-function KakaoLoading() {
-  const dispatch = useDispatch()
+function KakaoRedirect() {
   const navigate = useNavigate()
   const href = window.location.href
   const params = new URL(href).searchParams
-  const code = params.get("code")
-  const token = useSelector(state => state.auth.token)
-
-  useEffect(() => {
-    dispatch(fetchLogin(code))
-  })
+  const token = params.get("token")
   
   useEffect(() => {
     if (token) {
       navigate("/", { replace: true })
+      localStorage.clear()
+      localStorage.setItem("token", token)
     }
     // eslint-disable-next-line
   }, [token])
@@ -30,4 +24,4 @@ function KakaoLoading() {
   )
 }
 
-export default KakaoLoading
+export default KakaoRedirect
