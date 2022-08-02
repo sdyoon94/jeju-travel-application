@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @Service
 public class TripScheduleServiceImpl implements TripScheduleService{
@@ -44,6 +46,7 @@ public class TripScheduleServiceImpl implements TripScheduleService{
             //몇개 일정 뽑을지..?for문반복?
             Schedule schedule = new Schedule();
             schedule.setDayId(saveDay.getDayId());
+            schedule.setTripId(saveTrip.getTripId());
             schedule.setPlaceId(algorithm.create(saveTrip));//알고리즘으로 뽑기
             scheduleRepository.save(schedule);
         }
@@ -53,5 +56,10 @@ public class TripScheduleServiceImpl implements TripScheduleService{
     @Override
     public void updateSchedule() {
 
+    }
+
+    @Override
+    public List<Schedule> showTripSceduleList(int tripId) {
+        return scheduleRepository.findAllByTripId(tripId);
     }
 }

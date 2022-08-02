@@ -1,7 +1,14 @@
 package a609.backend.db.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
+@ToString
 @Entity
 public class UserTrip {
 
@@ -10,7 +17,6 @@ public class UserTrip {
     @Column(name="USER_TRIP_ID")
     private int userTripID;
 
-    private Integer style;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TRIP_ID")
