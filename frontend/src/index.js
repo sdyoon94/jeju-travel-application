@@ -9,6 +9,7 @@ import Home from './routes/Home'
 import TravelEdit from 'routes/TravelEdit'
 import KakaoLogin from 'routes/KakaoLogin';
 import KakaoRedirect from "routes/KakaoRedirect"
+import Edit from 'components/Home/Edit';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,6 +18,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="edit" element={<Edit />} />
         <Route path="travel" element={<Travel />} />
         <Route path="traveledit" element={<TravelEdit />} />
         <Route path="login" element={<KakaoLogin />} />
