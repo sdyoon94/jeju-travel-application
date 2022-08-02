@@ -76,6 +76,7 @@ function TravelBody({ startDate, periodInDays, courses, setCourses, courseIdx, s
                             <Course
                                 day={day}
                                 course={course}
+                                courseIndex={i}
                             />
                         </div>
                     )

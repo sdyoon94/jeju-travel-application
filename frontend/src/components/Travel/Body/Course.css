@@ -3,6 +3,5 @@
     padding: 2vh 5vw;
     display: grid;
     grid-auto-rows: min-content;
-    row-gap: 2vh;
     overflow-y: scroll;
 }
