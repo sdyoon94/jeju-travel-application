@@ -11,9 +11,9 @@ const courseListSlice = createSlice({
     editCourses(state, { payload }) {
       state.courses[payload.idx].route = payload.newSpots
     },
-    editStartTime(state, { payload }) {
-      state.courses[payload.idx].startTime = payload.newStartTime
-    },
+    // editStartTime(state, { payload }) {
+    //   state.courses[payload.idx].startTime = payload.newStartTime
+    // },
     editStayTime(state, { payload }) {
       state.courses[payload.dayIdx].route[payload.courseIdx].duration = payload.stayMinutes
     }

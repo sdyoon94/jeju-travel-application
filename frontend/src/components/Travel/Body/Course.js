@@ -7,20 +7,17 @@ import { fetchDirection } from "store/modules/distanceSlice"
 import { useDispatch } from "react-redux"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
-const grid = 8
+const grid = 6
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: "none",
   padding: grid,
-  margin: `0 0 ${grid * 2}px 0`,
-  border: "5px solid #BBDEFB",
-  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-  borderRadius: "10px",
-  background: isDragging ? "rgba(0, 0, 0, 0.25)" : "white",
+  margin :isDragging ? `0 0 ${grid}px 0` : "0px",
+  // background: isDragging ? "rgba(0, 0, 0, 0.25)" : "white",
   ...draggableStyle
 })
-const getListStyle = (isDraggingOver) => ({
+const getListStyle = () => ({
   padding: grid,
-  width: 310,
+  width: "75vw",
   position: "relative",
   margin: "auto"
 })
@@ -28,7 +25,7 @@ const getListStyle = (isDraggingOver) => ({
 const queryAttr = "data-rbd-drag-handle-draggable-id"
 
 
-function Course({ day, course }) {
+function Course({ day, course, courseIndex }) {
 	const [route, setRoute] = useState(course.route)
 	const dispatch = useDispatch()
 
@@ -42,21 +39,21 @@ function Course({ day, course }) {
 			let startTimes_ = [ startTime ]
 			let timeReqs_ = []
 
-			const response = await dispatch(fetchDirection({ index: day-1, route: route }))
+		const response = await dispatch(fetchDirection({ index: day-1, route: route }))
 			
 
-			const len = route.length
-				for (let i = 1; i < len; i++) {
-					const duration = route[i-1].duration
-					const timeReq = secToTime(response.payload.directions[i-1].duration)
+		const len = route.length
+			for (let i = 1; i < len; i++) {
+				const duration = route[i-1].duration
+				const timeReq = secToTime(response.payload.directions[i-1].duration)
 
-					startTime = addTime(startTime, duration, timeReq)
-					startTimes_.push(startTime)
-					timeReqs_.push(timeReq)
-				}
-				setStartTimes(startTimes_)
-				setTimeReqs(timeReqs_)
+				startTime = addTime(startTime, duration, timeReq)
+				startTimes_.push(startTime)
+				timeReqs_.push(timeReq)
 			}
+			setStartTimes(startTimes_)
+			setTimeReqs(timeReqs_)
+		}
 		fetchData({index: day-1, route})
 	}, [course, route, day, dispatch])
 
@@ -68,8 +65,10 @@ function Course({ day, course }) {
 		}
 
 	const setPlaceholderProps = useState({})[1]
+	const [ hold, setHold ] = useState(false)
 
 	const onDragEnd = result => {
+		setHold(false)
     if (!result.destination) {
       return
 		}
@@ -78,6 +77,7 @@ function Course({ day, course }) {
   } 
 
 	const onDragUpdate = update => {
+		setHold(true)
     if(!update.destination){
       return
     }
@@ -112,7 +112,7 @@ function Course({ day, course }) {
 	return (
 		<DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
 			<Droppable droppableId="droppable">
-				{(provided, snapshot) => (       
+				{(provided, snapshot) => (
 				<div
 				{...provided.droppableProps}
 				ref={provided.innerRef}
@@ -123,7 +123,7 @@ function Course({ day, course }) {
 					style={{
 					display: day === 1 ? "grid": "none"
 					}}
-				>
+					>
 				{route.map((place, index) => (
 				<Draggable key={index} draggableId={index.toString()} index={index}>
 				{(provided, snapshot) => (
@@ -138,11 +138,14 @@ function Course({ day, course }) {
 				>
 					<Schedule
 						key={index}
+						scheduleIndex={index}
+						courseIndex={courseIndex}
 						place={place}
 						startTime={startTimes[index]}
 						timeReq={timeReqs[index]}
 						isFirst={index === 0}
 						isLast={index === timeReqs.length}
+						hold={hold}
 					/>
 				</div>
 				)}
