@@ -90,8 +90,6 @@ function MapDrawer({ startDate, courses, courseIdx }) {
 
     const Map = ({ route, markers }) => {
         const onLoad = useCallback((mapInstance) => {
-            console.log("google map onload called");
-
             while (markers.length > 0) {
                 markers.pop().setMap(null)
             }
