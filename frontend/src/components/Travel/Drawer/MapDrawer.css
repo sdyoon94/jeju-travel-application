@@ -7,3 +7,50 @@
     height: 4vh;
     width: 4vh;
 }
+
+.map-title {
+    font-size: 5vw;
+    font-weight: 600;
+    vertical-align: middle;
+    padding: 3vh 3vw 1vh;
+}
+
+#place {
+    height: 15vh;
+    padding: 2vh 5vw;
+}
+
+#place-name {
+    height: 3vh;
+    padding: 0;
+    font-size: 5vw;
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+#place-spec {
+    height: 10vh;
+    padding: 1vh;
+    display: grid;
+    align-items: center;
+    grid-template-columns: minmax(32vw, auto) auto;
+}
+
+#place-image {
+    height: auto;
+    width: 30vw;
+    display: none;
+    padding-right: 2vw;
+}
+
+#place-addr {
+    font-size: 4vw;
+    padding-bottom: 2vh;
+    display: none;
+}
+
+#place-tag {
+    font-size: 4vw;
+    font-weight: 600;
+    line-height: 1.3em;
+}

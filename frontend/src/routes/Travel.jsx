@@ -87,6 +87,7 @@ function Travel() {
                     setStartTime={setStartTime}
                 />
                 <TravelFooter 
+                    startDate={startDate}
                     courses={courses}
                     courseIdx={courseIdx}
                 />
