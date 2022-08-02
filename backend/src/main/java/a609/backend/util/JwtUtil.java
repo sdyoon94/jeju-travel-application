@@ -33,8 +33,9 @@ public class JwtUtil {
         Map<String, Object> payloads = new HashMap<>();
         Map<String, Object> attributes = userPrincipal.getAttributes();
         Map<String, Object> properties = (Map<String, Object>)attributes.get("properties");
-        payloads.put("id", userPrincipal.getAttribute("name"));
+        payloads.put("id", userPrincipal.getName());
         payloads.put("nickname", properties.get("nickname"));
+        payloads.put("image_path", properties.get("profile_image"));
 
         return Jwts.builder()
                 .setHeader(headers)
