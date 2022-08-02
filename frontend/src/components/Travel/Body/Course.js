@@ -10,6 +10,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 const grid = 8
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: "none",
+	// background: isDragging ? "lightgreen" : "",
   // padding: grid,
   // margin: `0 0 ${grid * 2}px 0`,
   // border: "5px solid #BBDEFB",
@@ -18,7 +19,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   // background: isDragging ? "rgba(0, 0, 0, 0.25)" : "white",
   ...draggableStyle
 })
-const getListStyle = (isDraggingOver) => ({
+const getListStyle = () => ({
   padding: grid,
   width: 310,
   position: "relative",
@@ -42,21 +43,21 @@ function Course({ day, course }) {
 			let startTimes_ = [ startTime ]
 			let timeReqs_ = []
 
-			const response = await dispatch(fetchDirection({ index: day-1, route: route }))
+		const response = await dispatch(fetchDirection({ index: day-1, route: route }))
 			
 
-			const len = route.length
-				for (let i = 1; i < len; i++) {
-					const duration = route[i-1].duration
-					const timeReq = secToTime(response.payload.directions[i-1].duration)
+		const len = route.length
+			for (let i = 1; i < len; i++) {
+				const duration = route[i-1].duration
+				const timeReq = secToTime(response.payload.directions[i-1].duration)
 
-					startTime = addTime(startTime, duration, timeReq)
-					startTimes_.push(startTime)
-					timeReqs_.push(timeReq)
-				}
-				setStartTimes(startTimes_)
-				setTimeReqs(timeReqs_)
+				startTime = addTime(startTime, duration, timeReq)
+				startTimes_.push(startTime)
+				timeReqs_.push(timeReq)
 			}
+			setStartTimes(startTimes_)
+			setTimeReqs(timeReqs_)
+		}
 		fetchData({index: day-1, route})
 	}, [course, route, day, dispatch])
 
@@ -115,7 +116,7 @@ function Course({ day, course }) {
 	return (
 		<DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
 			<Droppable droppableId="droppable">
-				{(provided, snapshot) => (       
+				{(provided, snapshot) => (
 				<div
 				{...provided.droppableProps}
 				ref={provided.innerRef}
@@ -126,7 +127,7 @@ function Course({ day, course }) {
 					style={{
 					display: day === 1 ? "grid": "none"
 					}}
-				>
+					>
 				{route.map((place, index) => (
 				<Draggable key={index} draggableId={index.toString()} index={index}>
 				{(provided, snapshot) => (
@@ -144,6 +145,7 @@ function Course({ day, course }) {
 						place={place}
 						startTime={startTimes[index]}
 						timeReq={timeReqs[index]}
+						isFirst={index === 0}
 						isLast={index === timeReqs.length}
 						hold={hold}
 					/>

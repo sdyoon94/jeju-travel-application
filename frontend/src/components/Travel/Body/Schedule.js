@@ -1,18 +1,33 @@
 import { ReactComponent as Car } from "assets/car-side.svg"
-
+import StartTime from "./StartTime"
 import "./Schedule.css"
+// import { useState } from "react"
 
-function Schedule({ place, startTime, timeReq, isLast, hold }) {
+function Schedule({ place, startTime, timeReq, isFirst, isLast, hold }) {
+	// const [isHover, setIsHover] = useState(false)
 
 	return (
 		<>
-			<span className="subcontent-size">{startTime}</span>
+			{/* {
+				isFirst && isHover
+				? <StartTime time={startTime} setIsHover={setIsHover} />
+				: <span 
+					onMouseOver={() => setIsHover(true)}
+					className="subcontent-size"
+					>{startTime}</span>
+			} */}
+			{ 
+				isFirst 
+				? <StartTime time={startTime}/> 
+				: <span className="subcontent-size">{startTime}</span>
+			}
 			<div className="schedule-info schedule-box">
 				<p>{place.name}</p>
-				<p>{place.duration}</p>
+				<StartTime time={place.duration} />
+				{/* <p>{place.duration}</p> */}
 			</div>
-			{isLast && 
-				<div className="subcontent-size link text-center">
+			{isLast && !hold &&
+				<div className="subcontent-size link text-center plus">
 					추가하기
 				</div>
 			}
