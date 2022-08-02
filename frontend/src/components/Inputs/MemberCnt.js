@@ -1,42 +1,49 @@
-import { useState } from "react";
+
 import { TextField } from "@mui/material";
-import MenuItem from "@mui/material/MenuItem";
+// import MenuItem from "@mui/material/MenuItem";
 import { styled } from "@mui/material/styles";
 import "globalStyle.css";
 import "./MemberCnt.css";
 
-const departures = [
-  {
-    value: "incheon",
-    label: "인천",
-  },
-  {
-    value: "gimpo",
-    label: "김포",
-  },
-];
+
+// const departures = [
+//   {
+//     value: "incheon",
+//     label: "인천",
+//   },
+//   {
+//     value: "gimpo",
+//     label: "김포",
+//   },
+// ];
 
 // 출발지,언제,인원선택
-function MemberCnt() {
-  const [departure, setDeparture] = useState("");
-  const handleChangeDeparture = (event) => {
-    setDeparture(event.target.value);
-  };
+function MemberCnt(props) {
+  // const [departure, setDeparture] = useState("");
+  // const handleChangeDeparture = (event) => {
+  //   setDeparture(event.target.value);
+  // };
+ 
 
-  let [memberCnt, setMemberCnt] = useState(1);
+  // let [memberCnt, setMemberCnt] = useState(props.inputValues.maxMemberCnt);
 
   const handleChangeMemberCnt = (event) => {
-    const cnt = Number(event.target.value);
-    setMemberCnt(cnt);
+    const cnt = Number(event.target.value)
+    props.setInputValues(['maxMemberCnt',cnt]);
   };
 
   function incrementCount() {
-    memberCnt = memberCnt + 1;
-    setMemberCnt(memberCnt);
+    const cnt =props.inputValues.maxMemberCnt + 1
+    props.setInputValues(['maxMemberCnt',cnt]);
+    
+    // const newCnt = {
+    //   maxMemberCnt : cnt,
+    // }
+    // props.setInputValues(newCnt);
   }
   function decrementCount() {
-    memberCnt = memberCnt - 1;
-    setMemberCnt(memberCnt);
+    const cnt =props.inputValues.maxMemberCnt - 1
+    props.setInputValues(['maxMemberCnt',cnt]);
   }
 
   const ExampleTextField = styled(TextField)({
@@ -61,7 +68,7 @@ function MemberCnt() {
       </div>
       <div className="departure-body">
         <div></div>
-        <label className="input-box" for="member-cnt-input">
+        {/* <label className="input-box" for="member-cnt-input">
           <label className="input-label" htmlFor="select-departure">
             출발지
           </label>
@@ -79,7 +86,7 @@ function MemberCnt() {
               </MenuItem>
             ))}
           </ExampleTextField>
-        </label>
+        </label> */}
         <label item className="input-box" for="member-cnt-input">
           <label className="input-label" for="member-cnt-input">
             인원수
@@ -92,12 +99,12 @@ function MemberCnt() {
               id="member-cnt-input"
               className="member-cnt-input"
               type="number"
-              value={memberCnt}
+              value={props.inputValues.maxMemberCnt}
               onChange={handleChangeMemberCnt}
               // variant="standard"
               InputProps={{ style: { fontSize: 20 } }}
             />
-            <button className="member-cnt-btn" onClick={incrementCount}>
+            <button className="member-cnt-btn" onClick={incrementCount }>
               +
             </button>
           </div>
