@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
+@CrossOrigin("*")
 @RestController
-@RequestMapping("/trips")
+@RequestMapping("/api/trips")
 public class TripController {
 
     @Autowired

@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-
+@CrossOrigin("*")
 @RestController
-@RequestMapping("/schedule")
+@RequestMapping("/api/schedule")
 public class TripScheduleController {
 
     @Autowired

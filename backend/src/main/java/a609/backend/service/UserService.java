@@ -11,7 +11,7 @@ import java.util.Map;
 public interface UserService extends OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 //    User registerUser(User user);
     User searchByKakaoId(String kakaoId);//회원조회
-    void updateUser(String kakaoId, User user);//회원 정보 수정
+    User updateUser(String kakaoId, User user);//회원 정보 수정
 //    int idCheck(String kakaoId);
     Claims verifyToken(String token);
 
