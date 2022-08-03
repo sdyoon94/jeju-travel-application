@@ -69,14 +69,8 @@ function Travel() {
                 </Header>
                 <TravelTitle />
                 <TravelBody
-                    startDate={startDate}
-                    periodInDays={periodInDays}
-                    courses={courses}
-                    setCourses={setCourses}
                     courseIdx={courseIdx}
                     setCourseIdx={setCourseIdx}
-                    startTime={startTime}
-                    setStartTime={setStartTime}
                 />
                 <TravelFooter
                     courseIdx={courseIdx}
