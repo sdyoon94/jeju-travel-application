@@ -78,9 +78,7 @@ function Travel() {
                     startTime={startTime}
                     setStartTime={setStartTime}
                 />
-                <TravelFooter 
-                    startDate={startDate}
-                    courses={courses}
+                <TravelFooter
                     courseIdx={courseIdx}
                 />
             </div>
