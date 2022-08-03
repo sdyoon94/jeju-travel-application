@@ -67,16 +67,7 @@ function Travel() {
                         setVehicle={setVehicle}
                     />
                 </Header>
-                <TravelTitle 
-                    title={title}
-                    members={members}
-                    maxMemberCnt={maxMemberCnt}
-                    startDate={startDate}
-                    periodInDays={periodInDays}
-                    budget={budget}
-                    styles={styles}
-                    joinAddress={joinAddress}
-                />
+                <TravelTitle />
                 <TravelBody
                     startDate={startDate}
                     periodInDays={periodInDays}

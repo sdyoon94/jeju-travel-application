@@ -6,62 +6,63 @@ p {
 }
 
 .container-title {
-    height: 14vh;
-    padding: 2vh 4vh;
+    height: 14vmax;
+    padding: 2vmax 7vmin;
     display: grid;
     grid-template-rows: 1fr 0.5fr 0.5fr 0.8fr auto;
 }
 
 .travel-title {
-    height: 5vh;
+    height: 5vmax;
 }
 
 .travel-title p {
-    padding-right: 2vw;
-    font-size: 6vw;
+    padding-right: 2vmin;
+    font-size: 6vmin;
     font-weight: 700;
 }
 
 .travel-title .avatar-group {
     width: fit-content;
     display: inline-flex;
-    padding: 0.5vh;
+    padding: 0.5vmax 0.8vmin;
 }
 
 .travel-title .avatar-group * {
-    height: 3vh;
-    width: 3vh;
-    font-size: 3vw;
+    height: 3vmax;
+    width: 3vmax;
+    font-size: 3vmin;
     overflow:hidden;
     text-overflow:ellipsis;
     white-space:nowrap;
 }
 
 .travel-info p {
-    padding-right: 4vw;
-    font-size: 3vw;
+    padding-right: 4vmin;
+    font-size: 3vmin;
     font-weight: 500;
 }
 
 .travel-style p {
-    padding-right: 1vw;
-    font-size: 3vw;
+    padding-right: 1vmin;
+    font-size: 3vmin;
     font-weight: 500;
 }
 
-.travel-link {
-    justify-self: end;
+#kakao-link-btn {
+    display: inline-block;
+    height: 4vmax;
+    justify-self: flex-end;
 }
 
-.travel-link p {
-    padding-right: 2vw;
-    font-size: 2vw;
-    font-weight: 600;
+#kakao-link-btn p {
+    font-size: 3vmin;
+    font-weight: 500;
 }
 
-.travel-link img {
-    height: 3vh;
-    width: auto;
+#kakao-link-btn img {
+    height: 3vmax;
+    width: 3vmax; 
 }
 
 .divider {
