@@ -78,12 +78,12 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void updateUser(String id, User user) {
+    public User updateUser(String id, User user) {
         User originUser = userRepository.findOneByKakaoId(id);
         if (user.getNickname() != null) {
             originUser.setNickname(user.getNickname());
         }
-        userRepository.save(originUser);
+        return userRepository.save(originUser);
 
     }
 //

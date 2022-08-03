@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1")
 public class UserController {
@@ -31,9 +32,9 @@ public class UserController {
 
     @PatchMapping("/users/{userId}")
     public ResponseEntity updateUser(@PathVariable String userId, @RequestBody User user) {
-        userService.updateUser(userId, user);
+        User resultUser = userService.updateUser(userId, user);
         HashMap<String, String> map = new HashMap<>();
-        map.put("message", "Success");
+        map.put("nickname", resultUser.getNickname());
         return new ResponseEntity(map, HttpStatus.NO_CONTENT);
     }
     @GetMapping("/users/me")
