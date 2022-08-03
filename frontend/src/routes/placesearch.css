@@ -1,0 +1,40 @@
+.search-input {
+  position: relative;
+  width: 66vw;
+  height: 5vh;
+  border: none;
+  font-size: 5vw;
+}
+
+.search-input-container {
+  width: 80vw;
+  display: inline-block;
+  border-bottom: 2px solid black;
+}
+
+.search-input:focus {
+  outline: none;
+}
+
+.search-icon {
+  position: relative;
+  width: 4vw;
+  top: .3vh;
+  left: 5vw;
+}
+
+.search-img {
+  width: 13vw;
+  height: 13vw;
+  border-radius: 50%;
+}
+
+.recommend-spot {
+  width: 80vw;
+  margin-left: 10vw;
+}
+
+.recommend-spot span {
+  margin-left: 10px;
+  margin-top: 10px;
+}

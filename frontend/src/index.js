@@ -8,9 +8,10 @@ import store from './store/store'
 import Travel from 'routes/Travel'
 import Home from './routes/Home'
 import TravelEdit from 'routes/TravelEdit'
-import KakaoLogin from 'routes/KakaoLogin';
+import KakaoLogin from 'routes/KakaoLogin'
 import KakaoRedirect from "routes/KakaoRedirect"
-import Edit from 'components/Home/EditTest';
+import Edit from 'components/Home/EditTest'
+import PlaceSearch from 'routes/PlaceSearch';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -24,6 +25,7 @@ root.render(
         <Route path="traveledit" element={<TravelEdit />} />
         <Route path="login" element={<KakaoLogin />} />
         <Route path="oauth2/redirect/" element={<KakaoRedirect />} />
+        <Route path="placesearch" element={<PlaceSearch />} />
       </Routes>
     </BrowserRouter>
   </Provider>
