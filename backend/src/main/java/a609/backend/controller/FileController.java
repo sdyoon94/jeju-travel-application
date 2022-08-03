@@ -26,7 +26,8 @@ public class FileController {
         // 이미지 파일만 업로드 가능
         if (file.getContentType().startsWith("image") ) {
             fileService.uploadFile(file,id);
-            resultMap.put("message","Success");
+            User image = fileService.findImageById(id);
+            resultMap.put("image_path",image.getImagePath());
         }else {
             resultMap.put("message","이미지 파일만 업로드 가능합니다.");
         }
