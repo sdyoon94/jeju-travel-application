@@ -1,4 +1,4 @@
-.duration-container {
+.period-container {
   display:grid ;
   grid-template-rows: 3fr 7fr;
   gap:1rem;
@@ -10,7 +10,7 @@
 }
 
 /****** header ******/
-.duration-header {
+.period-header {
   display:grid;
   align-content: end;
   justify-content: center;
@@ -55,14 +55,14 @@ top: 320px; */
 
 
 
-.duration-body {
+.period-body {
   display:grid;
   grid-template-rows: 1fr 1fr ;
   justify-items: center;
   align-items: center;
 }
 
-.duration-input {
+.period-input {
   width:261px;
   display:grid;
   grid-template-columns: 3fr 2fr 3fr 2fr;
@@ -84,7 +84,7 @@ top: 320px; */
 
 }
 
-.duration-body2{
+.period-body2{
   
   display:grid;
   align-content: center;

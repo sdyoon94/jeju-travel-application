@@ -1,49 +1,42 @@
-
 import { TextField } from "@mui/material";
-// import MenuItem from "@mui/material/MenuItem";
+import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import "globalStyle.css";
 import "./MemberCnt.css";
 
-
-// const departures = [
-//   {
-//     value: "incheon",
-//     label: "인천",
-//   },
-//   {
-//     value: "gimpo",
-//     label: "김포",
-//   },
-// ];
-
-// 출발지,언제,인원선택
+// 인원선택
 function MemberCnt(props) {
-  // const [departure, setDeparture] = useState("");
-  // const handleChangeDeparture = (event) => {
-  //   setDeparture(event.target.value);
-  // };
- 
-
-  // let [memberCnt, setMemberCnt] = useState(props.inputValues.maxMemberCnt);
+  const [show, setShow] = useState(false);
 
   const handleChangeMemberCnt = (event) => {
-    const cnt = Number(event.target.value)
-    props.setInputValues(['maxMemberCnt',cnt]);
+    if (0 <= event.target.value && event.target.value <= 8) {
+      props.setInputValues(["maxMemberCnt", event.target.value]);
+      setShow(false);
+    } else if (8 < event.target.value) {
+      console.log(event.target.value);
+      console.log(typeof event.target.value);
+      props.setInputValues(["maxMemberCnt", "8"]);
+      setShow(true);
+    }
   };
 
   function incrementCount() {
-    const cnt =props.inputValues.maxMemberCnt + 1
-    props.setInputValues(['maxMemberCnt',cnt]);
-    
-    // const newCnt = {
-    //   maxMemberCnt : cnt,
-    // }
-    // props.setInputValues(newCnt);
+    const cnt = String(Number(props.inputValues.maxMemberCnt) + 1);
+    if (cnt <= 8) {
+      props.setInputValues(["maxMemberCnt", cnt]);
+    } else if (8 < cnt) {
+      props.setInputValues(["maxMemberCnt", "8"]);
+      setShow(true);
+    }
   }
   function decrementCount() {
-    const cnt =props.inputValues.maxMemberCnt - 1
-    props.setInputValues(['maxMemberCnt',cnt]);
+    const cnt = String(Number(props.inputValues.maxMemberCnt) - 1);
+    if (1 <= cnt) {
+      props.setInputValues(["maxMemberCnt", cnt]);
+    } else {
+      props.setInputValues(["maxMemberCnt", "1"]);
+      setShow(true);
+    }
   }
 
   const ExampleTextField = styled(TextField)({
@@ -62,12 +55,13 @@ function MemberCnt(props) {
     <div className="departure-container">
       <div className="departure-header">
         <div className="mention" style={{ color: "#1E88E5" }}>
-          어디서, 몇명이서
+          본인포함 몇명이서
         </div>
         <div className="mention">떠나시나요?</div>
       </div>
       <div className="departure-body">
         <div></div>
+        {show && <div className="warning">최소 1 최대 8 ㄱㄱ하셈</div>}
         {/* <label className="input-box" for="member-cnt-input">
           <label className="input-label" htmlFor="select-departure">
             출발지
@@ -87,8 +81,8 @@ function MemberCnt(props) {
             ))}
           </ExampleTextField>
         </label> */}
-        <label item className="input-box" for="member-cnt-input">
-          <label className="input-label" for="member-cnt-input">
+        <label item className="input-box" htmlFor="member-cnt-input">
+          <label className="input-label" htmlFor="member-cnt-input">
             인원수
           </label>
           <div className="control-member-cnt">
@@ -103,8 +97,9 @@ function MemberCnt(props) {
               onChange={handleChangeMemberCnt}
               // variant="standard"
               InputProps={{ style: { fontSize: 20 } }}
+              autoFocus
             />
-            <button className="member-cnt-btn" onClick={incrementCount }>
+            <button className="member-cnt-btn" onClick={incrementCount}>
               +
             </button>
           </div>

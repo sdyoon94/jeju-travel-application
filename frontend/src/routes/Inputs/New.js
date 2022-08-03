@@ -7,93 +7,116 @@ import { Outlet, useNavigate, useParams } from "react-router-dom";
 
 import MemberCnt from "components/Inputs/MemberCnt";
 import Budget from "components/Inputs/Budget";
-import Style from "components/Inputs/Style"
-import Date from "components/Inputs/Calender"
-import Period from "components/Inputs/Duration"
+import Style from "components/Inputs/Style";
+import Date from "components/Inputs/Calender";
+import Period from "components/Inputs/Period";
 import Time from "components/Inputs/StartTime";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setInputValues } from "store/modules/inputValuesSlice"
+import { setInputValues } from "store/modules/inputValuesSlice";
 
+import { useState } from "react";
 
-
-
-
-
-
-function New() { 
-
-  const dispatch = useDispatch()
-  const inputValues = useSelector(state=>{
-    
-    return state.inputValues
-  })
+function New() {
+  const [show, setShow] = useState(false);
+  const dispatch = useDispatch();
+  const inputValues = useSelector((state) => {
+    return state.inputValues;
+  });
 
   const inputForms = {
-    'membercnt': <MemberCnt inputValues={inputValues} setInputValues={(props)=>{dispatch(setInputValues(props))}} ></MemberCnt>,
-    'date':<Date></Date>,
-    'period':<Period></Period>,
-    'style':<Style></Style>,
-    'budget': <Budget></Budget>,
-    'time':<Time></Time>,
-  }
+    membercnt: (
+      <MemberCnt
+        inputValues={inputValues}
+        setInputValues={(props) => {
+          dispatch(setInputValues(props));
+        }}
+      ></MemberCnt>
+    ),
+    date: (
+      <Date
+        inputValues={inputValues}
+        setInputValues={(props) => {
+          dispatch(setInputValues(props));
+        }}
+      ></Date>
+    ),
+    period: (
+      <Period
+        inputValues={inputValues}
+        setInputValues={(props) => {
+          dispatch(setInputValues(props));
+        }}
+      ></Period>
+    ),
+    style: (
+      <Style
+        inputValues={inputValues}
+        setInputValues={(props) => {
+          dispatch(setInputValues(props));
+        }}
+      ></Style>
+    ),
+    budget: (
+      <Budget
+        inputValues={inputValues}
+        setInputValues={(props) => {
+          dispatch(setInputValues(props));
+        }}
+      ></Budget>
+    ),
+    time: (
+      <Time
+        inputValues={inputValues}
+        setInputValues={(props) => {
+          dispatch(setInputValues(props));
+        }}
+      ></Time>
+    ),
+  };
 
+  const navigate = useNavigate();
+  const params = useParams();
+  const form = inputForms[params.input];
 
+  const nextRoute = function () {
+    if (params.input === "membercnt" && inputValues.maxMemberCnt >= 2) {
+      navigate("/new/period");
+    } else if (params.input === "membercnt" && inputValues.maxMemberCnt == 1) {
+      navigate("/new/date");
+    } else if (inputValues.maxMemberCnt === "") {
+      setShow(true);
+    } else if (params.input === "period" || params.input === "date") {
+      if (inputValues.m === "") {
+        setShow(true);
+      } else {
+        navigate("/new/style");
+      }
+    } else if (params.input === "style") {
+      navigate("/new/budget");
+    } else if (params.input === "budget") {
+      return "time";
+    } else if (params.input === "time") {
+      return "";
+    }
+  };
 
+  // const saveAndNext = function (event) {
+  //   event.preventDefault();
 
-
-  const navigate = useNavigate()
-  const params = useParams()
-  const form = inputForms[params.input]
-  
-  const nextRoute = function (){
-    if(params.input == 'membercnt' && (inputValues.maxMemberCnt >= 2)) {
-      return "period"
-    } else if (params.input === 'membercnt' && (inputValues.maxMemberCnt === 1)) {
-      return "date"  
-    } else if (params.input === 'period' || params.input == 'date') {
-      return "style"
-    } else if (params.input === 'style') {
-      return "budget"
-    } else if (params.input === 'budget') {
-      return "time"
-    } else if (params.input === 'time') {
-      return ""
-    }}
-
-
-  const saveAndNext = function(event) {
-    event.preventDefault()
-    console.log(inputValues)
-    console.log(inputValues.inputValues)
-
-    // console.log(nextRoute())
-    const route = "/new/" + nextRoute()
-    navigate(route)
-  }
-  // const [checked, setChecked] = React.useState(false);
-
-  // const handleChange = () => {
-  //   setChecked((prev) => !prev);
+  //   const route = "/new/" + nextRoute();
+  //   navigate(route);
   // };
-
-  // const handleNext = function(){
-  //   setChecked((prev) => !prev);
-  // }
-
- 
 
   return (
     <div className="input-container">
-      <div className="input-content">
-        {form}
-        {form.memberCnt}
-      </div>
+      <div className="input-content">{form}</div>
       <div className="input-footer">
-        <Button className="input-btn" variant="contained" onClick={saveAndNext}>
+        <Button className="input-btn" variant="contained" onClick={nextRoute}>
           확인
         </Button>
       </div>
+      {show && <div className="warning">입력값 다 넣으세요</div>}
     </div>
   );
 }

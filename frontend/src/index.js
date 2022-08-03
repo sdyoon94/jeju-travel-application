@@ -10,12 +10,6 @@ import Home from "./routes/Home";
 import TravelEdit from "routes/TravelEdit";
 import KakaoLogin from "routes/KakaoLogin";
 import KakaoLoading from "routes/KakaoLoading";
-import MemberCnt from "components/Inputs/MemberCnt";
-import InputBudget from "components/Inputs/Budget";
-import Styles from "components/Inputs/Style"
-import StartDate from "components/Inputs/Calender"
-import PeriodInDays from "components/Inputs/Duration"
-import StartTime from "components/Inputs/StartTime";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

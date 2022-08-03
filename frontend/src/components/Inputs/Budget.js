@@ -4,16 +4,16 @@ import "globalStyle.css";
 import "./Budget.css";
 
 // 여행 경비 입력
-function Budget() {
-  const [budget, setBudget] = useState();
+function Budget(props) {
   const [show, setShow] = useState(false);
 
   const handleChange = (event) => {
-    if (event.target.value <= 9999) {
-      setBudget(event.target.value);
+    if (0 <= event.target.value && event.target.value <= 9999) {
+      props.setInputValues(["budget", event.target.value]);
+      setShow(false);
     } else if (event.target.value >= 10000) {
-      setShow((prev) => !prev);
-      setBudget(9999);
+      props.setInputValues(["budget", "9999"]);
+      setShow(true);
     }
   };
 
@@ -37,12 +37,12 @@ function Budget() {
               id="number-duration"
               name="bak"
               type="number"
-              value={budget}
+              value={props.inputValues.budget}
               // inputProps={{ minDuration, maxDuration }}
               onChange={handleChange}
               variant="filled"
             />
-            <label className="input-label" for="number-duration">
+            <label className="input-label" htmlFor="number-duration">
               만원
             </label>
           </div>
