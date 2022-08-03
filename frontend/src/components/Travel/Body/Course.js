@@ -3,7 +3,7 @@ import { addTime, secToTime } from "components/DateTime/time"
 
 import "./Course.css"
 import { useEffect, useState } from "react"
-import { fetchDirection } from "store/modules/distanceSlice"
+import { fetchDirection } from "store/modules/directionSlice"
 import { useDispatch } from "react-redux"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 

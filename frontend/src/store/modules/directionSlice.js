@@ -100,7 +100,7 @@ const directionSlice = createSlice({
     name: "direction",
     initialState,
     reducers: {
-        initDirections: (state, action) => {
+        initDirection: (state, action) => {
             state.directions = new Array(action.payload)
         }
     },
@@ -118,5 +118,5 @@ const directionSlice = createSlice({
 const { actions, reducer } = directionSlice
 
 export { fetchDirection }
-export const { initDirections } = actions
+export const { initDirection } = actions
 export default reducer
