@@ -27,7 +27,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 //    파일업로드
     private String connectPath = "/imagePath/**";
-    private String resourcePath = "file:///home/ubuntu/jeju_profile_image/";
+    private String resourcePath = "file:///home/ubuntu/jeju/";
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
