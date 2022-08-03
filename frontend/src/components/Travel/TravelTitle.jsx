@@ -5,13 +5,31 @@ import { getEndDate } from 'components/DateTime/date'
 
 import "./TravelTitle.css"
 import "globalStyle.css"
+import { useSelector } from "react-redux";
 
 const KAKAO_API_KEY = "03817511d5315ef223b0e6861c8f729e"
 
-function TravelTitle({ title, members, maxMemberCnt, startDate, periodInDays, budget, styles, joinAddress }) {
+function TravelTitle() {
 
+    const travel = useSelector((state) => state.travel)
+
+    // Title에서 사용되는 여행 관련 정보
+    const [ title ] = useState(travel.title)
+    const [ members ] = useState(travel.members)
+    // const [ maxMemberCnt ] = useState(travel.maxMemberCnt)
+    const [ startDate ] = useState(travel.startDate)
+    const [ periodInDays ] = useState(travel.periodInDays)
+    const [ budget ] = useState(travel.budget)
+    const [ styles ] = useState(travel.styles)
+
+    // 여행 끝 일자
     const [ endDate, setEndDate ] = useState(getEndDate(startDate, periodInDays))
 
+    useEffect(() => {
+        setEndDate(getEndDate(startDate, periodInDays))
+    }, [ startDate ])
+
+    // 여행 참여 링크
     const joinUrl = "http://localhost:3000"
 
     useEffect(() => {
