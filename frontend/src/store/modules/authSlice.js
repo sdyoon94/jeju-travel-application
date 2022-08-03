@@ -1,26 +1,51 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import jwt_decode from "jwt-decode"
+import api from "api"
 import axios from "axios"
 
-const decoded = jwt_decode(localStorage.getItem("token"))
 
 const initialState = {
-  token: localStorage.getItem("token") || "",
-  nickname: decoded.nickname || "",
-  profileImg: decoded.image_path || "",
-  id: decoded.id || "",
+  token: sessionStorage.getItem("token") || "",
+  nickname: sessionStorage.getItem("nickname") || "",
+  profileImg: sessionStorage.getItem("image_path") || "",
+  id: sessionStorage.getItem("id") || "",
   error: null,
 }
 
-export const fetchLogin = createAsyncThunk(
-  "auth/editProfileImg",
-  async (code, thunkAPI) => {
+export const editNickname = createAsyncThunk(
+  "auth/editNickname",
+  async (newNickname, thunkAPI) => {
+    const state = thunkAPI.getState()
     try {
-      const response = await axios.get(`http://i7a609.p.ssafy.io:8081/api/oauth/kakao/login?code=${code}`)
+      const response = await axios({
+        method: "patch",
+        url: api.accounts.editNicknameUrl(state.auth.id),
+        data: {nickname: newNickname}
+      })
+      console.log(response.data)
+    } catch (err) {
+      console.log(err)
+      return thunkAPI.rejectWithValue('no')
+    }
+  }
+)
+
+export const editProfileImg = createAsyncThunk(
+  "auth/editProfileImg",
+  async (formdata, thunkAPI) => {
+    console.log('사진')
+    const state = thunkAPI.getState()
+    try {
+      const response = await axios({
+        method:"post",
+        url: api.accounts.editProfileImgUrl(state.auth.id),
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+        data: formdata
+      })
+      console.log('프사 변경', response)
       return response.data
     } catch (err) {
-      // Use `err.response.data` as `action.payload` for a `rejected` action,
-      // by explicitly returning it using the `rejectWithValue()` utility
       return thunkAPI.rejectWithValue(err.response.data)
     }
   }
@@ -31,26 +56,29 @@ const loginSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    editProfile(state, { payload }) {
-      console.log(payload)
+    login(state, { payload }) {
       state.nickname = payload.nickname
+      state.profileImg = payload.image_path
+      state.id = payload.id
     }
   },
   extraReducers: (builder) => {
     builder
-    .addCase(fetchLogin.fulfilled, (state, { payload }) => {
-      // payload에 token, email, nickname
-      state.token = payload.token
-      state.email = payload.email
-      state.nickname = payload.nickname
-      localStorage.setItem("token", payload.token)
+    .addCase(editProfileImg.fulfilled, (state, { payload }) => {
+      console.log('비동기 결과', {payload})
     })
-    .addCase(fetchLogin.rejected, (state, { payload }) => {
+    .addCase(editProfileImg.rejected, (state, { payload }) => {
       state.error = payload
+    })
+    .addCase(editNickname.fulfilled, (state, { payload }) => {
+      console.log('비동기 결과', payload)
+    })
+    .addCase(editNickname.rejected, (state, {payload}) => {
+      console.log('실패', payload)
     })
   }
 })
 
 const { actions, reducer } = loginSlice
-export const { editProfile } = actions
+export const { login } = actions
 export default reducer

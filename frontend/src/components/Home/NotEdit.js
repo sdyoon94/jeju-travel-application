@@ -1,6 +1,10 @@
+import { useSelector } from "react-redux"
 import { Avatar, Box } from "@mui/material"
 
-function NotEdit ({ nickname, profileImg, editStart }) {
+function NotEdit ({ editStart }) {
+  const nickname = useSelector((state) => state.auth.nickname)
+  const profileImg = useSelector((state) => state.auth.profileImg)
+
   return (
     <Box sx={{ width: "50vw", padding: 2, marginTop: 6 }}>
       <div className="drawer-profile">

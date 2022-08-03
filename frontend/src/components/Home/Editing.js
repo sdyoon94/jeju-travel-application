@@ -1,19 +1,24 @@
+import { useState } from "react"
 import { useRef } from "react"
 import { Avatar, Box } from "@mui/material"
 
 
-function EditIng ({ nickname, profileImg, handleNickname, handleProfileImg, editEnd, handleOnKeyPress }) {
+
+function EditIng ({ nickname, profileImg, handleNickname, handleProfileImg, setFile, editEnd, handleOnKeyPress }) {
   const fileInput = useRef(null)
+
+
   const onChange = (e) => {
     const img = e.target.files[0]
     if (img) {
       const reader = new FileReader()
       const formData = new FormData()
       formData.append("file", img)
-      for (const keyValue of formData) console.log('11', keyValue)
+      // for (const keyValue of formData) console.log('11', keyValue)
       reader.onload = () => {
       if(reader.readyState === 2){
         handleProfileImg(reader.result)
+        setFile(formData)
       }
       }
       reader.readAsDataURL(img)

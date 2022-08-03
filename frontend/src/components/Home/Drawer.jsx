@@ -2,20 +2,21 @@ import { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { ReactComponent as HamburgertBtn } from 'assets/hamburger-button.svg'
 import { SwipeableDrawer } from '@mui/material'
-import { editProfile } from "store/modules/authSlice"
+import { editNickname, editProfileImg } from "store/modules/authSlice"
 import EditIng from "./Editing"
 import NotEdit from "./NotEdit"
 
 
 function Drawer() {
+  const dispatch = useDispatch()
   const name = useSelector((state) => state.auth.nickname)
   const img = useSelector((state) => state.auth.profileImg)
-  const dispatch = useDispatch()
-
-  const [open, setopen] = useState(false)
   const [nickname, setNickname] = useState(name)
   const [profileImg, setProfileImg] = useState(img)
+  const [open, setopen] = useState(false)
   const [edit, setEdit] = useState(false)
+  const [file, setFile] = useState(null)
+  const [modify, setModify] = useState({"nickname": false, "img": false})
 
   const handleDrawer = (open) => function(e) {
     if (e && e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) {
@@ -29,23 +30,38 @@ function Drawer() {
   }
 
   const editEnd = () => {
-    dispatch(editProfile({nickname, profileImg}))
     setEdit(false)
-  }
-  
-  const handleNickname = (e) => {
-    setNickname(e.target.value)
-  }
-  
-  const handleProfileImg = (img) => {
-    setProfileImg(img)
+    if (modify.nickname) {
+      console.log('스토어 가기 전')
+      dispatch(editNickname(nickname))
+      setModify({...modify, nickname: false})
+    }
+    if (modify.img) {
+      dispatch(editProfileImg(file))
+      setModify({...modify, img: false})
+    }
   }
   
   const handleOnKeyPress = (e) => {
     if (e.key === "Enter") {
       setEdit(false)
-      dispatch(editProfile(nickname, edit))
     }
+  }
+
+  const handleNickname = (e) => {
+    setNickname(e.target.value)
+    setModify({
+      ...modify,
+      "nickname": true
+    })
+  }
+
+  const handleProfileImg = (img) => {
+    setProfileImg(img)
+    setModify({
+      ...modify,
+      "img": true
+    })
   }
 
 
@@ -60,8 +76,8 @@ function Drawer() {
         >
         {
           edit
-          ? <EditIng nickname={nickname} profileImg={profileImg} handleNickname={handleNickname} handleProfileImg={handleProfileImg} editEnd={editEnd} handleOnKeyPress={handleOnKeyPress} />
-          : <NotEdit nickname={nickname} profileImg={profileImg} editStart={editStart} />
+          ? <EditIng nickname={nickname} profileImg={profileImg} handleNickname={handleNickname} handleProfileImg={handleProfileImg} setFile={setFile} editEnd={editEnd} handleOnKeyPress={handleOnKeyPress} />
+          : <NotEdit editStart={editStart} />
         }
       </SwipeableDrawer>
     </>
