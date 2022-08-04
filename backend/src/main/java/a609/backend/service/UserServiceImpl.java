@@ -16,6 +16,7 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -76,12 +77,21 @@ public class UserServiceImpl implements UserService {
         return userRepository.findOneByKakaoId(id);
     }
 
+    @Transactional
     @Override
     public String updateUser(User user, String token) {
-        User originUser = userRepository.findOneByKakaoId(jwtUtil.parseJwtToken(token).getId());
+        log.info("----------------------------------------------------");
+        log.info(token);
+        log.info((String)jwtUtil.parseJwtToken(token).get("id"));
+        User originUser = userRepository.findOneByKakaoId((String)jwtUtil.parseJwtToken(token).get("id"));
+
+        log.info("----------------------------------------------------");
+        log.info(originUser.getNickname());
         if (user.getNickname() != null) {
             originUser.setNickname(user.getNickname());
         }
+        log.info("----------------------------------------------------");
+        log.info(originUser.getNickname());
         return userRepository.save(originUser).getNickname();
 
     }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1")
@@ -40,7 +41,11 @@ public class UserController {
 //    }
     @PatchMapping("/users")
     public ResponseEntity updateUser(@RequestBody User user, @RequestHeader Map<String,Object> token) {
-        String saveNickname = userService.updateUser(user, (String) token.get("Authorization"));
+        log.info("----------------------------------------------------");
+        log.info(token.toString());
+        log.info("----------------------------------------------------");
+        log.info(user.getNickname());
+        String saveNickname = userService.updateUser(user, (String) token.get("authorization"));
         HashMap<String, String> map = new HashMap<>();
         map.put("nickname", saveNickname);
         return new ResponseEntity(map, HttpStatus.OK);
