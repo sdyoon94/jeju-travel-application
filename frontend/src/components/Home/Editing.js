@@ -35,6 +35,7 @@ function EditIng ({ nickname, profileImg, handleNickname, handleProfileImg, setF
           src={profileImg} 
           alt="profile-img" 
           sx={{ width: 85, height: 85 }}
+          style={{marginBottom: "50px"}}
           onClick={()=>{fileInput.current.click()}} />
         <input 
           type='file' 
@@ -46,7 +47,6 @@ function EditIng ({ nickname, profileImg, handleNickname, handleProfileImg, setF
         <span onClick={editEnd}>완료</span>
       </div>
       <hr />
-      <button className="logout-btn">로그아웃</button>
     </Box>
   )
 }

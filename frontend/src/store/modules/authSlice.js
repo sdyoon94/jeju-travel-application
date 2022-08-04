@@ -20,7 +20,7 @@ export const editNickname = createAsyncThunk(
         url: api.accounts.editNicknameUrl(),
         data: {nickname: newNickname}
       })
-      console.log(response.data)
+      return response.data
     } catch (err) {
       console.log(err)
       return thunkAPI.rejectWithValue('no')
@@ -70,7 +70,9 @@ const loginSlice = createSlice({
       state.error = payload
     })
     .addCase(editNickname.fulfilled, (state, { payload }) => {
-      console.log('비동기 결과', payload)
+      state.nickname = payload.nickname
+      sessionStorage.setItem("nickname", payload.nickname)
+      
     })
     .addCase(editNickname.rejected, (state, {payload}) => {
       console.log('실패', payload)
