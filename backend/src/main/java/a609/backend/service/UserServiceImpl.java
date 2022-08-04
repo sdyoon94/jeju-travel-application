@@ -76,16 +76,25 @@ public class UserServiceImpl implements UserService {
         return userRepository.findOneByKakaoId(id);
     }
 
-
     @Override
-    public User updateUser(String id, User user) {
-        User originUser = userRepository.findOneByKakaoId(id);
-        if (user.getNickname() != null) {
-            originUser.setNickname(user.getNickname());
-        }
-        return userRepository.save(originUser);
+    public String updateUser(String nickname, String token) {
+        User originUser = userRepository.findOneByKakaoId(jwtUtil.parseJwtToken(token).getId());
+        originUser.setNickname(nickname);
+
+        return userRepository.save(originUser).getUsername();
 
     }
+
+
+//    @Override
+//    public User updateUser(String id, User user) {
+//        User originUser = userRepository.findOneByKakaoId(id);
+//        if (user.getNickname() != null) {
+//            originUser.setNickname(user.getNickname());
+//        }
+//        return userRepository.save(originUser);
+//
+//    }
 //
 //    @Override
 //    public int idCheck(String id) {
