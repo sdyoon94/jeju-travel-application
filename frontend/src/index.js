@@ -11,7 +11,8 @@ import TravelEdit from 'routes/TravelEdit'
 import KakaoLogin from 'routes/KakaoLogin'
 import KakaoRedirect from "routes/KakaoRedirect"
 import Edit from 'components/Home/EditTest'
-import PlaceSearch from 'routes/PlaceSearch';
+import PlaceSearch from 'routes/PlaceSearch'
+import AddressInput from 'routes/AddressInput'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -25,7 +26,9 @@ root.render(
         <Route path="traveledit" element={<TravelEdit />} />
         <Route path="login" element={<KakaoLogin />} />
         <Route path="oauth2/redirect/" element={<KakaoRedirect />} />
-        <Route path="placesearch" element={<PlaceSearch />} />
+        <Route path="placesearch" element={<PlaceSearch />}>
+          <Route path="address" element={<AddressInput />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   </Provider>
