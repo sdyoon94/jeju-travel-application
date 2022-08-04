@@ -4,7 +4,6 @@ import travel from "dummies/DummyTravel.json"
 // TODO: createAsyncThunk + RTK Query API
 
 const initialState = travel
-console.log(travel.courses)
 
 
 const travelSlice = createSlice({

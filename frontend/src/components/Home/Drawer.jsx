@@ -84,7 +84,7 @@ function Drawer() {
         {
           edit
           ? <EditIng nickname={nickname} profileImg={profileImg} handleNickname={handleNickname} handleProfileImg={handleProfileImg} setFile={setFile} editEnd={editEnd} handleOnKeyPress={handleOnKeyPress} />
-          : <NotEdit editStart={editStart} />
+          : <NotEdit editStart={editStart} setopen={setopen} />
         }
       </SwipeableDrawer>
     </>

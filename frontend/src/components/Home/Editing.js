@@ -1,12 +1,15 @@
-import { useState } from "react"
 import { useRef } from "react"
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { signout } from "store/modules/authSlice"
 import { Avatar, Box } from "@mui/material"
 
 
 
 function EditIng ({ nickname, profileImg, handleNickname, handleProfileImg, setFile, editEnd, handleOnKeyPress }) {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const fileInput = useRef(null)
-
 
   const onChange = (e) => {
     const img = e.target.files[0]
@@ -26,6 +29,12 @@ function EditIng ({ nickname, profileImg, handleNickname, handleProfileImg, setF
       return
       }
   }
+
+  const handleClick = () => {
+    dispatch(signout())
+    // navigate("/login", { replace: true })
+  }
+
 
   return (
     <Box sx={{ width: "50vw", padding: 2, marginTop: 6 }}>
@@ -47,6 +56,7 @@ function EditIng ({ nickname, profileImg, handleNickname, handleProfileImg, setF
         <span onClick={editEnd}>완료</span>
       </div>
       <hr />
+      <button onClick={handleClick} className="logout-btn">회원탈퇴</button>
     </Box>
   )
 }
