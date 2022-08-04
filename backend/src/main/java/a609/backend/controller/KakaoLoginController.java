@@ -40,15 +40,15 @@ public class KakaoLoginController {
         }
     }
 
-    @GetMapping("/logout/{kakaoId}")
-    public ResponseEntity<?> logout(@PathVariable String kakaoId) {
-        userService.logout(kakaoId);
+    @GetMapping("/logout")
+    public ResponseEntity<?> logout(@RequestHeader Map<String,Object> token) {
+        userService.logout((String) token.get("authorization"));
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{kakaoId}")
-    public ResponseEntity<?> deleteUser(@PathVariable String kakaoId) {
-         userService.deleteUser(kakaoId);
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteUser(@RequestHeader Map<String,Object> token) {
+         userService.deleteUser((String) token.get("authorization"));
 //       String newToken=kaKaoUtil.updateAccessToken(rt);
         return new ResponseEntity<String>("성공", HttpStatus.OK);
     }
