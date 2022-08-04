@@ -3,8 +3,9 @@ import "./TravelBody.css"
 import { getAllDates } from "components/DateTime/date"
 import Course from "./Body/Course";
 import Day from "./Body/Day";
+import { useSelector } from "react-redux";
 
-const { default: React, useEffect } = require("react")
+const { default: React, useEffect, useState } = require("react")
 
 var onClickNext = []
 var onClickPrev = []
@@ -53,8 +54,20 @@ function buildOnClickHandler( { periodInDays, setCourseIdx } ) {
 }
 
 
-function TravelBody({ startDate, periodInDays, courses, setCourses, courseIdx, setCourseIdx, startTime, setStartTime }) {
-    const dates = getAllDates(startDate, periodInDays)
+function TravelBody({ courseIdx, setCourseIdx }) {
+    const travel = useSelector((state) => state.travel)
+
+    const [ startDate ] = useState(travel.startDate)
+    const [ periodInDays ] = useState(travel.periodInDays)
+    const [ courses ] = useState(travel.courses)
+    // const [ startTime ] = useState(travel.startTime)
+    const [ vehicle ] = useState(travel.vehicle)
+
+    const [ dates, setDates ] = useState(getAllDates(startDate, periodInDays))
+
+    useEffect(() => {
+        setDates(getAllDates(startDate, periodInDays))
+    }, [ startDate ])
 
     buildOnClickHandler({ periodInDays, setCourseIdx })
     
@@ -77,6 +90,7 @@ function TravelBody({ startDate, periodInDays, courses, setCourses, courseIdx, s
                                 day={day}
                                 course={course}
                                 courseIndex={i}
+                                vehicle={vehicle}
                             />
                         </div>
                     )

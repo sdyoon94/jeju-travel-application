@@ -7,7 +7,7 @@ import TravelBody from "components/Travel/TravelBody"
 import TravelFooter from "components/Travel/TravelFooter"
 
 import ConfigDrawer from "components/Travel/Drawer/ConfigDrawer"
-import { initDirections } from "store/modules/distanceSlice"
+import { initDirection } from "store/modules/directionSlice"
 
 // import { initDirections, fetchDirection } from "store/modules/distanceSlice"
 // import { fetchDistanceMatrix } from "store/modules/distanceMatrixSlice"
@@ -16,7 +16,6 @@ function Travel() {
     // get travel
     const travel = useSelector((state) => state.travel)
     console.log(travel)
-    const dispatch = useDispatch()
 
     // immutable
     const travelUid = travel.travelUid
@@ -46,8 +45,10 @@ function Travel() {
     const [ lastModified, setLastModified ] = useState(travel.lastModified)
     const [ startDateList, setStartDateList ] = useState(travel.startDateList)
     
+    const dispatch = useDispatch()
+    
     useEffect(() => {
-        dispatch(initDirections(periodInDays))
+        dispatch(initDirection(periodInDays))
     }, [])
 
     return (
@@ -69,18 +70,10 @@ function Travel() {
                 </Header>
                 <TravelTitle />
                 <TravelBody
-                    startDate={startDate}
-                    periodInDays={periodInDays}
-                    courses={courses}
-                    setCourses={setCourses}
                     courseIdx={courseIdx}
                     setCourseIdx={setCourseIdx}
-                    startTime={startTime}
-                    setStartTime={setStartTime}
                 />
-                <TravelFooter 
-                    startDate={startDate}
-                    courses={courses}
+                <TravelFooter
                     courseIdx={courseIdx}
                 />
             </div>
