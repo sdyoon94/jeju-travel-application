@@ -5,10 +5,10 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Getter
 @Setter
-@ToString
 @Entity
 public class UserTrip {
 
@@ -17,7 +17,6 @@ public class UserTrip {
     @Column(name="USER_TRIP_ID")
     private Long userTripID;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TRIP_ID")
     private Trip trip;
@@ -25,4 +24,7 @@ public class UserTrip {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "KAKAO_ID")
     private User user;
+
+    @Column(name="VOTE_DATE")
+    private LocalDate voteDate;
 }

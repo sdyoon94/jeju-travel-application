@@ -8,34 +8,36 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@ToString
 @Entity
 public class Schedule {
+
+    //turn이 0인 스케쥴을 만들어서 소요시간을 시작시간으로 설정해준다.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="SCHEDULE_ID")
-    private Integer scheduleId;
+    private Long scheduleId;
 
-    @Column(name="PLACE_ID")
-    private Integer placeId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PLACE_ID")
+    private Place place;
 
-    // 몇일차 인지
-    @Column(name="DAY_ID")
-    private Integer dayId;
-
-    //여행 순서
-    @Column(name="SCHEDULE_ORDER_")
-    private Integer scheduleOrder;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TRIP_ID")
+    private Trip trip;
 
     @Column(name="STAY_TIME")
     private Integer stayTime;
 
+    @Column(name="COST")
+    private Integer cost;
+
     @Column(name="IS_FIXED")
     private Boolean isFixed;
 
-    //여행 스케줄불러올때 있는게 편하지 않을까..?
-    @Column(name="TRIP_ID")
-    private int tripId;
+    @Column(name="DAY")
+    private Integer day;
 
+    @Column(name="TURN")
+    private Integer turn;
 
 }

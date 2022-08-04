@@ -11,10 +11,10 @@ import java.util.List;
 public interface TripRepository extends JpaRepository<Trip, String> {
     Trip save(Trip trip);
 
-    Trip findOneByTripId(int tripId);
+    Trip findOneByTripId(Long tripId);
 
     @Transactional
-    void deleteTripByTripId(int tripId);
+    void deleteTripByTripId(Long tripId);
 
 //    //목록 불러오기
 //    List<Trip> findAllByUserId(int userId);
