@@ -21,6 +21,9 @@ public class KaKaoUtil {
     @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
     private String secretKey;
 
+    @Value("${kakao.admin}")
+    private String adminkey;
+
     public Map<String, Object> getAccessToken(String code) {
         Map<String, Object> resultMap = new HashMap<>();
         String accessToken = "";
@@ -128,13 +131,25 @@ public class KaKaoUtil {
     }
 
 
-    public void kakaoLogout(String access_Token) {
-        String reqURL = "http://kapi.kakao.com/v1/user/logout";
+    public void kakaoLogout(String id) {
+        String reqURL = "https://kapi.kakao.com/v1/user/logout";
+//        Long longId = Long.valueOf(id);
         try {
             URL url = new URL(reqURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
-            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+            conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+            conn.setRequestProperty("Authorization", "KakaoAK " + adminkey);
+            conn.setDoOutput(true);
+
+            //POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+            StringBuilder sb = new StringBuilder();
+            sb.append("target_id_type=user_id");
+            sb.append("&target_id="+id);
+
+            bw.write(sb.toString());
+            bw.flush();
 
             int responseCode = conn.getResponseCode();
             System.out.println("responseCode = " + responseCode);
@@ -185,13 +200,28 @@ public class KaKaoUtil {
 //        return id;
 //    }
 
-    public void unlink(String access_Token) {
+    public void unlink(String id) {
         String reqURL = "https://kapi.kakao.com/v1/user/unlink";
+        log.info("회원아이디"+id);
+        log.info("앱키"+adminkey);
         try {
             URL url = new URL(reqURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
-            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+            conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+            conn.setRequestProperty("Authorization", "KakaoAK " + adminkey);
+            conn.setDoOutput(true);
+
+            //POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+            StringBuilder sb = new StringBuilder();
+            sb.append("target_id_type=user_id");
+            sb.append("&target_id="+id);
+            log.info("주소"+sb.toString());
+
+            bw.write(sb.toString());
+            bw.flush();
+
 
             int responseCode = conn.getResponseCode();
             System.out.println("responseCode : " + responseCode);
@@ -205,6 +235,8 @@ public class KaKaoUtil {
                 result += line;
             }
             System.out.println(result);
+            br.close();
+//            bw.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
