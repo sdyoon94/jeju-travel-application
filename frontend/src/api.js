@@ -6,8 +6,8 @@ const api = {
     editProfileImgUrl(userId) {
       return HOST + `/file/upload/${userId}`
     },
-    editNicknameUrl(userId) {
-      return HOST + `/v1/users/${userId}`
+    editNicknameUrl() {
+      return HOST + "/v1/users/"
     }
 
   }

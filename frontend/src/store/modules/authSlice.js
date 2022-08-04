@@ -14,11 +14,10 @@ const initialState = {
 export const editNickname = createAsyncThunk(
   "auth/editNickname",
   async (newNickname, thunkAPI) => {
-    const state = thunkAPI.getState()
     try {
       const response = await axios({
         method: "patch",
-        url: api.accounts.editNicknameUrl(state.auth.id),
+        url: api.accounts.editNicknameUrl(),
         data: {nickname: newNickname}
       })
       console.log(response.data)
