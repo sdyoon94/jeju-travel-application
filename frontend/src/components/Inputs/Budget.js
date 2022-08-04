@@ -50,6 +50,7 @@ function Budget(props) {
         {show && <div className="warning">경비는 최대 9999만원이에요</div>}
       </div>
     </div>
+    
   );
 }
 

@@ -1,6 +1,6 @@
 .header {
     height: 4vh;
-    padding: 2vh;
+    padding: 2vh 4vw;
     display: flex;
     justify-content: space-between;
 }

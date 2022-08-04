@@ -1,24 +1,68 @@
 import { useState } from "react"
-// import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { ReactComponent as HamburgertBtn } from 'assets/hamburger-button.svg'
-import { Avatar, Box, SwipeableDrawer } from '@mui/material'
-
-
+import { SwipeableDrawer } from '@mui/material'
+import { editNickname, editProfileImg } from "store/modules/authSlice"
+import EditIng from "./Editing"
+import NotEdit from "./NotEdit"
 
 
 function Drawer() {
+  const dispatch = useDispatch()
+  const name = useSelector((state) => state.auth.nickname)
+  const img = useSelector((state) => state.auth.profileImg)
+  const [nickname, setNickname] = useState(name)
+  const [profileImg, setProfileImg] = useState(img)
   const [open, setopen] = useState(false)
+  const [edit, setEdit] = useState(false)
+  const [file, setFile] = useState(null)
+  const [modify, setModify] = useState({"nickname": false, "img": false})
 
   const handleDrawer = (open) => function(e) {
-    if (
-      e && e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')
-      ) {
-        return
-      }
-      setopen(open)
+    if (e && e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) {
+      return
+    }
+    setopen(open)
   }
 
-  // const userInfo = useSelector((state) => console.log(state))
+  const editStart = () => {
+    setEdit(true)
+  }
+
+  const editEnd = () => {
+    setEdit(false)
+    if (modify.nickname) {
+      console.log('스토어 가기 전')
+      dispatch(editNickname(nickname))
+      setModify({...modify, nickname: false})
+    }
+    if (modify.img) {
+      dispatch(editProfileImg(file))
+      setModify({...modify, img: false})
+    }
+  }
+  
+  const handleOnKeyPress = (e) => {
+    if (e.key === "Enter") {
+      setEdit(false)
+    }
+  }
+
+  const handleNickname = (e) => {
+    setNickname(e.target.value)
+    setModify({
+      ...modify,
+      "nickname": true
+    })
+  }
+
+  const handleProfileImg = (img) => {
+    setProfileImg(img)
+    setModify({
+      ...modify,
+      "img": true
+    })
+  }
 
 
   return (
@@ -30,24 +74,11 @@ function Drawer() {
         onOpen={handleDrawer(true)}
         onClose={handleDrawer(false)}
         >
-        <Box sx={{ width: "50vw", padding: 2, marginTop: 6 }}>
-          <div className="drawer-profile">
-            <p className="title-size">유저네임</p>
-            <Avatar className="drawer-profile-item" alt="profile-img" src="icons/gamgyul.jpg" sx={{ width: 35, height: 35 }} />
-          </div>
-            <p className="subtitle-size inline-block">내 여행 <span className="color-1">1</span></p>
-          <hr />
-          <p className="subtitle-size">회원정보</p>
-          <div className="drawer-profile">
-            <span className="content-size">이메일</span>
-            <span className="content-size">xxx@google.com</span>
-          </div>
-          <p className="subcontent-size user-edit">회원정보 수정</p>
-          <hr />
-          <button className="logout-btn">로그아웃</button>
-
-
-        </Box>
+        {
+          edit
+          ? <EditIng nickname={nickname} profileImg={profileImg} handleNickname={handleNickname} handleProfileImg={handleProfileImg} setFile={setFile} editEnd={editEnd} handleOnKeyPress={handleOnKeyPress} />
+          : <NotEdit editStart={editStart} />
+        }
       </SwipeableDrawer>
     </>
   );

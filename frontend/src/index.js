@@ -9,9 +9,11 @@ import Travel from "routes/Travel";
 import Home from "./routes/Home";
 import TravelEdit from "routes/TravelEdit";
 import KakaoLogin from "routes/KakaoLogin";
-import KakaoLoading from "routes/KakaoLoading";
+import KakaoRedirect from "routes/KakaoRedirect"
+import Edit from 'components/Home/EditTest';
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <BrowserRouter>
@@ -20,15 +22,17 @@ root.render(
         <Route path="new" element={<New />}>
           <Route path=":input" element={<New />} />
         </Route>
+        <Route path="edit" element={<Edit />} />
         <Route path="travel" element={<Travel />} />
         <Route path="traveledit" element={<TravelEdit />} />
         <Route path="login" element={<KakaoLogin />} />
-        <Route path="kakao/callback" element={<KakaoLoading />} />
+        <Route path="oauth2/redirect/" element={<KakaoRedirect />} />
       </Routes>
     </BrowserRouter>
   </Provider>
 );
 
+// axios.defaults.withCredentials = true
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

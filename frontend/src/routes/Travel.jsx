@@ -15,6 +15,7 @@ import { initDirections } from "store/modules/distanceSlice"
 function Travel() {
     // get travel
     const travel = useSelector((state) => state.travel)
+    console.log(travel)
     const dispatch = useDispatch()
 
     // immutable
@@ -66,16 +67,7 @@ function Travel() {
                         setVehicle={setVehicle}
                     />
                 </Header>
-                <TravelTitle 
-                    title={title}
-                    members={members}
-                    maxMemberCnt={maxMemberCnt}
-                    startDate={startDate}
-                    periodInDays={periodInDays}
-                    budget={budget}
-                    styles={styles}
-                    joinAddress={joinAddress}
-                />
+                <TravelTitle />
                 <TravelBody
                     startDate={startDate}
                     periodInDays={periodInDays}
@@ -87,6 +79,7 @@ function Travel() {
                     setStartTime={setStartTime}
                 />
                 <TravelFooter 
+                    startDate={startDate}
                     courses={courses}
                     courseIdx={courseIdx}
                 />
