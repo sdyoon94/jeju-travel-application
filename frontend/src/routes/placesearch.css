@@ -57,5 +57,13 @@
   padding: 5px;
   background: #D9D9D9;
   border-radius: 10px;
-
 }
+
+.select-click {
+  font-size: 3vw;
+  background: #D9D9D9;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+

@@ -11,7 +11,6 @@ const selectedSpotsSlice = createSlice({
       state.push(payload)
     },
     deleteSpot(state, { payload }) {
-      console.log(payload)
       return state.filter(spot => spot.uid !==  payload)
     }
   }

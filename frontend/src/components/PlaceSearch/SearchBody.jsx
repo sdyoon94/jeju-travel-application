@@ -15,9 +15,7 @@ function SearchBody({spotSearch}) {
     )
   } else {
     return (
-      <>
-        <RecommendList />
-      </>
+      <RecommendList />
     )
   }
 }

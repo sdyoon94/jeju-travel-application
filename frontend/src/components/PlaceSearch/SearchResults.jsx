@@ -4,7 +4,7 @@
 function SearchResults() {
   return (
     <>
-      <span>검색결과입니다.</span>
+      <h1>검색결과입니다.</h1>
     </>
   )
 }
