@@ -3,7 +3,7 @@ import { addTime, secToTime } from "components/DateTime/time"
 
 import "./Course.css"
 import { useEffect, useState } from "react"
-import { fetchDirection } from "store/modules/distanceSlice"
+import { fetchDirection } from "store/modules/directionSlice"
 import { useDispatch } from "react-redux"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
@@ -24,8 +24,10 @@ const getListStyle = () => ({
 
 const queryAttr = "data-rbd-drag-handle-draggable-id"
 
+// const VEHICLE_CAR = "car"
+// const VEHICLE_TRANSIT = "walk"
 
-function Course({ day, course, courseIndex }) {
+function Course({ day, course, courseIndex, vehicle }) {
 	const [route, setRoute] = useState(course.route)
 	const dispatch = useDispatch()
 
@@ -34,15 +36,14 @@ function Course({ day, course, courseIndex }) {
 	const [ timeReqs, setTimeReqs ] = useState([])
 
 	useEffect(() => {
-		const fetchData = async ({ index, route }) => {
-			let startTime = course.startTime
-			let startTimes_ = [ startTime ]
-			let timeReqs_ = []
+		let startTime = course.startTime
+		let startTimes_ = [ startTime ]
+		let timeReqs_ = []
 
-		const response = await dispatch(fetchDirection({ index: day-1, route: route }))
-			
+		const fetchData = async ({ index, route, vehicle }) => {
+			const response = await dispatch(fetchDirection({ index, route, vehicle }))
 
-		const len = route.length
+			const len = route.length
 			for (let i = 1; i < len; i++) {
 				const duration = route[i-1].duration
 				const timeReq = secToTime(response.payload.directions[i-1].duration)
@@ -54,15 +55,15 @@ function Course({ day, course, courseIndex }) {
 			setStartTimes(startTimes_)
 			setTimeReqs(timeReqs_)
 		}
-		fetchData({index: day-1, route})
-	}, [course, route, day, dispatch])
+		fetchData({index: day-1, route, vehicle})
+	}, [course, route, day, vehicle, dispatch])
 
 	const reorder = (list, startIndex, endIndex) => {
 		const result = Array.from(list)
 		const [removed] = result.splice(startIndex, 1)
 		result.splice(endIndex, 0, removed)
 		return result
-		}
+	}
 
 	const setPlaceholderProps = useState({})[1]
 	const [ hold, setHold ] = useState(false)

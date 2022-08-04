@@ -2,9 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { Loader } from '@googlemaps/js-api-loader'
 
 const API_KEY = "AIzaSyA_Kp9lPUVHWZ5i3blrGYJRk8yG70ZovsM"
-const TRAVEL_MODE = {
-    "car": "DRIVING"
-}
+const TRAVEL_MODE = "TRANSIT"
 const loader = new Loader({
     apiKey: API_KEY,
     version: "weekly"
@@ -33,11 +31,11 @@ const fetchDistanceMatrix = createAsyncThunk(
 
         var response = await service.getDistanceMatrix({
             origins,
-                destinations,
-                travelMode: TRAVEL_MODE[vehicle],
-                unitSystem: 0,
-                avoidHighways: false,
-                avoidTolls: false
+            destinations,
+            travelMode: TRAVEL_MODE,
+            unitSystem: 0,
+            avoidHighways: false,
+            avoidTolls: false
         })
 
         return response

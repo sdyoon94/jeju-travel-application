@@ -4,6 +4,7 @@ import { ReactComponent as MapMarker } from "assets/map-marker.svg"
 import { getEndDate } from "components/DateTime/date"
 
 import { useCallback, useEffect, useState } from "react"
+import { useSelector } from "react-redux"
 
 import "./MapDrawer.css"
 
@@ -16,6 +17,7 @@ const center = {
     lat: 33.488830,
     lng: 126.498083
 }
+// Map 객체의 bounds, center 변경을 위한 함수
 const updateBounds = (bounds, lat, lng) => {
     if (lat > bounds.north) {
         bounds.north = lat
@@ -38,6 +40,7 @@ const divideCenter = (center, len) => {
     center.lat /= len
     center.lng /= len
 }
+// tag 처리 함수
 const buildTags = (tag) => {
     const tags = tag.split(",")
     if (tags.length === 0) {
@@ -49,20 +52,28 @@ const buildTags = (tag) => {
     return tags.reduce((prev, curr) => `#${prev} #${curr}`)
 }
 
+function MapDrawer({ courseIdx }) {
+    const travel = useSelector((state) => state.travel)
 
-function MapDrawer({ startDate, courses, courseIdx }) {
+    // 여행과 관련된 필요 데이터
+    const [ startDate ] = useState(travel.startDate)
+    const [ courses ] = useState(travel.courses)
+    const [ route, setRoute ] = useState(travel.courses[courseIdx].route)
+
+    useEffect(() => {
+        setRoute(courses[courseIdx].route)
+    }, [ courses, courseIdx ])
+
+    // 지도에 표시할 일자 데이터
     const day = courseIdx + 1
-    const date = getEndDate(startDate, courseIdx)
+    const [ date, setDate ] = useState(getEndDate(startDate, courseIdx))
 
-    // const infoWindow = new window.google.maps.InfoWindow()
-    const [ route, setRoute ] = useState(courses[courseIdx].route)
+    useEffect(() => {
+        setDate(getEndDate(startDate, courseIdx))
+    }, [ startDate ])
+
+    // Drawer 컴포넌트에서 사용
     const [ isDrawerOpened, setIsDrawerOpened ] = useState(false)
-
-    const [ markers, setMarkers ] = useState([])
-
-    const { isLoaded, loadError } = useJsApiLoader({
-        googleMapsApiKey: API_KEY
-    })
 
     const toggleDrawer = () => {
         setIsDrawerOpened(true)
@@ -70,6 +81,12 @@ function MapDrawer({ startDate, courses, courseIdx }) {
     const closeDrawer = () => {
         setIsDrawerOpened(false)
     }
+
+    const [ markers ] = useState([])
+
+    const { isLoaded, loadError } = useJsApiLoader({
+        googleMapsApiKey: API_KEY
+    })
 
     const PlaceInfo = () => {
         return (
@@ -89,6 +106,7 @@ function MapDrawer({ startDate, courses, courseIdx }) {
     )}
 
     const Map = ({ route, markers }) => {
+        // 지도가 로드되었을 때 실행하는 로직
         const onLoad = useCallback((mapInstance) => {
             while (markers.length > 0) {
                 markers.pop().setMap(null)
@@ -143,7 +161,8 @@ function MapDrawer({ startDate, courses, courseIdx }) {
 
         }, [markers, route])
 
-        return (<div className="google-map-container">
+        return (
+        <div className="google-map-container">
             <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={center}
@@ -151,12 +170,8 @@ function MapDrawer({ startDate, courses, courseIdx }) {
                 onLoad={onLoad}
             >
             </GoogleMap>
-        </div>)
-    }
-
-    useEffect(() => {
-        setRoute(courses[courseIdx].route)
-    }, [ courseIdx, courses ] )
+        </div>
+    )}
 
     return (
         <>

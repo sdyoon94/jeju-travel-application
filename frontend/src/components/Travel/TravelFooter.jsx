@@ -2,12 +2,10 @@ import MapDrawer from "./Drawer/MapDrawer"
 
 import "./TravelFooter.css"
 
-function TravelFooter({ startDate, courses, courseIdx }) {
+function TravelFooter({ courseIdx }) {
     return (
         <div className="travel-footer">
             <MapDrawer
-                startDate={ startDate }
-                courses={ courses }
                 courseIdx={ courseIdx }
             />
         </div>
