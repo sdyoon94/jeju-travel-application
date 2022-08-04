@@ -4,6 +4,7 @@ import a609.backend.db.entity.User;
 import a609.backend.service.UserService;
 import a609.backend.util.JwtUtil;
 import io.jsonwebtoken.Claims;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1")
@@ -30,13 +32,28 @@ public class UserController {
         return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
     }
 
-    @PatchMapping("/users/{userId}")
-    public ResponseEntity updateUser(@PathVariable String userId, @RequestBody User user) {
-        User resultUser = userService.updateUser(userId, user);
+//    @PatchMapping("/users/{userId}")
+//    public ResponseEntity updateUser(@PathVariable String userId, @RequestBody User user) {
+//        User resultUser = userService.updateUser(userId, user);
+//        HashMap<String, String> map = new HashMap<>();
+//        map.put("nickname", resultUser.getNickname());
+//        return new ResponseEntity(map, HttpStatus.NO_CONTENT);
+//    }
+    @PatchMapping("/users")
+    public ResponseEntity updateUser(@RequestBody User user, @RequestHeader Map<String,Object> token) {
+        log.info("----------------------------------------------------");
+        log.info(token.toString());
+        log.info("----------------------------------------------------");
+        log.info(user.getNickname());
+        String saveNickname = userService.updateUser(user, (String) token.get("authorization"));
         HashMap<String, String> map = new HashMap<>();
-        map.put("nickname", resultUser.getNickname());
-        return new ResponseEntity(map, HttpStatus.NO_CONTENT);
+        map.put("nickname", saveNickname);
+        return new ResponseEntity(map, HttpStatus.OK);
     }
+
+
+
+
     @GetMapping("/users/me")
     public ResponseEntity<Map<String, Object>> myProfile(@RequestBody Map<String, String> tokenMap) {
         Map<String, Object> resultMap = new HashMap<>();

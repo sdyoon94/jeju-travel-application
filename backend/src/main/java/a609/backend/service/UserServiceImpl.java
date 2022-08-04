@@ -16,6 +16,7 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -76,16 +77,35 @@ public class UserServiceImpl implements UserService {
         return userRepository.findOneByKakaoId(id);
     }
 
-
+    @Transactional
     @Override
-    public User updateUser(String id, User user) {
-        User originUser = userRepository.findOneByKakaoId(id);
+    public String updateUser(User user, String token) {
+        log.info("----------------------------------------------------");
+        log.info(token);
+        log.info((String)jwtUtil.parseJwtToken(token).get("id"));
+        User originUser = userRepository.findOneByKakaoId((String)jwtUtil.parseJwtToken(token).get("id"));
+
+        log.info("----------------------------------------------------");
+        log.info(originUser.getNickname());
         if (user.getNickname() != null) {
             originUser.setNickname(user.getNickname());
         }
-        return userRepository.save(originUser);
+        log.info("----------------------------------------------------");
+        log.info(originUser.getNickname());
+        return userRepository.save(originUser).getNickname();
 
     }
+
+
+//    @Override
+//    public User updateUser(String id, User user) {
+//        User originUser = userRepository.findOneByKakaoId(id);
+//        if (user.getNickname() != null) {
+//            originUser.setNickname(user.getNickname());
+//        }
+//        return userRepository.save(originUser);
+//
+//    }
 //
 //    @Override
 //    public int idCheck(String id) {

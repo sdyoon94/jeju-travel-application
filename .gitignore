@@ -204,7 +204,4 @@ gradle-app.setting
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
-# End of https://www.toptal.com/developers/gitignore/api/intellij+all,windows,eclipse,gradle
-
-#application.properties
-#application-oauth.yml
+# End of https://www.toptal.com/developers/gitignore/api/windows,java,macos,intellij+all,visualstudiocode,node,react

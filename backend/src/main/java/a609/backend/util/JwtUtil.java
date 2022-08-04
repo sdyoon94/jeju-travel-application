@@ -41,6 +41,7 @@ public class JwtUtil {
 
     public Claims parseJwtToken(String token) {
         Claims claims = null;
+        token = token.split(" ")[1];
         try{
             claims = Jwts.parser()
                     .setSigningKey(secretKey.getBytes("UTF-8"))
