@@ -4,6 +4,7 @@ import a609.backend.db.entity.User;
 import a609.backend.service.UserService;
 import a609.backend.util.JwtUtil;
 import io.jsonwebtoken.Claims;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,13 +31,24 @@ public class UserController {
         return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
     }
 
-    @PatchMapping("/users/{userId}")
-    public ResponseEntity updateUser(@PathVariable String userId, @RequestBody User user) {
-        User resultUser = userService.updateUser(userId, user);
+//    @PatchMapping("/users/{userId}")
+//    public ResponseEntity updateUser(@PathVariable String userId, @RequestBody User user) {
+//        User resultUser = userService.updateUser(userId, user);
+//        HashMap<String, String> map = new HashMap<>();
+//        map.put("nickname", resultUser.getNickname());
+//        return new ResponseEntity(map, HttpStatus.NO_CONTENT);
+//    }
+    @PatchMapping("/users")
+    public ResponseEntity updateUser(@RequestBody User user, @RequestHeader Map<String,Object> token) {
+        String saveNickname = userService.updateUser(user, (String) token.get("Authorization"));
         HashMap<String, String> map = new HashMap<>();
-        map.put("nickname", resultUser.getNickname());
-        return new ResponseEntity(map, HttpStatus.NO_CONTENT);
+        map.put("nickname", saveNickname);
+        return new ResponseEntity(map, HttpStatus.OK);
     }
+
+
+
+
     @GetMapping("/users/me")
     public ResponseEntity<Map<String, Object>> myProfile(@RequestBody Map<String, String> tokenMap) {
         Map<String, Object> resultMap = new HashMap<>();
