@@ -4,6 +4,7 @@ import a609.backend.db.entity.User;
 import a609.backend.service.UserService;
 import a609.backend.util.JwtUtil;
 import io.jsonwebtoken.Claims;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1")
@@ -37,9 +39,9 @@ public class UserController {
 //        map.put("nickname", resultUser.getNickname());
 //        return new ResponseEntity(map, HttpStatus.NO_CONTENT);
 //    }
-    @PatchMapping("/users/{nickName}")
-    public ResponseEntity updateUser(@PathVariable String nickname, @RequestHeader String token) {
-        String saveNickname = userService.updateUser(nickname, token);
+    @PatchMapping("/users")
+    public ResponseEntity updateUser(@RequestBody User user, @RequestHeader Map<String,Object> token) {
+        String saveNickname = userService.updateUser(user, (String) token.get("Authorization"));
         HashMap<String, String> map = new HashMap<>();
         map.put("nickname", saveNickname);
         return new ResponseEntity(map, HttpStatus.OK);

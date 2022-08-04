@@ -77,11 +77,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String updateUser(String nickname, String token) {
+    public String updateUser(User user, String token) {
         User originUser = userRepository.findOneByKakaoId(jwtUtil.parseJwtToken(token).getId());
-        originUser.setNickname(nickname);
-
-        return userRepository.save(originUser).getUsername();
+        if (user.getNickname() != null) {
+            originUser.setNickname(user.getNickname());
+        }
+        return userRepository.save(originUser).getNickname();
 
     }
 
