@@ -6,8 +6,8 @@ const initialState = {
   maxMemberCnt: "",
   startDate: "",
   endDate: "",
-  periodInDays: null,
-  style: null,
+  periodInDays: '',
+  style: "abcd",
   budget: "",
   startTime: "",
   endTime: "",
@@ -25,10 +25,10 @@ const inputValuesSlice = createSlice({
 
       const payload = action.payload;
       state[payload[0]] = payload[1];
-      console.log(action.payload[0]);
-      console.log(action.payload[1]);
-      console.log(typeof action.payload[1]);
-      console.log(state.budget);
+      // console.log(action.payload[0]);
+      // console.log(action.payload[1]);
+      // console.log(typeof action.payload[1]);
+      // console.log(state.budget);
 
       // console.log(action.payload)
       // console.log(state)

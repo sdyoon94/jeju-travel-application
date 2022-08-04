@@ -81,23 +81,41 @@ function New() {
 
   const nextRoute = function () {
     if (params.input === "membercnt" && inputValues.maxMemberCnt >= 2) {
+      setShow(false);
       navigate("/new/period");
     } else if (params.input === "membercnt" && inputValues.maxMemberCnt == 1) {
+      setShow(false);
       navigate("/new/date");
     } else if (inputValues.maxMemberCnt === "") {
       setShow(true);
     } else if (params.input === "period" || params.input === "date") {
-      if (inputValues.m === "") {
+      if (inputValues.periodInDays === "") {
         setShow(true);
       } else {
+        setShow(false);
         navigate("/new/style");
       }
     } else if (params.input === "style") {
-      navigate("/new/budget");
+      if (inputValues.style === ''){
+        setShow(true)
+      } else {
+        setShow(false);
+        navigate("/new/budget");
+      }
     } else if (params.input === "budget") {
-      return "time";
+      if (inputValues.budget ===""){
+        setShow(true)
+      } else {
+        setShow(false);
+        navigate('/new/time')
+      }
     } else if (params.input === "time") {
-      return "";
+      if (inputValues.startTime === '' || inputValues.endTime === '') {
+        setShow(true)
+      } else {
+        setShow(false);
+        navigate('/loading')
+      }
     }
   };
 
@@ -107,6 +125,13 @@ function New() {
   //   const route = "/new/" + nextRoute();
   //   navigate(route);
   // };
+
+  React.useEffect(()=>{
+    if (inputValues.maxMemberCnt === '') {
+      navigate('/new/membercnt')
+    }
+  },[])
+
 
   return (
     <div className="input-container">
