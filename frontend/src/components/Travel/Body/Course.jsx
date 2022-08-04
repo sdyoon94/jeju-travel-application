@@ -147,6 +147,7 @@ function Course({ day, course, courseIndex, vehicle }) {
 						isFirst={index === 0}
 						isLast={index === timeReqs.length}
 						hold={hold}
+						vehicle={vehicle}
 					/>
 				</div>
 				)}
