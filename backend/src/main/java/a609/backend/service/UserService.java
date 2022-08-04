@@ -18,8 +18,8 @@ public interface UserService extends OAuth2UserService<OAuth2UserRequest, OAuth2
 
     Map<String, Object> login(String code);
 
-    void logout(String kakaoId);
+    void logout(String token);
 
-    void deleteUser(String kakaoId);
+    void deleteUser(String token);
 
 }
