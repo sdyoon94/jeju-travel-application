@@ -60,7 +60,8 @@ function TravelBody({ courseIdx, setCourseIdx }) {
     const [ startDate ] = useState(travel.startDate)
     const [ periodInDays ] = useState(travel.periodInDays)
     const [ courses ] = useState(travel.courses)
-    const [ startTime ] = useState(travel.startTime)
+    // const [ startTime ] = useState(travel.startTime)
+    const [ vehicle ] = useState(travel.vehicle)
 
     const [ dates, setDates ] = useState(getAllDates(startDate, periodInDays))
 
@@ -89,6 +90,7 @@ function TravelBody({ courseIdx, setCourseIdx }) {
                                 day={day}
                                 course={course}
                                 courseIndex={i}
+                                vehicle={vehicle}
                             />
                         </div>
                     )
