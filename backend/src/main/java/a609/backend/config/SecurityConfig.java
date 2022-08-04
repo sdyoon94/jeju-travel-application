@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 
+import java.util.Arrays;
+
 @EnableWebSecurity // Spring Security 설정 활성화
 @Configuration
 public class SecurityConfig {
@@ -21,7 +23,13 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        return http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
+        return http.cors().configurationSource(request -> {
+            CorsConfiguration cors = new CorsConfiguration();
+            cors.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+            cors.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+            cors.setAllowedHeaders(Arrays.asList("*"));
+            return cors;
+        })
                 .and().csrf().disable().headers().frameOptions().disable()
                 .and().authorizeRequests()
                 .antMatchers("/**").permitAll()

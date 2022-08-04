@@ -3,6 +3,7 @@ package a609.backend.db.entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class Trip {
     @Temporal(TemporalType.DATE)
     private Date startTime;
 
-    @OneToMany(mappedBy="trip")
+    @OneToMany(mappedBy="trip", cascade=CascadeType.ALL)
     List<UserTrip> tripMember = new ArrayList<>();
 
     @Column(name="BUDGET")
@@ -42,6 +43,7 @@ public class Trip {
 
     @Column(name="STYLE")
     private Integer style;
+
 
 
     //이동수단 기본 자동차
