@@ -1,5 +1,7 @@
 package a609.backend.handler;
 
+import a609.backend.db.entity.User;
+import a609.backend.db.repository.UserRepository;
 import a609.backend.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,6 +20,9 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     @Autowired
     JwtUtil jwtUtil;
 
+    @Autowired
+    UserRepository userRepository;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
@@ -25,12 +30,17 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
 
         String id = String.valueOf((Long)oAuth2User.getAttribute("id"));
-        Map<String, Object> kakaoAccount = (Map<String, Object>) oAuth2User.getAttributes().get("kakao_account");
-        String email = (String) kakaoAccount.get("email");
-        Map<String, Object> properties = (Map<String, Object>) oAuth2User.getAttributes().get("properties");
-        String nickname = (String) properties.get("nickname");
-        String imagePath = (String) properties.get(("profile_image_url"));
-        String jwt = jwtUtil.generateJwtToken(authentication);
+        String nickname, imagePath;
+        if(userRepository.countByKakaoId(id)>0){
+            User user = userRepository.findOneByKakaoId(id);
+            nickname = user.getNickname();
+            imagePath = user.getImagePath();
+        }else {
+            Map<String, Object> properties = (Map<String, Object>) oAuth2User.getAttributes().get("properties");
+            nickname = (String) properties.get("nickname");
+            imagePath = (String) properties.get(("profile_image_url"));
+        }
+        String jwt = jwtUtil.generateJwtToken(id, nickname, imagePath);
 
         String url = makeRedirectUrl(jwt);
         System.out.println("url: " + url);
