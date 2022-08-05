@@ -15,7 +15,7 @@ public class FindTripDTO {
 
     private LocalDate startDate;
 
-    private Integer period;
+    private Integer periodInDays;
 
 
 }
