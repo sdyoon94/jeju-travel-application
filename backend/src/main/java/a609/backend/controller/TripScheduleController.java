@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,10 +26,11 @@ public class TripScheduleController {
     }
 
     //여행방을 누르면 보여줄 일정
-    @GetMapping("/{tripId}")
-    public ResponseEntity<?> showTripScheduleList(@PathVariable int tripId){
-
-        return new ResponseEntity<List<Schedule>>(tripScheduleService.showTripSceduleList(tripId), HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<Map<String,Object>> showTripScheduleList(@RequestParam("tripId") Long tripId,@RequestParam("day") int day){
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("일자별 Schedule List",tripScheduleService.showTripSceduleList(tripId,day));
+        return new ResponseEntity<Map<String,Object>>(resultMap, HttpStatus.OK);
 
     }
 

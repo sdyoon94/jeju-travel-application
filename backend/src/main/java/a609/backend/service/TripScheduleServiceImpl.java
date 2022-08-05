@@ -3,11 +3,13 @@ package a609.backend.service;
 import a609.backend.db.entity.Trip;
 import a609.backend.db.entity.Schedule;
 import a609.backend.db.repository.ScheduleRepository;
+import a609.backend.payload.response.ScheduleDTO;
 import a609.backend.util.Algorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -59,8 +61,16 @@ public class TripScheduleServiceImpl implements TripScheduleService{
     }
 
     @Override
-    public List<Schedule> showTripSceduleList(int tripId) {
-        return null;
+    public List<ScheduleDTO> showTripSceduleList(Long tripId, int day) {
+        List<Schedule> schedules = scheduleRepository.findByTripTripIdAndDayOrderByTurn(tripId,day);
+        List<ScheduleDTO> scheduleList = new ArrayList<>();
+        for (Schedule schedule : schedules) {
+            ScheduleDTO sch = new ScheduleDTO();
+            sch.setPlaceName(schedule.getPlace().getPlaceName());
+            sch.setStayTime(schedule.getStayTime());
+            scheduleList.add(sch);
+        }
+        return scheduleList;
     }
 
 //    @Override

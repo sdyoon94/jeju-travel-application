@@ -53,7 +53,7 @@ public class TripServiceImpl implements TripService{
             FindTripDTO findTripDTO = new FindTripDTO();
             findTripDTO.setTripId(trip.getTripId());
             findTripDTO.setTripName(trip.getTripName());
-            findTripDTO.setPeriod(trip.getPeriod());
+            findTripDTO.setPeriodInDays(trip.getPeriodInDays());
             findTripDTO.setStartDate(trip.getStartDate());
             tripList.add(findTripDTO);
         }
@@ -69,7 +69,7 @@ public class TripServiceImpl implements TripService{
         schedule.setStayTime(trip.getStartTime().toSecondOfDay()/60);
         schedule.setTrip(savedTrip);
         scheduleRepository.save(schedule);
-        for(int i=1;i<savedTrip.getPeriod();i++){
+        for(int i=1;i<savedTrip.getPeriodInDays();i++){
             Schedule schedule1 = new Schedule();
             schedule1.setTurn(0);
             schedule1.setDay(i);

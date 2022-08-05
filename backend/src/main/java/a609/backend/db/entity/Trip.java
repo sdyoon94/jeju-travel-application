@@ -30,7 +30,7 @@ public class Trip {
 //    LocalDate startDate = LocalDate.of(year, month, dayofmonth);
 
     @Column(name="PERIOD")
-    private Integer period;
+    private Integer periodInDays;
 
     @Column(name="BUDGET")
     private Integer budget;
@@ -57,7 +57,7 @@ public class Trip {
     List<Schedule> schedules = new ArrayList<>();
 
     @Column(name="MAX_MEMBER")
-    private Integer maxMember;
+    private Integer maxMemberCnt;
 
 
 }
