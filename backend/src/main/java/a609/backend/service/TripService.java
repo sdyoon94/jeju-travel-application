@@ -2,13 +2,14 @@ package a609.backend.service;
 
 import a609.backend.db.entity.Trip;
 import a609.backend.db.entity.User;
+import a609.backend.payload.response.FindTripDTO;
 
 import java.util.List;
 
 public interface TripService {
 
     Trip showTripInfo(Long tripId);
-//    List<Trip> showTripList(int userId);
+    List<FindTripDTO> showTripList(String token);
 
     String registerTrip(Trip trip,String token);
     void updateTrip(Long tripId,Trip trip);

@@ -44,7 +44,7 @@ public class Trip {
     @Column(name="VEHICLE")
     private String vehicle;
 
-    @OneToMany(mappedBy="trip", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="trip", cascade=CascadeType.ALL,fetch=FetchType.LAZY)
     List<UserTrip> tripMember = new ArrayList<>();
 
     @Column(name="STYLE")
