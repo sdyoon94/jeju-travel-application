@@ -26,9 +26,8 @@ root.render(
         <Route path="traveledit" element={<TravelEdit />} />
         <Route path="login" element={<KakaoLogin />} />
         <Route path="oauth2/redirect/" element={<KakaoRedirect />} />
-        <Route path="placesearch" element={<PlaceSearch />}>
-          <Route path="address" element={<AddressInput />} />
-        </Route>
+        <Route path="search" element={<PlaceSearch />} />
+        <Route path="address" element={<AddressInput />} />
       </Routes>
     </BrowserRouter>
   </Provider>

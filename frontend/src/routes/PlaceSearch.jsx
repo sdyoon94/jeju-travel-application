@@ -1,12 +1,13 @@
 import Header from "components/Header/Header"
 import { useState } from "react"
 import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 import SearchBody from "components/PlaceSearch/SearchBody"
 import SelectedSpots from "components/PlaceSearch/SelectedSpots"
-import SearchBtn from "components/PlaceSearch/SearchBtn"
 import "./placesearch.css"
 
 function PlaceSearch() {
+  const navigate = useNavigate()
   const [spotSearch, setSpotSearch] = useState("")
   const selectedSpots = useSelector(state => state.selectedSpots)
 
@@ -32,6 +33,10 @@ function PlaceSearch() {
     })
   }
 
+  const handleInputBtn = () => {
+    navigate("/address")
+  }
+
   return (
     <>
       <Header style={{ margin: "3vh 4vw"}} />
@@ -48,7 +53,10 @@ function PlaceSearch() {
       </div>
       { selectedSpots.length === 0 ? null : <SelectedSpots /> }
       <SearchBody spotSearch={spotSearch} />
-      { selectedSpots.length === 0 ? <SearchBtn content="직접입력하기" /> : <SearchBtn content="선택 완료" /> }
+      { selectedSpots.length === 0 
+       ? <button onClick={handleInputBtn} className="place-btn block" style={{margin: "5vh auto"}}>직접입력하기</button>
+       : <button className="place-btn block" style={{margin: "5vh auto"}}>선택완료</button> 
+      }
     </>
   )
 }
