@@ -8,6 +8,7 @@ import a609.backend.db.repository.ScheduleRepository;
 import a609.backend.db.repository.TripRepository;
 import a609.backend.db.repository.UserRepository;
 import a609.backend.db.repository.UserTripRepository;
+import a609.backend.payload.response.FindTripDTO;
 import a609.backend.util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -42,13 +44,21 @@ public class TripServiceImpl implements TripService{
     }
 
 
-    //여행방 목록 불러오기 casecade 설정해야 가능할듯..?
-//    @Override
-//    public List<Trip> showTripList(int userId) {
-//       List<Trip> tripList = tripRepository.findAllByUserId(userId);
-//
-//       return tripList;
-//    }
+    @Override
+    public List<FindTripDTO> showTripList(String token) {
+        List<UserTrip> userTripList = userTripRepository.findByUserKakaoId((String)jwtUtil.parseJwtToken(token).get("id"));
+        List<FindTripDTO> tripList = new ArrayList<>();
+        for (UserTrip userTrip : userTripList) {
+            Trip trip = userTrip.getTrip();
+            FindTripDTO findTripDTO = new FindTripDTO();
+            findTripDTO.setTripId(trip.getTripId());
+            findTripDTO.setTripName(trip.getTripName());
+            findTripDTO.setPeriod(trip.getPeriod());
+            findTripDTO.setStartDate(trip.getStartDate());
+            tripList.add(findTripDTO);
+        }
+        return tripList;
+    }
 
     @Override
     public String registerTrip(Trip trip,String token) {

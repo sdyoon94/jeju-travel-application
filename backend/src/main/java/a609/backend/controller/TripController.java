@@ -1,6 +1,7 @@
 package a609.backend.controller;
 
 import a609.backend.db.entity.Trip;
+import a609.backend.payload.response.FindTripDTO;
 import a609.backend.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin("*")
@@ -63,10 +65,11 @@ public class TripController {
         return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
     }
 
-    @GetMapping("/showTripList/{userId}")
-    public ResponseEntity<Map<String,Object>> showTripList(@PathVariable int userId){
+    @GetMapping("/showTripList")
+    public ResponseEntity<Map<String,Object>> showTripList(@RequestHeader Map<String,Object> token){
         Map<String, Object> resultMap = new HashMap<>();
-
+        List<FindTripDTO> tripList = tripService.showTripList((String) token.get("authorization"));
+        resultMap.put("tripList",tripList);
 
         return new ResponseEntity<Map<String,Object>>(resultMap, HttpStatus.OK);
     }
