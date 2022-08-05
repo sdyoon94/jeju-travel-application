@@ -67,9 +67,6 @@ public class TripServiceImpl implements TripService{
             schedule1.setTrip(trip);
             scheduleRepository.save(schedule1);
         }
-
-        //이거 작동하는지 모르겠다 테스트해봐야됨
-
 //        schedule.setPlace("시작용 더미 관광지에 추가해야함");
 
         User user = userRepository.findOneByKakaoId((String)jwtUtil.parseJwtToken(token).get("id"));
@@ -128,8 +125,9 @@ public class TripServiceImpl implements TripService{
     }
 
     @Override
-    public void deleteUserTrip(int userId) {
-        //trip의 tripmember를 불러와 유저id만 삭제해야됨
+    public void deleteUserTrip(Integer tripId, String jwt) {
+        String kakaoId= (String)jwtUtil.parseJwtToken(jwt).get("id");
+        userTripRepository.deleteByTripTripIdAndUserKakaoId(Long.valueOf(tripId), kakaoId);
     }
 
 

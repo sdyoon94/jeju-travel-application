@@ -13,7 +13,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
     Place save(Place place);
 
     List<Place> findByPlaceNameContains(String Keyword);
-
+    Place findOneByPlaceUid(String placeUid);
 
 
 }
