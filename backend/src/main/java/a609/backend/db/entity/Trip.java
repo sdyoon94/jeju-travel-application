@@ -56,5 +56,8 @@ public class Trip {
     @OneToMany(mappedBy="trip", cascade = CascadeType.ALL)
     List<Schedule> schedules = new ArrayList<>();
 
+    @Column(name="MAX_MEMBER")
+    private Integer maxMember;
+
 
 }

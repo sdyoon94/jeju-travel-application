@@ -13,8 +13,7 @@ public interface TripService {
     void registerTrip(Trip trip,String userId);
     void updateTrip(Long tripId,Trip trip);
     void deleteTrip(Long tripId);
-
-    //??이거 무슨 메소드더라???????
+    void addUser(Long tripId, String userId);
     void deleteUserTrip(int userId);
 
 }

@@ -39,4 +39,7 @@ public class Place {
     @Column(name="THUMBS")
     private Integer Thumbs;
 
+    @Column(name="IS_CUSTOM")
+    private boolean isCustom;
+
 }
