@@ -22,7 +22,7 @@ function TravelTitle(props) {
     // const [ maxMemberCnt ] = useState(travel.maxMemberCnt)
     const [ startDate ] = useState(travel.startDate)
     const [ periodInDays ] = useState(travel.periodInDays)
-    // const [ budget ] = useState(travel.budget)
+    const [ budget ] = useState(travel.budget)
     const [ styles ] = useState(travel.styles)
 
     // 여행 끝 일자
