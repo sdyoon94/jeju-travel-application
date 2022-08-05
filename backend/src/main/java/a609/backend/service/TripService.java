@@ -10,7 +10,7 @@ public interface TripService {
     Trip showTripInfo(Long tripId);
 //    List<Trip> showTripList(int userId);
 
-    void registerTrip(Trip trip,String userId);
+    String registerTrip(Trip trip,String token);
     void updateTrip(Long tripId,Trip trip);
     void deleteTrip(Long tripId);
     void addUser(Long tripId, String userId);
