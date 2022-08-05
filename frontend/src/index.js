@@ -13,6 +13,7 @@ import KakaoRedirect from "routes/KakaoRedirect"
 import Edit from 'components/Home/EditTest'
 import PlaceSearch from 'routes/PlaceSearch'
 import AddressInput from 'routes/AddressInput'
+import TravelJoin from 'routes/TravelJoin';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -25,9 +26,10 @@ root.render(
           <Route path=":input" element={<New />} />
         </Route>
         <Route path="edit" element={<Edit />} />
-        <Route path="travel" element={<Travel />} />
+        <Route path="travel/:travelUid" element={<Travel />} />
         <Route path="traveledit" element={<TravelEdit />} />
         <Route path="login" element={<KakaoLogin />} />
+        <Route path="join/:travelUid" element={<TravelJoin />} />
         <Route path="oauth2/redirect/" element={<KakaoRedirect />} />
         <Route path="search" element={<PlaceSearch />} />
         <Route path="address" element={<AddressInput />} />

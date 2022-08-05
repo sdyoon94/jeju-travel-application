@@ -8,6 +8,7 @@ function TravelList() {
   const travels = useSelector((state => state.travelList.travels))
   const nickName = useSelector((state => state.auth.nickname))
 
+
   return (
     <>
       {travels.length 
@@ -22,6 +23,7 @@ function TravelList() {
           {travels.map((travel, idx) =>  
           <TravelSummary
           key={idx}
+          travelUid={travel.travelUid}
           idx={idx}
           title={travel.title}
           startDate={travel.startDate}

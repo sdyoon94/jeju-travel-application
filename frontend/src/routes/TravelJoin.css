@@ -1,0 +1,32 @@
+.kakao-box {
+  width: 53vw;
+  margin-top: 2vh;
+}
+
+.kakao-box-wrapper {
+  height: 10vh;
+}
+
+.travel-join-container {
+  height: 90vh;
+  width: 90vw;
+  margin: 5vh auto;
+  display: grid;
+  grid-template-rows: 20vh 40vh auto;
+  align-items: baseline;
+}
+
+.travel-join-title {
+  height: 10vh;
+  padding: 10vh 0vw 0vh;
+  text-align: center;
+  vertical-align: text-bottom ;
+}
+
+.travel-join-body {
+  height: 20vh;
+  padding: 20vh 0vw 0vh;
+  display: grid;
+  text-align: center;
+  grid-template-rows: auto auto auto;
+}

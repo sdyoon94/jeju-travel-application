@@ -1,14 +1,17 @@
+import { Link } from "react-router-dom"
 import Avatar from "@mui/material/Avatar"
 import AvatarGroup from "@mui/material/AvatarGroup"
 
 
+function TripSummary({travelUid, idx, title, startDate, members, travelLength}) {
 
-function TripSummary({idx, title, startDate, members, travelLength}) {
 
   return (
     <>
       <div className="trip-summary-box">
-        <p className="subtitle-size travel-list-title">{title}</p>
+        <Link to={`travel/${travelUid}`}>
+          <p className="subtitle-size travel-list-title">{title}</p>
+        </Link>
         <AvatarGroup sx={{"& .MuiAvatar-root": { width: 20, height: 20, fontSize: 15 }}} max={4}>
           {members.map(({memberUid, nickname, profileImg}) =>
             <Avatar key={memberUid} alt={nickname} src={profileImg} />
