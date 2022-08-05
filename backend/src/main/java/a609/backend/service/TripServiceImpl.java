@@ -8,6 +8,7 @@ import a609.backend.db.repository.ScheduleRepository;
 import a609.backend.db.repository.TripRepository;
 import a609.backend.db.repository.UserRepository;
 import a609.backend.db.repository.UserTripRepository;
+import a609.backend.util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ import java.util.List;
 @Slf4j
 @Service
 public class TripServiceImpl implements TripService{
+
+    @Autowired
+    JwtUtil jwtUtil;
 
     @Autowired
     TripRepository tripRepository;
@@ -47,7 +51,7 @@ public class TripServiceImpl implements TripService{
 //    }
 
     @Override
-    public void registerTrip(Trip trip,String userId) {
+    public String registerTrip(Trip trip,String token) {
         Trip savedTrip = tripRepository.save(trip);
         //여행 시작할때 startday에 더미 스케쥴 넣어서 시작시간 조정
         Schedule schedule = new Schedule();
@@ -68,11 +72,11 @@ public class TripServiceImpl implements TripService{
 
 //        schedule.setPlace("시작용 더미 관광지에 추가해야함");
 
-        User user = userRepository.findOneByKakaoId(userId);
+        User user = userRepository.findOneByKakaoId((String)jwtUtil.parseJwtToken(token).get("id"));
         UserTrip userTrip = new UserTrip();
         userTrip.setTrip(savedTrip);
         userTrip.setUser(user);
-        userTripRepository.save(userTrip);
+        return userTripRepository.save(userTrip).getTrip().getTripId().toString();
 
 //        //여기는 테스트니까 지우던 말던 캡틴 맘대로 하쇼 여행에 참여중인 사람
 //        List<UserTrip> userIds = userTripRepository.findByTripTripId(savedTrip.getTripId());

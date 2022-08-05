@@ -18,11 +18,12 @@ public class TripController {
     @Autowired
     TripService tripService;
 
-    @PostMapping("/register/{userId}")
-    public ResponseEntity<String> registerTrip(@RequestBody Trip trip,@PathVariable String userId){
+    @PostMapping
+    public ResponseEntity<Map<String, Object>> registerTrip(@RequestBody Trip trip,@RequestHeader Map<String,Object> token){
         Map<String, Object> resultMap = new HashMap<>();
-        tripService.registerTrip(trip,userId);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
+        String tripId = tripService.registerTrip(trip,(String) token.get("authorization"));
+        resultMap.put("tripId",tripId);
+        return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
     }
 
     @GetMapping("/showTripInfo/{tripId}")
