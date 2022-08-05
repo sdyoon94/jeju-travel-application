@@ -1,0 +1,28 @@
+.input-container {
+  height:95vh;
+  display:grid;
+  gap:1rem;
+  grid-template-rows: 11fr 1fr;
+}
+
+/* .input {
+  width:150px;
+  background-color: transparent !important;
+} */
+
+.input-footer{
+  display:grid;
+  align-items: center;
+  grid-template-columns: 70vw;
+  justify-content: center;
+}
+
+
+
+.departure{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+

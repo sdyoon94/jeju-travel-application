@@ -9,6 +9,7 @@ import distanceMatrix from './modules/distanceMatrixSlice'
 import direction from './modules/directionSlice'
 
 import selectedSpots from "./modules/selectedSpotsSlice"
+import inputValues from './modules/inputValuesSlice'
 
 const rootReducer = combineReducers({
     travel,
@@ -17,7 +18,9 @@ const rootReducer = combineReducers({
     travelList, 
     auth, 
     courseList,
-    selectedSpots
+    selectedSpots,
+    inputValues,
+
 })
 
 
