@@ -1,0 +1,45 @@
+.style-container {
+  display:grid ;
+  grid-template-rows: 3fr 7fr;
+  gap:1rem;
+  height:100%;
+}
+
+
+.style-header {
+  display:grid;
+  align-content: end;
+  justify-content: center;
+}
+
+/* 어디서, 몇 명이서 떠나시나요? */
+.mention {
+  font-family: 'Inter';
+  font-size: 25px;
+  font-style: bold;
+  font-weight: 700;
+  line-height: 100px;
+
+}
+
+/* 취향에 맞는 일정과 장소를 추천드려요! */
+.mention2 {
+  font-family: 'Inter';
+  font-size: 15px;
+  font-style: bold;
+  font-weight: 500;
+  line-height: 18px;
+  color: #000000;
+}
+
+.style-body {
+  display:grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  justify-content: center;
+  align-items: start;
+}
+
+.style-select-btns {
+  display:grid;
+  grid-auto-columns: minmax(50,auto);
+}

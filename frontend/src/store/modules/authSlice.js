@@ -14,16 +14,14 @@ const initialState = {
 export const editNickname = createAsyncThunk(
   "auth/editNickname",
   async (newNickname, thunkAPI) => {
-    const state = thunkAPI.getState()
     try {
       const response = await axios({
         method: "patch",
-        url: api.accounts.editNicknameUrl(state.auth.id),
+        url: api.accounts.editNicknameUrl(),
         data: {nickname: newNickname}
       })
-      console.log(response.data)
+      return response.data
     } catch (err) {
-      console.log(err)
       return thunkAPI.rejectWithValue('no')
     }
   }
@@ -51,6 +49,38 @@ export const editProfileImg = createAsyncThunk(
   }
 )
 
+export const logout = createAsyncThunk(
+  "auth/logout",
+  async (thunkAPI) => {
+    try {
+      const response = await axios({
+        method: "post",
+        url: api.accounts.logoutUrl()
+      })
+      return response.data
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data)
+    }
+  }
+)
+
+export const signout = createAsyncThunk(
+  "auth/signout",
+  async (thunkAPI) => {
+    try {
+      const response = await axios({
+        method: "delete",
+        url: api.accounts.signoutUrl()
+      })
+      console.log(response)
+      return response.data
+    } catch (err) {
+      console.log(err)
+      return thunkAPI.rejectWithValue(err.response.data)
+    }
+  }
+)
+
 
 const loginSlice = createSlice({
   name: "auth",
@@ -60,7 +90,7 @@ const loginSlice = createSlice({
       state.nickname = payload.nickname
       state.profileImg = payload.image_path
       state.id = payload.id
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -71,10 +101,17 @@ const loginSlice = createSlice({
       state.error = payload
     })
     .addCase(editNickname.fulfilled, (state, { payload }) => {
-      console.log('비동기 결과', payload)
+      state.nickname = payload.nickname
+      sessionStorage.setItem("nickname", payload.nickname)
     })
     .addCase(editNickname.rejected, (state, {payload}) => {
       console.log('실패', payload)
+    })
+    .addCase(logout.fulfilled, (state, { payload }) => {
+      sessionStorage.clear()
+    })
+    .addCase(signout.fulfilled, (state, { payload }) => {
+      sessionStorage.clear()
     })
   }
 })

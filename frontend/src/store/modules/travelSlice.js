@@ -4,7 +4,6 @@ import travel from "dummies/DummyTravel.json"
 // TODO: createAsyncThunk + RTK Query API
 
 const initialState = travel
-console.log(travel.courses)
 
 
 const travelSlice = createSlice({
@@ -16,11 +15,14 @@ const travelSlice = createSlice({
 		},
 		editStayTime(state, { payload }) {
 			state.courses[payload.courseIndex].route[payload.scheduleIndex].duration = payload.newStartTime
-		}
+		},
+		setTravel(state, { payload }) {
+			state[payload[0]] = payload[1]
+		},
 	}
 })
 
 const { actions, reducer } = travelSlice
 
-export const { editStartTime, editStayTime } = actions
+export const { editStartTime, editStayTime, setTravel } = actions
 export default reducer

@@ -32,7 +32,6 @@ function Drawer() {
   const editEnd = () => {
     setEdit(false)
     if (modify.nickname) {
-      console.log('스토어 가기 전')
       dispatch(editNickname(nickname))
       setModify({...modify, nickname: false})
     }
@@ -45,6 +44,14 @@ function Drawer() {
   const handleOnKeyPress = (e) => {
     if (e.key === "Enter") {
       setEdit(false)
+      if (modify.nickname) {
+        dispatch(editNickname(nickname))
+        setModify({...modify, nickname: false})
+      }
+      if (modify.img) {
+        dispatch(editProfileImg(file))
+        setModify({...modify, img: false})
+      }
     }
   }
 
@@ -77,7 +84,7 @@ function Drawer() {
         {
           edit
           ? <EditIng nickname={nickname} profileImg={profileImg} handleNickname={handleNickname} handleProfileImg={handleProfileImg} setFile={setFile} editEnd={editEnd} handleOnKeyPress={handleOnKeyPress} />
-          : <NotEdit editStart={editStart} />
+          : <NotEdit editStart={editStart} setopen={setopen} />
         }
       </SwipeableDrawer>
     </>
