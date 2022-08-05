@@ -11,6 +11,7 @@ import TravelEdit from "routes/TravelEdit";
 import KakaoLogin from "routes/KakaoLogin";
 import KakaoRedirect from "routes/KakaoRedirect"
 import Edit from 'components/Home/EditTest';
+import TravelJoin from 'routes/TravelJoin';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -26,6 +27,7 @@ root.render(
         <Route path="travel" element={<Travel />} />
         <Route path="traveledit" element={<TravelEdit />} />
         <Route path="login" element={<KakaoLogin />} />
+        <Route path="join/:travelUid" element={<TravelJoin />} />
         <Route path="oauth2/redirect/" element={<KakaoRedirect />} />
       </Routes>
     </BrowserRouter>
