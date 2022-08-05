@@ -15,7 +15,7 @@ import Budget from "components/Inputs/Budget";
 
 import "./ConfigDrawer.css"
 
-function ConfigDrawer({ title, setTitle, startDate, setStartDate, styles, setStyles, budget, setBudget, vehicle, setVehicle }) {
+function ConfigDrawer(props) {
     const [ isDrawerOpened, setIsDrawerOpened ] = useState(false)
 
     const toggleDrawer = () => {
@@ -36,9 +36,10 @@ function ConfigDrawer({ title, setTitle, startDate, setStartDate, styles, setSty
       setOpen(false);
     };
 
-    const inputValues = {
-        budget : budget,
-    }
+    // const [travel, setTravel] = useState(props.travel)
+
+
+
 
 
     return (
@@ -55,7 +56,7 @@ function ConfigDrawer({ title, setTitle, startDate, setStartDate, styles, setSty
                 <p>여행 제목 변경</p>
                 <p>여행 날짜 변경</p>
                 <p>여행 스타일 수정</p>
-                <p onClick={handleClickOpen}>여행 경비 변경</p>
+                <p onClick={handleClickOpen}>여행경비변경</p>
                 <p>이동수단 변경</p>
                 <p>여행 나가기</p>
             </Drawer>
@@ -67,10 +68,8 @@ function ConfigDrawer({ title, setTitle, startDate, setStartDate, styles, setSty
             >
             <DialogContent>
                 <Budget
-                    inputValues={inputValues}
-                    setInputValues={(array)=>{
-                        setBudget(array[1])
-                    }}
+                    inputValues={props.travel}
+                    setInputValues={props.setTravel}
                 ></Budget>
                 {/* <DialogContentText id="alert-dialog-description">
                 Let Google help apps determine location. This means sending anonymous
