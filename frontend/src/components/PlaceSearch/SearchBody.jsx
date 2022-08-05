@@ -1,16 +1,15 @@
 // import { useState } from "react"
 // import { useSelector } from "react-redux"
-// // import axios from "axios"
 import RecommendList from "./RecommendList"
 import SearchResults from "./SearchResults"
 
 
-function SearchBody({spotSearch}) {
+function SearchBody({ spotSearch, resultLst }) {
 
   if (spotSearch) {
     return (
       <>
-        <SearchResults />
+        <SearchResults resultLst={resultLst} />
       </>
     )
   } else {
