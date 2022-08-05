@@ -1,8 +1,10 @@
 package a609.backend.service;
 
+import a609.backend.db.entity.Schedule;
 import a609.backend.db.entity.Trip;
 import a609.backend.db.entity.User;
 import a609.backend.db.entity.UserTrip;
+import a609.backend.db.repository.ScheduleRepository;
 import a609.backend.db.repository.TripRepository;
 import a609.backend.db.repository.UserRepository;
 import a609.backend.db.repository.UserTripRepository;
@@ -25,7 +27,7 @@ public class TripServiceImpl implements TripService{
     UserRepository userRepository;
 
     @Autowired
-    TripScheduleService tripScheduleService;
+    ScheduleRepository scheduleRepository;
 
     @Autowired
     UserTripRepository userTripRepository;
@@ -47,6 +49,25 @@ public class TripServiceImpl implements TripService{
     @Override
     public void registerTrip(Trip trip,String userId) {
         Trip savedTrip = tripRepository.save(trip);
+        //여행 시작할때 startday에 더미 스케쥴 넣어서 시작시간 조정
+        Schedule schedule = new Schedule();
+        schedule.setDay(0);
+        schedule.setStayTime(trip.getStartTime().toSecondOfDay()/60);
+        schedule.setTrip(savedTrip);
+        scheduleRepository.save(schedule);
+        for(int i=1;i<savedTrip.getPeriod();i++){
+            Schedule schedule1 = new Schedule();
+            schedule1.setTurn(0);
+            schedule1.setDay(i);
+            schedule1.setStayTime(540);
+            schedule1.setTrip(trip);
+            scheduleRepository.save(schedule1);
+        }
+
+        //이거 작동하는지 모르겠다 테스트해봐야됨
+
+//        schedule.setPlace("시작용 더미 관광지에 추가해야함");
+
         User user = userRepository.findOneByKakaoId(userId);
         UserTrip userTrip = new UserTrip();
         userTrip.setTrip(savedTrip);
@@ -64,6 +85,15 @@ public class TripServiceImpl implements TripService{
 //        for (UserTrip tripId : tripIds) {
 //            log.info("유저가 참여중인 여행 목록"+tripId.getTrip().getTripName());
 //        }
+
+    }
+
+    @Override
+    public void addUser(Long tripId, String userId) {
+        UserTrip userTrip = new UserTrip();
+        userTrip.setUser(userRepository.findOneByKakaoId(userId));
+        userTrip.setTrip(tripRepository.findOneByTripId(tripId));
+        userTripRepository.save(userTrip);
 
     }
 
