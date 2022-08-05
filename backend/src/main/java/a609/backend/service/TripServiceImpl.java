@@ -53,7 +53,7 @@ public class TripServiceImpl implements TripService{
         userTrip.setUser(user);
         userTripRepository.save(userTrip);
 
-//        //여기는 테스트니까 지우던 말던 캡틴 맘대로 하쇼 여행에 참여중인ㅇ 사람
+//        //여기는 테스트니까 지우던 말던 캡틴 맘대로 하쇼 여행에 참여중인 사람
 //        List<UserTrip> userIds = userTripRepository.findByTripTripId(savedTrip.getTripId());
 //        for (UserTrip userTrip1 : userIds) {
 //            log.info("여행에 참여중인 사람 userTrip1.getUser().getUsername() = " + userTrip1.getUser().getKakaoId());

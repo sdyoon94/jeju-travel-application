@@ -42,7 +42,6 @@ public class FileServiceImpl implements FileService{
 
             file.transferTo(new File(filePath));
 
-
             user.setImagePath(filePath);
 
             userRepository.save(user);

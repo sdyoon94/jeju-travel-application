@@ -17,7 +17,7 @@ public class PlaceTag {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="PLACE_UID")
-    Place place = new Place();
+    private Place place;
 
     @Column(name="TAG_NAME", length=20)
     private String tagName;

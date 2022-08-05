@@ -27,6 +27,9 @@ public class Place {
     @Column(name="ROAD_ADDRESS")
     private String roadAddress;
 
+    @Column(name="IMG_PATH")
+    private String imgPath;
+
     @Column(name="LAT")
     private Double lat;
 
@@ -34,6 +37,6 @@ public class Place {
     private Double lng;
 
     @Column(name="THUMBS")
-    private Integer THUMBS;
+    private Integer Thumbs;
 
 }
