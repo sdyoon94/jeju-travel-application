@@ -114,7 +114,7 @@ function New() {
         setShow(true)
       } else {
         setShow(false);
-        navigate('/loading')
+        navigate('/travel')
       }
     }
   };

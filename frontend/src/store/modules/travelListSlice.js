@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import travelList from "dummies/travelList.json"
 
 const initialState = travelList
+console.log(travelList)
 
 
 const travelListSlice = createSlice({

@@ -37,6 +37,11 @@ function PlaceSearch() {
     navigate("/address")
   }
 
+  const handleSubmit = () => {
+    navigate("/travel")
+    // 장소 추가하는 action
+  }
+
   return (
     <>
       <Header style={{ margin: "3vh 4vw"}} />
@@ -55,7 +60,7 @@ function PlaceSearch() {
       <SearchBody spotSearch={spotSearch} />
       { selectedSpots.length === 0 
        ? <button onClick={handleInputBtn} className="place-btn block" style={{margin: "5vh auto"}}>직접입력하기</button>
-       : <button className="place-btn block" style={{margin: "5vh auto"}}>선택완료</button> 
+       : <button onClick={handleSubmit} className="place-btn block" style={{margin: "5vh auto"}}>선택완료</button> 
       }
     </>
   )
