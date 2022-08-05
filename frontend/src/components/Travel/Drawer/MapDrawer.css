@@ -1,11 +1,11 @@
 .google-map-container {
-    height: 30vh;
+    height: max(30vh, 250px);
     padding: 2vh 5vw;
 }
 
 .map-marker {
-    height: 4vh;
-    width: 4vh;
+    height: 2.7vh;
+    width: 2.7vh;
 }
 
 .map-title {
@@ -28,19 +28,20 @@
     vertical-align: middle;
 }
 
+#place-image {
+    height: 10vh;
+    width: 10vh;
+    border-radius: 50%;
+    display: none;
+    padding-right: 4vw;
+}
+
 #place-spec {
     height: 10vh;
     padding: 1vh;
-    display: grid;
+    display: flex;
+    justify-content: flex-start;
     align-items: center;
-    grid-template-columns: minmax(32vw, auto) auto;
-}
-
-#place-image {
-    height: auto;
-    width: 30vw;
-    display: none;
-    padding-right: 2vw;
 }
 
 #place-addr {

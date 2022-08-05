@@ -46,16 +46,38 @@
   font-size: 6vw;
 }
 
+.title-weight {
+  font-weight: 700;
+}
+
 .subtitle-size {
   font-size: 5vw;
+}
+
+.subtitle-weight {
+  font-weight: 600;
 }
 
 .content-size {
   font-size: 4vw;
 }
 
+.content-weight {
+  font-weight: 500;
+}
+
 .subcontent-size {
   font-size: 3vw;
+}
+
+.subcontent-weight {
+  font-weight: 400;
+}
+
+.overflow-x-dots {
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 
 .text-center {

@@ -14,7 +14,7 @@ function TravelTitle() {
     const travel = useSelector((state) => state.travel)
 
     // Title에서 사용되는 여행 관련 정보
-    const [ title ] = useState(travel.title)
+    const [ title ] = useState("여행 제목이 길어지면 어떻게 될까 ㅎㅎ;")
     const [ members ] = useState(travel.members)
     // const [ maxMemberCnt ] = useState(travel.maxMemberCnt)
     const [ startDate ] = useState(travel.startDate)
@@ -60,15 +60,15 @@ function TravelTitle() {
     }
 
     return (
-        <div className="container-title">
-            <div className="travel-title">
-                <p>{ title }</p>
+        <div className="travel-title-container">
+            <div className="travel-title title-weight">
+                <span className="title-size overflow-x-dots">{ title }</span>
                 <AvatarGroup className="avatar-group" max={4}>
                     {
                         members.map((member, i) => {
                             return <Avatar
                                 key={i} 
-                                className="avatar"
+                                className="avatar overflow-x-dots"
                                 alt={member.nickname} 
                             >
                                 {member.nickname}
@@ -77,20 +77,20 @@ function TravelTitle() {
                     }
                 </AvatarGroup>
             </div>
-            <div className="travel-info">
-                <p>{startDate} ~ {endDate}</p>
-                <p>₩{budget}만원</p>
+            <div className="travel-info content-size content-weight">
+                <span className="travel-info-content">{startDate} ~ {endDate}</span>
+                <span className="travel-info-content">₩{budget}만원</span>
             </div>
-            <div className="travel-style">
+            <div className="travel-style-container content-size">
                 {
                     styles.map((style, i) => 
-                        <p key={i}>#{style}</p>
+                        <span className="travel-style" key={i}>#{style}</span>
                     )
                 }
             </div>
             <div id="kakao-link-btn" onClick={share}>
                 {/* Kakao share button */}
-                <p>초대하기</p>
+                <span className="subcontent-size">초대하기</span>
                 <img
                     src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
                     alt={"카카오톡 공유하기 버튼"}

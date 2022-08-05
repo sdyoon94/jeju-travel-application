@@ -2,16 +2,11 @@
     height: 4vh;
     padding: 3vh 5vw;
     display: flex;
+    align-items: center;
     justify-content: space-between;
 }
 
 .icon {
-    width: 4vw;
-    height: 4vw;
-}
-
-p {
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    align-self: center;
+    width: 2.5vh;
+    height: 2.5vh;
 }
