@@ -1,14 +1,10 @@
 .travel-config {
     height: 4vh;
+    display: flex;
+    align-items: center;
 }
 
 .travel-config .icon {
-    height: 4vh;
-    width: 4vh;
-}
-
-.travel-config p {
-    font-size: 15px;
-    font-weight: bold;
-    text-decoration: underline;
+    height: 3vh;
+    width: 3vh;
 }

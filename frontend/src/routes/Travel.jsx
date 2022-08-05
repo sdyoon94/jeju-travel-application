@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux"
 import Header from "components/Header/Header"
 import TravelTitle from "components/Travel/TravelTitle"
 import TravelBody from "components/Travel/TravelBody"
-import TravelFooter from "components/Travel/TravelFooter"
 
 import ConfigDrawer from "components/Travel/Drawer/ConfigDrawer"
 import { initDirection } from "store/modules/directionSlice"
@@ -66,9 +65,6 @@ function Travel() {
                 <TravelBody
                     courseIdx={courseIdx}
                     setCourseIdx={setCourseIdx}
-                />
-                <TravelFooter
-                    courseIdx={courseIdx}
                 />
             </div>
         </>

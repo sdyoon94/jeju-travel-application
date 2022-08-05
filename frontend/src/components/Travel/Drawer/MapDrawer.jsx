@@ -1,6 +1,7 @@
 import { CircularProgress, Drawer } from "@mui/material"
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
-import { ReactComponent as MapMarker } from "assets/map-marker.svg"
+// import { ReactComponent as MapMarker } from "assets/map-marker.svg"
+import { ReactComponent as MapIcon } from "assets/map.svg"
 import { getEndDate } from "components/DateTime/date"
 
 import { useCallback, useEffect, useState } from "react"
@@ -10,7 +11,7 @@ import "./MapDrawer.css"
 
 const API_KEY = "AIzaSyA_Kp9lPUVHWZ5i3blrGYJRk8yG70ZovsM"
 const containerStyle = {
-    height: "30vh",
+    height: "max(30vh, 250px)",
     width: "90vw"
 }
 const center = {
@@ -144,7 +145,7 @@ function MapDrawer({ courseIdx }) {
 
                 marker.addListener("click", (e) => {
                     document.getElementById("place-name").innerText = place.name
-                    document.getElementById("place-image").src = place.imgPath
+                    document.getElementById("place-image").src = place.imgPath ? place.imgPath : "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Jeju_Island.jpg/320px-Jeju_Island.jpg"
                     document.getElementById("place-image").style.display = "block"
                     document.getElementById("place-addr").innerText = `주소: ${place.address}`
                     document.getElementById("place-addr").style.display = "block"
@@ -175,10 +176,19 @@ function MapDrawer({ courseIdx }) {
 
     return (
         <>
-            <MapMarker
+            {/* <MapMarker
+                className="map-marker"
+                onClick={toggleDrawer} 
+            /> */}
+            <MapIcon
                 className="map-marker"
                 onClick={toggleDrawer} 
             />
+            {/* <img 
+                className="map-marker"
+                src="icons/maps.png"
+                alt="지도"
+            /> */}
             <Drawer
                 anchor={"bottom"}
                 open={isDrawerOpened}

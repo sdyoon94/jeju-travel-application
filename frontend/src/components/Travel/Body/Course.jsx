@@ -10,14 +10,15 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 const grid = 6
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: "none",
-  padding: grid,
+  // padding: grid,
+	paddingBottom: "1vh",
   margin :isDragging ? `0 0 ${grid}px 0` : "0px",
   // background: isDragging ? "rgba(0, 0, 0, 0.25)" : "white",
   ...draggableStyle
 })
 const getListStyle = () => ({
-  padding: grid,
-  width: "75vw",
+  // padding: grid,
+  width: "80vw",
   position: "relative",
   margin: "auto"
 })

@@ -40,12 +40,12 @@ function buildTime(hour, min) {
 
 function secToTime(sec) {
     let min = Math.round(sec / 60)
-    let hour = Math.floor(min / 60)
-
     min = Math.round((min % 60) / 5) * 5
     if (min === 0) {
         min = 5
     }
+    
+    let hour = Math.floor(min / 60)
 
     return buildTime(hour, min)
 }

@@ -2,6 +2,7 @@ import { ReactComponent as AngleLeft } from "assets/angle-left.svg"
 import { ReactComponent as AngleRight } from "assets/angle-right.svg"
 
 import "./Day.css"
+import "globalStyle.css"
 
 function Day({ day, date, prev, next }) {
     const className = "day day-" + day
@@ -17,7 +18,7 @@ function Day({ day, date, prev, next }) {
                 className="angle"
                 onClick={prev}
             />
-            <p>DAY{day}({date})</p>
+            <span className="subtitle-size subtitle-weight">{day}일차 ({date})</span>
             <AngleRight 
                 className="angle"
                 onClick={next}

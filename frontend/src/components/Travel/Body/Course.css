@@ -1,6 +1,5 @@
 .course {
     height: 50vh;
-    padding: 2vh 5vw;
     display: grid;
     grid-auto-rows: min-content;
     overflow-y: scroll;
