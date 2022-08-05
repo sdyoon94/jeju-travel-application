@@ -1,68 +1,64 @@
-p {
-    display: inline-block;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
+.travel-title-container {
+    height: 16vh;
+    padding: 2vh 7vw;
+    display: grid;
+    grid-template-rows: 5fr 2fr 2fr 3fr auto;
 }
 
-.container-title {
-    height: 14vmax;
-    padding: 2vmax 7vmin;
-    display: grid;
-    grid-template-rows: 1fr 0.5fr 0.5fr 0.8fr auto;
+.travel-title-container div {
+    width: 80vw;
 }
 
 .travel-title {
-    height: 5vmax;
-}
-
-.travel-title p {
-    padding-right: 2vmin;
-    font-size: 6vmin;
-    font-weight: 700;
+    height: 5vh;
+    display: flex;
+    align-items: center;
 }
 
 .travel-title .avatar-group {
     width: fit-content;
     display: inline-flex;
-    padding: 0.5vmax 0.8vmin;
+    padding: 0.5vh 0.8vw;
 }
 
 .travel-title .avatar-group * {
-    height: 3vmax;
-    width: 3vmax;
-    font-size: 3vmin;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
+    height: 6vw;
+    width: 6vw;
+    font-size: 3vw;
 }
 
-.travel-info p {
-    padding-right: 4vmin;
-    font-size: 3vmin;
-    font-weight: 500;
+.travel-info {
+    display: flex;
+    align-items: center;
 }
 
-.travel-style p {
-    padding-right: 1vmin;
-    font-size: 3vmin;
-    font-weight: 500;
+.travel-info .travel-info-content {
+    padding-right: 4vw;
+}
+
+.travel-style-container {
+    display: flex;
+    align-items: center;
+}
+
+.travel-style-container .travel-style {
+    padding-right: 2vw;
 }
 
 #kakao-link-btn {
-    display: inline-block;
-    height: 4vmax;
-    justify-self: flex-end;
+    display: flex;
+    height: 4vh;
+    justify-content: flex-end;
+    align-items: center;
 }
 
-#kakao-link-btn p {
-    font-size: 3vmin;
-    font-weight: 500;
+#kakao-link-btn span {
+    padding-right: 2vw;
 }
 
 #kakao-link-btn img {
-    height: 3vmax;
-    width: 3vmax; 
+    height: 3vh;
+    width: 3vh; 
 }
 
 .divider {
