@@ -1,0 +1,118 @@
+.period-container {
+  display:grid ;
+  grid-template-rows: 3fr 7fr;
+  gap:1rem;
+  height:100%;
+}
+
+#number-il {
+  background-color:  rgba(217, 217, 217, 1) !important;
+}
+
+/****** header ******/
+.period-header {
+  display:grid;
+  align-content: end;
+  justify-content: center;
+}
+
+/* 얼마동안머무르나요? */
+.mention {
+  font-family: 'Inter';
+  font-size: 25px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 30px;
+  
+  width: 261px;
+}
+
+/****** body ******/
+.warning {
+  position: absolute;
+  z-index:1;
+  top: 420px;
+  font-size: 10px;
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 700;
+  line-height: 30px;
+  color:rgb(190, 11, 11)
+}
+
+/* Rectangle 60 */
+
+/* position: absolute;
+width: 88px;
+height: 52px;
+left: 58px;
+top: 320px; */
+
+
+
+
+/* Rectangle 39 */
+
+
+
+.period-body {
+  display:grid;
+  grid-template-rows: 1fr 1fr ;
+  justify-items: center;
+  align-items: center;
+}
+
+.period-input {
+  width:261px;
+  display:grid;
+  grid-template-columns: 3fr 2fr 3fr 2fr;
+  justify-content: center;
+}
+
+.input-label{
+  
+  font-family: 'Inter';
+  font-style: bold;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #000000;
+
+}
+
+.period-body2{
+  
+  display:grid;
+  align-content: center;
+}
+
+
+
+
+/* Rectangle 30 */
+
+
+
+
+/* 추후에 동행자와 함께 날짜를 정할 수 있습니다. */
+p {
+
+width: 326px;
+height: 50px;
+
+
+font-family: 'Inter';
+font-style: italic;
+font-weight: 700;
+font-size: 25px;
+line-height: 30px;
+display: flex;
+align-items: center;
+text-align: center;
+
+color: #000000;
+}

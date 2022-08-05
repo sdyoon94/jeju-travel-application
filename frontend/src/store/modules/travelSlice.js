@@ -15,11 +15,14 @@ const travelSlice = createSlice({
 		},
 		editStayTime(state, { payload }) {
 			state.courses[payload.courseIndex].route[payload.scheduleIndex].duration = payload.newStartTime
-		}
+		},
+		setTravel(state, { payload }) {
+			state[payload[0]] = payload[1]
+		},
 	}
 })
 
 const { actions, reducer } = travelSlice
 
-export const { editStartTime, editStayTime } = actions
+export const { editStartTime, editStayTime, setTravel } = actions
 export default reducer
