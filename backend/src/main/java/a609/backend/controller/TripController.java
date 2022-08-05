@@ -26,7 +26,7 @@ public class TripController {
     }
 
     @GetMapping("/showTripInfo/{tripId}")
-    public ResponseEntity<Map<String,Object>> showTripInfo(@PathVariable int tripId){
+    public ResponseEntity<Map<String,Object>> showTripInfo(@PathVariable Long tripId){
         Map<String, Object> resultMap = new HashMap<>();
         Trip tripInfo = tripService.showTripInfo(tripId);
         resultMap.put("tripInfo", tripInfo);
@@ -35,7 +35,7 @@ public class TripController {
     }
 
     @PutMapping("/update/{tripId}")
-    public ResponseEntity<Map<String,Object>> updateTrip(@PathVariable int tripId,@RequestBody Trip trip){
+    public ResponseEntity<Map<String,Object>> updateTrip(@PathVariable Long tripId,@RequestBody Trip trip){
         Map<String, Object> resultMap = new HashMap<>();
         tripService.updateTrip(tripId,trip);
         resultMap.put("message", "Success");
@@ -44,7 +44,7 @@ public class TripController {
 
     //여행 전체 삭제
     @DeleteMapping("/trip/{tripId}")
-    public ResponseEntity<Map<String,Object>> deleteTrip(@PathVariable int tripId){
+    public ResponseEntity<Map<String,Object>> deleteTrip(@PathVariable Long tripId){
         Map<String, Object> resultMap = new HashMap<>();
         tripService.deleteTrip(tripId);
 

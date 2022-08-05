@@ -52,14 +52,12 @@ public class FileController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Map<String, String>> fileDelete(@PathVariable String id) {
         Map<String, String> resultMap = new HashMap<>();
-
         int check= fileService.deleteById(id);
         if(check==1){
             resultMap.put("message", "Success");
         }else {
             resultMap.put("message", "존재하지 않는 이미지입니다.");
         }
-
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 

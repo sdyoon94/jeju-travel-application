@@ -8,30 +8,35 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString
 @Entity
 public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="PLACE_UID")
-    private int placeUid;
+    private Long placeUid;
 
     @Column(name="PLACE_NAME")
-    private String name;
+    private String placeName;
 
     @Column(name="PLACE_TYPE")
-    private int type;
+    private String placeType;
 
-    @OneToMany(mappedBy = "place")
-    List<PlaceTag> tag = new ArrayList<>();
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
+    List<PlaceTag> placeTag = new ArrayList<>();
 
-    @Column(name="READ_ADDRESS")
-    private int address;
+    @Column(name="ROAD_ADDRESS")
+    private String roadAddress;
+
+    @Column(name="IMG_PATH")
+    private String imgPath;
 
     @Column(name="LAT")
-    private double lat;
+    private Double lat;
 
     @Column(name="LNG")
-    private double lng;
+    private Double lng;
+
+    @Column(name="THUMBS")
+    private Integer Thumbs;
 
 }

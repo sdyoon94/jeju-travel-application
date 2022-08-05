@@ -31,7 +31,7 @@ public class TripServiceImpl implements TripService{
     UserTripRepository userTripRepository;
 
     @Override
-    public Trip showTripInfo(int tripId) {
+    public Trip showTripInfo(Long tripId) {
         return tripRepository.findOneByTripId(tripId);
     }
 
@@ -53,22 +53,22 @@ public class TripServiceImpl implements TripService{
         userTrip.setUser(user);
         userTripRepository.save(userTrip);
 
-        //여기는 테스트니까 지우던 말던 캡틴 맘대로 하쇼 여행에 참여중인ㅇ 사람
-        List<UserTrip> userIds = userTripRepository.findByTripTripId(savedTrip.getTripId());
-        for (UserTrip userTrip1 : userIds) {
-            log.info("여행에 참여중인 사람 userTrip1.getUser().getUsername() = " + userTrip1.getUser().getKakaoId());
-        }
-
-//        유저가 참여중인 여행 목록
-        List<UserTrip> tripIds = userTripRepository.findByUserKakaoId(userId);
-        for (UserTrip tripId : tripIds) {
-            log.info("유저가 참여중인 여행 목록"+tripId.getTrip().getTripName());
-        }
+//        //여기는 테스트니까 지우던 말던 캡틴 맘대로 하쇼 여행에 참여중인 사람
+//        List<UserTrip> userIds = userTripRepository.findByTripTripId(savedTrip.getTripId());
+//        for (UserTrip userTrip1 : userIds) {
+//            log.info("여행에 참여중인 사람 userTrip1.getUser().getUsername() = " + userTrip1.getUser().getKakaoId());
+//        }
+//
+////        유저가 참여중인 여행 목록
+//        List<UserTrip> tripIds = userTripRepository.findByUserKakaoId(userId);
+//        for (UserTrip tripId : tripIds) {
+//            log.info("유저가 참여중인 여행 목록"+tripId.getTrip().getTripName());
+//        }
 
     }
 
     @Override
-    public void updateTrip(int tripId,Trip trip) {
+    public void updateTrip(Long tripId,Trip trip) {
         Trip originTrip = tripRepository.findOneByTripId(tripId);
         if(trip.getTripName() != null){
             originTrip.setTripName(trip.getTripName());
@@ -89,7 +89,7 @@ public class TripServiceImpl implements TripService{
     }
 
     @Override
-    public void deleteTrip(int tripId) {
+    public void deleteTrip(Long tripId) {
         tripRepository.deleteTripByTripId(tripId);
     }
 

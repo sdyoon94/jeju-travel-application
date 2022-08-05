@@ -6,47 +6,55 @@ import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Getter
 @Setter
-@ToString
 @Entity
 public class Trip {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="TRIP_ID")
-    private int tripId;
+    private Long tripId;
 
     @Column(name="TRIP_NAME")
     private String tripName;
 
-    private int period;
+    @Column(name="START_DATE")
+    private LocalDate startDate;
+//    LocalDate startDate = LocalDate.of(year, month, dayofmonth);
 
-    @Temporal(TemporalType.DATE)
-    private Date startDate;
-
-    @Temporal(TemporalType.DATE)
-    private Date endTime;
-
-    @Temporal(TemporalType.DATE)
-    private Date startTime;
-
-    @OneToMany(mappedBy="trip", cascade=CascadeType.ALL)
-    List<UserTrip> tripMember = new ArrayList<>();
+    @Column(name="PERIOD")
+    private Integer period;
 
     @Column(name="BUDGET")
     private Integer budget;
 
+    @Column(name="START_TIME")
+    private LocalTime startTime;
+    // LocalTime starttime = LocalTime.of( ~~~);
+    @Column(name="END_TIME")
+    private LocalTime endTime;
+
+    @Column(name="VEHICLE")
+    private String vehicle;
+
+    @OneToMany(mappedBy="trip", cascade=CascadeType.ALL)
+    List<UserTrip> tripMember = new ArrayList<>();
+
     @Column(name="STYLE")
     private Integer style;
 
+    @Column(name="CREATOR_ID")
+    private Long creatorId;
 
+    @OneToMany(mappedBy="trip", cascade = CascadeType.ALL)
+    List<Schedule> schedules = new ArrayList<>();
 
-    //이동수단 기본 자동차
-    //유저마다 가능한 날짜 선택된 리스트
 
 }

@@ -1,21 +1,25 @@
 package a609.backend.db.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
 public class PlaceTag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="PLACE_TAG_ID")
-    private int id;
+    @Column(name = "TAG_ID")
+    private Long tagId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="PLACE_ID")
+    @JoinColumn(name="PLACE_UID")
     private Place place;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="TAG_ID")
-    private Tag tag;
+    @Column(name="TAG_NAME", length=20)
+    private String tagName;
 
 }

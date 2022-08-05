@@ -12,7 +12,6 @@ import java.util.*;
 
 @Getter
 @Setter
-@ToString
 @Entity
 @Builder
 @AllArgsConstructor
@@ -33,14 +32,16 @@ public class User implements UserDetails {
     @Column(name = "KAKAO_ID")
     String kakaoId;
 
-    @Column(length = 10)
+    @Column(name="NICKNAME", length = 10)
     String nickname;
 
+    @Column(name="IMAGE_PATH")
     String imagePath;
 
+    @Column(name="REFRESH_TOKEN")
     String refreshToken;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
     private List<UserTrip> usersTrip = new ArrayList<>();
 
     @Override
