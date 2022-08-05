@@ -78,4 +78,18 @@ public class UserController {
         }
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(@RequestHeader Map<String,Object> token) {
+        userService.logout((String) token.get("authorization"));
+        return new ResponseEntity<String>("success", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteUser(@RequestHeader Map<String,Object> token) {
+
+        userService.deleteUser((String) token.get("authorization"));
+
+        return new ResponseEntity<String>("성공", HttpStatus.OK);
+    }
 }

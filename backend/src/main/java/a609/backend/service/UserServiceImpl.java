@@ -151,14 +151,16 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findOneByKakaoId((String)jwtUtil.parseJwtToken(token).get("id"));
 //        String refreshdToken = user.getRefreshToken();
 //        String accessToken = KakaoUtil.updateAccessToken(refreshdToken);
-        KakaoUtil.kakaoLogout(token.split(" ")[1]);
+        KakaoUtil.kakaoLogout((String)jwtUtil.parseJwtToken(token).get("id"));
     }
 
     @Override
     public void deleteUser(String token) {
+        log.info("----------------------------------------------------");
+        log.info(token);
 //        String refreshToken = this.searchByKakaoId(kakaoId).getRefreshToken();
 //        String accessToken = KakaoUtil.updateAccessToken(refreshToken);
-        KakaoUtil.unlink(token.split(" ")[1]);
+        KakaoUtil.unlink((String)jwtUtil.parseJwtToken(token).get("id"));
 
         userRepository.deleteUserByKakaoId((String)jwtUtil.parseJwtToken(token).get("id"));
     }
