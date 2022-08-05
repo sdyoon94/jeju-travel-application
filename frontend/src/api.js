@@ -1,13 +1,19 @@
-const HOST = "http://i7a609.p.ssafy.io:8081/api"
+const HOST = "http://i7a609.p.ssafy.io:8081/api/v1/"
 
 
 const api = {
   accounts: {
     editProfileImgUrl(userId) {
-      return HOST + `/file/upload/${userId}`
+      return HOST + `file/upload/${userId}`
     },
-    editNicknameUrl(userId) {
-      return HOST + `/v1/users/${userId}`
+    editNicknameUrl() {
+      return HOST + "users"
+    },
+    logoutUrl() {
+      return HOST + "logout" 
+    },
+    signoutUrl() {
+      return HOST + "delete"
     }
 
   }

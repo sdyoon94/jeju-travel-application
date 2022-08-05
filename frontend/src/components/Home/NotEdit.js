@@ -1,9 +1,19 @@
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { logout } from "store/modules/authSlice"
 import { Avatar, Box } from "@mui/material"
 
-function NotEdit ({ editStart }) {
+
+function NotEdit ({ editStart, setopen }) {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const nickname = useSelector((state) => state.auth.nickname)
   const profileImg = useSelector((state) => state.auth.profileImg)
+
+  const handleClick = () => {
+    dispatch(logout())
+    navigate("/login", { replace: true })
+  }
 
   return (
     <Box sx={{ width: "50vw", padding: 2, marginTop: 6 }}>
@@ -13,7 +23,7 @@ function NotEdit ({ editStart }) {
         <span onClick={editStart}>회원정보 수정</span>
       </div>
       <hr />
-      <button className="logout-btn">로그아웃</button>
+      <button onClick={handleClick} className="logout-btn">로그아웃</button>
     </Box>
   )
 }
