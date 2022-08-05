@@ -1,10 +1,10 @@
 import { ReactComponent as Car } from "assets/car-side.svg"
+import { ReactComponent as Bus } from "assets/bus-alt.svg"
 import StartTime from "./StartTime"
 import "./Schedule.css"
 // import { useState } from "react"
 
-function Schedule({ scheduleIndex, courseIndex, place, startTime, timeReq, isFirst, isLast, hold }) {
-
+function Schedule({ scheduleIndex, courseIndex, place, startTime, timeReq, isFirst, isLast, hold, vehicle }) {
 
 	return (
 		<>
@@ -28,7 +28,11 @@ function Schedule({ scheduleIndex, courseIndex, place, startTime, timeReq, isFir
 			}
 			{!isLast && !hold &&
 				<div className="subcontent-size text-center transportation">
-					<Car width={12} height={12} /> {timeReq}
+					{	vehicle === "car" ?
+						<Car className="vehicle" />:
+						<Bus className="vehicle" />
+					}
+					 {timeReq} 
 				</div>
 			}
 		</>
