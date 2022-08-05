@@ -24,21 +24,6 @@ public class UserController {
     @Autowired
     JwtUtil jwtUtil;
 
-    @DeleteMapping("/users/{userId}")
-    public ResponseEntity<Map<String, String>> deleteUser(@PathVariable String userId) {
-        HashMap<String, String> map = new HashMap<>();
-        userService.deleteUser(userId);
-        map.put("message", "Success");
-        return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
-    }
-
-//    @PatchMapping("/users/{userId}")
-//    public ResponseEntity updateUser(@PathVariable String userId, @RequestBody User user) {
-//        User resultUser = userService.updateUser(userId, user);
-//        HashMap<String, String> map = new HashMap<>();
-//        map.put("nickname", resultUser.getNickname());
-//        return new ResponseEntity(map, HttpStatus.NO_CONTENT);
-//    }
     @PatchMapping("/users")
     public ResponseEntity updateUser(@RequestBody User user, @RequestHeader Map<String,Object> token) {
         log.info("----------------------------------------------------");

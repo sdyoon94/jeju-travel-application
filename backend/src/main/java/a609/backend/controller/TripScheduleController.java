@@ -12,7 +12,7 @@ import java.util.Map;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/schedule")
+@RequestMapping("/api/v1/schedule")
 public class TripScheduleController {
 
     @Autowired

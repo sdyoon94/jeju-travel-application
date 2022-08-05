@@ -13,7 +13,7 @@ import java.util.Map;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/file")
+@RequestMapping("/api/v1/file")
 public class FileController {
 
     @Autowired
