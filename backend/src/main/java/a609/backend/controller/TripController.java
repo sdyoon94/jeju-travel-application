@@ -54,11 +54,11 @@ public class TripController {
     }
 
     //개인의 여행 나가기
-    @DeleteMapping("/user/{userId}")
-    public ResponseEntity<Map<String,Object>> deleteUserTrip(@PathVariable int userId){
+    @DeleteMapping("/user/{tripId}")
+    public ResponseEntity<Map<String,Object>> deleteUserTrip(@PathVariable Integer tripId, @RequestHeader Map<String,Object> token){
         Map<String, Object> resultMap = new HashMap<>();
-        tripService.deleteUserTrip(userId);
-
+        String jwt = (String) token.get("Authorization");
+        tripService.deleteUserTrip(tripId, jwt);
         resultMap.put("message", "Success");
         return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
     }
