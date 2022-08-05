@@ -9,17 +9,17 @@ import { useSelector } from "react-redux";
 
 const KAKAO_API_KEY = "03817511d5315ef223b0e6861c8f729e"
 
-function TravelTitle() {
+function TravelTitle(props) {
 
     const travel = useSelector((state) => state.travel)
 
     // Title에서 사용되는 여행 관련 정보
-    const [ title ] = useState(travel.title)
+    // const [ title ] = useState(travel.title)
     const [ members ] = useState(travel.members)
     // const [ maxMemberCnt ] = useState(travel.maxMemberCnt)
     const [ startDate ] = useState(travel.startDate)
     const [ periodInDays ] = useState(travel.periodInDays)
-    const [ budget ] = useState(travel.budget)
+    // const [ budget ] = useState(travel.budget)
     const [ styles ] = useState(travel.styles)
 
     // 여행 끝 일자
@@ -62,7 +62,7 @@ function TravelTitle() {
     return (
         <div className="container-title">
             <div className="travel-title">
-                <p>{ title }</p>
+                <p>{ props.travel.title }</p>
                 <AvatarGroup className="avatar-group" max={4}>
                     {
                         members.map((member, i) => {
@@ -79,7 +79,7 @@ function TravelTitle() {
             </div>
             <div className="travel-info">
                 <p>{startDate} ~ {endDate}</p>
-                <p>₩{budget}만원</p>
+                <p>₩{props.travel.budget}만원</p>
             </div>
             <div className="travel-style">
                 {

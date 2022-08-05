@@ -15,7 +15,7 @@ function Period(props) {
   const bak = props.inputValues.periodInDays;
   const il = () => {
     if (props.inputValues.periodInDays) {
-      console.log(props.inputValues.periodInDays);
+      // console.log(props.inputValues.periodInDays);
       return Number(props.inputValues.periodInDays) + 1;
     } else {
       return "";
@@ -100,7 +100,7 @@ function Period(props) {
         </div>
 
         <div className="period-body2">
-          <p>
+          <p className="body2-ment">
             추후에 동행자와 함께<br></br> 날짜를 정할 수 있습니다.
           </p>
         </div>

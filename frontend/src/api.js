@@ -10,6 +10,11 @@ const api = {
       return HOST + `/v1/users/${userId}`
     }
 
+  },
+  inputs: {
+    createTravelUrl() {
+      return HOST + '/v1/trips'
+    }
   }
 
 }

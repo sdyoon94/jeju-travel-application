@@ -62,7 +62,9 @@ function Travel() {
                         setTravel={(v)=>{dispatch(setTravel(v))}}
                     />
                 </Header>
-                <TravelTitle />
+                <TravelTitle
+                    travel={travel}
+                />
                 <TravelBody
                     courseIdx={courseIdx}
                     setCourseIdx={setCourseIdx}

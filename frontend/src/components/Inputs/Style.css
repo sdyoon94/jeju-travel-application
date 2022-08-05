@@ -34,12 +34,13 @@
 
 .style-body {
   display:grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  /* grid-template-rows: 1fr 11fr; */
   justify-content: center;
-  align-items: start;
+  align-items: center;
+  align-content: center;
 }
 
 .style-select-btns {
-  display:grid;
-  grid-auto-columns: minmax(50,auto);
+  /* display:grid; */
+  /* grid-auto-columns: minmax(50,100); */
 }
