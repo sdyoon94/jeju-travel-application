@@ -5,7 +5,7 @@ import "./Day.css"
 import "globalStyle.css"
 
 function Day({ day, date, prev, next }) {
-    const className = "day day-" + day
+	const className = "day day-" + day
 
     return (
         <div 

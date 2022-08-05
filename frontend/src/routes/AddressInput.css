@@ -1,0 +1,31 @@
+.address-input {
+  width: 66vw;
+  height: 5vh;
+  font-size: 5vw;
+  border: none;
+  border-bottom: 1px solid black;
+  margin: .5vh 6vw;
+}
+
+.address-input:focus {
+  outline: none; 
+  border-bottom: 1px solid #1E88E5;
+}
+
+.place-btn {
+  border: none;
+  width: 90vw;
+  height: 12vw;
+  font-size: 4vw;
+  text-align: center;
+  background: #1E88E5;
+  border-radius: 10px;
+  color: #FFFFFF;
+  margin-top: 50px;
+}
+
+.address-detail {
+  margin: 2vh 6vw 0px;
+  width: 86vw;
+  white-space: normal;
+}

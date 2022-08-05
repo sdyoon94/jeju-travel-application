@@ -1,7 +1,8 @@
 {
   "userUid": "1",
   "travels": [
-    {
+    { 
+      "travelUid": 1,
       "title": "진오의 여행1",
       "startDate": "22.07.23",
       "periodInDays": 3,
@@ -39,6 +40,7 @@
       ]
     },
     {
+      "travelUid": 2,
       "title": "여행가자",
       "startDate": "22.09.13",
       "periodInDays": 3,
@@ -58,6 +60,7 @@
       ]
     },
     {
+      "travelUid": 3,
       "title": "여행가자",
       "startDate": "22.09.13",
       "periodInDays": 3,
@@ -77,6 +80,7 @@
       ]
     },
     {
+      "travelUid": 4,      
       "title": "여행가자",
       "startDate": "22.09.13",
       "periodInDays": 3,
@@ -96,6 +100,7 @@
       ]
     },
     {
+      "travelUid": 5,
       "title": "여행가자",
       "startDate": "22.09.13",
       "periodInDays": 3,
@@ -115,6 +120,7 @@
       ]
     },
     {
+      "travelUid": 6,
       "title": "여행가자이렇게길어지면나도몰라요",
       "startDate": "22.09.13",
       "periodInDays": 3,
@@ -138,6 +144,7 @@
       ]
     },
     {
+      "travelUid": 7,
       "title": "여행가자",
       "startDate": "22.09.13",
       "periodInDays": 3,
@@ -161,6 +168,7 @@
       ]
     },
     {
+      "travelUid": 8,
       "title": "여행가자",
       "startDate": "22.09.13",
       "periodInDays": 3,

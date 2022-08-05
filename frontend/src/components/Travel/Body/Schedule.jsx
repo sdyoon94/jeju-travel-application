@@ -1,11 +1,18 @@
+import { useNavigate } from "react-router"
 import { ReactComponent as Car } from "assets/car-side.svg"
 import { ReactComponent as Bus } from "assets/bus-alt.svg"
+import { ReactComponent as AddSpot } from 'assets/add.svg'
 import StartTime from "./StartTime"
 import "./Schedule.css"
 import "globalStyle.css"
 // import { useState } from "react"
 
 function Schedule({ scheduleIndex, courseIndex, place, startTime, timeReq, isFirst, isLast, hold, vehicle }) {
+	const navigate = useNavigate()
+	const handleAddSpot = () => {
+		navigate("/search")
+	}
+
 
 	return (
 		<>
@@ -23,9 +30,7 @@ function Schedule({ scheduleIndex, courseIndex, place, startTime, timeReq, isFir
 			</div>
 
 			{isLast && !hold &&
-				<div className="subcontent-size link text-center plus">
-					추가하기
-				</div>
+				<AddSpot onClick={handleAddSpot} className="add-spot" />
 			}
 			{!isLast && !hold &&
 				<div className="subcontent-size text-center transportation">

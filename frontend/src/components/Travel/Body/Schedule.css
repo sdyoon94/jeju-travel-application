@@ -35,9 +35,6 @@
 	align-items: center;
 }
 
-.plus {
-	margin-top: 2vh;
-}
 
 .schedule-start-time {
 	width: 15vw;
@@ -60,4 +57,12 @@
 	height: 3vw;
 	width: 3vw;
 	margin-right: 1vw;
+}
+
+.add-spot {
+	width: 20px;
+	height: 20px;
+	display: block;
+	margin: 2vh auto;
+	cursor: pointer;
 }

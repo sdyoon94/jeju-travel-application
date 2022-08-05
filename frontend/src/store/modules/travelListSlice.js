@@ -3,7 +3,6 @@ import travelList from "dummies/travelList.json"
 
 const initialState = travelList
 
-
 const travelListSlice = createSlice({
   name: 'travelList',
   initialState,

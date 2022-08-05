@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
+import { useParams } from "react-router-dom"
 
 import Header from "components/Header/Header"
 import TravelTitle from "components/Travel/TravelTitle"
@@ -12,6 +13,8 @@ import { setTravel } from "store/modules/travelSlice"
 // import { fetchDistanceMatrix } from "store/modules/distanceMatrixSlice"
 
 function Travel() {
+    // travelUid를 통해 여행 정보 가져오기
+    const { travelUid } = useParams()
     // get travel
     const travel = useSelector((state) => state.travel)
     const dispatch = useDispatch()
