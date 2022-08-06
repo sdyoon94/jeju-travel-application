@@ -76,12 +76,12 @@ function ConfigDrawer(props) {
                 location data to Google, even when no apps are running.
                 </DialogContentText> */}
             </DialogContent>    
-            <DialogActions>
+            <div>
                 <Button onClick={handleClose}>Disagree</Button>
                 <Button onClick={handleClose} autoFocus>
                 Agree
-            </Button>
-            </DialogActions>
+            </Button >
+            </div>
 
             </Dialog>
         </div>

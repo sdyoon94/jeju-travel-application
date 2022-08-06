@@ -16,6 +16,11 @@ const api = {
       return HOST + "delete"
     }
 
+  },
+  inputs: {
+    createTravelUrl() {
+      return HOST + '/v1/trips'
+    }
   }
 
 }

@@ -81,7 +81,7 @@ function MemberCnt(props) {
             ))}
           </ExampleTextField>
         </label> */}
-        <label item className="input-box" htmlFor="member-cnt-input">
+        <label className="input-box" htmlFor="member-cnt-input">
           <label className="input-label" htmlFor="member-cnt-input">
             인원수
           </label>
