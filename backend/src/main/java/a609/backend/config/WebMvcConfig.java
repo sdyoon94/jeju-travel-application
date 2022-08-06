@@ -43,6 +43,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         this.uploadImagesPath = uploadImagesPath;
     }
 
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
         registry.addResourceHandler("/static/imagePath/**")
