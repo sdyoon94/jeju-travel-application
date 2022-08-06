@@ -14,6 +14,9 @@ const api = {
     },
     signoutUrl() {
       return HOST + "delete"
+    },
+    verifyUrl() {
+      return HOST + "auth/verify"
     }
 
   },
