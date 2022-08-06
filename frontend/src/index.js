@@ -14,6 +14,8 @@ import Edit from 'components/Home/EditTest'
 import PlaceSearch from 'routes/PlaceSearch'
 import AddressInput from 'routes/AddressInput'
 import TravelJoin from 'routes/TravelJoin';
+import PrivateRoute from "components/PrivateRoute";
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -21,18 +23,20 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="new" element={<New />}>
+        {/* Private route */}
+        <Route path="/" element={<PrivateRoute component={ Home } />} />
+        <Route path="new" element={<PrivateRoute component={ New } />}>
           <Route path=":input" element={<New />} />
         </Route>
-        <Route path="edit" element={<Edit />} />
-        <Route path="travel/:travelUid" element={<Travel />} />
-        <Route path="traveledit" element={<TravelEdit />} />
+        <Route path="edit" element={<PrivateRoute component={ Edit } />} />
+        <Route path="travel/:travelUid" element={<PrivateRoute component={ Travel } />} />
+        <Route path="traveledit" element={<PrivateRoute component={ TravelEdit } />} />
+        <Route path="search" element={<PrivateRoute component={ PlaceSearch } />} />
+        <Route path="address" element={<PrivateRoute component={ AddressInput } />} />
+        {/* Public route */}
         <Route path="login" element={<KakaoLogin />} />
-        <Route path="join/:travelUid" element={<TravelJoin />} />
         <Route path="oauth2/redirect/" element={<KakaoRedirect />} />
-        <Route path="search" element={<PlaceSearch />} />
-        <Route path="address" element={<AddressInput />} />
+        <Route path="join/:travelUid" element={<TravelJoin />} />
       </Routes>
     </BrowserRouter>
   </Provider>
