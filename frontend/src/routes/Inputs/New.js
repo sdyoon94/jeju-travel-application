@@ -8,7 +8,7 @@ import { Outlet, useNavigate, useParams } from "react-router-dom";
 import MemberCnt from "components/Inputs/MemberCnt";
 import Budget from "components/Inputs/Budget";
 import Style from "components/Inputs/Style";
-import Date from "components/Inputs/Calender";
+import Date from "components/Inputs/Dates";
 import Period from "components/Inputs/Period";
 import Time from "components/Inputs/StartTime";
 
