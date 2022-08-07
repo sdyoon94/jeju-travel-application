@@ -26,7 +26,8 @@ public class FileController {
         HttpStatus status = null;
         // 이미지 파일만 업로드 가능
         if (file.getContentType().startsWith("image") ) {
-            fileService.uploadFile(file,id);
+//            fileService.uploadFile(file,id);
+            fileService.fileUpload(file);
             User image = fileService.findImageById(id);
             resultMap.put("image_path",image.getImagePath());
         }else {

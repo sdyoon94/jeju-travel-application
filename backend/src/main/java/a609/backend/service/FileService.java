@@ -9,4 +9,5 @@ public interface FileService {
     User findImageById(String id);
 
     int deleteById(String id);
+    void fileUpload(MultipartFile multipartFile);
 }
