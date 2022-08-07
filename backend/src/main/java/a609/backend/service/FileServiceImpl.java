@@ -50,11 +50,12 @@ public class FileServiceImpl implements FileService{
 //          String filePath = savePath + "\\" + id + "." + extractExt(file.getOriginalFilename());
             String filePath = "/var/lib/jenkins/jeju/" +  id + "." + extractExt(file.getOriginalFilename());
 
-            File newfile = new File("/var/lib/jenkins/jeju/" + id);
+            File newfile = new File("/var/lib/jenkins/jeju" );
 //            Files.copy(file.getInputStream(), savePath, StandardCopyOption.REPLACE_EXISTING);
-            Files.copy(file.getInputStream(), copyOfLocation, StandardCopyOption.REPLACE_EXISTING);
+//            Files.copy(file.getInputStream(), copyOfLocation, StandardCopyOption.REPLACE_EXISTING);
+            file.transferTo(newfile);
             newfile.createNewFile();
-            file.transferTo(new File("/var/lib/jenkins/jeju/"));
+
 
 
             user.setImagePath(filePath);
