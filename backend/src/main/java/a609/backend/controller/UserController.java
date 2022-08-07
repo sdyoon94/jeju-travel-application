@@ -40,9 +40,9 @@ public class UserController {
 
 
     @GetMapping("/users/me")
-    public ResponseEntity<Map<String, Object>> myProfile(@RequestBody Map<String, String> tokenMap) {
+    public ResponseEntity<Map<String, Object>> myProfile(@RequestHeader Map<String, Object> header) {
         Map<String, Object> resultMap = new HashMap<>();
-        Claims claims = userService.verifyToken(tokenMap.get("token"));
+        Claims claims = jwtUtil.parseJwtToken((String)header.get("Authorization"));
         resultMap.put("id", claims.get("id"));
         resultMap.put("authority", claims.get("authority"));
         resultMap.put("nickname", claims.get("nickname"));
@@ -50,16 +50,16 @@ public class UserController {
     }
 
     @GetMapping("/auth/verify")
-    public ResponseEntity<Map<String, Object>> verifyToken(@RequestBody Map<String, String> tokenMap) {
+    public ResponseEntity<Map<String, Object>> verifyToken(@RequestHeader Map<String, Object> header) {
+        String token = (String) header.get("authorization");
         Map<String, Object> resultMap = new HashMap<>();
-        Claims claims = userService.verifyToken(tokenMap.get("token"));
-        HttpStatus status = null;
-        if (claims == null) {
-            resultMap.put("message", "토큰 에러");
-            status = HttpStatus.BAD_REQUEST;
-        } else {
-            resultMap = claims;
+        HttpStatus status;
+        if (jwtUtil.validateJwtToken(token)) {
+            resultMap.put("message", "유효한 토큰");
             status = HttpStatus.OK;
+        } else {
+            resultMap.put("message", "잘못된 토큰");
+            status = HttpStatus.BAD_REQUEST;
         }
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }

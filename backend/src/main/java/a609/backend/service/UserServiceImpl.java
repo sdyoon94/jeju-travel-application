@@ -4,7 +4,6 @@ import a609.backend.db.entity.User;
 import a609.backend.db.repository.UserRepository;
 import a609.backend.util.JwtUtil;
 import a609.backend.util.KaKaoUtil;
-import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -111,13 +110,6 @@ public class UserServiceImpl implements UserService {
 //    public int idCheck(String id) {
 //        return userRepository.countByKakaoId(id);
 //    }
-
-
-
-    @Override
-    public Claims verifyToken(String token) {
-        return jwtUtil.parseJwtToken(token);
-    }
 
     @Override
     public Map<String, Object> login(String code) {
