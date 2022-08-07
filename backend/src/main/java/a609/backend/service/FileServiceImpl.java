@@ -92,7 +92,7 @@ public class FileServiceImpl implements FileService{
         // File.seperator 는 OS종속적이다.
         // Spring에서 제공하는 cleanPath()를 통해서 ../ 내부 점들에 대해서 사용을 억제한다
 //        Path copyOfLocation = Paths.get(uploadDir + File.separator + StringUtils.cleanPath(multipartFile.getOriginalFilename()));
-        String savePath = "/var/lib/jenkins/jeju/"+ LocalDate.now()+"/";
+        String savePath = "/var/lib/jenkins/jeju/";
         Path copyOfLocation = Paths.get(savePath);
         if (!new File(savePath).exists()) {
             new File(savePath).mkdir();
