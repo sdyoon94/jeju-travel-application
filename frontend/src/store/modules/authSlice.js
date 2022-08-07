@@ -4,7 +4,7 @@ import axios from "axios"
 
 
 const initialState = {
-  token: sessionStorage.getItem("token") || "",
+  token: sessionStorage.getItem("accessToken") || "",
   nickname: sessionStorage.getItem("nickname") || "",
   profileImg: sessionStorage.getItem("image_path") || "",
   id: sessionStorage.getItem("id") || "",
