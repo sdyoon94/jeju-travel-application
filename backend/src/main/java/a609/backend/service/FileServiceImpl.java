@@ -90,17 +90,20 @@ public class FileServiceImpl implements FileService{
 
     public void fileUpload(MultipartFile multipartFile) {
         // File.seperator 는 OS종속적이다.
+        String savePath = "/var/lib/jenkins/jeju/";
         // Spring에서 제공하는 cleanPath()를 통해서 ../ 내부 점들에 대해서 사용을 억제한다
-//        Path copyOfLocation = Paths.get(uploadDir + File.separator + StringUtils.cleanPath(multipartFile.getOriginalFilename()));
-        String savePath = "file:////var/lib/jenkins/jeju/";
-        Path copyOfLocation = Paths.get(savePath);
-        if (!new File(savePath).exists()) {
-            new File(savePath).mkdir();
-        }
+        Path copyOfLocation = Paths.get(savePath + File.separator + StringUtils.cleanPath(multipartFile.getOriginalFilename()));
+
+//        Path copyOfLocation = Paths.get(savePath);
+
         try {
             // inputStream을 가져와서
             // copyOfLocation (저장위치)로 파일을 쓴다.
             // copy의 옵션은 기존에 존재하면 REPLACE(대체한다), 오버라이딩 한다
+            if (!new File(savePath).exists()) {
+                new File(savePath).mkdir();
+            }
+            log.info("어디저장되는걸까"+copyOfLocation);
             Files.copy(multipartFile.getInputStream(), copyOfLocation, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
