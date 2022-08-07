@@ -85,7 +85,7 @@ public class FileServiceImpl implements FileService{
         }
     }
 
-    private String uploadDir = System.getProperty("user.dir") + "\\files";;
+    private String uploadDir = System.getProperty("user.dir") + "\\files";
 
     public void fileUpload(MultipartFile multipartFile) {
         // File.seperator 는 OS종속적이다.

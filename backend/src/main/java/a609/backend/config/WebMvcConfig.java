@@ -46,7 +46,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
-        registry.addResourceHandler("classpath:/resources/");
+        registry.addResourceHandler("classpath:**/tmp/tomcat.*");
         registry.addResourceHandler("/static/imagePath/**")
                 .addResourceLocations("file:///" + uploadImagesPath );
 
