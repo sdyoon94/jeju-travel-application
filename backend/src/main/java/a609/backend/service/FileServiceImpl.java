@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 
 @Slf4j
@@ -23,13 +25,13 @@ public class FileServiceImpl implements FileService{
         try {
             // 실행되는 위치의 'files' 폴더에 파일이 저장됩니다.
 //            String savePath = System.getProperty("user.dir") + "\\files";
-            String savePath = "/home/ubuntu/jeju_profile_image/"+ LocalDate.now();
+            String savePath = "/var/lib/jenkins/jeju/"+ LocalDate.now()+"/";
 
 
             // 파일이 저장되는 폴더가 없으면 폴더를 생성합니다.
-//            if (!new File(savePath).exists()) {
-//                new File(savePath).mkdir();
-//            }
+            if (!new File(savePath).exists()) {
+                new File(savePath).mkdir();
+            }
 
             User user = userService.searchByKakaoId(id);
 
@@ -42,15 +44,18 @@ public class FileServiceImpl implements FileService{
             //저장될 경로
 //          String filePath = savePath + "\\" + id + "." + extractExt(file.getOriginalFilename());
             String filePath = "/var/lib/jenkins/jeju/" +  id + "." + extractExt(file.getOriginalFilename());
-            File newfile = new File("\\var\\lib\\jenkins\\jeju" + id);
 
-//            file.transferTo(new File("/var/lib/jenkins/jeju/"));
+            File newfile = new File("/var/lib/jenkins/jeju/" + id);
+//            Files.copy(file.getInputStream(), savePath, StandardCopyOption.REPLACE_EXISTING);
+            newfile.createNewFile();
+            file.transferTo(new File("/var/lib/jenkins/jeju/"));
+
 
             user.setImagePath(filePath);
 
             userRepository.save(user);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
