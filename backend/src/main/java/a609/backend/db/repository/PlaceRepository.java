@@ -15,5 +15,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
     List<Place> findByPlaceNameContains(String Keyword);
     Place findOneByPlaceUid(String placeUid);
 
+    List<Place> findAllByPlaceType(int placeType);
+
 
 }

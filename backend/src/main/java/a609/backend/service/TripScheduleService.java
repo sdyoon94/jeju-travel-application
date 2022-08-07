@@ -7,7 +7,7 @@ import a609.backend.payload.response.ScheduleDTO;
 import java.util.List;
 
 public interface TripScheduleService {
-    void registerSchedule(Trip trip);
+    void registerSchedule(Trip trip,int day);
 
     void updateSchedule();
 

@@ -9,6 +9,7 @@ import a609.backend.db.repository.TripRepository;
 import a609.backend.db.repository.UserRepository;
 import a609.backend.db.repository.UserTripRepository;
 import a609.backend.payload.response.FindTripDTO;
+import a609.backend.util.Algorithm;
 import a609.backend.util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,9 @@ public class TripServiceImpl implements TripService{
 
     @Autowired
     UserTripRepository userTripRepository;
+
+    @Autowired
+    TripScheduleService tripScheduleService;
 
     @Override
     public Trip showTripInfo(Long tripId) {
@@ -76,6 +80,8 @@ public class TripServiceImpl implements TripService{
             schedule1.setStayTime(540);
             schedule1.setTrip(trip);
             scheduleRepository.save(schedule1);
+            //스케줄 추가 test
+            tripScheduleService.registerSchedule(trip,i);
         }
 //        schedule.setPlace("시작용 더미 관광지에 추가해야함");
 

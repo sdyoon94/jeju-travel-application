@@ -51,7 +51,16 @@ public class TripScheduleServiceImpl implements TripScheduleService{
 //    }
 
     @Override
-    public void registerSchedule(Trip trip) {
+    public void registerSchedule(Trip trip,int day) {
+
+            //test
+            for (int j = 0; j < 5; j++) {
+                Schedule schedule = new Schedule();
+                schedule.setPlace(algorithm.create(trip));
+                schedule.setDay(day);
+                schedule.setTrip(trip);
+                scheduleRepository.save(schedule);
+            }
 
     }
 
