@@ -20,7 +20,7 @@ public class JwtUtil {
 
     public String generateJwtToken(String kakaoId, String nickname, String imagePath) {
         Date now = new Date();
-        Date expiration = new Date(now.getTime() + 3 * 60 * 1000L);
+        Date expiration = new Date(now.getTime() + 3 * 60 * 60 * 1000L);
 
         Map<String, Object> headers = new HashMap<>();
         headers.put("typ", "JWT");
@@ -55,6 +55,7 @@ public class JwtUtil {
 
     public boolean validateJwtToken(String authToken){
         try{
+            authToken = authToken.split(" ")[1];
             Jwts.parser().setSigningKey(secretKey.getBytes("UTF-8")).parseClaimsJws(authToken);
             return true;
         }catch (Exception e){
