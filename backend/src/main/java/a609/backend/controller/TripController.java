@@ -25,7 +25,14 @@ public class TripController {
 
     @Autowired
     TripRepository tripRepository;
-
+//    토큰 없을때 test용 코드
+//    @PostMapping("/{id}")
+//    public ResponseEntity<Map<String, Object>> registerTrip(@RequestBody Trip trip,@PathVariable String id){
+//        Map<String, Object> resultMap = new HashMap<>();
+//        String tripId = tripService.registerTrip(trip,id);
+//        resultMap.put("tripId",tripId);
+//        return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+//    }
 
     @PostMapping
     public ResponseEntity<Map<String, Object>> registerTrip(@RequestBody Trip trip,@RequestHeader Map<String,Object> token){

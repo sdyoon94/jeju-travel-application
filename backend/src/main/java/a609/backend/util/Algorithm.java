@@ -15,9 +15,9 @@ public class Algorithm {
     @Autowired
     PlaceRepository placeRepository;
 
-    public Place create(Trip trip){
+    public Place create(Trip trip,String placeType){
 
-        List<Place> place= placeRepository.findAllByPlaceType(0);
+        List<Place> place= placeRepository.findAllByPlaceType(placeType);
         Collections.shuffle(place);
 
 

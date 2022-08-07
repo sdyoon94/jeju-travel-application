@@ -1,9 +1,6 @@
 package a609.backend.service;
 
-import a609.backend.db.entity.Schedule;
-import a609.backend.db.entity.Trip;
-import a609.backend.db.entity.User;
-import a609.backend.db.entity.UserTrip;
+import a609.backend.db.entity.*;
 import a609.backend.db.repository.ScheduleRepository;
 import a609.backend.db.repository.TripRepository;
 import a609.backend.db.repository.UserRepository;
@@ -70,21 +67,28 @@ public class TripServiceImpl implements TripService{
         //여행 시작할때 startday에 더미 스케쥴 넣어서 시작시간 조정
         Schedule schedule = new Schedule();
         schedule.setDay(0);
+        Place place = new Place();
+        place.setPlaceUid(1111L);
+        schedule.setPlace(place);//시작하는 곳 널값떠서 임의로 장소 지정
         schedule.setStayTime(trip.getStartTime().toSecondOfDay()/60);
         schedule.setTrip(savedTrip);
+        schedule.setTurn(0);
         scheduleRepository.save(schedule);
+        tripScheduleService.registerSchedule(trip,0);
         for(int i=1;i<savedTrip.getPeriodInDays();i++){
             Schedule schedule1 = new Schedule();
             schedule1.setTurn(0);
             schedule1.setDay(i);
             schedule1.setStayTime(540);
             schedule1.setTrip(trip);
+            schedule1.setPlace(place);//
             scheduleRepository.save(schedule1);
             //스케줄 추가 test
             tripScheduleService.registerSchedule(trip,i);
         }
 //        schedule.setPlace("시작용 더미 관광지에 추가해야함");
 
+//        User user = userRepository.findOneByKakaoId(token); //토큰없을때 test한 코드 삭제해도됨
         User user = userRepository.findOneByKakaoId((String)jwtUtil.parseJwtToken(token).get("id"));
         UserTrip userTrip = new UserTrip();
         userTrip.setTrip(savedTrip);

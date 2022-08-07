@@ -4,6 +4,8 @@ import a609.backend.db.entity.Place;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
+
 @Getter
 @Setter
 public class ScheduleDTO {
@@ -13,6 +15,14 @@ public class ScheduleDTO {
     private String placeName;
 
     private Integer stayTime;
+
+    private Double lat;
+
+    private Double lng;
+
+    private String roadAddress;
+
+    private String imgPath;
 
 
 }
