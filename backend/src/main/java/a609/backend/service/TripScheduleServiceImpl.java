@@ -1,7 +1,9 @@
 package a609.backend.service;
 
+import a609.backend.db.entity.Place;
 import a609.backend.db.entity.Trip;
 import a609.backend.db.entity.Schedule;
+import a609.backend.db.repository.PlaceRepository;
 import a609.backend.db.repository.ScheduleRepository;
 import a609.backend.payload.response.ScheduleDTO;
 import a609.backend.util.Algorithm;
@@ -21,6 +23,9 @@ public class TripScheduleServiceImpl implements TripScheduleService{
 
     @Autowired
     ScheduleRepository scheduleRepository;
+
+    @Autowired
+    PlaceRepository placeRepository;
 
 
 
@@ -51,7 +56,39 @@ public class TripScheduleServiceImpl implements TripScheduleService{
 //    }
 
     @Override
-    public void registerSchedule(Trip trip) {
+    public void registerSchedule(Trip trip,int day) {
+            //test
+
+
+//        첫째날 마지막날 추천 일정 수 고려해야될듯
+//        if(day==0) {//첫째날
+//            int startTime = trip.getStartTime().toSecondOfDay() / 60;
+//            if (startTime >= 1080) {
+//                //6시 이후
+//                for (int j = 1; j <= 3; j++) {
+//                    schedule.setPlace(algorithm.create(trip,"0"));
+//                    schedule.setTurn(j);
+//                    scheduleRepository.save(schedule);
+//                }
+//            }
+//        }
+//        if (day==trip.getPeriodInDays()-1) {//마지막날
+//            int endTime = trip.getEndTime().toSecondOfDay() / 60;
+//            if (endTime <= 720) {
+//                schedule.setPlace(algorithm.create(trip,"3"));
+//                schedule.setTurn(1);
+//                scheduleRepository.save(schedule);
+//                //12시 이전
+//            }
+//        }
+            for (int j = 1; j <= 5; j++) {
+                Schedule schedule = new Schedule();
+                schedule.setDay(day);
+                schedule.setTrip(trip);
+                schedule.setPlace(algorithm.create(trip,"0"));
+                schedule.setTurn(j);
+                scheduleRepository.save(schedule);
+            }
 
     }
 
@@ -65,9 +102,15 @@ public class TripScheduleServiceImpl implements TripScheduleService{
         List<Schedule> schedules = scheduleRepository.findByTripTripIdAndDayOrderByTurn(tripId,day);
         List<ScheduleDTO> scheduleList = new ArrayList<>();
         for (Schedule schedule : schedules) {
+            Place place =placeRepository.findOneByPlaceUid(schedule.getPlace().getPlaceUid());
             ScheduleDTO sch = new ScheduleDTO();
+            sch.setPlaceUid(place.getPlaceUid());
             sch.setPlaceName(schedule.getPlace().getPlaceName());
             sch.setStayTime(schedule.getStayTime());
+            sch.setImgPath(place.getImgPath());
+            sch.setLat(place.getLat());
+            sch.setLng(place.getLng());
+            sch.setRoadAddress(place.getRoadAddress());
             scheduleList.add(sch);
         }
         return scheduleList;

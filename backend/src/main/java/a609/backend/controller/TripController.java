@@ -1,6 +1,8 @@
 package a609.backend.controller;
 
 import a609.backend.db.entity.Trip;
+import a609.backend.db.repository.PlaceRepository;
+import a609.backend.db.repository.TripRepository;
 import a609.backend.payload.response.FindTripDTO;
 import a609.backend.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +22,17 @@ public class TripController {
 
     @Autowired
     TripService tripService;
+
+    @Autowired
+    TripRepository tripRepository;
+//    토큰 없을때 test용 코드
+//    @PostMapping("/{id}")
+//    public ResponseEntity<Map<String, Object>> registerTrip(@RequestBody Trip trip,@PathVariable String id){
+//        Map<String, Object> resultMap = new HashMap<>();
+//        String tripId = tripService.registerTrip(trip,id);
+//        resultMap.put("tripId",tripId);
+//        return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+//    }
 
     @PostMapping
     public ResponseEntity<Map<String, Object>> registerTrip(@RequestBody Trip trip,@RequestHeader Map<String,Object> token){
@@ -74,6 +88,22 @@ public class TripController {
         return new ResponseEntity<Map<String,Object>>(resultMap, HttpStatus.OK);
     }
 
+//        @GetMapping("/test")
+//    public ResponseEntity<?> test(){
+//        List<FindTripDTO> tripList = new ArrayList<>();
+//        List<Trip> trip = tripRepository.findAllByBudgetAndPeriodInDays(5000,1);
+//        for (Trip userTrip : trip) {
+//
+//            FindTripDTO findTripDTO = new FindTripDTO();
+//            findTripDTO.setTripId(userTrip.getTripId());
+//            findTripDTO.setTripName(userTrip.getTripName());
+//            findTripDTO.setPeriodInDays(userTrip.getPeriodInDays());
+//            findTripDTO.setStartDate(userTrip.getStartDate());
+//            findTripDTO.setBudget(userTrip.getBudget());
+//            tripList.add(findTripDTO);
+//        }
+//        return new ResponseEntity<List<FindTripDTO>>(tripList,HttpStatus.OK);
+//    }
 
 
 }
