@@ -45,13 +45,14 @@ public class FileServiceImpl implements FileService{
 //               user.setImagePath("");
 //               userRepository.save(user);
 //            }
-
+            Path copyOfLocation = Paths.get(uploadDir + File.separator + StringUtils.cleanPath(file.getOriginalFilename()));
             //저장될 경로
 //          String filePath = savePath + "\\" + id + "." + extractExt(file.getOriginalFilename());
             String filePath = "/var/lib/jenkins/jeju/" +  id + "." + extractExt(file.getOriginalFilename());
 
             File newfile = new File("/var/lib/jenkins/jeju/" + id);
 //            Files.copy(file.getInputStream(), savePath, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(file.getInputStream(), copyOfLocation, StandardCopyOption.REPLACE_EXISTING);
             newfile.createNewFile();
             file.transferTo(new File("/var/lib/jenkins/jeju/"));
 
@@ -90,7 +91,12 @@ public class FileServiceImpl implements FileService{
     public void fileUpload(MultipartFile multipartFile) {
         // File.seperator 는 OS종속적이다.
         // Spring에서 제공하는 cleanPath()를 통해서 ../ 내부 점들에 대해서 사용을 억제한다
-        Path copyOfLocation = Paths.get(uploadDir + File.separator + StringUtils.cleanPath(multipartFile.getOriginalFilename()));
+//        Path copyOfLocation = Paths.get(uploadDir + File.separator + StringUtils.cleanPath(multipartFile.getOriginalFilename()));
+        String savePath = "/var/lib/jenkins/jeju/"+ LocalDate.now()+"/";
+        Path copyOfLocation = Paths.get(savePath);
+        if (!new File(savePath).exists()) {
+            new File(savePath).mkdir();
+        }
         try {
             // inputStream을 가져와서
             // copyOfLocation (저장위치)로 파일을 쓴다.
