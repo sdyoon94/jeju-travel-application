@@ -1,6 +1,6 @@
 .header {
     height: 4vh;
-    padding: 3vh 5vw;
+    padding: 3vh 5vw 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
