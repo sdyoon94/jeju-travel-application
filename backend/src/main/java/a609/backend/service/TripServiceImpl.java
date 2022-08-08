@@ -79,6 +79,7 @@ public class TripServiceImpl implements TripService{
         TripInfoDTO tripInfoDTO = new TripInfoDTO();
         List<FindTripDTO> tripList = new ArrayList<>();
         List<UserDTO> user = new ArrayList<>();
+        TripInfoDTO tripInfoDTO1 = new TripInfoDTO();
         for (UserTrip userTrip : userTripList) {
             Trip trip = userTrip.getTrip();
 //            TripInfoDTO tripInfoDTO1 = new TripInfoDTO();
@@ -110,6 +111,7 @@ public class TripServiceImpl implements TripService{
 //            tripInfoDTO=tripInfoDTO1;
             ////
              }
+        tripInfoDTO.add(tripInfoDTO1);
         return tripInfoDTO;
     }
 
