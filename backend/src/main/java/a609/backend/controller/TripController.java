@@ -87,6 +87,14 @@ public class TripController {
         return new ResponseEntity<Map<String,Object>>(resultMap, HttpStatus.OK);
     }
 
+    @PutMapping("/addUser/{tripId}")
+    public ResponseEntity<Map<String,Object>> addMember(@PathVariable Long tripId,@RequestHeader Map<String,Object> token){
+        Map<String, Object> resultMap = new HashMap<>();
+        tripService.addUser(tripId,(String) token.get("authorization"));
+        resultMap.put("message", "Success");
+        return new ResponseEntity<Map<String,Object>>(resultMap, HttpStatus.OK);
+    }
+
 //        @GetMapping("/test")
 //    public ResponseEntity<?> test(){
 //        List<FindTripDTO> tripList = new ArrayList<>();
