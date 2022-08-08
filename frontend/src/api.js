@@ -1,4 +1,5 @@
-const HOST = "http://i7a609.p.ssafy.io:8081/api/v1/";
+const HOST = "http://i7a609.p.ssafy.io:8081/api/v1/"
+const TRAVEL = "trip/"
 
 const api = {
   accounts: {
@@ -20,9 +21,17 @@ const api = {
   },
   inputs: {
     createTravelUrl() {
+
       return HOST + "trip";
+
+
     },
   },
+  travel: {
+    getTravelInfoUrl() {
+      return HOST + TRAVEL + "showTripList"
+    }
+  }
 };
 
 export default api;
