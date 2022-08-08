@@ -79,9 +79,10 @@ public class TripServiceImpl implements TripService{
         List<TripInfoDTO> tripInfoDTO = new ArrayList<>();
         List<FindTripDTO> tripList = new ArrayList<>();
         List<UserDTO> user = new ArrayList<>();
+        TripInfoDTO tripInfoDTO1 = new TripInfoDTO();
         for (UserTrip userTrip : userTripList) {
             Trip trip = userTrip.getTrip();
-            TripInfoDTO tripInfoDTO1 = new TripInfoDTO();
+
             FindTripDTO findTripDTO = new FindTripDTO();
             findTripDTO.setTripId(trip.getTripId());
             findTripDTO.setTripName(trip.getTripName());
@@ -107,9 +108,10 @@ public class TripServiceImpl implements TripService{
             tripList.add(findTripDTO);
             tripInfoDTO1.setUserUid((Long)jwtUtil.parseJwtToken(token).get("id"));
             tripInfoDTO1.setTripList(tripList);
-            tripInfoDTO.add(tripInfoDTO1);
+
             ////
              }
+        tripInfoDTO.add(tripInfoDTO1);
         return tripInfoDTO;
     }
 
