@@ -143,7 +143,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findOneByKakaoId((Long)jwtUtil.parseJwtToken(token).get("id"));
 //        String refreshdToken = user.getRefreshToken();
 //        String accessToken = KakaoUtil.updateAccessToken(refreshdToken);
-        KakaoUtil.kakaoLogout(jwtUtil.parseJwtToken(token).get("id"));
+        KakaoUtil.kakaoLogout((Long)jwtUtil.parseJwtToken(token).get("id"));
     }
 
     @Override
