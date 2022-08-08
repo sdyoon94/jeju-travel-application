@@ -1,28 +1,25 @@
-const HOST = "http://i7a609.p.ssafy.io:8081/api/v1/"
-
+const HOST = "http://i7a609.p.ssafy.io:8081/api/v1/";
 
 const api = {
   accounts: {
     editProfileImgUrl(userId) {
-      return HOST + `file/upload/${userId}`
+      return HOST + `file/upload/${userId}`;
     },
     editNicknameUrl() {
-      return HOST + "users"
+      return HOST + "users";
     },
     logoutUrl() {
-      return HOST + "logout" 
+      return HOST + "logout";
     },
     signoutUrl() {
-      return HOST + "delete"
-    }
-
+      return HOST + "delete";
+    },
   },
   inputs: {
     createTravelUrl() {
-      return HOST + '/v1/trips'
-    }
-  }
+      return HOST + "trips";
+    },
+  },
+};
 
-}
-
-export default api
+export default api;

@@ -6,7 +6,7 @@ import { ko } from "date-fns/locale";
 import { useState } from "react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import axios from "axios";
+// import axios from "axios";
 
 
 function Calender({inputValues,setInputValues}) {
@@ -16,32 +16,35 @@ function Calender({inputValues,setInputValues}) {
       startDate: new Date(),
       endDate: addDays(new Date(), 7),
       key: "selection",
-    },
+  },
   ]);
 
   const abc = function () {
     console.log(state);
-    console.log(state[0].startDate);
+    console.log(state[0]);
   };
   
   return (
     <div className="dates-container">
+      <button onClick={abc}>button</button>
       <div className="dates-header">
         <div className="mention">
+          여행
           <div style={{ color: "#1E88E5", display: "inline-block" }}>
-            여행기간
+          기간
           </div>
           정하기
         </div>
-        {/* <div className="mention2">항공권과 이동수단 비용은 제외해주세요</div> */}
+        <div className="mention2">
+          여행기간은 최대 20일 이에요ㅠ
+        </div>
       </div>
       <div className="dates-body">
             <DateRange
         locale={ko}
-        // onChage={item => console.log(item)}
         onChange={(item) => setState([item.selection])}
         showSelectionPreview={true}
-        moveRangeOnFirstSelection={false}
+        moveRangeOnFirstSelection={true}
         months={1}
         ranges={state}
         showMonthArrow={false}
