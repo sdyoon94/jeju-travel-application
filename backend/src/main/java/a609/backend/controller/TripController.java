@@ -6,6 +6,7 @@ import a609.backend.db.repository.TripRepository;
 import a609.backend.payload.response.FindTripDTO;
 import a609.backend.payload.response.TripInfoDTO;
 import a609.backend.service.TripService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/trip")
@@ -79,6 +81,7 @@ public class TripController {
 
     @GetMapping("/showTripList")
     public ResponseEntity<Map<String,Object>> showTripList(@RequestHeader Map<String,Object> token){
+        log.info("showTripList토큰받기"+(String) token.get("authorization"));
         Map<String, Object> resultMap = new HashMap<>();
         List<TripInfoDTO> tripInfoDTO = tripService.showTripList((String) token.get("authorization"));
         resultMap.put("tripList",tripInfoDTO);
