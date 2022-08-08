@@ -12,16 +12,15 @@ const api = {
       return HOST + "logout";
     },
     signoutUrl() {
-      return HOST + "delete"
+      return HOST + "delete";
     },
     verifyUrl() {
-      return HOST + "auth/verify"
-    }
-
+      return HOST + "auth/verify";
+    },
   },
   inputs: {
     createTravelUrl() {
-      return HOST + "trips";
+      return HOST + "trip";
     },
   },
 };
