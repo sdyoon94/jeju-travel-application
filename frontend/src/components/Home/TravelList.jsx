@@ -1,17 +1,26 @@
 import TravelSummary from "./TravelSummary"
 import NewUser from "./NewUser"
 import NewTravelBtn from "./NewTravelBtn"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { useEffect } from "react"
+import { getTravelInfo } from "store/modules/travelListSlice"
 
 
 function TravelList() {
-  const travels = useSelector((state => state.travelList.travels))
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getTravelInfo())
+  }, [])
+
+  const travels = useSelector((state => state))
+  console.log(travels)
   const nickName = useSelector((state => state.auth.nickname))
 
 
   return (
     <>
-      {travels.length 
+      {/* {travels.length 
       ?
       (
       <div className="margin-top-travel">
@@ -38,7 +47,7 @@ function TravelList() {
       )
       :
       <NewUser />
-      }
+      } */}
     </>
   )
 }
