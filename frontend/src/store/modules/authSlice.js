@@ -91,6 +91,9 @@ const loginSlice = createSlice({
       state.profileImg = payload.image_path
       state.id = payload.id
     },
+    setToken(state, { payload }) {
+      state.token = payload.accessToken
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -117,5 +120,5 @@ const loginSlice = createSlice({
 })
 
 const { actions, reducer } = loginSlice
-export const { login } = actions
+export const { login, setToken } = actions
 export default reducer
