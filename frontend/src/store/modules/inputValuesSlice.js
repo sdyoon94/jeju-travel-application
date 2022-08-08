@@ -10,7 +10,7 @@ const initialState = {
   startDate: "",
   endDate: "",
   periodInDays: '',
-  style: "1",
+  style: [1,1,1,1,1,1,1],
   budget: "",
   startTime: "",
   endTime: "",
@@ -66,7 +66,7 @@ const inputValuesSlice = createSlice({
 
       const payload = action.payload;
       state[payload[0]] = payload[1];
-      console.log(current(state))
+      // console.log(current(state))
     }
   },
     extraReducers: (builder) => {

@@ -8,12 +8,12 @@ import { Outlet, useNavigate, useParams } from "react-router-dom";
 import MemberCnt from "components/Inputs/MemberCnt";
 import Budget from "components/Inputs/Budget";
 import Style from "components/Inputs/Style";
-import Date from "components/Inputs/Calender";
+import Date from "components/Inputs/Dates";
 import Period from "components/Inputs/Period";
 import Time from "components/Inputs/StartTime";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setInputValues, createTravel} from "store/modules/inputValuesSlice";
+import { setInputValues, createTravel } from "store/modules/inputValuesSlice";
 
 import { useState } from "react";
 
@@ -96,29 +96,28 @@ function New() {
         navigate("/new/style");
       }
     } else if (params.input === "style") {
-      if (inputValues.style === ''){
-        setShow(true)
+      if (inputValues.style === "") {
+        setShow(true);
       } else {
         setShow(false);
         navigate("/new/budget");
       }
     } else if (params.input === "budget") {
-      if (inputValues.budget ===""){
-        setShow(true)
+      if (inputValues.budget === "") {
+        setShow(true);
       } else {
         setShow(false);
-        navigate('/new/time')
+        navigate("/new/time");
       }
     } else if (params.input === "time") {
-      if (inputValues.startTime === '' || inputValues.endTime === '') {
-        setShow(true)
+      if (inputValues.startTime === "" || inputValues.endTime === "") {
+        setShow(true);
       } else {
         setShow(false);
 
         // navigate('/loading')
-        dispatch(createTravel())
-        console.log('next')
-
+        dispatch(createTravel());
+        console.log("next");
       }
     }
   };
@@ -130,12 +129,11 @@ function New() {
   //   navigate(route);
   // };
 
-  // React.useEffect(()=>{
-  //   if (inputValues.maxMemberCnt === '') {
-  //     navigate('/new/membercnt')
-  //   }
-  // },[])
-
+  React.useEffect(() => {
+    if (inputValues.maxMemberCnt === "") {
+      navigate("/new/membercnt");
+    }
+  }, []);
 
   return (
     <div className="input-container">
