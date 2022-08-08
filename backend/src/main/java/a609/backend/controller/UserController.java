@@ -51,7 +51,8 @@ public class UserController {
 
     @GetMapping("/auth/verify")
     public ResponseEntity<Map<String, Object>> verifyToken(@RequestHeader Map<String, Object> header) {
-        String token = (String) header.get("Authorization");
+        String token = (String) header.get("authorization");
+        log.info("토큰 : {}", token);
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
         if (jwtUtil.validateJwtToken(token)) {
