@@ -12,8 +12,12 @@ const api = {
       return HOST + "logout";
     },
     signoutUrl() {
-      return HOST + "delete";
+      return HOST + "delete"
     },
+    verifyUrl() {
+      return HOST + "auth/verify"
+    }
+
   },
   inputs: {
     createTravelUrl() {
