@@ -13,12 +13,14 @@ import Period from "components/Inputs/Period";
 import Time from "components/Inputs/StartTime";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setInputValues, createTravel } from "store/modules/inputValuesSlice";
+import { setInputValues } from "store/modules/inputValuesSlice";
+import { createTravel } from "store/modules/inputValuesSlice";
 
 import { useState } from "react";
 
 function New() {
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const inputValues = useSelector((state) => {
     return state.inputValues;
@@ -116,7 +118,7 @@ function New() {
         setShow(false);
 
         // navigate('/loading')
-        dispatch(createTravel());
+        console.log(dispatch(createTravel("123")));
         console.log("next");
       }
     }
