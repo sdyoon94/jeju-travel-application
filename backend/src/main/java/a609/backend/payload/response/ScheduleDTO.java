@@ -24,5 +24,6 @@ public class ScheduleDTO {
 
     private String imgPath;
 
+    //태그 추가
 
 }

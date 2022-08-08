@@ -6,6 +6,7 @@ import a609.backend.db.repository.TripRepository;
 import a609.backend.db.repository.UserRepository;
 import a609.backend.db.repository.UserTripRepository;
 import a609.backend.payload.response.FindTripDTO;
+import a609.backend.payload.response.UserDTO;
 import a609.backend.util.Algorithm;
 import a609.backend.util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -40,8 +41,34 @@ public class TripServiceImpl implements TripService{
     TripScheduleService tripScheduleService;
 
     @Override
-    public Trip showTripInfo(Long tripId) {
-        return tripRepository.findOneByTripId(tripId);
+    public FindTripDTO showTripInfo(Long tripId) {
+        Trip trip = tripRepository.findOneByTripId(tripId);
+        FindTripDTO findTripDTO = new FindTripDTO();
+        findTripDTO.setTripId(trip.getTripId());
+        findTripDTO.setTripName(trip.getTripName());
+        findTripDTO.setStartDate(trip.getStartDate());
+        findTripDTO.setPeriodInDays(trip.getPeriodInDays());
+        findTripDTO.setBudget(trip.getBudget());
+        findTripDTO.setVehicle(trip.getVehicle());
+        findTripDTO.setStyle(trip.getStyle());
+        //멤버랑
+        List<UserTrip> userTrip = userTripRepository.findByTripTripId(trip.getTripId());
+        List<UserDTO> user = new ArrayList<>();
+        for (UserTrip userTrip1 : userTrip) {
+            UserDTO userDTO = new UserDTO();
+            userDTO.setKakaoId(userTrip1.getUser().getKakaoId());
+            userDTO.setNickname(userTrip1.getUser().getNickname());
+            userDTO.setImagePath(userTrip1.getUser().getImagePath());
+            user.add(userDTO);
+        }
+
+
+        findTripDTO.setMember(user);
+
+
+
+
+        return findTripDTO;
     }
 
 

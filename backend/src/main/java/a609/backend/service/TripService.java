@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface TripService {
 
-    Trip showTripInfo(Long tripId);
+    FindTripDTO showTripInfo(Long tripId);
     List<FindTripDTO> showTripList(String token);
 
     String registerTrip(Trip trip,String token);

@@ -17,7 +17,7 @@ import java.util.Map;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/v1/trips")
+@RequestMapping("/api/v1/travel")
 public class TripController {
 
     @Autowired
@@ -45,9 +45,8 @@ public class TripController {
     @GetMapping("/showTripInfo/{tripId}")
     public ResponseEntity<Map<String,Object>> showTripInfo(@PathVariable Long tripId){
         Map<String, Object> resultMap = new HashMap<>();
-        Trip tripInfo = tripService.showTripInfo(tripId);
+        FindTripDTO tripInfo = tripService.showTripInfo(tripId);
         resultMap.put("tripInfo", tripInfo);
-        resultMap.put("message", "Success");
         return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
     }
 
@@ -60,7 +59,7 @@ public class TripController {
     }
 
     //여행 전체 삭제
-    @DeleteMapping("/trip/{tripId}")
+    @DeleteMapping("/{tripId}")
     public ResponseEntity<Map<String,Object>> deleteTrip(@PathVariable Long tripId){
         Map<String, Object> resultMap = new HashMap<>();
         tripService.deleteTrip(tripId);
