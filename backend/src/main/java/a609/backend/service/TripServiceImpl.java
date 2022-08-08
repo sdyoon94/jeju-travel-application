@@ -111,7 +111,7 @@ public class TripServiceImpl implements TripService{
 //            tripInfoDTO=tripInfoDTO1;
             ////
              }
-        tripInfoDTO.add(tripInfoDTO1);
+//        tripInfoDTO.add(tripInfoDTO1);
         return tripInfoDTO;
     }
 
