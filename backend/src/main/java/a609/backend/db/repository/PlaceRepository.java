@@ -20,9 +20,12 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
     List<Place> findAllByPlaceType(String placeType);
 
 
-    //km단위
+    //km단위, 반경 내의 관광지를 검색
     @Query(value = "select * from Place p where (6371*acos(cos(radians(:lng))*cos(radians(p.lng))*cos(radians(p.lat)-radians(:lat))+sin(radians(:lng))*sin(radians(p.lng))))<:distance and p.place_type=0;", nativeQuery = true)
     List<Place> findTourByDistance(@Param("lat") Double lat, @Param("lng") Double lng, @Param("distance") Double distance);
 
+    //km단위, 반경 내의 밥을 검색
+    @Query(value = "select * from Place p where (6371*acos(cos(radians(:lng))*cos(radians(p.lng))*cos(radians(p.lat)-radians(:lat))+sin(radians(:lng))*sin(radians(p.lng))))<:distance and p.place_type=3;", nativeQuery = true)
+    List<Place> findBobByDistance(@Param("lat") Double lat, @Param("lng") Double lng, @Param("distance") Double distance);
 
 }
