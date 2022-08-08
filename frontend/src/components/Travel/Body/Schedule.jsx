@@ -17,10 +17,10 @@ function Schedule({ scheduleIndex, courseIndex, place, startTime, timeReq, isFir
 	return (
 		<>
 			{isFirst && !hold && 
-				<StartTime courseIndex={courseIndex} time={startTime}/> 
+				<StartTime style={{padding: "0vh 2vw"}} courseIndex={courseIndex} time={startTime}/> 
 			}
 			{!isFirst && !hold &&
-				<span className="subcontent-size">{startTime}</span>
+				<span className="span-padding subcontent-size">{startTime}</span>
 			}
 
 			<div className="schedule-info schedule-box">
