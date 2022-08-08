@@ -105,7 +105,7 @@ public class TripServiceImpl implements TripService{
 
 
             tripList.add(findTripDTO);
-            tripInfoDTO1.setUserUid(Long.valueOf((String) jwtUtil.parseJwtToken(token).get("id")));
+            tripInfoDTO1.setUserUid((Long) jwtUtil.parseJwtToken(token).get("id"));
             tripInfoDTO1.setTripList(tripList);
             tripInfoDTO.add(tripInfoDTO1);
             ////
@@ -115,7 +115,7 @@ public class TripServiceImpl implements TripService{
 
     @Override
     public String registerTrip(Trip trip,String token) {
-        User user = userRepository.findOneByKakaoId(Long.valueOf((String)jwtUtil.parseJwtToken(token).get("id")));
+        User user = userRepository.findOneByKakaoId((Long)jwtUtil.parseJwtToken(token).get("id"));
         Trip trip1 = trip;
         trip1.setTripName(user.getNickname()+"의 여행");
         //방장권한도 줘야됨
@@ -168,7 +168,7 @@ public class TripServiceImpl implements TripService{
     @Override
     public void addUser(Long tripId, String token) {
         UserTrip userTrip = new UserTrip();
-        userTrip.setUser(userRepository.findOneByKakaoId(Long.valueOf((String)jwtUtil.parseJwtToken(token).get("id"))));
+        userTrip.setUser(userRepository.findOneByKakaoId((Long)jwtUtil.parseJwtToken(token).get("id")));
         userTrip.setTrip(tripRepository.findOneByTripId(tripId));
         userTripRepository.save(userTrip);
 
@@ -202,7 +202,7 @@ public class TripServiceImpl implements TripService{
 
     @Override
     public void deleteUserTrip(Long tripId, String jwt) {
-        Long kakaoId= Long.valueOf((String)jwtUtil.parseJwtToken(jwt).get("id"));
+        Long kakaoId= (Long)jwtUtil.parseJwtToken(jwt).get("id");
         userTripRepository.deleteByTripTripIdAndUserKakaoId(tripId, kakaoId);
     }
 
