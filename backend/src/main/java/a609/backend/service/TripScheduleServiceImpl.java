@@ -81,14 +81,18 @@ public class TripScheduleServiceImpl implements TripScheduleService{
 //                //12시 이전
 //            }
 //        }
-            for (int j = 1; j <= 5; j++) {
-                Schedule schedule = new Schedule();
-                schedule.setDay(day);
-                schedule.setTrip(trip);
-                schedule.setPlace(algorithm.create(trip,"0"));
-                schedule.setTurn(j);
-                scheduleRepository.save(schedule);
-            }
+
+
+//            for (int j = 1; j <= 5; j++) {
+//                Schedule schedule = new Schedule();
+//                schedule.setDay(day);
+//                schedule.setTrip(trip);
+//                schedule.setPlace(algorithm.create(trip,"0",day,1));
+//                schedule.setTurn(j);
+//                scheduleRepository.save(schedule);
+//            }
+        //날짜별
+        algorithm.create(trip,"0",day,5);
 
     }
 
