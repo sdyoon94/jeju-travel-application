@@ -26,7 +26,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         try{
             String jwt = parseJwt(request);
             if(jwt != null && jwtUtil.validateJwtToken(jwt)) {
-                String username = jwtUtil.parseJwtToken(jwt).get("id", String.class);
+                Long username = jwtUtil.parseJwtToken(jwt).get("id", Long.class);
                 User user = userService.searchByKakaoId(username);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

@@ -30,7 +30,7 @@ public class User implements UserDetails {
 
     @Id
     @Column(name = "KAKAO_ID")
-    String kakaoId;
+    Long kakaoId;
 
     @Column(name="NICKNAME", length = 10)
     String nickname;

@@ -24,8 +24,6 @@ public class TripController {
     @Autowired
     TripService tripService;
 
-    @Autowired
-    TripRepository tripRepository;
 //    토큰 없을때 test용 코드
 //    @PostMapping("/{id}")
 //    public ResponseEntity<Map<String, Object>> registerTrip(@RequestBody Trip trip,@PathVariable String id){
@@ -71,7 +69,7 @@ public class TripController {
 
     //개인의 여행 나가기
     @DeleteMapping("/user/{tripId}")
-    public ResponseEntity<Map<String,Object>> deleteUserTrip(@PathVariable Integer tripId, @RequestHeader Map<String,Object> token){
+    public ResponseEntity<Map<String,Object>> deleteUserTrip(@PathVariable Long tripId, @RequestHeader Map<String,Object> token){
         Map<String, Object> resultMap = new HashMap<>();
         String jwt = (String) token.get("Authorization");
         tripService.deleteUserTrip(tripId, jwt);

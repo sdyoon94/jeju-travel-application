@@ -15,7 +15,7 @@ public interface TripService {
     String registerTrip(Trip trip,String token);
     void updateTrip(Long tripId,Trip trip);
     void deleteTrip(Long tripId);
-    void addUser(Long tripId, String token);
-    void deleteUserTrip(Integer tripId, String token);
+    void addUser(Long tripId, Long userId);
+    void deleteUserTrip(Long tripId, String token);
 
 }

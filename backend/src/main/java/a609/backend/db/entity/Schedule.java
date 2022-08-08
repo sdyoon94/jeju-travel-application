@@ -18,7 +18,7 @@ public class Schedule {
     private Long scheduleId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PLACE_ID")
+    @JoinColumn(name = "PLACE_UID")
     private Place place;
 
     @ManyToOne(fetch = FetchType.LAZY)

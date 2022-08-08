@@ -11,14 +11,13 @@ public interface UserTripRepository extends JpaRepository<UserTrip, Long> {
 
     UserTrip save(UserTrip userTrip);
 
-    List<UserTrip> findByUserKakaoId(String kakaoId);
+    List<UserTrip> findByUserKakaoId(Long kakaoId);
 
     List<UserTrip> findByTripTripId(Long tripId);
 
-
-    void deleteByTripTripIdAndUserKakaoId(Long tripId, String KakaoId);
+    void deleteByTripTripIdAndUserKakaoId(Long tripId, Long KakaoId);
     void deleteByTripTripId(Long tripId);
-    void deleteByUserKakaoId(String kakaoId);
+    void deleteByUserKakaoId(Long kakaoId);
 
 
 }
