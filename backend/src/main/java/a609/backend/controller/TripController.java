@@ -17,7 +17,7 @@ import java.util.Map;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/v1/travel")
+@RequestMapping("/api/v1/trip")
 public class TripController {
 
     @Autowired
