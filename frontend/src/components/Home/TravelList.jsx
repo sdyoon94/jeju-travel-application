@@ -1,11 +1,20 @@
 import TravelSummary from "./TravelSummary"
 import NewUser from "./NewUser"
 import NewTravelBtn from "./NewTravelBtn"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { useEffect } from "react"
+import { getTravelInfo } from "store/modules/travelListSlice"
 
 
 function TravelList() {
-  const travels = useSelector((state => state.travelList.travels))
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getTravelInfo())
+  }, [])
+
+  const travels = useSelector((state => state.travelList.travelList))
+  console.log(travels)
   const nickName = useSelector((state => state.auth.nickname))
 
 
@@ -22,12 +31,13 @@ function TravelList() {
         <div className="trip-list-box">
           {travels.map((travel, idx) =>  
           <TravelSummary
-          key={idx}
-          travelUid={travel.travelUid}
+          key={travel.tripId}
+          travelUid={travel.tripId}
           idx={idx}
-          title={travel.title}
+          title={travel.tripName}
           startDate={travel.startDate}
-          members={travel.members}
+          period={travel.periodInDays}
+          members={travel.member}
           travelLength={travels.length}
           />)}
         </div>
