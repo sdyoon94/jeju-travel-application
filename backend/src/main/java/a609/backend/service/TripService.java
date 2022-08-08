@@ -10,7 +10,7 @@ import java.util.List;
 public interface TripService {
 
     FindTripDTO showTripInfo(Long tripId);
-    List<TripInfoDTO> showTripList(String token);
+    TripInfoDTO showTripList(String token);
 
     String registerTrip(Trip trip,String token);
     void updateTrip(Long tripId,Trip trip);
