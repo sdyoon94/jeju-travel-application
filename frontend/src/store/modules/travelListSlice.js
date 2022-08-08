@@ -4,6 +4,8 @@ import axios from "axios"
 
 
 const initialState = {
+  userUid: "",
+  travelList: []
 }
 
 export const getTravelInfo = createAsyncThunk(
@@ -30,8 +32,8 @@ const travelListSlice = createSlice({
   extraReducers: (builder) => {
     builder
     .addCase(getTravelInfo.fulfilled, (state, { payload }) => {
-      console.log(payload)
-      state = payload.tripList
+      state.userUid = payload.userUid
+      state.travelList = payload.tripList
     })
   }
 })

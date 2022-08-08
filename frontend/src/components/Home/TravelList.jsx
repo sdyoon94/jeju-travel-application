@@ -13,14 +13,14 @@ function TravelList() {
     dispatch(getTravelInfo())
   }, [])
 
-  const travels = useSelector((state => state))
+  const travels = useSelector((state => state.travelList.travelList))
   console.log(travels)
   const nickName = useSelector((state => state.auth.nickname))
 
 
   return (
     <>
-      {/* {travels.length 
+      {travels.length 
       ?
       (
       <div className="margin-top-travel">
@@ -31,12 +31,13 @@ function TravelList() {
         <div className="trip-list-box">
           {travels.map((travel, idx) =>  
           <TravelSummary
-          key={idx}
-          travelUid={travel.travelUid}
+          key={travel.tripId}
+          travelUid={travel.tripId}
           idx={idx}
-          title={travel.title}
+          title={travel.tripName}
           startDate={travel.startDate}
-          members={travel.members}
+          period={travel.periodInDays}
+          members={travel.member}
           travelLength={travels.length}
           />)}
         </div>
@@ -47,7 +48,7 @@ function TravelList() {
       )
       :
       <NewUser />
-      } */}
+      }
     </>
   )
 }
