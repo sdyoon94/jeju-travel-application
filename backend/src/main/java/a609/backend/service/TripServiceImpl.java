@@ -74,8 +74,9 @@ public class TripServiceImpl implements TripService{
 
 
     @Override
-    public List<FindTripDTO> showTripList(String token) {
+    public List<TripInfoDTO> showTripList(String token) {
         List<UserTrip> userTripList = userTripRepository.findByUserKakaoId(Long.valueOf((String)jwtUtil.parseJwtToken(token).get("id")));
+        List<TripInfoDTO> tripInfoDTO = new ArrayList<>();
         List<FindTripDTO> tripList = new ArrayList<>();
         List<UserDTO> user = new ArrayList<>();
         for (UserTrip userTrip : userTripList) {
@@ -104,7 +105,7 @@ public class TripServiceImpl implements TripService{
 
 
             tripList.add(findTripDTO);
-            tripInfoDTO1.setUserUid((String) jwtUtil.parseJwtToken(token).get("id"));
+            tripInfoDTO1.setUserUid(Long.valueOf((String) jwtUtil.parseJwtToken(token).get("id")));
             tripInfoDTO1.setTripList(tripList);
             tripInfoDTO.add(tripInfoDTO1);
             ////
@@ -165,9 +166,9 @@ public class TripServiceImpl implements TripService{
     }
 
     @Override
-    public void addUser(Long tripId, Long userId) {
+    public void addUser(Long tripId, String token) {
         UserTrip userTrip = new UserTrip();
-        userTrip.setUser(userRepository.findOneByKakaoId((String)jwtUtil.parseJwtToken(token).get("id")));
+        userTrip.setUser(userRepository.findOneByKakaoId(Long.valueOf((String)jwtUtil.parseJwtToken(token).get("id"))));
         userTrip.setTrip(tripRepository.findOneByTripId(tripId));
         userTripRepository.save(userTrip);
 

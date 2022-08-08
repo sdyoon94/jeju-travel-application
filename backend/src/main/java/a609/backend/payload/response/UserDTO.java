@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class UserDTO {
 
-    private String kakaoId;
+    private Long kakaoId;
 
     private String nickname;
 

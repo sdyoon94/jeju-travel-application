@@ -9,7 +9,7 @@ import java.util.List;
 @Setter
 public class TripInfoDTO {
 
-    private String userUid;
+    private Long userUid;
 
     private List<FindTripDTO> tripList;
 
