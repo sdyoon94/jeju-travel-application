@@ -56,6 +56,7 @@ public class JwtUtil {
     public boolean validateJwtToken(String authToken){
         try{
             authToken = authToken.split(" ")[1];
+            log.info("토큰 : {}", authToken);
             Jwts.parser().setSigningKey(secretKey.getBytes("UTF-8")).parseClaimsJws(authToken);
             return true;
         }catch (Exception e){

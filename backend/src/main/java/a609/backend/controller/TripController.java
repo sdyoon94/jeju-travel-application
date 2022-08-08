@@ -4,6 +4,7 @@ import a609.backend.db.entity.Trip;
 import a609.backend.db.repository.PlaceRepository;
 import a609.backend.db.repository.TripRepository;
 import a609.backend.payload.response.FindTripDTO;
+import a609.backend.payload.response.TripInfoDTO;
 import a609.backend.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ import java.util.Map;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/v1/trips")
+@RequestMapping("/api/v1/trip")
 public class TripController {
 
     @Autowired
@@ -43,9 +44,8 @@ public class TripController {
     @GetMapping("/showTripInfo/{tripId}")
     public ResponseEntity<Map<String,Object>> showTripInfo(@PathVariable Long tripId){
         Map<String, Object> resultMap = new HashMap<>();
-        Trip tripInfo = tripService.showTripInfo(tripId);
+        FindTripDTO tripInfo = tripService.showTripInfo(tripId);
         resultMap.put("tripInfo", tripInfo);
-        resultMap.put("message", "Success");
         return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
     }
 
@@ -58,7 +58,7 @@ public class TripController {
     }
 
     //여행 전체 삭제
-    @DeleteMapping("/trip/{tripId}")
+    @DeleteMapping("/{tripId}")
     public ResponseEntity<Map<String,Object>> deleteTrip(@PathVariable Long tripId){
         Map<String, Object> resultMap = new HashMap<>();
         tripService.deleteTrip(tripId);
@@ -80,9 +80,17 @@ public class TripController {
     @GetMapping("/showTripList")
     public ResponseEntity<Map<String,Object>> showTripList(@RequestHeader Map<String,Object> token){
         Map<String, Object> resultMap = new HashMap<>();
-        List<FindTripDTO> tripList = tripService.showTripList((String) token.get("authorization"));
-        resultMap.put("tripList",tripList);
+        List<TripInfoDTO> tripInfoDTO = tripService.showTripList((String) token.get("authorization"));
+        resultMap.put("tripList",tripInfoDTO);
 
+        return new ResponseEntity<Map<String,Object>>(resultMap, HttpStatus.OK);
+    }
+
+    @PutMapping("/addUser/{tripId}")
+    public ResponseEntity<Map<String,Object>> addMember(@PathVariable Long tripId,@RequestHeader Map<String,Object> token){
+        Map<String, Object> resultMap = new HashMap<>();
+        tripService.addUser(tripId,(String) token.get("authorization"));
+        resultMap.put("message", "Success");
         return new ResponseEntity<Map<String,Object>>(resultMap, HttpStatus.OK);
     }
 

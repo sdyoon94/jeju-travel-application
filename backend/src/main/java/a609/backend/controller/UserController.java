@@ -42,7 +42,7 @@ public class UserController {
     @GetMapping("/users/me")
     public ResponseEntity<Map<String, Object>> myProfile(@RequestHeader Map<String, Object> header) {
         Map<String, Object> resultMap = new HashMap<>();
-        Claims claims = jwtUtil.parseJwtToken((String)header.get("Authorization"));
+        Claims claims = jwtUtil.parseJwtToken((String)header.get("authorization"));
         resultMap.put("id", claims.get("id"));
         resultMap.put("authority", claims.get("authority"));
         resultMap.put("nickname", claims.get("nickname"));
@@ -51,8 +51,8 @@ public class UserController {
 
     @GetMapping("/auth/verify")
     public ResponseEntity<Map<String, Object>> verifyToken(@RequestHeader Map<String, Object> header) {
-        String token = (String) header.get("Authorization");
-
+        String token = (String) header.get("authorization");
+        log.info("토큰 : {}", token);
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
         if (jwtUtil.validateJwtToken(token)) {
@@ -67,8 +67,6 @@ public class UserController {
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestHeader Map<String,Object> token) {
-        System.out.println("===================");
-        System.out.println("헤더: "+token);
         userService.logout((String) token.get("authorization"));
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
@@ -76,7 +74,7 @@ public class UserController {
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteUser(@RequestHeader Map<String,Object> token) {
 
-        userService.deleteUser((String) token.get("Authorization"));
+        userService.deleteUser((String) token.get("authorization"));
 
         return new ResponseEntity<String>("성공", HttpStatus.OK);
     }
