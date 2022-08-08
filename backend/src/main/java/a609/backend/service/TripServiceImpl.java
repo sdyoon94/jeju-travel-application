@@ -75,7 +75,7 @@ public class TripServiceImpl implements TripService{
 
     @Override
     public List<TripInfoDTO> showTripList(String token) {
-        List<UserTrip> userTripList = userTripRepository.findByUserKakaoId(Long.valueOf((String)jwtUtil.parseJwtToken(token).get("id")));
+        List<UserTrip> userTripList = userTripRepository.findByUserKakaoId((Long)jwtUtil.parseJwtToken(token).get("id"));
         List<TripInfoDTO> tripInfoDTO = new ArrayList<>();
         List<FindTripDTO> tripList = new ArrayList<>();
         List<UserDTO> user = new ArrayList<>();
