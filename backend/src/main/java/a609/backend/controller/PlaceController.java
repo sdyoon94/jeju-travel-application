@@ -27,5 +27,4 @@ public class PlaceController {
         resultMap.put("findPlaces", findPlaces);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
-
 }

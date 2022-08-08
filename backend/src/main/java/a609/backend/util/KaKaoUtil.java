@@ -200,7 +200,7 @@ public class KaKaoUtil {
 //        return id;
 //    }
 
-    public void unlink(String id) {
+    public void unlink(Long id) {
         String reqURL = "https://kapi.kakao.com/v1/user/unlink";
         log.info("회원아이디"+id);
         log.info("앱키"+adminkey);

@@ -18,7 +18,7 @@ public class JwtUtil {
     @Value("${jwt.secret}")
     private String secretKey;
 
-    public String generateJwtToken(String kakaoId, String nickname, String imagePath) {
+    public String generateJwtToken(Long kakaoId, String nickname, String imagePath) {
         Date now = new Date();
         Date expiration = new Date(now.getTime() + 3 * 60 * 60 * 1000L);
 

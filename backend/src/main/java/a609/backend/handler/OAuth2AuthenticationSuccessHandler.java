@@ -29,7 +29,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
 
-        String id = String.valueOf((Long)oAuth2User.getAttribute("id"));
+        Long id = (Long)oAuth2User.getAttribute("id");
         String nickname, imagePath;
         if(userRepository.countByKakaoId(id)>0){
             User user = userRepository.findOneByKakaoId(id);

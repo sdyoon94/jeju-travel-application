@@ -20,7 +20,7 @@ public class FileController {
     FileService fileService;
 
     @PostMapping("/upload/{id}")
-    public ResponseEntity<Map<String, String>> fileUpload(@PathVariable String id, @RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<Map<String, String>> fileUpload(@PathVariable Long id, @RequestParam("file") MultipartFile file) throws IOException {
 
         Map<String, String> resultMap = new HashMap<>();
         HttpStatus status = null;
@@ -39,7 +39,7 @@ public class FileController {
     }
 
     @GetMapping("/view/{id}")
-    public ResponseEntity<Map<String, String>> fileView(@PathVariable String id) {
+    public ResponseEntity<Map<String, String>> fileView(@PathVariable Long id) {
         Map<String, String> resultMap = new HashMap<>();
         User image = fileService.findImageById(id);
         if (image ==null) {
@@ -51,7 +51,7 @@ public class FileController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Map<String, String>> fileDelete(@PathVariable String id) {
+    public ResponseEntity<Map<String, String>> fileDelete(@PathVariable Long id) {
         Map<String, String> resultMap = new HashMap<>();
         int check= fileService.deleteById(id);
         if(check==1){

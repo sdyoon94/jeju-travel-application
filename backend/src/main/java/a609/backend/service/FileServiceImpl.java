@@ -26,7 +26,7 @@ public class FileServiceImpl implements FileService{
     UserService userService;
 
     @Override
-    public void uploadFile(MultipartFile file, String id) {
+    public void uploadFile(MultipartFile file, Long id) {
         try {
             // 실행되는 위치의 'files' 폴더에 파일이 저장됩니다.
 //            String savePath = System.getProperty("user.dir") + "\\files";
@@ -67,13 +67,13 @@ public class FileServiceImpl implements FileService{
     }
 
     @Override
-    public User findImageById(String id) {
+    public User findImageById(Long id) {
 
         return userRepository.findOneByKakaoId(id);
     }
 
     @Override
-    public int deleteById(String id) {
+    public int deleteById(Long id) {
 
         User targetImage = this.findImageById(id);
         if(targetImage!=null){

@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
         Map<String, Object> attributes = oAuth2User.getAttributes();
         log.info("오오스2유저 어트리뷰트엔 무엇이 들었을까? : {}", attributes.toString());
 
-        String kakaoId = String.valueOf(attributes.get("id"));
+        Long kakaoId = (Long)attributes.get("id");
 
         Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
         String email = (String) kakaoAccount.get("email");
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
 //    }
 
     @Override
-    public User searchByKakaoId(String id) {
+    public User searchByKakaoId(Long id) {
         return userRepository.findOneByKakaoId(id);
     }
 
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
         log.info("----------------------------------------------------");
         log.info(token);
         log.info((String)jwtUtil.parseJwtToken(token).get("id"));
-        User originUser = userRepository.findOneByKakaoId((String)jwtUtil.parseJwtToken(token).get("id"));
+        User originUser = userRepository.findOneByKakaoId(Long.valueOf((String)jwtUtil.parseJwtToken(token).get("id")));
 
         log.info("----------------------------------------------------");
         log.info(originUser.getNickname());
@@ -120,9 +120,9 @@ public class UserServiceImpl implements UserService {
         HashMap<String, Object> userInfo = KakaoUtil.getUserInfo(String.valueOf(getToken.get("accessToken")));
 
         //3.등록된 id가 없다면 카카오 id로 DB에 회원가입 처리
-        if(userRepository.countByKakaoId(String.valueOf(userInfo.get("id")))==0) {
+        if(userRepository.countByKakaoId(Long.valueOf((String)userInfo.get("id")))==0) {
             User user = new User();
-            user.setKakaoId(String.valueOf(userInfo.get("id")));
+            user.setKakaoId((Long)userInfo.get("id"));
             user.setNickname(String.valueOf(userInfo.get("nickname")));
             user.setRefreshToken(String.valueOf(getToken.get("refreshToken")));
             user.setImagePath(String.valueOf(userInfo.get("imagePath")));
@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void logout(String token) {
-        User user = userRepository.findOneByKakaoId((String)jwtUtil.parseJwtToken(token).get("id"));
+        User user = userRepository.findOneByKakaoId(Long.valueOf((String)jwtUtil.parseJwtToken(token).get("id")));
 //        String refreshdToken = user.getRefreshToken();
 //        String accessToken = KakaoUtil.updateAccessToken(refreshdToken);
         KakaoUtil.kakaoLogout((String)jwtUtil.parseJwtToken(token).get("id"));
@@ -152,9 +152,9 @@ public class UserServiceImpl implements UserService {
         log.info(token);
 //        String refreshToken = this.searchByKakaoId(kakaoId).getRefreshToken();
 //        String accessToken = KakaoUtil.updateAccessToken(refreshToken);
-        KakaoUtil.unlink((String)jwtUtil.parseJwtToken(token).get("id"));
+        KakaoUtil.unlink(Long.valueOf((String)jwtUtil.parseJwtToken(token).get("id")));
 
-        userRepository.deleteUserByKakaoId((String)jwtUtil.parseJwtToken(token).get("id"));
+        userRepository.deleteUserByKakaoId(Long.valueOf((String)jwtUtil.parseJwtToken(token).get("id")));
     }
 
 

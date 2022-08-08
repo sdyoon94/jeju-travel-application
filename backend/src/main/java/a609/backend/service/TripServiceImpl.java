@@ -47,7 +47,7 @@ public class TripServiceImpl implements TripService{
 
     @Override
     public List<FindTripDTO> showTripList(String token) {
-        List<UserTrip> userTripList = userTripRepository.findByUserKakaoId((String)jwtUtil.parseJwtToken(token).get("id"));
+        List<UserTrip> userTripList = userTripRepository.findByUserKakaoId(Long.valueOf((String)jwtUtil.parseJwtToken(token).get("id")));
         List<FindTripDTO> tripList = new ArrayList<>();
         for (UserTrip userTrip : userTripList) {
             Trip trip = userTrip.getTrip();
@@ -63,9 +63,10 @@ public class TripServiceImpl implements TripService{
 
     @Override
     public String registerTrip(Trip trip,String token) {
-        User user = userRepository.findOneByKakaoId((String)jwtUtil.parseJwtToken(token).get("id"));
+        User user = userRepository.findOneByKakaoId(Long.valueOf((String)jwtUtil.parseJwtToken(token).get("id")));
         Trip trip1 = trip;
         trip1.setTripName(user.getNickname()+"의 여행");
+        //방장권한도 줘야됨
         Trip savedTrip = tripRepository.save(trip1);
         //여행 시작할때 startday에 더미 스케쥴 넣어서 시작시간 조정
         Schedule schedule = new Schedule();
@@ -113,7 +114,7 @@ public class TripServiceImpl implements TripService{
     }
 
     @Override
-    public void addUser(Long tripId, String userId) {
+    public void addUser(Long tripId, Long userId) {
         UserTrip userTrip = new UserTrip();
         userTrip.setUser(userRepository.findOneByKakaoId(userId));
         userTrip.setTrip(tripRepository.findOneByTripId(tripId));
@@ -148,9 +149,9 @@ public class TripServiceImpl implements TripService{
     }
 
     @Override
-    public void deleteUserTrip(Integer tripId, String jwt) {
-        String kakaoId= (String)jwtUtil.parseJwtToken(jwt).get("id");
-        userTripRepository.deleteByTripTripIdAndUserKakaoId(Long.valueOf(tripId), kakaoId);
+    public void deleteUserTrip(Long tripId, String jwt) {
+        Long kakaoId= Long.valueOf((String)jwtUtil.parseJwtToken(jwt).get("id"));
+        userTripRepository.deleteByTripTripIdAndUserKakaoId(tripId, kakaoId);
     }
 
 
