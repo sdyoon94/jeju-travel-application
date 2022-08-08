@@ -96,7 +96,7 @@ function New() {
         navigate("/new/style");
       }
     } else if (params.input === "style") {
-      if (inputValues.style === "") {
+      if (inputValues.style == [1, 1, 1, 1, 1, 1, 1].toString()) {
         setShow(true);
       } else {
         setShow(false);
