@@ -36,11 +36,38 @@
   display:grid;
   /* grid-template-rows: 1fr 11fr; */
   justify-content: center;
+  /* justify-items: center; */
   align-items: center;
   align-content: center;
+  grid-gap: 5vw;
 }
 
 .style-select-btns {
-  /* display:grid; */
+  display:grid;
+  grid-row-gap: 3vw;
+  grid-template-columns: 1fr 1fr;
+  justify-items: start;
+  width: 70vw;
   /* grid-auto-columns: minmax(50,100); */
+}
+
+div.style-select-btns button {
+  background-color: transparent;
+  display:grid;
+  grid-template-columns: 2fr 5fr;
+  width: 28vw;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.style-icon {
+  height: 30px;
+  width: auto;
+  border: none;
+  align-self:center;
+}
+
+button span {
+  align-self:center;
+  font-size:3vw;
 }

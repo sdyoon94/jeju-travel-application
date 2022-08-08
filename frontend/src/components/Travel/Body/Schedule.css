@@ -6,7 +6,7 @@
 	align-items: center;
 }
 
-.schedule-info * {
+.schedule-info > span {
 	margin-block-start: 0.3em;
 	margin-block-end: 0.3em;
 	padding: 0vh 2vw;
@@ -22,6 +22,7 @@
 	border-radius: 10px;
 	height: 4.5vh;
 	width: 75vw;
+	margin: auto;
 }
 
 .schedule-box > p {
@@ -37,7 +38,7 @@
 
 
 .schedule-start-time {
-	width: 15vw;
+	width: 17vw;
 	height: auto;
 }
 
@@ -46,11 +47,13 @@
 	color: black;
 	font-size: 3vw;
 	padding: 0;
+	height: 20px;
 }
 
 .schedule-start-time a {
 	line-height: inherit;
 	right: 9px;
+	top: 0px;
 }
 
 .vehicle {
@@ -65,4 +68,8 @@
 	display: block;
 	margin: 2vh auto;
 	cursor: pointer;
+}
+
+.span-padding {
+	padding: 0 2vw;
 }

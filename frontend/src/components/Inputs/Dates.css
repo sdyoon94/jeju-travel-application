@@ -1,0 +1,97 @@
+.dates-container {
+  display: grid;
+  grid-template-rows: 3fr 7fr;
+  gap:1rem;
+  height:100%;
+}
+
+/* #standard-number {
+  background-color:  rgba(217, 217, 217, 1) !important;
+} */
+
+/****** header ******/
+.dates-header {
+  display:grid;
+  align-content: end;
+  justify-content: center;
+  
+}
+
+/* 얼마동안머무르나요? */
+.mention {
+  font-family: 'Inter';
+  font-size: 25px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 4vh;
+  width: 70vw;
+}
+
+/* 항공권,이동수단 제외해주세요 */
+.mention2 {
+  font-family: 'Inter';
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 3vh;
+  width: 70vw;
+  color: #8C8C8C
+}
+
+/****** body ******/
+.dates-body {
+  display:grid;
+  /* grid-template-rows: repeat(5, 1fr); */
+  justify-items: center;
+  align-items: center;
+}
+
+/* .dates-input {
+  display: grid;
+  grid-row: 2/3;
+  align-self: end; 
+  font-size: 25px;
+  font-weight: 700;
+  color:rgba(30, 136, 229, 1);
+  width:50vw;
+  line-height: 5vh;
+}
+
+
+
+
+.dates-input-body {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  justify-self: center;
+  font-size: 25px;
+  font-weight: 700;
+  color:black;
+
+} */
+
+.input-label{
+  font-family: 'Inter';
+  font-style: bold;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 3vh;
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+
+  color: #000000;
+
+}
+
+.warning {
+  position: absolute;
+  z-index:1;
+  top: 52vh;
+  font-size: 10px;
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 700;
+  line-height: 30px;
+  color:rgb(190, 11, 11)
+}
