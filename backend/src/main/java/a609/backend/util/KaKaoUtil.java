@@ -131,7 +131,7 @@ public class KaKaoUtil {
     }
 
 
-    public void kakaoLogout(String id) {
+    public void kakaoLogout(Long id) {
         String reqURL = "https://kapi.kakao.com/v1/user/logout";
 //        Long longId = Long.valueOf(id);
         try {
