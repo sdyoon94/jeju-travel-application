@@ -73,7 +73,7 @@ public class TripController {
     @DeleteMapping("/user/{tripId}")
     public ResponseEntity<Map<String,Object>> deleteUserTrip(@PathVariable Long tripId, @RequestHeader Map<String,Object> token){
         Map<String, Object> resultMap = new HashMap<>();
-        String jwt = (String) token.get("Authorization");
+        String jwt = (String) token.get("authorization");
         tripService.deleteUserTrip(tripId, jwt);
         resultMap.put("message", "Success");
         return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
