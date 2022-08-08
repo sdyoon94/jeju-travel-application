@@ -59,29 +59,23 @@ public class TripScheduleServiceImpl implements TripScheduleService{
     public void registerSchedule(Trip trip,int day) {
             //test
 
-
 //        첫째날 마지막날 추천 일정 수 고려해야될듯
-//        if(day==0) {//첫째날
-//            int startTime = trip.getStartTime().toSecondOfDay() / 60;
-//            if (startTime >= 1080) {
-//                //6시 이후
-//                for (int j = 1; j <= 3; j++) {
-//                    schedule.setPlace(algorithm.create(trip,"0"));
-//                    schedule.setTurn(j);
-//                    scheduleRepository.save(schedule);
-//                }
-//            }
-//        }
-//        if (day==trip.getPeriodInDays()-1) {//마지막날
-//            int endTime = trip.getEndTime().toSecondOfDay() / 60;
-//            if (endTime <= 720) {
-//                schedule.setPlace(algorithm.create(trip,"3"));
-//                schedule.setTurn(1);
-//                scheduleRepository.save(schedule);
-//                //12시 이전
-//            }
-//        }
+        if(day==0) {//첫째날
+            int startTime = trip.getStartTime().toSecondOfDay() / 60;
+            if (startTime >= 1080) {
+                //6시 이후
+                for (int j = 1; j <= 3; j++) {
 
+                }
+            }
+        }
+        if (day==trip.getPeriodInDays()-1) {//마지막날
+            int endTime = trip.getEndTime().toSecondOfDay() / 60;
+            if (endTime <= 720) {
+                //12시 이전
+            }
+        }
+         algorithm.create(trip,"0",day,5);
 
 //            for (int j = 1; j <= 5; j++) {
 //                Schedule schedule = new Schedule();
@@ -91,8 +85,8 @@ public class TripScheduleServiceImpl implements TripScheduleService{
 //                schedule.setTurn(j);
 //                scheduleRepository.save(schedule);
 //            }
-        //날짜별
-        algorithm.create(trip,"0",day,5);
+
+
 
     }
 
