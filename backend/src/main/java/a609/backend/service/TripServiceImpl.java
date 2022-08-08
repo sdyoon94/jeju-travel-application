@@ -6,6 +6,7 @@ import a609.backend.db.repository.TripRepository;
 import a609.backend.db.repository.UserRepository;
 import a609.backend.db.repository.UserTripRepository;
 import a609.backend.payload.response.FindTripDTO;
+import a609.backend.payload.response.TripInfoDTO;
 import a609.backend.payload.response.UserDTO;
 import a609.backend.util.Algorithm;
 import a609.backend.util.JwtUtil;
@@ -73,19 +74,43 @@ public class TripServiceImpl implements TripService{
 
 
     @Override
-    public List<FindTripDTO> showTripList(String token) {
+    public List<TripInfoDTO> showTripList(String token) {
         List<UserTrip> userTripList = userTripRepository.findByUserKakaoId((String)jwtUtil.parseJwtToken(token).get("id"));
+        List<TripInfoDTO> tripInfoDTO = new ArrayList<>();
         List<FindTripDTO> tripList = new ArrayList<>();
+        List<UserDTO> user = new ArrayList<>();
         for (UserTrip userTrip : userTripList) {
             Trip trip = userTrip.getTrip();
+            TripInfoDTO tripInfoDTO1 = new TripInfoDTO();
             FindTripDTO findTripDTO = new FindTripDTO();
             findTripDTO.setTripId(trip.getTripId());
             findTripDTO.setTripName(trip.getTripName());
-            findTripDTO.setPeriodInDays(trip.getPeriodInDays());
             findTripDTO.setStartDate(trip.getStartDate());
+            findTripDTO.setPeriodInDays(trip.getPeriodInDays());
+            findTripDTO.setBudget(trip.getBudget());
+            findTripDTO.setVehicle(trip.getVehicle());
+            findTripDTO.setStyle(trip.getStyle());
+
+            //멤버랑
+            List<UserTrip> userTrip2 = userTripRepository.findByTripTripId(trip.getTripId());
+            List<UserDTO> user2 = new ArrayList<>();
+            for (UserTrip userTrip1 : userTrip2) {
+                UserDTO userDTO = new UserDTO();
+                userDTO.setKakaoId(userTrip1.getUser().getKakaoId());
+                userDTO.setNickname(userTrip1.getUser().getNickname());
+                userDTO.setImagePath(userTrip1.getUser().getImagePath());
+                user2.add(userDTO);
+            }
+            findTripDTO.setMember(user2);
+
+
             tripList.add(findTripDTO);
-        }
-        return tripList;
+            tripInfoDTO1.setUserUid((String) jwtUtil.parseJwtToken(token).get("id"));
+            tripInfoDTO1.setTripList(tripList);
+            tripInfoDTO.add(tripInfoDTO1);
+            ////
+             }
+        return tripInfoDTO;
     }
 
     @Override
