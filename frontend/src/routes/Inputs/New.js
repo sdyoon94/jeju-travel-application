@@ -20,6 +20,7 @@ import { useState } from "react";
 
 function New() {
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const inputValues = useSelector((state) => {
     return state.inputValues;
