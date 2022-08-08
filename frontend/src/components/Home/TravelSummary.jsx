@@ -9,7 +9,7 @@ function TripSummary({travelUid, idx, title, startDate, members, travelLength}) 
   return (
     <>
       <div className="trip-summary-box">
-        <Link to={`travel/${travelUid}`}>
+        <Link style={{ textDecoration: "none"}} to={`travel/${travelUid}`}>
           <p className="subtitle-size travel-list-title">{title}</p>
         </Link>
         <AvatarGroup sx={{"& .MuiAvatar-root": { width: 20, height: 20, fontSize: 15 }}} max={4}>

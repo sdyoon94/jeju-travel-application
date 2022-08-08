@@ -11,10 +11,10 @@ function KakaoRedirect() {
   const href = window.location.href
   const params = new URL(href).searchParams
   const accessToken = params.get("token")
+
   
   useEffect(() => {
     if (accessToken) {
-      navigate("/", { replace: true })
       const decoded = jwt_decode(accessToken)
       dispatch(login(decoded))
       sessionStorage.setItem("accessToken", accessToken)
@@ -22,6 +22,7 @@ function KakaoRedirect() {
       sessionStorage.setItem("id", decoded.id)
       sessionStorage.setItem("image_path", decoded.image_path)
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
+      navigate("/", { replace: true })
     }
     // eslint-disable-next-line
   }, [accessToken])

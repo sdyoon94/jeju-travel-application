@@ -20,6 +20,8 @@
   margin: auto;
   height: 50vh;
   overflow: scroll;
+  border: 1px solid rgba(217, 217, 217, 0.3);
+  box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.3);
 }
 
 .profiles-size {
@@ -115,6 +117,8 @@
   overflow: hidden;
   white-space: nowrap;
   cursor: pointer; 
+  max-width: 45vw;
+  color: black;
 }
 
 .travel-list-date {
