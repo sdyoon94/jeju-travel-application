@@ -42,7 +42,7 @@ public class UserController {
     @GetMapping("/users/me")
     public ResponseEntity<Map<String, Object>> myProfile(@RequestHeader Map<String, Object> header) {
         Map<String, Object> resultMap = new HashMap<>();
-        Claims claims = jwtUtil.parseJwtToken((String)header.get("Authorization"));
+        Claims claims = jwtUtil.parseJwtToken((String)header.get("authorization"));
         resultMap.put("id", claims.get("id"));
         resultMap.put("authority", claims.get("authority"));
         resultMap.put("nickname", claims.get("nickname"));
@@ -67,14 +67,14 @@ public class UserController {
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestHeader Map<String,Object> token) {
-        userService.logout((String) token.get("Authorization"));
+        userService.logout((String) token.get("authorization"));
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteUser(@RequestHeader Map<String,Object> token) {
 
-        userService.deleteUser((String) token.get("Authorization"));
+        userService.deleteUser((String) token.get("authorization"));
 
         return new ResponseEntity<String>("성공", HttpStatus.OK);
     }
