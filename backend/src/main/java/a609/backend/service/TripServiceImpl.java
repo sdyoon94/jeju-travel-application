@@ -74,14 +74,14 @@ public class TripServiceImpl implements TripService{
 
 
     @Override
-    public List<TripInfoDTO> showTripList(String token) {
+    public TripInfoDTO showTripList(String token) {
         List<UserTrip> userTripList = userTripRepository.findByUserKakaoId((Long)jwtUtil.parseJwtToken(token).get("id"));
-        List<TripInfoDTO> tripInfoDTO = new ArrayList<>();
+        TripInfoDTO tripInfoDTO = new TripInfoDTO();
         List<FindTripDTO> tripList = new ArrayList<>();
         List<UserDTO> user = new ArrayList<>();
         for (UserTrip userTrip : userTripList) {
             Trip trip = userTrip.getTrip();
-            TripInfoDTO tripInfoDTO1 = new TripInfoDTO();
+//            TripInfoDTO tripInfoDTO1 = new TripInfoDTO();
             FindTripDTO findTripDTO = new FindTripDTO();
             findTripDTO.setTripId(trip.getTripId());
             findTripDTO.setTripName(trip.getTripName());
@@ -105,9 +105,9 @@ public class TripServiceImpl implements TripService{
 
 
             tripList.add(findTripDTO);
-            tripInfoDTO1.setUserUid((Long) jwtUtil.parseJwtToken(token).get("id"));
-            tripInfoDTO1.setTripList(tripList);
-            tripInfoDTO.add(tripInfoDTO1);
+            tripInfoDTO.setUserUid((Long) jwtUtil.parseJwtToken(token).get("id"));
+            tripInfoDTO.setTripList(tripList);
+//            tripInfoDTO=tripInfoDTO1;
             ////
              }
         return tripInfoDTO;

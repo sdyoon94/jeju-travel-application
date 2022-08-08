@@ -80,13 +80,13 @@ public class TripController {
     }
 
     @GetMapping("/showTripList")
-    public ResponseEntity<Map<String,Object>> showTripList(@RequestHeader Map<String,Object> token){
-        log.info("showTripList토큰받기"+(String) token.get("authorization"));
-        Map<String, Object> resultMap = new HashMap<>();
-        List<TripInfoDTO> tripInfoDTO = tripService.showTripList((String) token.get("authorization"));
-        resultMap.put("tripList",tripInfoDTO);
+    public ResponseEntity<TripInfoDTO> showTripList(@RequestHeader Map<String,Object> token){
 
-        return new ResponseEntity<Map<String,Object>>(resultMap, HttpStatus.OK);
+        Map<String, Object> resultMap = new HashMap<>();
+//        TripInfoDTO tripInfoDTO = tripService.showTripList((String) token.get("authorization"));
+//        resultMap.put("tripList",tripInfoDTO);
+
+        return new ResponseEntity<TripInfoDTO>(tripService.showTripList((String) token.get("authorization")), HttpStatus.OK);
     }
 
     @PutMapping("/addUser/{tripId}")
