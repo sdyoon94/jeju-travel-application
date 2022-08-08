@@ -1,0 +1,18 @@
+.travel-editor-container {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  opacity: 0.5;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+}
+
+.travel-editor-message {
+  text-align: center;
+  color: white;
+}
