@@ -16,8 +16,7 @@ function KakaoRedirect() {
   useEffect(() => {
     if (accessToken) {
       const decoded = jwt_decode(accessToken)
-      dispatch(login(decoded))
-      dispatch(setToken({ accessToken }))
+      dispatch(login(accessToken))
       sessionStorage.setItem("accessToken", accessToken)
       sessionStorage.setItem("nickname", decoded.nickname)
       sessionStorage.setItem("id", decoded.id)

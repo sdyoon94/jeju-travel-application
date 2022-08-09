@@ -4,6 +4,7 @@ import { useSelector } from "react-redux"
 import "./TravelJoin.css"
 import "../globalStyle.css"
 
+
 const { useParams, useNavigate } = require("react-router-dom");
 
 const URL = "http://i7a609.p.ssafy.io:8081/oauth2/authorization/kakao"
@@ -13,6 +14,7 @@ function TravelJoin() {
   const navigate = useNavigate()
   const { travelUid } = useParams()
   const { id } = useSelector((state) => state.auth)
+
 
   const isLoggedIn = id ? true : false
 
@@ -44,6 +46,7 @@ function TravelJoin() {
     })
   }
 
+
   // 참여하기 클릭 시 동작
   const handleJoinClick = async () => {
     /* 
@@ -63,8 +66,9 @@ function TravelJoin() {
     */
   }
 
+
   return (
-    <div className="travel-join-container">
+    <div className="travel-join-container" >
       {/* { isLoaded ? 
         <div className="travel-join-title">
           { title }에 초대되었습니다. <br />
@@ -72,26 +76,29 @@ function TravelJoin() {
         </div> :
         <CircularProgress />
       } */}
-      <div className="travel-join-title title-size">
-        { title }에 초대되었습니다. <br />
-        여행에 참여하시겠어요?
+      <div className="travel-join-title subtitle-size">
+        <p>{ title }에 초대되었습니다.</p>
+        <p>같이 제주도로 떠날까요?</p>
       </div>
       <div className="travel-join-body">
         { isLoggedIn ? 
-          <div onClick={handleJoinClick} className="travel-join-btn">
-            참여하기
-          </div> 
+          <>
+            <button onClick={handleJoinClick} className="travel-join-btn">
+              참여하기
+            </button> 
+            <span onClick={handleHomeClick} className="subcontent-size">
+              홈으로 가기
+            </span>
+          
+          </>
           : 
           <>
-            <p>로그인 후 이용할 수 있는 서비스입니다. </p>
-            <a href={URL}>
+            <a href={URL} style={{height: "12vw"}}>
               <img className="kakao-box" alt="kakaoLoginBtn" src="/icons/kakaoLogo.png"></img>
             </a>
+            <span>로그인 후 이용할 수 있는 서비스입니다. </span>
           </>
         }
-        <p onClick={handleHomeClick} className="home-link">
-          홈으로 가기
-        </p>
       </div>
     </div>
   )

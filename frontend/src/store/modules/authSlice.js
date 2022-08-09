@@ -8,10 +8,11 @@ const initialState = {
   nickname: sessionStorage.getItem("nickname") || "",
   profileImg: sessionStorage.getItem("image_path") || "",
   id: sessionStorage.getItem("id") || "",
-  authHeader: {
-   Authorization: `Bearer ${sessionStorage.getItem("accessToken")}` 
-  },
   error: null,
+}
+
+export const authHeader = {
+  Authorization: `Bearer ${initialState.token}` 
 }
 
 export const editNickname = createAsyncThunk(
@@ -54,14 +55,16 @@ export const editProfileImg = createAsyncThunk(
 
 export const logout = createAsyncThunk(
   "auth/logout",
-  async (thunkAPI) => {
+  async (payload, thunkAPI) => {
     try {
       const response = await axios({
         method: "post",
-        url: api.accounts.logoutUrl()
+        url: api.accounts.logoutUrl(),
+        headers: authHeader
       })
       return response.data
     } catch (err) {
+      console.log(err)
       return thunkAPI.rejectWithValue(err.response.data)
     }
   }
@@ -90,9 +93,7 @@ const loginSlice = createSlice({
   initialState,
   reducers: {
     login(state, { payload }) {
-      state.nickname = payload.nickname
-      state.profileImg = payload.image_path
-      state.id = payload.id
+      state.token = payload
     },
     setToken(state, { payload }) {
       state.token = payload.accessToken
