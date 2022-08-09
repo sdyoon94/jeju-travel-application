@@ -6,6 +6,7 @@ import { getEndDate } from "components/DateTime/date"
 
 import { useCallback, useEffect, useState } from "react"
 import { useSelector } from "react-redux"
+import { format, addDays } from "date-fns"
 
 import "./MapDrawer.css"
 
@@ -53,25 +54,21 @@ const buildTags = (tag) => {
     return tags.reduce((prev, curr) => `#${prev} #${curr}`)
 }
 
-function MapDrawer({ courseIdx }) {
-    const travel = useSelector((state) => state.travel)
+function MapDrawer({ travel, scheduleIdx }) {
 
-    // 여행과 관련된 필요 데이터
-    const [ startDate ] = useState(travel.startDate)
-    const [ courses ] = useState(travel.courses)
-    const [ route, setRoute ] = useState(travel.courses[courseIdx].route)
+    const day = scheduleIdx + 1
 
-    useEffect(() => {
-        setRoute(courses[courseIdx].route)
-    }, [ courses, courseIdx ])
-
-    // 지도에 표시할 일자 데이터
-    const day = courseIdx + 1
-    const [ date, setDate ] = useState(getEndDate(startDate, courseIdx))
-
-    useEffect(() => {
-        setDate(getEndDate(startDate, courseIdx))
-    }, [ startDate ])
+    const [ route, setRoute ] = useState(travel.schedules[scheduleIdx].slice(1))
+    const [ date, setDate ] = useState(
+        format(
+            addDays(
+                travel.info.startDate ? 
+                new Date(travel.info.startDate) :
+                new Date(), 
+                scheduleIdx),
+            "yyyy-MM-dd"
+        )
+    )
 
     // Drawer 컴포넌트에서 사용
     const [ isDrawerOpened, setIsDrawerOpened ] = useState(false)
@@ -82,6 +79,23 @@ function MapDrawer({ courseIdx }) {
     const closeDrawer = () => {
         setIsDrawerOpened(false)
     }
+
+    useEffect(() => {
+        setRoute(travel.schedules[scheduleIdx].slice(1))
+    }, [ travel.schedules[scheduleIdx], scheduleIdx ])
+
+    useEffect(() => {
+        setDate(
+            format(
+                addDays(
+                    travel.info.startDate ? 
+                    new Date(travel.info.startDate) :
+                    new Date(), 
+                    scheduleIdx),
+                "yyyy-MM-dd"
+            )
+        )
+    }, [ travel.info.startDate, scheduleIdx ])
 
     const [ markers ] = useState([])
 
@@ -137,19 +151,19 @@ function MapDrawer({ courseIdx }) {
                         lat,
                         lng
                     },
-                    title: `${idx+1}. ${place.name}`,
+                    title: `${idx+1}. ${place.placeName}`,
                     label: `${idx+1}`,
                     map: mapInstance,
                     optimized: false
                 })
 
                 marker.addListener("click", (e) => {
-                    document.getElementById("place-name").innerText = place.name
+                    document.getElementById("place-name").innerText = place.placeName
                     document.getElementById("place-image").src = place.imgPath ? place.imgPath : "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Jeju_Island.jpg/320px-Jeju_Island.jpg"
                     document.getElementById("place-image").style.display = "block"
-                    document.getElementById("place-addr").innerText = `주소: ${place.address}`
+                    document.getElementById("place-addr").innerText = `주소: ${place.roadAddress}`
                     document.getElementById("place-addr").style.display = "block"
-                    document.getElementById("place-tag").innerText = buildTags(place.tag)
+                    document.getElementById("place-tag").innerText = place.tag ? buildTags(place.tag) : "#태그없음"
                 })
 
                 markers.push(marker)

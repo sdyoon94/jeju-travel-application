@@ -1,36 +1,54 @@
 import { AvatarGroup, Avatar, Divider } from "@mui/material"
 
-import React, { useEffect, useState } from "react";
-import { getEndDate } from 'components/DateTime/date'
+import React, { useEffect, useState } from "react"
+import { format, addDays } from "date-fns"
 
 import "./TravelTitle.css"
 import "globalStyle.css"
-import { useSelector } from "react-redux";
 
 const KAKAO_API_KEY = "03817511d5315ef223b0e6861c8f729e"
+const STYLE_COUNT = 7
+const STYLE_FORMAT = ["식도락", "전통 시장", "포토스팟", "체험/액티비티", "유명관광지", "자연", "여유"]
 
-function TravelTitle(props) {
+function TravelTitle({ travel }) {
 
-    const travel = useSelector((state) => state.travel)
-
-    // Title에서 사용되는 여행 관련 정보
-
-    const [ title ] = useState("여행 제목이 길어지면 어떻게 될까 ㅎㅎ;")
-
-    // const [ title ] = useState(travel.title)
-    const [ members ] = useState(travel.members)
-    // const [ maxMemberCnt ] = useState(travel.maxMemberCnt)
-    const [ startDate ] = useState(travel.startDate)
-    const [ periodInDays ] = useState(travel.periodInDays)
-    const [ budget ] = useState(travel.budget)
-    const [ styles ] = useState(travel.styles)
-
-    // 여행 끝 일자
-    const [ endDate, setEndDate ] = useState(getEndDate(startDate, periodInDays))
+    const [ styles, setStyles ] = useState([])
+    const [ endDate, setEndDate ] = useState(
+        format(
+            addDays(travel.info.startDate ? 
+                new Date(travel.info.startDate) :
+                new Date(), 
+                travel.info.periodInDays - 1), 
+            "yyyy-MM-dd"
+        )
+    )
 
     useEffect(() => {
-        setEndDate(getEndDate(startDate, periodInDays))
-    }, [ startDate ])
+        setEndDate(
+            format(
+                addDays(travel.info.startDate ? 
+                    new Date(travel.info.startDate) :
+                    new Date(), 
+                    travel.info.periodInDays - 1), 
+                "yyyy-MM-dd"
+            )
+        )
+    }, [ travel.info.startDate, travel.info.periodInDays ])
+
+    useEffect(() => {
+        if (travel.info.style) {
+            const styles_ = []
+            for (let i = 0; i < STYLE_COUNT; i++) {
+                if (travel.info.style.charAt(i) === '1') {
+                    styles_.push(STYLE_FORMAT[i])
+                }
+            }
+            setStyles(styles_)
+        }
+        else {
+            setStyles([ "스타일 없음" ])
+        }
+    }, [ travel.info.style ])
 
     // 여행 참여 링크
     const joinUrl = "http://localhost:3000"
@@ -65,13 +83,14 @@ function TravelTitle(props) {
     return (
         <div className="travel-title-container">
             <div className="travel-title title-weight">
-                <span className="title-size overflow-x-dots">{ props.travel.title }</span>
+                <span className="title-size overflow-x-dots">{ travel.info.tripName }</span>
                 <AvatarGroup className="avatar-group" max={4}>
                     {
-                        members.map((member, i) => {
+                        travel.info.member.map((member, i) => {
                             return <Avatar
                                 key={i} 
                                 className="avatar overflow-x-dots"
+                                src={member.imagePath}
                                 alt={member.nickname} 
                             >
                                 {member.nickname}
@@ -81,8 +100,10 @@ function TravelTitle(props) {
                 </AvatarGroup>
             </div>
             <div className="travel-info content-size content-weight">
-                <span className="travel-info-content">{startDate} ~ {endDate}</span>
-                <span className="travel-info-content">₩{budget}만원</span>
+                <span className="travel-info-content">
+                    {travel.info.startDate ? travel.info.startDate : format(new Date(), "yyyy-MM-dd")} ~ {endDate}
+                </span>
+                <span className="travel-info-content">₩{travel.info.budget}만원</span>
             </div>
             <div className="travel-style-container content-size">
                 {

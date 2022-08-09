@@ -28,8 +28,11 @@ const api = {
     },
   },
   travel: {
-    getTravelInfoUrl() {
-      return HOST + TRAVEL + "showTripList"
+    createTravelInfoUrl(travelId) {
+      return `${HOST}trip/showTripInfo/${travelId}`
+    },
+    createTravelScheduleUrl(travelId, day) {
+      return `${HOST}schedule?tripId=${travelId}&day=${day}`
     }
   }
 };

@@ -8,69 +8,108 @@ import TravelBody from "components/Travel/TravelBody"
 
 import ConfigDrawer from "components/Travel/Drawer/ConfigDrawer"
 import { initDirection } from "store/modules/directionSlice"
-import { setTravel } from "store/modules/travelSlice"
-// import { initDirections, fetchDirection } from "store/modules/distanceSlice"
-// import { fetchDistanceMatrix } from "store/modules/distanceMatrixSlice"
+import { setTravel, setTravelInfo, initSchedule, setSchedule, editStayTime } from "store/modules/travelSlice"
+import axios from "axios"
+import api from "api"
+import { CircularProgress } from "@mui/material"
 
-function Travel() {
-    // travelUid를 통해 여행 정보 가져오기
-    const { travelUid } = useParams()
+function Travel({ params }) {
+    // travelId를 통해 여행 정보 가져오기
+    const { travelId } = params
+    const dispatch = useDispatch()
+
+    const [ error, setError ] = useState(null)
+    const [ isLoaded, setIsLoaded ] = useState(false)
+    const [ scheduleIdx, setScheduleIdx ] = useState(0)
+
     // get travel
     const travel = useSelector((state) => state.travel)
-    const dispatch = useDispatch()
-    
 
-
-    // // immutable
-    // const travelUid = travel.travelUid
-    
-    // // TravelTitle
-    // const maxMemberCnt = travel.maxMemberCnt
-    // const joinAddress = travel.joinAddress
-    // const [ title, setTitle ] = useState(travel.title)
-    // const [ members, setMembers ] = useState(travel.members)
-    // const [ budget, setBudget ] = useState(travel.budget)
-    // const [ styles, setStyles ] = useState(travel.styles)
-    // const [ vehicle, setVehicle ] = useState(travel.vehicle)
-
-    // // TravelTitle, TravelBody
-    // const [ startDate, setStartDate ] = useState(travel.startDate)
-    const [ periodInDays, setPeriodInDays ] = useState(travel.periodInDays)
-
-    // TravelBody, TravelFooter
-    const [ courses, setCourses ] = useState(travel.courses)
-    const [ courseIdx, setCourseIdx ] = useState(0)
-
-    // // TravelBody
-    // const [ startTime, setStartTime ] = useState(travel.startTime)
-    // const [ endTime, setEndTime ] = useState(travel.endTime)
-
-    // // only config
-    // const [ lastModified, setLastModified ] = useState(travel.lastModified)
-    // const [ startDateList, setStartDateList ] = useState(travel.startDateList)
-    
-    
-    
     useEffect(() => {
-        dispatch(initDirection(periodInDays))
+        const buildTravelInfoConfig = (travelId) => ({
+            method: "get",
+            url: api.travel.createTravelInfoUrl(travelId)
+        })
+
+        const buildTravelScheduleConfig = (travelId, day) => ({
+            method: "get",
+            url: api.travel.createTravelScheduleUrl(travelId, day)
+        })
+
+        const fetchData = async (travelId) => {
+            const response = await axios(buildTravelInfoConfig(travelId))
+
+            if (response.status === 200) {
+                const info = response.data.tripInfo
+
+                const { periodInDays } = info
+                dispatch(setTravelInfo(info))
+                dispatch(initSchedule({ payload: periodInDays }))
+
+                dispatch(initDirection(periodInDays))
+
+                for (let day = 0; day < periodInDays; day++) {
+                    const response = await axios(buildTravelScheduleConfig(travelId, day))
+
+                    if (response.status === 200) {
+                        const schedule = response.data["일자별 Schedule List"]
+
+                        schedule.forEach(place => {
+                            if (!place.stayTime) {
+                                place.stayTime = 60
+                            }
+                        })
+
+                        dispatch(setSchedule({ scheduleIdx: day, schedule }))
+                    }
+                }
+            }
+        }
+        
+        const updateState = async (travelId) => {
+            try {
+                const _ = await fetchData(travelId)
+                setIsLoaded(true)
+            }
+            catch (err) {
+                setError(err)
+            }
+        }
+
+        updateState(travelId)
     }, [])
+
+    useEffect(() => {
+    }, [ travel ])
 
     return (
         <>
             <div className="travel-container">
-                <Header>
-                    <ConfigDrawer
-                        travel={travel}
-                        setTravel={(v)=>{dispatch(setTravel(v))}}
-                    />
-                </Header>
-                <TravelTitle
-                    travel={travel}
-                />
-                <TravelBody
-                    courseIdx={courseIdx}
-                    setCourseIdx={setCourseIdx}
-                />
+                { error ?
+                    <div>에러 발생</div> :
+                    isLoaded ?
+                        <>
+                            <Header>
+                                <ConfigDrawer
+                                    travel={travel}
+                                    setTravel={(v)=>{dispatch(setTravel(v))}}
+                                />
+                            </Header>
+                            <TravelTitle
+                                travel={travel}
+                            />
+                            <TravelBody
+                                travel={travel}
+                                setSchedule={(v)=>{dispatch(setSchedule(v))}}
+                                scheduleIdx={scheduleIdx}
+                                setScheduleIdx={setScheduleIdx}
+                            />
+                        </> : 
+                        <>
+                            <CircularProgress /> <br />
+                            <div>여행 로딩중...</div>
+                        </>
+                }
             </div>
         </>
     )
