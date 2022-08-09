@@ -24,7 +24,6 @@ function PrivateRoute({ component: Component, children }) {
               Authorization: `Bearer ${token}`
             }
           })
-          console.log(response)
           if (response.status === 200) {
             setLoadable(true)
             return

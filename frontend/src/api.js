@@ -24,6 +24,14 @@ const api = {
       return HOST + "trips";
     },
   },
+  travel: {
+    createTravelInfoUrl(travelId) {
+      return `${HOST}trip/showTripInfo/${travelId}`
+    },
+    createTravelScheduleUrl(travelId, day) {
+      return `${HOST}schedule?tripId=${travelId}&day=${day}`
+    }
+  }
 };
 
 export default api;

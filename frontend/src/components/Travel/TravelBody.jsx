@@ -1,18 +1,19 @@
-import { getAllDates } from "components/DateTime/date";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
+import { format, addDays } from "date-fns"
 
-import Course from "./Body/Course";
-import Day from "./Body/Day";
-import MapDrawer from "./Drawer/MapDrawer";
+import { getAllDates } from "components/DateTime/date"
 
-import "./TravelBody.css";
+import Schedule from "./Body/Schedule"
+import Day from "./Body/Day"
+import MapDrawer from "./Drawer/MapDrawer"
 
-const { default: React, useEffect, useState } = require("react");
+import "./TravelBody.css"
 
 var onClickNext = [];
 var onClickPrev = [];
 
-function buildOnClickHandler({ periodInDays, setCourseIdx }) {
+function buildOnClickHandler({ periodInDays, setScheduleIdx }) {
   for (let day = 1; day <= periodInDays; day++) {
     const blur = () => {
       Array.from(document.getElementsByClassName("day-" + day)).forEach(
@@ -32,7 +33,7 @@ function buildOnClickHandler({ periodInDays, setCourseIdx }) {
           el.style.display = "grid";
         }
       );
-      setCourseIdx(nextDay - 1);
+      setScheduleIdx(nextDay - 1);
     };
 
     let prevDay = day - 1;
@@ -46,7 +47,7 @@ function buildOnClickHandler({ periodInDays, setCourseIdx }) {
           el.style.display = "grid";
         }
       );
-      setCourseIdx(prevDay - 1);
+      setScheduleIdx(prevDay - 1);
     };
 
     onClickNext.push(() => {
@@ -61,55 +62,63 @@ function buildOnClickHandler({ periodInDays, setCourseIdx }) {
   }
 }
 
-function TravelBody({ courseIdx, setCourseIdx }) {
-  const travel = useSelector((state) => state.travel);
+function TravelBody({ travel, setSchedule, scheduleIdx, setScheduleIdx }) {
 
-  const [startDate] = useState(travel.startDate);
-  const [periodInDays] = useState(travel.periodInDays);
-  const [courses] = useState(travel.courses);
-  // const [ startTime ] = useState(travel.startTime)
-  const [vehicle] = useState(travel.vehicle);
-
-  const [dates, setDates] = useState(getAllDates(startDate, periodInDays));
+  const [ dates, setDates ] = useState([])
 
   useEffect(() => {
-    setDates(getAllDates(startDate, periodInDays));
-  }, [startDate]);
+    const dates_ = []
 
-  buildOnClickHandler({ periodInDays, setCourseIdx });
+    for (let day = 0; day < travel.info.periodInDays; day++) {
+      dates_.push(format(
+        addDays(
+          travel.info.startDate ? 
+          new Date(travel.info.startDate) :
+          new Date(), 
+          day),
+        "yyyy-MM-dd"
+      ))
+    }
+
+    setDates(dates_)
+  }, [ travel.info.periodInDays, travel.info.startDate ])
+
+  buildOnClickHandler({ 
+    periodInDays: travel.info.periodInDays, 
+    setScheduleIdx
+  })
 
   return (
     <div className="course-container">
-      {courses.map((course, i) => {
-        const day = i + 1;
-        const date = dates[i];
-
-        return (
-          <Day
+      { 
+        dates.map((date, i) => {
+          return <Day 
             key={i}
-            day={day}
+            day={i+1}
             date={date}
             next={onClickNext[i]}
             prev={onClickPrev[i]}
           />
-        );
-      })}
+        })
+      }
       <div className="map-drawer-container">
-        <MapDrawer courseIdx={courseIdx} />
+        <MapDrawer travel={travel} scheduleIdx={scheduleIdx} />
       </div>
-      {courses.map((course, i) => {
-        const day = i + 1;
-
-        return (
-          <Course 
-            key={i}
-            day={day}
-            course={course} 
-            courseIndex={i} 
-            vehicle={vehicle} 
-          />
-        );
-      })}
+      {
+        travel.schedules.map((schedule, i) => {
+          return (
+            <Schedule 
+              key={i}
+              day={i+1}
+              travel={travel}
+              schedule={schedule} 
+              scheduleIdx={i}
+              setSchedule={setSchedule}
+              vehicle={travel.info.vehicle}
+            />
+          )
+        })
+      }
     </div>
   );
 }

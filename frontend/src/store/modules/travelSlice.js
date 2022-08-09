@@ -1,60 +1,7 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import axios from "axios"
+import { createSlice } from "@reduxjs/toolkit"
 // import travel from "dummies/DummyTravel.json"
 
 // TODO: createAsyncThunk
-const HOST = "http://i7a609.p.ssafy.io:8081/api/v1/"
-const SCHEDULE_PATH = "schedule"
-const TRAVEL_PATH = "travel/showTripInfo"
-
-const buildScheduleConfig = (travelId, day) => ({
-	method: "get",
-	url: `${HOST + SCHEDULE_PATH}?tripId=${travelId}&day=${day}`
-})
-
-const buildTravelConfig = (travelId) => ({
-	method: "get",
-	url: `${HOST + TRAVEL_PATH}/${travelId}`
-})
-
-export const fetchTravel = createAsyncThunk(
-	"travel",
-	async ({ travelId }, thunkAPI) => {
-		const dispatch = thunkAPI.dispatch
-
-		try {
-			const response = await axios(buildTravelConfig(travelId))
-			console.log(response)
-
-			if (response.status === 200) {
-				const info = response.data.tripInfo
-				console.log(info)
-
-				dispatch(setTravelInfo({ payload: info }))
-				
-				const { periodInDays } = info
-				dispatch(initSchedule({ payload: periodInDays }))
-
-				for (let day = 0; day < periodInDays; day++) {
-					const response = await axios(buildScheduleConfig(travelId, day))
-					console.log(response)
-
-					if (response.status === 200) {
-						const schedule = response.data["일자별 Schedule List"]
-						console.log(schedule)
-
-						dispatch(setSchedule({ day, schedule }))
-					}
-				}
-			}
-		}
-		catch (err) {
-			console.log(err)
-			return
-		}
-	}
-)
-
 /* 
 info: {
 	tripId: 여행 아이디,
@@ -90,50 +37,35 @@ const travelSlice = createSlice({
 	name: "travel",
 	initialState,
 	reducers: {
-		editStartTime(state, { payload }) {
-			state.courses[payload.courseIndex].startTime = payload.newStartTime
+		editStayTime(state, { payload: {scheduleIdx, placeIdx, stayTime} }) {
+			state.schedules[scheduleIdx][placeIdx]["stayTime"] = stayTime
 		},
-		editStayTime(state, { payload }) {
-			state.courses[payload.courseIndex].route[payload.scheduleIndex].duration = payload.newStartTime
+		editStartTime(state, { payload: {scheduleIdx, placeIdx, stayTime} }) {
+			state.schedules[scheduleIdx][placeIdx]["stayTime"] = stayTime
 		},
 		setTravel(state, { payload }) {
 			state[payload[0]] = payload[1]
 		},
-		setTravelInfo(state, { payload: info }) {
-			state = {
-				...state,
-				info
-			}
+		setTravelInfo(state, { payload }) {
+			state.info = payload
 		},
 		initSchedule(state, { payload: periodInDays }) {
-			state = {
-				...state,
-				schedules: new Array(periodInDays)
-			}
+			state.schedules = new Array(periodInDays)
 		},
-		setSchedule(state, { payload: { day, schedule } }) {
-			const schedules = state.schedules
-			schedules[day] = {
-				day: day + 1,
-				schedule
-			}
-
-			state = {
-				...state,
-				schedules
-			}
+		setSchedule(state, { payload: { scheduleIdx, schedule } }) {
+			state.schedules[scheduleIdx] = schedule
 		}
 	},
-	extraReducers: (builder) => {
-		builder
-			.addCase(fetchTravel.fulfilled, (state, action) => {
-				console.log(action.payload)
-			})
-			.addCase(fetchTravel.rejected, (state, action) => {
-				console.log(action.payload)
-				state.error = action.payload
-			})
-	}
+	// extraReducers: (builder) => {
+	// 	builder
+	// 		.addCase(fetchTravel.fulfilled, (state, action) => {
+	// 			console.log(action.payload)
+	// 		})
+	// 		.addCase(fetchTravel.rejected, (state, action) => {
+	// 			console.log(action.payload)
+	// 			state.error = action.payload
+	// 		})
+	// }
 })
 
 const { actions, reducer } = travelSlice

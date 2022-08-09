@@ -210,9 +210,6 @@ const directionSlice = createSlice({
         builder.addCase(fetchDirection.fulfilled, (state, action) => {
             const { index, directions } = action.payload
             state.directions[index] = directions
-
-            console.log(index);
-            console.log(directions);
         })
     }
 })

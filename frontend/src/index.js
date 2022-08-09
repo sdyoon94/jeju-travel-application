@@ -29,7 +29,7 @@ root.render(
           <Route path=":input" element={<New />} />
         </Route>
         <Route path="edit" element={<PrivateRoute component={ Edit } />} />
-        <Route path="travel/:travelUid" element={<PrivateRoute component={ Travel } />} />
+        <Route path="travel/:travelId" element={<PrivateRoute component={ Travel } />} />
         <Route path="traveledit" element={<PrivateRoute component={ TravelEdit } />} />
         <Route path="search" element={<PrivateRoute component={ PlaceSearch } />} />
         <Route path="address" element={<PrivateRoute component={ AddressInput } />} />
