@@ -33,7 +33,7 @@
     width: 10vh;
     border-radius: 50%;
     display: none;
-    padding-right: 4vw;
+    margin-right: 4vw;
 }
 
 #place-spec {
