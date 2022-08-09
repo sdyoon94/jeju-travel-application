@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,9 @@ public class TripServiceImpl implements TripService{
 
     @Autowired
     TripScheduleService tripScheduleService;
+
+    @Autowired
+    Algorithm algorithm;
 
     @Override
     public FindTripDTO showTripInfo(Long tripId) {
@@ -123,27 +127,34 @@ public class TripServiceImpl implements TripService{
         //방장권한도 줘야됨
         Trip savedTrip = tripRepository.save(trip1);
         //여행 시작할때 startday에 더미 스케쥴 넣어서 시작시간 조정
-        Schedule schedule = new Schedule();
-        schedule.setDay(0);
-        Place place = new Place();
-        place.setPlaceUid(1111L);
-        schedule.setPlace(place);//시작하는 곳 널값떠서 임의로 장소 지정
-        schedule.setStayTime(trip1.getStartTime().toSecondOfDay()/60);
-        schedule.setTrip(savedTrip);
-        schedule.setTurn(0);
-        scheduleRepository.save(schedule);
-        tripScheduleService.registerSchedule(trip1,0);
+//        Schedule schedule = new Schedule();
+//        schedule.setDay(0);
+//        Place place = new Place();
+//        place.setPlaceUid(1L);
+//        schedule.setPlace(place);//시작하는 곳 널값떠서 임의로 장소 지정
+//        schedule.setStayTime(trip1.getStartTime().toSecondOfDay()/60);
+//        schedule.setTrip(savedTrip);
+//        schedule.setTurn(0);
+//        scheduleRepository.save(schedule);
+        algorithm.create(savedTrip,5,0,1,0);
+
+        tripScheduleService.registerSchedule(savedTrip,0);
         for(int i=1;i<savedTrip.getPeriodInDays();i++){
+            Place place = new Place();
+            //스케줄 cnt
+            int turn= Math.toIntExact(scheduleRepository.countByTripTripIdAndDay(savedTrip.getTripId(), i-1));//전날 마지막 일정-숙소
+            place = scheduleRepository.findByTripTripIdAndDayAndTurn(savedTrip.getTripId(),i-1,turn-1).getPlace();//전날 숙소를 시작장소로
             Schedule schedule1 = new Schedule();
             schedule1.setTurn(0);
             schedule1.setDay(i);
             schedule1.setStayTime(540);
-            schedule1.setTrip(trip1);
-            schedule1.setPlace(place);//
+            schedule1.setTrip(savedTrip);
+            schedule1.setPlace(place);//전날 잡은 숙소로 바꺼야함
             scheduleRepository.save(schedule1);
             //스케줄 추가 test
-            tripScheduleService.registerSchedule(trip1,i);
+            tripScheduleService.registerSchedule(savedTrip,i);
         }
+
 //        schedule.setPlace("시작용 더미 관광지에 추가해야함");
 
 //
@@ -202,6 +213,8 @@ public class TripServiceImpl implements TripService{
         tripRepository.deleteTripByTripId(tripId);
     }
 
+
+    @Transactional
     @Override
     public void deleteUserTrip(Long tripId, String jwt) {
         Long kakaoId= (Long)jwtUtil.parseJwtToken(jwt).get("id");

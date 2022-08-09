@@ -20,29 +20,36 @@ public class Algorithm {
     @Autowired
     ScheduleRepository scheduleRepository;
 
-//    public Place create(Trip trip,String placeType,int cnt){
-//
-//        List<Place> place= placeRepository.findAllByPlaceType(placeType);
-//        Collections.shuffle(place);
-//
-//
-//        return  place.get(0);
-//    }
-    //코드정리test
-    public Place create(Trip trip,String placeType,int day,int cnt){
+    public int create(Trip trip,int placeType,int day,int cnt,int startTurn){
 
-        List<Place> place= placeRepository.findAllByPlaceType(placeType);
-        Collections.shuffle(place);
-        for (int i=1;i<=cnt;i++) {
+        for (int i=0;i<cnt;i++) {
             Schedule schedule = new Schedule();
             schedule.setDay(day);
             schedule.setTrip(trip);
-            schedule.setPlace(place.get(i-1));
-            schedule.setTurn(i);
+            if(placeType==5){//공항이면
+                Place place = new Place();
+                place.setPlaceUid(1L);
+                schedule.setPlace(place);
+            }else {
+                schedule.setPlace(selectPlace(33.5066211, 126.49281, 0));
+            }
+            schedule.setTurn(startTurn);
+            startTurn++;
             scheduleRepository.save(schedule);
         }
+        return startTurn;
 
-        return  place.get(0);
+    }
+
+    //이전 장소 반경 내 장소 선택
+    public Place selectPlace(double lat, double lng,int placeType){//인자 스타일 추가
+        List<Place> findTourByDistance= placeRepository.findTourByDistance(lat,lng,60.0);
+        Collections.shuffle(findTourByDistance);
+
+        List<Place> findPlaceByType= placeRepository.findAllByPlaceType(placeType);
+//        Collections.shuffle(place);
+
+     return findTourByDistance.get(0);
     }
 
 

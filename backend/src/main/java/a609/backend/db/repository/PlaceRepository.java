@@ -17,7 +17,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
     List<Place> findByPlaceNameContains(String Keyword);
     Place findOneByPlaceUid(Long placeUid);
 
-    List<Place> findAllByPlaceType(String placeType);
+    List<Place> findAllByPlaceType(int placeType);
 
 
     //km단위, 반경 내의 관광지를 검색

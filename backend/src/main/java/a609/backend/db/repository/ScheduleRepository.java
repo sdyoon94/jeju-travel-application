@@ -1,5 +1,6 @@
 package a609.backend.db.repository;
 
+import a609.backend.db.entity.Place;
 import a609.backend.db.entity.Schedule;
 import a609.backend.db.entity.Trip;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,5 +19,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule,Long> {
     // 여행 일자별로 고정된거 빼고 날리기
     void deleteByTripTripIdAndDayAndIsFixedFalse(Long tripId, Integer day);
 
+    Schedule findByTripTripIdAndDayAndTurn(Long tripId,int day,int turn);
+    Long countByTripTripIdAndDay(Long tripId,int day);
 
 }
