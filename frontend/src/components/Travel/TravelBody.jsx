@@ -105,13 +105,12 @@ function TravelBody({ travel, setSchedule, scheduleIdx, setScheduleIdx }) {
         <MapDrawer travel={travel} scheduleIdx={scheduleIdx} />
       </div>
       {
-        travel.schedules.map((schedule, i) => {
+        travel.schedules.map((_, i) => {
           return (
             <Schedule 
               key={i}
               day={i+1}
               travel={travel}
-              schedule={schedule} 
               scheduleIdx={i}
               setSchedule={setSchedule}
               vehicle={travel.info.vehicle}
