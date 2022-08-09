@@ -9,14 +9,14 @@ import { useDispatch } from "react-redux"
 import { editStartTime, editStayTime } from "store/modules/travelSlice"
 
 
-function StartTime({ placeIdx, schedule, scheduleIdx, setSchedule, time, ...rest }) {
+function StartTime({ placeIdx, scheduleIdx, time, ...rest }) {
   const dispatch = useDispatch()
-  const format = 'HH:mm'
 
-  const [startTime, setStartTime] = useState(moment(time, format))
+  const [startTime, setStartTime] = useState(moment(time, "HH:mm"))
   
   const handleValue = (value) => {
-    const newTime = value.format(format)
+    const newTime = value.format("HH:mm")
+    
     if (placeIdx === 0) {
       dispatch(editStartTime({ scheduleIdx, placeIdx, stayTime: revert(newTime) }))
     }
@@ -37,7 +37,7 @@ function StartTime({ placeIdx, schedule, scheduleIdx, setSchedule, time, ...rest
         minuteStep={5}
         value={startTime}
         use24Hours
-       />
+      />
     </>
   )
 }
