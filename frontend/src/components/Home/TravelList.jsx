@@ -14,7 +14,6 @@ function TravelList() {
   }, [])
 
   const travels = useSelector((state => state.travelList.travelList))
-  console.log(travels)
   const nickName = useSelector((state => state.auth.nickname))
 
 

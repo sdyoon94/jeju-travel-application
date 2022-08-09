@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import api from "api"
 import axios from "axios"
 
-
 const initialState = {
   userUid: "",
   travelList: []
@@ -11,15 +10,17 @@ const initialState = {
 export const getTravelInfo = createAsyncThunk(
   "travelList/getInfo",
   async (payload, thunkAPI) => {
-    const state = thunkAPI.getState()
     try {
       const response = await axios({
         method: "get",
         url: api.travel.getTravelInfoUrl(),
-        headers: state.auth.authHeader
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`
+        }
       })
       return response.data
     } catch (err) {
+      console.log(err)
       return thunkAPI.rejectWithValue()
     }
   }

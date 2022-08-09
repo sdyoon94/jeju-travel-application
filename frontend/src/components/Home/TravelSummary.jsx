@@ -4,7 +4,6 @@ import AvatarGroup from "@mui/material/AvatarGroup"
 
 
 function TripSummary({travelUid, idx, title, startDate, period, members, travelLength}) {
-  console.log(travelLength)
 
   return (
     <>
