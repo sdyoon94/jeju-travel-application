@@ -8,6 +8,9 @@ const initialState = {
   nickname: sessionStorage.getItem("nickname") || "",
   profileImg: sessionStorage.getItem("image_path") || "",
   id: sessionStorage.getItem("id") || "",
+  authHeader: {
+   Authorization: `Bearer ${sessionStorage.getItem("accessToken")}` 
+  },
   error: null,
 }
 
