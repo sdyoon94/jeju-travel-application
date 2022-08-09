@@ -2,9 +2,11 @@ import api from "api"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 function PrivateRoute({ component: Component, children }) {
+
+  const params = useParams()
 
   const navigate = useNavigate()
   const token = useSelector((state) => state.auth.token)
@@ -22,7 +24,6 @@ function PrivateRoute({ component: Component, children }) {
               Authorization: `Bearer ${token}`
             }
           })
-          console.log(response)
           if (response.status === 200) {
             setLoadable(true)
             return
@@ -40,7 +41,7 @@ function PrivateRoute({ component: Component, children }) {
 
   return (
     loadable ?
-    <Component>
+    <Component params={params}>
       {children}
     </Component> : 
     null

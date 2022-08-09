@@ -13,21 +13,26 @@ const api = {
       return HOST + "logout";
     },
     signoutUrl() {
-      return HOST + "delete"
+      return HOST + "delete";
     },
     verifyUrl() {
-      return HOST + "auth/verify"
-    }
-
+      return HOST + "auth/verify";
+    },
   },
   inputs: {
     createTravelUrl() {
-      return HOST + "trips"
+
+      return HOST + "trip";
+
+
     },
   },
   travel: {
-    getTravelInfoUrl() {
-      return HOST + TRAVEL + "showTripList"
+    createTravelInfoUrl(travelId) {
+      return `${HOST}trip/showTripInfo/${travelId}`
+    },
+    createTravelScheduleUrl(travelId, day) {
+      return `${HOST}schedule?tripId=${travelId}&day=${day}`
     }
   }
 };

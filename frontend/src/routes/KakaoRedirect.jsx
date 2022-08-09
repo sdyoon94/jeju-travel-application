@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { login } from "store/modules/authSlice"
+import { login, setToken } from "store/modules/authSlice"
 import jwt_decode from "jwt-decode"
 import axios from "axios"
 
