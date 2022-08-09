@@ -4,7 +4,7 @@ import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { io } from "socket.io-client"
 
-const WS_HOST = "ws://i7a609.p.ssafy.io:8081"
+const WS_HOST = "ws://i7a609.p.ssafy.io:8080"
 
 // default event - "connect", "disconnect", "connect_error" 이벤트를 핸들링
 const handleConnection = (socket, state, setState, navigate) => {

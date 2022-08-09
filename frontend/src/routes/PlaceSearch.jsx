@@ -15,7 +15,7 @@ function PlaceSearch() {
   const selectedSpots = useSelector(state => state.selectedSpots)
   
   const inputSearch = async(query) => {
-    const response = await axios.get(`http://i7a609.p.ssafy.io:8081/api/v1/place/find?q=${query}`)
+    const response = await axios.get(`http://i7a609.p.ssafy.io:8080/api/v1/place/find?q=${query}`)
     setresultLst(response.data.findPlaces)
   }
 
