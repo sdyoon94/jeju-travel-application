@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { useParams } from "react-router-dom"
 
 import Header from "components/Header/Header"
 import TravelTitle from "components/Travel/TravelTitle"
@@ -8,7 +7,7 @@ import TravelBody from "components/Travel/TravelBody"
 
 import ConfigDrawer from "components/Travel/Drawer/ConfigDrawer"
 import { initDirection } from "store/modules/directionSlice"
-import { setTravel, setTravelInfo, initSchedule, setSchedule, editStayTime } from "store/modules/travelSlice"
+import { setTravel, setTravelInfo, initSchedule, setSchedule } from "store/modules/travelSlice"
 import axios from "axios"
 import api from "api"
 import { CircularProgress } from "@mui/material"
