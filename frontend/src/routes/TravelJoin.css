@@ -8,25 +8,46 @@
 }
 
 .travel-join-container {
-  height: 90vh;
-  width: 90vw;
-  margin: 5vh auto;
-  display: grid;
-  grid-template-rows: 20vh 40vh auto;
-  align-items: baseline;
+  height: 100vh;
+  /* width: 90vw; */
+  /* margin: 5vh auto; */
+  /* display: grid; */
+  /* grid-template-rows: 20vh 40vh auto; */
+  /* align-items: baseline; */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("../../public/icons/jejuInvite.jpg");
 }
 
 .travel-join-title {
   height: 10vh;
-  padding: 10vh 0vw 0vh;
+  padding: 24vh 0vw 0vh;
   text-align: center;
-  vertical-align: text-bottom ;
+  /* vertical-align: text-bottom ; */
+}
+
+.travel-join-title > p {
+  margin: 1vh;
 }
 
 .travel-join-body {
   height: 20vh;
-  padding: 20vh 0vw 0vh;
+  padding: 5vh 0vw 0vh;
   display: grid;
   text-align: center;
   grid-template-rows: auto auto auto;
 }
+
+.travel-join-btn {
+  background: #1E88E5;
+  margin: auto;
+  border: none;
+  width: 75vw;
+  height: 12vw;
+  font-size: 4vw;
+  text-align: center;
+  border-radius: 10px;
+  color: #FFFFFF;
+}
+
+
