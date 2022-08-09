@@ -28,64 +28,45 @@ public class TripScheduleServiceImpl implements TripScheduleService{
     PlaceRepository placeRepository;
 
 
-
-//    @Override
-//    public void registerSchedule(Trip saveTrip) {
-//
-//        //day생성
-//        for (int i =1; i<=saveTrip.getPeriod();i++){
-//            Day day = new Day();
-//            day.setTripId(saveTrip.getTripId());
-//            day.setDay(i);
-//            day.setStartTime(null); //9시로 디폴트 시간 설정
-//            if (i==1){
-//                day.setStartTime(saveTrip.getStartTime());
-//            } else if (i==saveTrip.getPeriod()) {
-//                day.setEndtTime(saveTrip.getEndTime());
-//            }
-//            Day saveDay = dayRepository.save(day);
-//
-//            //몇개 일정 뽑을지..?for문반복?
-//            Schedule schedule = new Schedule();
-//            schedule.setDayId(saveDay.getDayId());
-//            schedule.setTripId(saveTrip.getTripId());
-//            schedule.setPlaceId(algorithm.create(saveTrip));//알고리즘으로 뽑기
-//            scheduleRepository.save(schedule);
-//        }
-//
-//    }
-
     @Override
     public void registerSchedule(Trip trip,int day) {
             //test
+        int turn=0;
 
-//        첫째날 마지막날 추천 일정 수 고려해야될듯
-//        if(day==0) {//첫째날
-//            int startTime = trip.getStartTime().toSecondOfDay() / 60;
-//            if (startTime >= 1080) {
+        if(day==0) {//첫째날
+            turn = algorithm.create(trip,5,day,1,turn);//공항
+
+            int startTime = trip.getStartTime().toSecondOfDay() / 60;
+            // 첫째날 마지막날 시간에 따른 추천 일정 수 고려해야될듯
+//            if (startTime >= 1080) {//일정추가
 //                //6시 이후
 //                for (int j = 1; j <= 3; j++) {
 //
 //                }
 //            }
-//        }
-//        if (day==trip.getPeriodInDays()-1) {//마지막날
-//            int endTime = trip.getEndTime().toSecondOfDay() / 60;
-//            if (endTime <= 720) {
-//                //12시 이전
-//            }
-//        }
-//         algorithm.create(trip,"0",day,5);
+            turn=algorithm.create(trip, 0, day, 2,turn);//관광지추가
+            if (trip.getPeriodInDays()>1) {//당일치기 아니면 숙소추가
+                algorithm.create(trip, 2, day, 1, turn);
+            }
+            if (trip.getPeriodInDays()==1){//당일치기면 공항
+                algorithm.create(trip,5,day,1,turn);//공항
+            }
+        }else if (day==trip.getPeriodInDays()-1) {//마지막날
 
-//            for (int j = 1; j <= 5; j++) {
-//                Schedule schedule = new Schedule();
-//                schedule.setDay(day);
-//                schedule.setTrip(trip);
-//                schedule.setPlace(algorithm.create(trip,"0",day,1));
-//                schedule.setTurn(j);
-//                scheduleRepository.save(schedule);
-//            }
-        algorithm.create(trip,"0",day,5);
+            int endTime = trip.getEndTime().toSecondOfDay() / 60;
+            if (endTime <= 720) {
+                //12시 이전
+            }
+            turn = algorithm.create(trip,0,day,2,turn);
+            algorithm.create(trip,5,day,1,turn);//공항
+
+        }else {
+            turn=algorithm.create(trip, 0, day, 5,turn);
+            algorithm.create(trip, 2, day, 1,turn);//숙소
+        }
+
+//        turn=algorithm.create(trip,0,day,5,turn);
+
 
 
 

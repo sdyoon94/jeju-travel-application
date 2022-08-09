@@ -19,7 +19,7 @@ public class Place {
     private String placeName;
 
     @Column(name="PLACE_TYPE")
-    private String placeType;
+    private Integer placeType;
 
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
     List<PlaceTag> placeTag = new ArrayList<>();

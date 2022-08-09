@@ -1,6 +1,7 @@
 package a609.backend.controller;
 
 import a609.backend.db.entity.Schedule;
+import a609.backend.db.entity.Trip;
 import a609.backend.service.TripScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,10 +20,13 @@ public class TripScheduleController {
     @Autowired
     TripScheduleService tripScheduleService;
 
-    //소켓을 거치고 오니까.. 어떤 타입으로 오는지? 소켓으로 통신하고 최종본만 여기 저장되는지
+    //스케줄이랑 트립 한꺼번에 옴,, 바디 자료형 바꺼야 될듯..?
     @PutMapping
-    public ResponseEntity<Map<String,String>> updatePlace(){
-        return null;
+    public ResponseEntity<Map<String,Object>> updateScedule(@RequestBody Trip trip){
+        Map<String, Object> resultMap = new HashMap<>();
+
+
+        return new ResponseEntity<Map<String,Object>>(resultMap, HttpStatus.OK);
     }
 
     //여행방을 누르면 보여줄 일정

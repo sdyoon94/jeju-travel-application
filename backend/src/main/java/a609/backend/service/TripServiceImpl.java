@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,9 @@ public class TripServiceImpl implements TripService{
 
     @Autowired
     TripScheduleService tripScheduleService;
+
+    @Autowired
+    Algorithm algorithm;
 
     @Override
     public FindTripDTO showTripInfo(Long tripId) {
@@ -122,48 +126,16 @@ public class TripServiceImpl implements TripService{
         trip1.setTripName(user.getNickname()+"의 여행");
         //방장권한도 줘야됨
         Trip savedTrip = tripRepository.save(trip1);
-        //여행 시작할때 startday에 더미 스케쥴 넣어서 시작시간 조정
-        Schedule schedule = new Schedule();
-        schedule.setDay(0);
-        Place place = new Place();
-        place.setPlaceUid(1111L);
-        schedule.setPlace(place);//시작하는 곳 널값떠서 임의로 장소 지정
-        schedule.setStayTime(trip1.getStartTime().toSecondOfDay()/60);
-        schedule.setTrip(savedTrip);
-        schedule.setTurn(0);
-        scheduleRepository.save(schedule);
-        tripScheduleService.registerSchedule(trip1,0);
-        for(int i=1;i<savedTrip.getPeriodInDays();i++){
-            Schedule schedule1 = new Schedule();
-            schedule1.setTurn(0);
-            schedule1.setDay(i);
-            schedule1.setStayTime(540);
-            schedule1.setTrip(trip1);
-            schedule1.setPlace(place);//
-            scheduleRepository.save(schedule1);
-            //스케줄 추가 test
-            tripScheduleService.registerSchedule(trip1,i);
-        }
-//        schedule.setPlace("시작용 더미 관광지에 추가해야함");
 
-//
-//        User user = userRepository.findOneByKakaoId((String)jwtUtil.parseJwtToken(token).get("id"));
+        for(int i=0;i<savedTrip.getPeriodInDays();i++){
+            tripScheduleService.registerSchedule(savedTrip,i);
+        }
+
         UserTrip userTrip = new UserTrip();
         userTrip.setTrip(savedTrip);
         userTrip.setUser(user);
         return userTripRepository.save(userTrip).getTrip().getTripId().toString();
 
-//        //여기는 테스트니까 지우던 말던 캡틴 맘대로 하쇼 여행에 참여중인 사람
-//        List<UserTrip> userIds = userTripRepository.findByTripTripId(savedTrip.getTripId());
-//        for (UserTrip userTrip1 : userIds) {
-//            log.info("여행에 참여중인 사람 userTrip1.getUser().getUsername() = " + userTrip1.getUser().getKakaoId());
-//        }
-//
-////        유저가 참여중인 여행 목록
-//        List<UserTrip> tripIds = userTripRepository.findByUserKakaoId(userId);
-//        for (UserTrip tripId : tripIds) {
-//            log.info("유저가 참여중인 여행 목록"+tripId.getTrip().getTripName());
-//        }
 
     }
 
@@ -202,6 +174,8 @@ public class TripServiceImpl implements TripService{
         tripRepository.deleteTripByTripId(tripId);
     }
 
+
+    @Transactional
     @Override
     public void deleteUserTrip(Long tripId, String jwt) {
         Long kakaoId= (Long)jwtUtil.parseJwtToken(jwt).get("id");
