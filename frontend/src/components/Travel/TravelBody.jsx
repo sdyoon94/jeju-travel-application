@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
 import { format, addDays } from "date-fns"
-
-import { getAllDates } from "components/DateTime/date"
 
 import Schedule from "./Body/Schedule"
 import Day from "./Body/Day"
