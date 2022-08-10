@@ -31,7 +31,10 @@ public class Algorithm {
             schedule.setTrip(trip);
             if (placeType == 5) {//공항이면
                 Place place = placeRepository.findOneByPlaceUid(3781L);
-                schedule.setPlace(place);
+                schedule.setLat(place.getLat());
+                schedule.setLng(place.getLng());
+                schedule.setPlaceName(place.getPlaceName());
+                schedule.setPlaceUid(place.getPlaceUid());
                 if (day == 0 && startTurn == 0) {//첫쨋날 시작시간 지정
                     schedule.setStayTime(trip.getStartTime().toSecondOfDay() / 60);
                 }
@@ -40,8 +43,13 @@ public class Algorithm {
             } else if (startTurn == 0) {//0번째 일정은 9시로 시작시간 설정하고 전날 잡은 숙소로 장소 설정
 
                 int turn = Math.toIntExact(scheduleRepository.countByTripTripIdAndDay(trip.getTripId(), day - 1));
-                Place place = scheduleRepository.findByTripTripIdAndDayAndTurn(trip.getTripId(), day - 1, turn - 1).getPlace();//전날 숙소를 시작장소로
-                schedule.setPlace(place);//전날 잡은 숙소로
+                Schedule schedule1 = scheduleRepository.findByTripTripIdAndDayAndTurn(trip.getTripId(), day - 1, turn - 1);//전날 숙소를 시작장소로
+
+                schedule.setPlaceUid(schedule1.getPlaceUid());//전날 잡은 숙소로
+                schedule.setPlaceName(schedule1.getPlaceName());
+                schedule.setLat(schedule1.getLat());
+                schedule.setLng(schedule1.getLng());
+
                 schedule.setStayTime(540);
             } else {
                 //전 일정 반경으로 설정
@@ -50,7 +58,6 @@ public class Algorithm {
 //                place.setLng(scheduleRepository.findByTripTripIdAndDayAndTurn(trip.getTripId(),day,0).getPlace().getLng());
                 log.info(trip.getTripId().toString());
 
-                Place place = schedule1.getPlace();
 
                 //외점 구해서 넣어야함
 
@@ -58,7 +65,12 @@ public class Algorithm {
 //                log.info(schedule1.toString());
 //                Double lng = scheduleRepository.findByTripTripIdAndDayAndTurn(trip.getTripId(),day,startTurn-1).getPlace().getLat(); 이렇게 받으면 왜 널?
 //                log.info("------------------------------------lat,lng"+lat+"/"+lng);
-                schedule.setPlace(selectPlace(place.getLat(), place.getLng(), placeType));
+                Place place = selectPlace(schedule1.getLat(), schedule1.getLng(), placeType);
+
+                schedule.setPlaceUid(place.getPlaceUid());//전날 잡은 숙소로
+                schedule.setPlaceName(place.getPlaceName());
+                schedule.setLat(place.getLat());
+                schedule.setLng(place.getLng());
             }
 
 
@@ -74,7 +86,7 @@ public class Algorithm {
 
         List<Place> places = new ArrayList<>();
 
-        places = placeRepository.findTourByDistance(lat, lng, 30.0, placeType);
+        places = placeRepository.findTourByDistance(lat, lng, 10.0, placeType);
 
 
         Collections.shuffle(places);

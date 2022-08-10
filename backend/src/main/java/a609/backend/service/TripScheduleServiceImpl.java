@@ -57,9 +57,9 @@ public class TripScheduleServiceImpl implements TripScheduleService{
             if (endTime <= 720) {
                 //12시 이전
             }
-            algorithm.create(trip, 0, day, 2, turn);//관광지 추가
-//            turn = algorithm.create(trip, 0, day, 2, turn);//관광지 추가
-//            algorithm.create(trip, 5, day, 1, turn);//공항
+
+            turn = algorithm.create(trip, 0, day, 2, turn);//관광지 추가
+            algorithm.create(trip, 5, day, 1, turn);//공항
 
         } else {
             turn = algorithm.create(trip, 0, day, 6, turn);//관광지 추가
@@ -79,16 +79,9 @@ public class TripScheduleServiceImpl implements TripScheduleService{
         List<Schedule> schedules = scheduleRepository.findByTripTripIdAndDayOrderByTurn(tripId,day);
         List<ScheduleDTO> scheduleList = new ArrayList<>();
         for (Schedule schedule : schedules) {
-            Place place =placeRepository.findOneByPlaceUid(schedule.getPlace().getPlaceUid());
-            ScheduleDTO sch = new ScheduleDTO();
-            sch.setPlaceUid(place.getPlaceUid());
-            sch.setPlaceName(schedule.getPlace().getPlaceName());
-            sch.setStayTime(schedule.getStayTime());
-            sch.setImgPath(place.getImgPath());
-            sch.setLat(place.getLat());
-            sch.setLng(place.getLng());
-            sch.setRoadAddress(place.getRoadAddress());
-            scheduleList.add(sch);
+
+            scheduleList.add(ScheduleDTO.builder().placeName(schedule.getPlaceName()).placeUid(schedule.getPlaceUid())
+                            .stayTime(schedule.getStayTime()).lat(schedule.getLat()).lng(schedule.getLng()).build());
         }
         return scheduleList;
     }
