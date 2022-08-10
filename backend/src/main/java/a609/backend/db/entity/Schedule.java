@@ -16,10 +16,22 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="SCHEDULE_ID")
     private Long scheduleId;
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "PLACE_UID")
+//    private Place place;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PLACE_UID")
-    private Place place;
+    @Column(name = "PLACE_UID")
+    private Long placeUid;
+
+    @Column(name = "LAT")
+    private Double lat;
+
+    @Column(name = "LNG")
+    private Double lng;
+
+    @Column(name = "PLACE_NAME")
+    private String placeName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TRIP_ID")

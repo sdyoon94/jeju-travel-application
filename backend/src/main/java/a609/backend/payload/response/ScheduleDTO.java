@@ -1,11 +1,13 @@
 package a609.backend.payload.response;
 
 import a609.backend.db.entity.Place;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Column;
 
+@Builder
 @Getter
 @Setter
 public class ScheduleDTO {
@@ -20,9 +22,9 @@ public class ScheduleDTO {
 
     private Double lng;
 
-    private String roadAddress;
+//    private String roadAddress;
 
-    private String imgPath;
+//    private String imgPath;
 
     //태그 추가
 
