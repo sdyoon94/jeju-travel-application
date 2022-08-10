@@ -112,10 +112,11 @@ public class TripServiceImpl implements TripService{
 
             tripList.add(findTripDTO);
 //            tripInfoDTO.setUserUid((Long) jwtUtil.parseJwtToken(token).get("id"));
-            tripInfoDTO.setTripList(tripList);
+//            tripInfoDTO.setTripList(tripList);
 //            tripInfoDTO=tripInfoDTO1;
             ////
              }
+        tripInfoDTO.setTripList(tripList);
 //        tripInfoDTO.add(tripInfoDTO1);
         return tripInfoDTO;
     }
