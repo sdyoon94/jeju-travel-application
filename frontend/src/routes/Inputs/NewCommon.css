@@ -1,5 +1,5 @@
 .input-container {
-  height:100vh;
+  height: calc(var(--vh,1vh)*100);
   display:grid;
   gap:1rem;
   grid-template-rows: 10fr 2fr;
