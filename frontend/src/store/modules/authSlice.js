@@ -22,11 +22,12 @@ export const editNickname = createAsyncThunk(
       const response = await axios({
         method: "patch",
         url: api.accounts.editNicknameUrl(),
-        data: {nickname: newNickname}
+        data: {nickname: newNickname},
+        headers: authHeader
       })
       return response.data
     } catch (err) {
-      return thunkAPI.rejectWithValue('no')
+      return thunkAPI.rejectWithValue(err.response)
     }
   }
 )

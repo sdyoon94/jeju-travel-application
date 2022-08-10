@@ -9,8 +9,8 @@ import NotEdit from "./NotEdit"
 
 function Drawer() {
   const dispatch = useDispatch()
-  const name = useSelector((state) => state.auth.nickname)
-  const img = useSelector((state) => state.auth.profileImg)
+  const name = useSelector((state) => state.auth.nickname) || sessionStorage.getItem("nickname")
+  const img = useSelector((state) => state.auth.profileImg) || sessionStorage.getItem("image_path")
   const [nickname, setNickname] = useState(name)
   const [profileImg, setProfileImg] = useState(img)
   const [open, setopen] = useState(false)
