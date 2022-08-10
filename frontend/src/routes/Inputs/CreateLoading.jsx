@@ -10,7 +10,11 @@ function CreateLoading() {
   const navigate = useNavigate()
   
   useEffect(()=>{
-    navigate(`/travel/${travelUid}`)
+    if (travelUid) {
+      navigate(`/travel/${travelUid}`)
+    } else {
+      return;
+    }
   },[travelUid])
 
   return (
