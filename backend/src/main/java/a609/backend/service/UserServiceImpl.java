@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
     public String updateUser(User user, String token) {
         log.info("----------------------------------------------------");
         log.info(token);
-        log.info((String)jwtUtil.parseJwtToken(token).get("id"));
+        log.info(jwtUtil.parseJwtToken(token).get("id").toString());
         User originUser = userRepository.findOneByKakaoId((Long)jwtUtil.parseJwtToken(token).get("id"));
 
         log.info("----------------------------------------------------");
