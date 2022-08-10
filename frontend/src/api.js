@@ -19,21 +19,21 @@ const api = {
       return HOST + "auth/verify";
     },
   },
-  inputs: {
-    createTravelUrl() {
-
-      return HOST + "trip";
-
-
-    },
-  },
   travel: {
     createTravelInfoUrl(travelId) {
       return `${HOST}trip/showTripInfo/${travelId}`
     },
     createTravelScheduleUrl(travelId, day) {
       return `${HOST}schedule?tripId=${travelId}&day=${day}`
+    },
+    getTravelInfoUrl() {
+      return HOST + TRAVEL + "showTripList"
     }
+  },
+  inputs: {
+    createTravelUrl() {
+      return HOST + "trip";
+    },
   }
 };
 
