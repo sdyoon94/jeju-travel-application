@@ -132,7 +132,7 @@ function SwipeToDelete({ place, placeIdx, scheduleIdx, startTime, timeReq, timeR
             placeIdx={placeIdx}
             scheduleIdx={scheduleIdx}
             startTime={startTime}
-            timeReq={timeReqs}
+            timeReq={timeReq}
             timeReqs={timeReqs}
             setTimeReqs={setTimeReqs}
             directionError={directionError}
