@@ -3,7 +3,7 @@
 }
 
 * {
-  font-family: "JejuGothic";
+  font-family: "JejuGothic" !important;
 }
 
 @font-face {

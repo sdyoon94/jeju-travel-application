@@ -15,7 +15,7 @@ import PlaceSearch from 'routes/PlaceSearch'
 import AddressInput from 'routes/AddressInput'
 import TravelJoin from 'routes/TravelJoin';
 import PrivateRoute from "components/PrivateRoute";
-import Loading from "routes/Loading";
+import CreateLoading from "routes/Inputs/CreateLoading";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -33,7 +33,7 @@ root.render(
         <Route path="traveledit" element={<PrivateRoute component={ TravelEdit } />} />
         <Route path="search" element={<PrivateRoute component={ PlaceSearch } />} />
         <Route path="address" element={<PrivateRoute component={ AddressInput } />} />
-        <Route path="loading" element={<PrivateRoute component={ Loading } />} />
+        <Route path="loading" element={<PrivateRoute component={ CreateLoading } />} />
         {/* Public route */}
         <Route path="login" element={<KakaoLogin />} />
         <Route path="oauth2/redirect/" element={<KakaoRedirect />} />

@@ -1,7 +1,6 @@
 .style-container {
   display:grid ;
-  grid-template-rows: 3fr 7fr;
-  gap:1rem;
+  grid-template-rows: 4fr 7fr;
   height:100%;
 }
 
@@ -9,28 +8,10 @@
 .style-header {
   display:grid;
   align-content: end;
-  justify-content: center;
+  justify-content: start;
+  line-height: 10vw;
 }
 
-/* 어디서, 몇 명이서 떠나시나요? */
-.mention {
-  font-family: 'Inter';
-  font-size: 25px;
-  font-style: bold;
-  font-weight: 700;
-  line-height: 100px;
-
-}
-
-/* 취향에 맞는 일정과 장소를 추천드려요! */
-.mention2 {
-  font-family: 'Inter';
-  font-size: 15px;
-  font-style: bold;
-  font-weight: 500;
-  line-height: 18px;
-  color: #000000;
-}
 
 .style-body {
   display:grid;
@@ -39,7 +20,7 @@
   /* justify-items: center; */
   align-items: center;
   align-content: center;
-  grid-gap: 5vw;
+  grid-gap: 10vw;
 }
 
 .style-select-btns {
@@ -58,16 +39,20 @@ div.style-select-btns button {
   width: 28vw;
   height: 40px;
   border-radius: 10px;
+  /* border-color : linear-gradient(40deg, rgb(199, 121, 208),  rgb(75, 192, 200),  #2b3074); */
 }
 
 .style-icon {
-  height: 30px;
-  width: auto;
+  height: 20px;
+  width: 20;
   border: none;
   align-self:center;
 }
 
 button span {
   align-self:center;
-  font-size:3vw;
+  /* font-size: 3vw; */
+  font-family: 'JejuGothic';
+  font-style: normal;
+  font-weight: 400;
 }

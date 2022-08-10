@@ -2,27 +2,28 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "api";
 import axios from "axios";
 import { addDays, format } from "date-fns";
-import { useNavigate } from "react-router-dom";
+
 
 // TODO: createAsyncThunk + RTK Query API
 
 const initialState = {
-  maxMemberCnt: "",
+  maxMemberCnt: "1",
   startDate: "",
   endDate: "",
   periodInDays: "",
   style: [1, 1, 1, 1, 1, 1, 1],
   budget: "",
-  startTime: "",
-  endTime: "",
-  period: "3",
+  startTime: "09:00",
+  endTime: "10:00",
+  // period: "3",
   range: [
     {
       startDate: new Date(),
-      endDate: addDays(new Date(), 7),
+      endDate: addDays(new Date(), 0),
       key: "selection",
     },
   ],
+  travelUid : null,
 };
 
 export const createTravel = createAsyncThunk(
@@ -107,6 +108,7 @@ const inputValuesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createTravel.fulfilled, (state, { payload }) => {
+        state.inputValues.travelUid = payload.tripId
         // console.log(state);
         // console.log(payload.tripId);
         // const travelId = payload.tripId;

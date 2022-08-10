@@ -28,60 +28,75 @@ function StartTime(props) {
     props.setInputValues(["endTime", event.target.value]);
   };
 
-  const ExampleTextField = styled(TextField)({
-    backgroundColor: "transparent",
-    "& .MuiOutlinedInput-notchedOutline": {
-      border: "none",
-    },
-    "&.Mui-focused": {
-      "& .MuiOutlinedInput-notchedOutline": {
-        border: "none",
-      },
-    },
-  });
+  // const ExampleTextField = styled(TextField)({
+  //   backgroundColor: "transparent",
+  //   "& .MuiOutlinedInput-notchedOutline": {
+  //     border: "none",
+  //   },
+  //   "&.Mui-focused": {
+  //     "& .MuiOutlinedInput-notchedOutline": {
+  //       border: "none",
+  //     },
+  //   },
+  // });
 
   return (
     <div className="startTime-container">
       <div className="startTime-header">
-        <div className="mention">
-          제주도에
-          <div style={{ color: "#1E88E5", display: "inline-block" }}>
-            도착하는 시간
-          </div>
-          과
-          <div style={{ color: "#1E88E5", display: "inline-block" }}>
-            떠나는 시간
-          </div>
-          을 알려주세요
+        <div className="inline-block subcontentfont-weight title-size text-center" >
+          <span>제주도에</span>
+          <span className="color-1"> 도착하는 시간</span>
+          <span>과</span>
+        </div>
+        <div className=" subcontentfont-weight title-size text-center ">
+        <span className="color-1"> 떠나는 시간</span>
+        <span>을</span>
+        <span>알려주세요</span>
         </div>
       </div>
       <div className="startTime-body">
-        <div></div>
-        <div className="input-box">
+        <div className="time-input-box">
           <label className="input-label" htmlFor="select-startTime">
-            여행시작
+            시작시간
           </label>
-          <ExampleTextField
+          <TextField
             className="select-startTime"
             id="select-startTime"
             value={props.inputValues.startTime}
             type="time"
             onChange={handleChangeStart}
+            variant="standard"
             InputProps={{ style: { fontSize: 20 } }}
-          ></ExampleTextField>
+            
+            sx={{
+              "& .MuiInputBase-root": {
+                  "& input": {
+                      textAlign: "center"
+                  }
+              }
+            }}
+          ></TextField>
         </div>
-        <div className="input-box">
+        <div className="time-input-box">
           <label className="input-label" htmlFor="select-endTime">
-            여행 끝
+            끝시간
           </label>
-          <ExampleTextField
+          <TextField
             className="select-startTime"
             id="select-endTime"
             value={props.inputValues.endTime}
             type="time"
             onChange={handleChangeEnd}
+            variant="standard"
             InputProps={{ style: { fontSize: 20 } }}
-          ></ExampleTextField>
+            sx={{
+              "& .MuiInputBase-root": {
+                  "& input": {
+                      textAlign: "center"
+                  }
+              }
+            }}
+          ></TextField>
         </div>
       </div>
     </div>

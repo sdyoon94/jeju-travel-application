@@ -1,8 +1,10 @@
-import { TextField } from "@mui/material";
+import { TextField,InputAdornment } from "@mui/material";
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import "globalStyle.css";
 import "./MemberCnt.css";
+import {ReactComponent as Minus} from "assets/button/minus.svg"
+import {ReactComponent as Plus} from "assets/button/plus.svg"
 
 // 인원선택
 function MemberCnt(props) {
@@ -24,6 +26,7 @@ function MemberCnt(props) {
     const cnt = String(Number(props.inputValues.maxMemberCnt) + 1);
     if (cnt <= 8) {
       props.setInputValues(["maxMemberCnt", cnt]);
+      setShow(false);
     } else if (8 < cnt) {
       props.setInputValues(["maxMemberCnt", "8"]);
       setShow(true);
@@ -33,6 +36,7 @@ function MemberCnt(props) {
     const cnt = String(Number(props.inputValues.maxMemberCnt) - 1);
     if (1 <= cnt) {
       props.setInputValues(["maxMemberCnt", cnt]);
+      setShow(false);
     } else {
       props.setInputValues(["maxMemberCnt", "1"]);
       setShow(true);
@@ -49,19 +53,25 @@ function MemberCnt(props) {
         border: "none",
       },
     },
+    "& .MuiInputBase-root": {
+      "& input": {
+          textAlign: "center"
+      }
+    },
   });
 
   return (
     <div className="departure-container">
       <div className="departure-header">
-        <div className="mention" style={{ color: "#1E88E5" }}>
-          본인포함 몇명이서
+        <div className="inline-block subcontentfont-weight title-size text-center" >
+          <span className="color-1">몇명</span>
+          <span>이서</span>
         </div>
-        <div className="mention">떠나시나요?</div>
+        <div className=" subcontentfont-weight title-size text-center ">떠나시나요?</div>
       </div>
       <div className="departure-body">
         <div></div>
-        {show && <div className="warning">최소 1 최대 8 ㄱㄱ하셈</div>}
+        {show && <div className="warning2">최소 1 최대 8 ㄱㄱ하셈</div>}
         {/* <label className="input-box" for="member-cnt-input">
           <label className="input-label" htmlFor="select-departure">
             출발지
@@ -81,13 +91,13 @@ function MemberCnt(props) {
             ))}
           </ExampleTextField>
         </label> */}
-        <label className="input-box" htmlFor="member-cnt-input">
-          <label className="input-label" htmlFor="member-cnt-input">
+        <label className="membercnt-input-box" htmlFor="member-cnt-input">
+          {/* <label className="input-label" htmlFor="member-cnt-input">
             인원수
-          </label>
+          </label> */}
           <div className="control-member-cnt">
             <button className="member-cnt-btn" onClick={decrementCount}>
-              -
+              <Minus className="member-btn"></Minus>
             </button>
             <ExampleTextField
               id="member-cnt-input"
@@ -96,11 +106,11 @@ function MemberCnt(props) {
               value={props.inputValues.maxMemberCnt}
               onChange={handleChangeMemberCnt}
               // variant="standard"
-              InputProps={{ style: { fontSize: 20 } }}
-              autoFocus
+              InputProps={{ style: { fontSize: 20 }, endAdornment: <InputAdornment position="start"><div style={{fontSize: "20px",color:"black" }}>명</div></InputAdornment>}}
+              // autoFocus
             />
             <button className="member-cnt-btn" onClick={incrementCount}>
-              +
+              <Plus className="member-btn"></Plus>
             </button>
           </div>
         </label>

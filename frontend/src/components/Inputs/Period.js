@@ -15,7 +15,6 @@ function Period(props) {
   const bak = props.inputValues.periodInDays;
   const il = () => {
     if (props.inputValues.periodInDays) {
-      // console.log(props.inputValues.periodInDays);
       return Number(props.inputValues.periodInDays) + 1;
     } else {
       return "";
@@ -30,11 +29,8 @@ function Period(props) {
         setShow(true);
       } else if (value > 19) {
         props.setInputValues(["periodInDays", "19"]);
-        // alertMessage = "최대 20일까지 설정 할 수 있어요";
         setAlertMessage("최대 20일까지 설정 할 수 있어요");
-        console.log(alertMessage);
-        // setShow((prev) => !prev);
-        setShow(false);
+        setShow(true);
       } else if (value === "") {
         props.setInputValues(["periodInDays", null]);
         setShow(false);
@@ -47,15 +43,11 @@ function Period(props) {
         setShow(false);
       } else if (value > 20) {
         props.setInputValues(["periodInDays", "19"]);
-        // alertMessage = "최대 20일까지 설정 할 수 있어요";
         setAlertMessage("최대 20일까지 설정 할 수 있어요");
-        // setShow((prev) => !prev);
         setShow(true);
       } else {
         props.setInputValues(["periodInDays", ""]);
-        // alertMessage = "최소 2일 이상 가세요";
         setAlertMessage("최소 2일 이상 가세요");
-        // setShow((prev) => !prev);
         setShow(true);
       }
     }
@@ -64,22 +56,31 @@ function Period(props) {
   return (
     <div className="period-container">
       <div className="period-header">
-        <div className="mention" style={{ color: "#1E88E5" }}>
-          얼마동안
+        <div className="inline-block subcontentfont-weight title-size" >
+          <span>여행 </span>
+          <span className="color-1">기간 </span>
+          <span>정하기</span>
         </div>
-        <div className="mention">머무르나요?</div>
+        <div className="subcontentfont-weight content-size text-center gray">추후에 동행자와 함꼐 날짜를 정할 수 있어요</div>
       </div>
       <div className="period-body">
         <div className="period-input">
-          {show && <div className="warning">{alertMessage}</div>}
+          {show && <div className="warning2">{alertMessage}</div>}
           <TextField
             id="number-period"
             name="bak"
             type="number"
-            // value={props.inputValues.periodInDays}
             value={bak}
             onChange={handleChange}
-            variant="filled"
+            variant="standard"
+            InputProps={{style:{fontSize: 20, textAlign: "center"}}}
+            sx={{
+              "& .MuiInputBase-root": {
+                  "& input": {
+                      textAlign: "center"
+                  }
+              }
+            }}
           />
           <label className="input-label" htmlFor="number-period">
             박
@@ -88,22 +89,28 @@ function Period(props) {
             id="number-il"
             name="il"
             type="number"
-            // value={Number(props.inputValues.periodInDays) + 1}
             value={il()}
-            // ref={il()}
             onChange={handleChange}
-            variant="filled"
+            variant="standard"
+            InputProps={{style:{fontSize: 20, textAlign: "center"}}}
+            sx={{
+              "& .MuiInputBase-root": {
+                  "& input": {
+                      textAlign: "center"
+                  }
+              }
+            }}
           />
           <label className="input-label" htmlFor="select-period">
             일
           </label>
         </div>
 
-        <div className="period-body2">
+        {/* <div className="period-body2">
           <p className="body2-ment">
             추후에 동행자와 함께<br></br> 날짜를 정할 수 있습니다.
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
   );
