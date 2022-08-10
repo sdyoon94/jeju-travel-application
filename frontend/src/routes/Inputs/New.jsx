@@ -1,9 +1,13 @@
 // import { Link } from "react-router-dom"
-import * as React from "react";
+// import * as React from "react";
+import { useState,useEffect } from "react";
+
 import "globalStyle.css";
 import "routes/Inputs/NewCommon.css";
 import Button from "@mui/material/Button";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
+import Gamgyul from "components/Header/Gamgyul"
 
 import MemberCnt from "components/Inputs/MemberCnt";
 import Budget from "components/Inputs/Budget";
@@ -16,11 +20,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { setInputValues } from "store/modules/inputValuesSlice";
 import { createTravel } from "store/modules/inputValuesSlice";
 
-import { useState } from "react";
+
 
 function New() {
   const [show, setShow] = useState(false);
-  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const inputValues = useSelector((state) => {
     return state.inputValues;
@@ -98,7 +101,7 @@ function New() {
         navigate("/new/style");
       }
     } else if (params.input === "style") {
-      if (inputValues.style == [1, 1, 1, 1, 1, 1, 1].toString()) {
+      if (inputValues.style == [0, 0, 0, 0, 0, 0, 0].toString()) {
         setShow(true);
       } else {
         setShow(false);
@@ -117,8 +120,8 @@ function New() {
       } else {
         setShow(false);
 
-        // navigate('/loading')
-        console.log(dispatch(createTravel("123")));
+        navigate('/loading')
+        dispatch(createTravel("123"));
         console.log("next");
       }
     }
@@ -131,21 +134,24 @@ function New() {
   //   navigate(route);
   // };
 
-  React.useEffect(() => {
-    if (inputValues.maxMemberCnt === "") {
+  useEffect(() => {
+    // if (inputValues.maxMemberCnt === "") {
       navigate("/new/membercnt");
-    }
+    // }
   }, []);
 
   return (
     <div className="input-container">
-      <div className="input-content">{form}</div>
+      <div className="input-content">
+        <Gamgyul />
+        {form}
+      </div>
       <div className="input-footer">
         <Button className="input-btn" variant="contained" onClick={nextRoute}>
-          확인
+          다음
         </Button>
       </div>
-      {show && <div className="warning">입력값 다 넣으세요</div>}
+      {show && <div className="warning">필수 입력 값이에요 모두 입력 해주세요</div>}
     </div>
   );
 }
