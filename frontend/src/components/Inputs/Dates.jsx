@@ -18,9 +18,9 @@ function Calender({inputValues,setInputValues}) {
     // console.log(state);
     // console.log(state[0]);
     // console.log(format("","yyyy-MM-dd"));
-    console.log(format(inputValues.range[0].startDate, "yyyy-MM-dd"));
-    console.log(inputValues.range[0].startDate)
-    console.log(format(parseISO(""),"yyyy-MM-dd"))
+    // console.log(format(inputValues.range[0].startDate, "yyyy-MM-dd"));
+    // console.log(inputValues.range[0].startDate)
+    // console.log(format(parseISO(""),"yyyy-MM-dd"))
     // console.log(input,Values.range[0])
     // console.log(inputValues.range[0].startDate)
     // console.log(inputValues.range[0].endDate)
@@ -28,102 +28,71 @@ function Calender({inputValues,setInputValues}) {
     // console.log(inputValues.periodInDays)
 
   };
+  // const [startDate, setStartDate] = useState(inputValues.range[0].startDate)
+  // const [endDate, setEndDate] = useState(inputValues.range[0].endDate)
+  // const [periodInDays, setPeriodInDays] = useState(inputValues.periodInDays)
+
 
   const handleChange = (item) => {
-    const endDate = item.selection.endDate
+
     const startDate = item.selection.startDate
-    const periodInDays = differenceInDays(endDate, startDate)
     const limitEndDate = {
       startDate: startDate,
       endDate: addDays(startDate, 19),
       key: "selection",
     }
-    if (startDate == endDate) {
-      setInputValues(['range', [item.selection]])
-      setInputValues(['periodInDays',''])
-      setWarningMessage("최소1박2일은가라") 
+    
+    setInputValues(['range',[item.selection]])
+    const periodInDays = differenceInDays(item.selection.endDate, item.selection.startDate )
+    if (periodInDays >= 19) {
+      setWarningMessage("19일 이상 못감")
       setShow(true)
-      console.log(inputValues.periodInDays )
-    } else if (periodInDays >= 20) {
-      setInputValues(['range', [limitEndDate]])
-      setInputValues(['periodInDays','19'])  
-      // setInputValues(['periodInDays',String(periodInDays)])  
-      setWarningMessage("최대 20일까지만 가라") 
-      console.log(inputValues.periodInDays )
-
-      // console.log(inputValues.periodInDays )
+      setInputValues(['range',[limitEndDate]])
+      setInputValues(['periodInDays','19'])
+    } else if (periodInDays == 0) {
+      setWarningMessage("최소 1박 2일은 가야죠")
       setShow(true)
-    } else {
-      // console.log(differenceInDays(endDate,startDate) )
-      setInputValues(['range',[item.selection]])
-      setInputValues(['periodInDays', String(periodInDays)])
-      console.log(inputValues.periodInDays )
-
-
-
-
+      setInputValues(['periodInDays',""])
+    } else { 
       setShow(false)
-      // console.log(inputValues.periodInDays )
+      setInputValues(['periodInDays',String(periodInDays)])
     }
 
   }
-  
+
   return (
     <div className="dates-container">
-      <button onClick={abc}>button</button>
+      {/* <button onClick={abc}>button</button> */}
       <div className="dates-header">
-        <div className="mention">
-          여행
-          <div style={{ color: "#1E88E5", display: "inline-block" }}>
-          기간
-          </div>
-          정하기
+      <div className="inline-block subcontentfont-weight title-size" >
+          <span>여행 </span>
+          <span className="color-1">기간 </span>
+          <span>정하기</span>
         </div>
-        <div className="mention2">
-          여행기간은 최대 20일 이에요ㅠ
+        <div className="subcontentfont-weight content-size text-center gray">
+          여행 기간은 최대 20일이에요
         </div>
       </div>
-      <div className="dates-body">
-            <DateRange
-        locale={ko}
-        // onChange={(item) => setInputValues(['range',[item.selection]])}
-        onChange={(item)=> handleChange(item)}
-        showSelectionPreview={true}
-        moveRangeOnFirstSelection={false}
-        months={1}
-        ranges={inputValues.range}
-        showMonthArrow={false}
-        direction="vertical"
-        scroll={{ enabled: true }}
-        minDate={new Date()}
-        // maxDate={addDays(state[0].startDate, 30)}
-        showDateDisplay={false}
+      <div className="adates-body">
+        <DateRange
+          locale={ko}
+          // onChange={(item) => setInputValues(['range',[item.selection]])}
+          onChange={(item)=> handleChange(item)}
+          showSelectionPreview={false}
+          moveRangeOnFirstSelection={false}
+          months={1}
+          ranges={inputValues.range}
+          showMonthArrow={false}
+          direction="vertical"
+          scroll={{ enabled: true}}
+          minDate={new Date()}
+          // maxDate={addDays(state[0].startDate, 30)}
+          showDateDisplay={false}
+          color={"#1E88E5"}
         />
       </div>
-      {show && <div className="warning">{warningMessage}</div>}
+      {show && <div className="warning2">{warningMessage}</div>}
       </div>
-    
-
-
-    // <div>
-    //   <button onClick={abc}>button</button>
-
-    //   <DateRange
-    //     locale={ko}
-    //     // onChage={item => console.log(item)}
-    //     onChange={(item) => setState([item.selection])}
-    //     showSelectionPreview={true}
-    //     moveRangeOnFirstSelection={false}
-    //     months={1}
-    //     ranges={state}
-    //     showMonthArrow={false}
-    //     direction="vertical"
-    //     scroll={{ enabled: true }}
-    //     minDate={new Date()}
-    //     maxDate={addDays(state[0].startDate, 30)}
-    //     showDateDisplay={false}
-    //     />
-    // </div>
   );
 }
 

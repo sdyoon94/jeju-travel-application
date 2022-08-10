@@ -20,19 +20,15 @@ function Budget(props) {
   return (
     <div className="budget-container">
       <div className="budget-header">
-        <div className="mention">
-          이번 여행의{" "}
-          <div style={{ color: "#1E88E5", display: "inline-block" }}>
-            예상 경비
-          </div>
-          를 말해주세요
+      <div className="inline-block subcontentfont-weight title-size" >
+          <span>여행의 </span>
+          <span className="color-1">경비</span>
+          <span>는 얼마인가요?</span>
         </div>
-        <div className="mention2">항공권과 이동수단 비용은 제외해주세요</div>
+        <div className="subcontentfont-weight content-size text-center gray">항공권과 이동수단은 비용에서 제외 해주세요</div>
       </div>
       <div className="budget-body">
-        <div className="budget-input">
-          <div>여행경비</div>
-          <div className="budget-input-body">
+        <div className="budget-input">        
             <TextField
               id="number-duration"
               name="bak"
@@ -40,14 +36,21 @@ function Budget(props) {
               value={props.inputValues.budget}
               // inputProps={{ minDuration, maxDuration }}
               onChange={handleChange}
-              variant="filled"
+              variant="standard"
+              InputProps={{style:{fontSize: 20, textAlign: "center"}}}
+              sx={{
+              "& .MuiInputBase-root": {
+                  "& input": {
+                      textAlign: "center"
+                  }
+              }
+            }}
             />
             <label className="input-label" htmlFor="number-duration">
               만원
             </label>
-          </div>
         </div>
-        {show && <div className="warning">경비는 최대 9999만원이에요</div>}
+        {show && <div className="warning2">경비는 최대 9999만원이에요</div>}
       </div>
     </div>
     

@@ -11,7 +11,7 @@ import { ReactComponent as Activity } from "assets/styles/activity.svg";
 // 여행 스타일 선택
 function Style({ inputValues, setInputValues }) {
   const setSvg = (i) => {
-    return inputValues.style[i] ? "#8C8C8C" : "#1E88E5";
+    return inputValues.style[i] ? "#1565C0" : "#8C8C8C";
   };
 
   const styles = [
@@ -63,21 +63,22 @@ function Style({ inputValues, setInputValues }) {
 
   const setButton = (i) => {
     return {
-      border: inputValues.style[i] ? "2px solid #8C8C8C" : "2px solid #1E88E5",
-      color: inputValues.style[i] ? "#8C8C8C" : "#1E88E5",
+      border: inputValues.style[i] ? "2px solid #1565C0" :"2px solid #8C8C8C",
+      color: inputValues.style[i] ? "#1565C0" : "#8C8C8C",
     };
   };
 
   return (
     <div className="style-container">
       <div className="style-header">
-        <div className="mention" style={{ color: "#1E88E5" }}>
-          어떤 여행을 할까요?
+        <div className="inline-block subcontentfont-weight title-size">
+          <span className="color-1" >어떤</span>
+          <span> 여행을 할까요?</span>
         </div>
-        <div className="mention2">취향에 맞는 일정과 장소를 추천해드려요</div>
+        <div className="subcontentfont-weight content-size text-center gray">취향에 맞는 일정과 장소를 추천드려요!</div>
       </div>
       <div className="style-body">
-        <div className="style-title">여행 스타일~</div>
+        <div className="subtitle-size">여행 스타일~</div>
         <div className="style-select-btns">
           {styles.map((style, i) => {
             return (

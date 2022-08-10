@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom"
+
 function gamgyul() {
   return (
-    <div className="logo">
+    <Link className="logo" style={{ textDecoration: "none", color:"black" }} to={'/'}>
       <span>놀멍쉬멍</span>
-      <img className="gamgyul" alt="gamgyulImg" src="icons/gamgyul.jpg" />
-    </div>
+      <img className="gamgyul" alt="gamgyulImg" src="/icons/gamgyul.jpg" />
+    </Link>
   )
 }
 
