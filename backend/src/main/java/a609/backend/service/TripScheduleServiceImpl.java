@@ -5,14 +5,17 @@ import a609.backend.db.entity.Trip;
 import a609.backend.db.entity.Schedule;
 import a609.backend.db.repository.PlaceRepository;
 import a609.backend.db.repository.ScheduleRepository;
+import a609.backend.db.repository.TripRepository;
 import a609.backend.payload.response.ScheduleDTO;
 import a609.backend.util.Algorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -26,6 +29,10 @@ public class TripScheduleServiceImpl implements TripScheduleService{
 
     @Autowired
     PlaceRepository placeRepository;
+
+    @Autowired
+    TripRepository tripRepository;
+
 
 
     @Override
@@ -69,10 +76,7 @@ public class TripScheduleServiceImpl implements TripScheduleService{
 
     }
 
-    @Override
-    public void updateSchedule() {
 
-    }
 
     @Override
     public List<ScheduleDTO> showTripSceduleList(Long tripId, int day) {
@@ -86,4 +90,26 @@ public class TripScheduleServiceImpl implements TripScheduleService{
         return scheduleList;
     }
 
+    @Override
+    @Transactional
+    public void createSchedule(Long tripId, Schedule schedule) {
+        schedule.setTrip(tripRepository.findOneByTripId(tripId));
+        scheduleRepository.save(schedule);
+    }
+
+    @Override
+    @Transactional
+    //이거 스케쥴 아이디로 조회할지 아니면 어떻게 할지 고민을 좀 해봐야된다
+    public void updateSchedule(Long ScheduleId, Schedule schedule) {
+        Schedule originSchedule = scheduleRepository.findOneByScheduleId(ScheduleId);
+        originSchedule.setPlaceName(schedule.getPlaceName());
+        scheduleRepository.save(originSchedule);
+        //save 없어도 되나
+
+    }
+
+    @Override
+    public void deleteSchedule(Long scheduleId) {
+        scheduleRepository.deleteById(scheduleId);
+    }
 }

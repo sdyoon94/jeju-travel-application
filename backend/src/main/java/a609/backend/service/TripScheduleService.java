@@ -9,7 +9,11 @@ import java.util.List;
 public interface TripScheduleService {
     void registerSchedule(Trip trip,int day);
 
-    void updateSchedule();
+    void updateSchedule(Long ScheduleId, Schedule schedule);
 
     List<ScheduleDTO> showTripSceduleList(Long tripId, int day);
+
+    void createSchedule(Long tripId, Schedule schedule);
+
+    void deleteSchedule(Long scheduleId);
 }

@@ -1,18 +1,21 @@
 package a609.backend.db.repository;
 
-import a609.backend.db.entity.Place;
 import a609.backend.db.entity.Schedule;
-import a609.backend.db.entity.Trip;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule,Long> {
 
     Schedule save(Schedule schedule);
+
+    Schedule findOneByScheduleId(Long scheduleId);
+
+    void deleteById(Long ScheduleId);
 
     // 각 여행의 일자별로 여행을 뽑아옴;
     List<Schedule> findByTripTripIdAndDayOrderByTurn(Long tripId, Integer day);
