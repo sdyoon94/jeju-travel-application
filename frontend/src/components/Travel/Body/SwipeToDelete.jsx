@@ -35,7 +35,6 @@ function SwipeToDelete({ place, placeIdx, scheduleIdx, startTime, timeReq, timeR
   const onDragStart = (clientX) => {
     draggedRef.current = true
     dragStartXRef.current = clientX
-    // listElementRef.current.className = "ListItem"
     requestAnimationFrame(updatePosition)
   }
   
