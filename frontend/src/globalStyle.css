@@ -101,8 +101,8 @@ button {
 .logo {
   display: flex;
   align-items: center;
-  position: absolute;
-  top: 9vw;
+  position: static;
+  /* top: 3vh; */
   left: 10vw;
 }
 
