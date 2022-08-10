@@ -4,7 +4,7 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import New from "./routes/Inputs/New";
-// import App from './App'
+import App from './App'
 import Travel from "routes/Travel";
 import Home from "./routes/Home";
 import TravelEdit from "routes/TravelEdit";
@@ -21,6 +21,7 @@ import Loading from "routes/Loading";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
+    <App>
     <BrowserRouter>
       <Routes>
         {/* Private route */}
@@ -40,6 +41,7 @@ root.render(
         <Route path="join/:travelUid" element={<TravelJoin />} />
       </Routes>
     </BrowserRouter>
+    </App>
   </Provider>
 );
 

@@ -3,7 +3,7 @@ import * as React from "react";
 import "globalStyle.css";
 import "routes/Inputs/NewCommon.css";
 import Button from "@mui/material/Button";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import MemberCnt from "components/Inputs/MemberCnt";
 import Budget from "components/Inputs/Budget";
@@ -16,9 +16,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { setInputValues } from "store/modules/inputValuesSlice";
 import { createTravel } from "store/modules/inputValuesSlice";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function New() {
+
+  function setScreenSize() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  }
+
+  useEffect(() => {
+    setScreenSize();
+  });
+
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
