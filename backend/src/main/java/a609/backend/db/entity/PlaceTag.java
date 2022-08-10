@@ -1,5 +1,6 @@
 package a609.backend.db.entity;
 
+
 import lombok.Getter;
 import lombok.Setter;
 
