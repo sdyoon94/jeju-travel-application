@@ -81,6 +81,7 @@ public class TripServiceImpl implements TripService{
     public TripInfoDTO showTripList(String token) {
         List<UserTrip> userTripList = userTripRepository.findByUserKakaoId((Long)jwtUtil.parseJwtToken(token).get("id"));
         TripInfoDTO tripInfoDTO = new TripInfoDTO();
+        tripInfoDTO.setUserUid((Long) jwtUtil.parseJwtToken(token).get("id"));
         List<FindTripDTO> tripList = new ArrayList<>();
         List<UserDTO> user = new ArrayList<>();
         TripInfoDTO tripInfoDTO1 = new TripInfoDTO();
@@ -110,7 +111,7 @@ public class TripServiceImpl implements TripService{
 
 
             tripList.add(findTripDTO);
-            tripInfoDTO.setUserUid((Long) jwtUtil.parseJwtToken(token).get("id"));
+//            tripInfoDTO.setUserUid((Long) jwtUtil.parseJwtToken(token).get("id"));
             tripInfoDTO.setTripList(tripList);
 //            tripInfoDTO=tripInfoDTO1;
             ////
@@ -127,13 +128,14 @@ public class TripServiceImpl implements TripService{
         //방장권한도 줘야됨
         Trip savedTrip = tripRepository.save(trip1);
 
+        UserTrip userTrip = new UserTrip();
+        userTrip.setTrip(savedTrip);
+        userTrip.setUser(user);
+
         for(int i=0;i<savedTrip.getPeriodInDays();i++){
             tripScheduleService.registerSchedule(savedTrip,i);
         }
 
-        UserTrip userTrip = new UserTrip();
-        userTrip.setTrip(savedTrip);
-        userTrip.setUser(user);
         return userTripRepository.save(userTrip).getTrip().getTripId().toString();
 
 
