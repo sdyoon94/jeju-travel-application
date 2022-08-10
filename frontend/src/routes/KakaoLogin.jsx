@@ -2,7 +2,7 @@ import "./Login.css"
 import "globalStyle.css"
 
 
-const URL = "http://i7a609.p.ssafy.io:8080/oauth2/authorization/kakao"
+const URL = "https://i7a609.p.ssafy.io/oauth2/authorization/kakao"
 
 function KakaoLogin() {
 
