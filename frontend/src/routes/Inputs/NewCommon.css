@@ -14,6 +14,7 @@
   align-items: center;
   grid-template-columns: 80vw;
   justify-content: center;
+  grid-template-rows: 2fr 15fr;
 }
 
 .input-footer{
@@ -58,7 +59,7 @@
   bottom: 12vh;
   left: 50%;
   transform: translate(-50%, -50%);  
-  font-size: 1vw;
+  font-size: 2vw;
   /* font-weight: 500; */
   line-height: 3vw;
   color:rgb(233, 91, 202)

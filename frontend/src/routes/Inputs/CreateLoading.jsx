@@ -11,7 +11,7 @@ function CreateLoading() {
   
   useEffect(()=>{
     if (travelUid) {
-      navigate(`/travel/${travelUid}`)
+      navigate(`/travel/${travelUid}`,{ replace: true})
     } else {
       return;
     }
