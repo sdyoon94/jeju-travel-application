@@ -8,9 +8,8 @@ import Exclamation from "./Exclamation"
 import { convert } from "components/DateTime/time"
 import "./Place.css"
 import "globalStyle.css"
-import { useSelector } from "react-redux"
 import TimeReq from "./TimeReq"
-// import { useState } from "react"
+
 
 function Place({ place, placeIdx, scheduleIdx, startTime, timeReq, timeReqs, setTimeReqs, directionError, isFirst, isLast, hold, vehicle }) {
 	const navigate = useNavigate()

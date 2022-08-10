@@ -6,9 +6,11 @@ import Place from "components/Travel/Body/Place"
 
 import { add, convert, revert } from "components/DateTime/time"
 import { fetchDirection } from "store/modules/directionSlice"
-
 import "./Schedule.css"
+// import SwipeToDelete from 'react-swipe-to-delete-component';
 
+// import 'react-swipe-to-delete-component/dist/swipe-to-delete.css';
+import SwipeToDelete from "./SwipeToDelete"
 const grid = 6
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: "none",
@@ -77,6 +79,7 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 			route: travel.schedules[scheduleIdx].slice(1), 
 			vehicle
 		})
+	  // eslint-disable-next-line
 	}, [ travel.schedules[scheduleIdx], vehicle ])
 
 	useEffect(() => {
@@ -94,6 +97,7 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 		}
 
 		setStartTimes(startTimes_)
+	  // eslint-disable-next-line
 	}, [ timeReqs ])
 
 	const reorder = (list, startIndex, endIndex) => {
@@ -183,7 +187,7 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 												provided.draggableProps.style
 											)}
 										>
-											<Place
+											<SwipeToDelete
 												key={index}
 												place={place}
 												placeIdx={index+1}
