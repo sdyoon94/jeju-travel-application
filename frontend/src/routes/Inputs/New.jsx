@@ -6,8 +6,8 @@ import "globalStyle.css";
 import "routes/Inputs/NewCommon.css";
 import Button from "@mui/material/Button";
 import { useNavigate, useParams } from "react-router-dom";
-
 import Gamgyul from "components/Header/Gamgyul"
+
 
 import MemberCnt from "components/Inputs/MemberCnt";
 import Budget from "components/Inputs/Budget";
@@ -21,8 +21,17 @@ import { setInputValues } from "store/modules/inputValuesSlice";
 import { createTravel } from "store/modules/inputValuesSlice";
 
 
-
 function New() {
+
+  function setScreenSize() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  }
+
+  useEffect(() => {
+    setScreenSize();
+  });
+
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
   const inputValues = useSelector((state) => {

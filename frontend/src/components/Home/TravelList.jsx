@@ -14,7 +14,7 @@ function TravelList() {
   }, [])
 
   const travels = useSelector((state => state.travelList.travelList))
-  const nickName = useSelector((state => state.auth.nickname))
+  const nickName = useSelector((state => state.auth.nickname)) || sessionStorage.getItem("nickname")
 
 
   return (
