@@ -40,4 +40,7 @@ public class Schedule {
     @Column(name="TURN")
     private Integer turn;
 
+    @Column(name="IS_CUSTOM")
+    private Boolean isCustom;
+
 }

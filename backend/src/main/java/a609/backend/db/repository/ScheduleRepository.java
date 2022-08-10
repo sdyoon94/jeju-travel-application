@@ -4,9 +4,12 @@ import a609.backend.db.entity.Place;
 import a609.backend.db.entity.Schedule;
 import a609.backend.db.entity.Trip;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+
+@Repository
 public interface ScheduleRepository extends JpaRepository<Schedule,Long> {
 
     Schedule save(Schedule schedule);
