@@ -82,7 +82,7 @@ function SwipeToDelete({ place, placeIdx, scheduleIdx, startTime, timeReq, timeR
   const onDragEnd = () => {
     if (draggedRef.current) {
       draggedRef.current = false;
-      const threshold = 0.55;
+      const threshold = 0.5;
 
       if (
         leftRef.current <
@@ -106,14 +106,14 @@ function SwipeToDelete({ place, placeIdx, scheduleIdx, startTime, timeReq, timeR
   const [ deleteStyle, setDeleteStyle ] = useState({
     position: "absolute",
     width: "0",
-    height: "4.5vh",
+    height: "5vh",
     zIndex: "-1",
     color: "white",
     top: "2vh",
     right: "1vw",
     borderRadius: "5px",
     textAlign: "end",
-    lineHeight: "4.5vh"
+    lineHeight: "5vh",
   })
 
 

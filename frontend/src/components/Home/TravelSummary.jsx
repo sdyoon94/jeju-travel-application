@@ -19,10 +19,7 @@ function TripSummary({travelUid, idx, title, startDate, period, members, travelL
       </div>
       <span className="subcontent-size travel-list-date inline-block">{startDate}~22.07.28</span>
       {travelLength === 1 && <hr className="hr-margin" />}
-      {idx === travelLength - 1
-      ? null
-      : <hr className="hr-margin" />
-      }
+      <hr className="hr-margin" />
     </>
   )
 }
