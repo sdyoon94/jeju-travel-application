@@ -1,5 +1,5 @@
 :root {
-  --vh: 100%;
+  /* --vh: 100%; */
   height: calc(var(--vh, 1vh) * 100);
 }
 

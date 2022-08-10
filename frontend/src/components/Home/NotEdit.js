@@ -7,8 +7,8 @@ import { Avatar, Box } from "@mui/material"
 function NotEdit ({ editStart, setopen }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const nickname = useSelector((state) => state.auth.nickname)
-  const profileImg = useSelector((state) => state.auth.profileImg)
+  const nickname = useSelector((state) => state.auth.nickname) || sessionStorage.getItem("nickname")
+  const profileImg = useSelector((state) => state.auth.profileImg) || sessionStorage.getItem("image_path")
 
   const handleClick = () => {
     dispatch(logout())
