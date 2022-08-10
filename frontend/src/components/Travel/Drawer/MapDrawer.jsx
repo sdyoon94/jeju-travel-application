@@ -1,12 +1,9 @@
 import { CircularProgress, Drawer } from "@mui/material"
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
-// import { ReactComponent as MapMarker } from "assets/map-marker.svg"
-import { ReactComponent as MapIcon } from "assets/map.svg"
-import { getEndDate } from "components/DateTime/date"
-
 import { useCallback, useEffect, useState } from "react"
-import { useSelector } from "react-redux"
 import { format, addDays } from "date-fns"
+
+import { ReactComponent as MapIcon } from "assets/map.svg"
 
 import "./MapDrawer.css"
 
