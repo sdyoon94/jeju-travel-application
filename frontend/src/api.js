@@ -20,15 +20,21 @@ const api = {
     }
 
   },
+  travel: {
+    createTravelInfoUrl(travelId) {
+      return `${HOST}trip/showTripInfo/${travelId}`
+    },
+    createTravelScheduleUrl(travelId, day) {
+      return `${HOST}schedule?tripId=${travelId}&day=${day}`
+    },
+    getTravelInfoUrl() {
+      return HOST + TRAVEL + "showTripList"
+    }
+  },
   inputs: {
     createTravelUrl() {
       return HOST + "trips"
     },
-  },
-  travel: {
-    getTravelInfoUrl() {
-      return HOST + TRAVEL + "showTripList"
-    }
   }
 };
 
