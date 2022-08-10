@@ -59,7 +59,7 @@ public class UserController {
             status = HttpStatus.OK;
         } else {
             resultMap.put("message", "잘못된 토큰");
-            status = HttpStatus.OK;
+            status = HttpStatus.BAD_REQUEST;
         }
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
