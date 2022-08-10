@@ -11,7 +11,7 @@ const initialState = {
   startDate: "",
   endDate: "",
   periodInDays: "",
-  style: [1, 1, 1, 1, 1, 1, 1],
+  style: [0, 0, 0, 0, 0, 0, 0],
   budget: "",
   startTime: "09:00",
   endTime: "10:00",
@@ -108,9 +108,11 @@ const inputValuesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createTravel.fulfilled, (state, { payload }) => {
-        state.inputValues.travelUid = payload.tripId
+        console.log(payload);
+        console.log(payload.tripId)
+        console.log(state)
+        state.travelUid = payload.tripId
         // console.log(state);
-        // console.log(payload.tripId);
         // const travelId = payload.tripId;
         // const navigate = useNavigate();
         // navigate(`/travel/${travelId}`);

@@ -1,5 +1,5 @@
 .input-container {
-  height:95vh;
+  height:100vh;
   display:grid;
   gap:1rem;
   grid-template-rows: 10fr 2fr;
@@ -39,12 +39,12 @@
 .warning {
   position: absolute;
   z-index:1;
-  bottom: 13vh;
+  bottom: 10vh;
   left: 50%;
   transform: translate(-50%, -50%);  
-  font-size: 2.5vw;
+  font-size: 2vw;
   /* font-weight: 500; */
-  line-height: 4vw;
+  line-height: 3vw;
   color:rgb(233, 91, 202)
 }
 
@@ -55,11 +55,11 @@
 .warning2 {
   position: absolute;
   z-index:1;
-  bottom: 15vh;
+  bottom: 12vh;
   left: 50%;
   transform: translate(-50%, -50%);  
-  font-size: 2.5vw;
+  font-size: 1vw;
   /* font-weight: 500; */
-  line-height: 4vw;
+  line-height: 3vw;
   color:rgb(233, 91, 202)
 }

@@ -2,7 +2,8 @@
   display: grid;
   grid-template-rows: 4fr 7fr;
   height:100%;
-  justify-content: center;
+  justify-content: stretch;
+  
 }
 
 /* #standard-number {
@@ -23,20 +24,25 @@
 /****** body ******/
 .adates-body {
   display:grid;
-  justify-content: center;
+  justify-content: stretch;
   align-items: center;
-  font-size: 2vw !important;
   /* border : 2px solid gray; */
 }
 
 .adates-body > div {
   border : 2px solid gray;
   border-radius: 10px;
-  padding: 2.5vh 0;
+  padding: 1vh 0;
+  width: 100%;
+  display: grid;
+  justify-content: stretch;
 }
 
 .adates-body div {
-  font-size: 2.7vw;
+  font-size: 2.6vw;
+  /* font-size : 1.2vh;
+  justify-self: stretch;
+  justify-content: center; */
 }
 /* .dates-input {
   display: grid;

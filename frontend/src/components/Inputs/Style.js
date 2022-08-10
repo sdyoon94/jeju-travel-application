@@ -11,7 +11,7 @@ import { ReactComponent as Activity } from "assets/styles/activity.svg";
 // 여행 스타일 선택
 function Style({ inputValues, setInputValues }) {
   const setSvg = (i) => {
-    return inputValues.style[i] ? "#8C8C8C" : "#1565C0";
+    return inputValues.style[i] ? "#1565C0" : "#8C8C8C";
   };
 
   const styles = [
@@ -63,8 +63,8 @@ function Style({ inputValues, setInputValues }) {
 
   const setButton = (i) => {
     return {
-      border: inputValues.style[i] ? "2px solid #8C8C8C" : "2px solid #1565C0",
-      color: inputValues.style[i] ? "#8C8C8C" : "#1565C0",
+      border: inputValues.style[i] ? "2px solid #1565C0" :"2px solid #8C8C8C",
+      color: inputValues.style[i] ? "#1565C0" : "#8C8C8C",
     };
   };
 
