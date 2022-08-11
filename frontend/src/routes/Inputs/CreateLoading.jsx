@@ -1,6 +1,7 @@
 import { useState, useEffect,} from "react"
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux"
+import './CreateLoading.css'
 
 function CreateLoading() {
   
@@ -8,10 +9,16 @@ function CreateLoading() {
     return state.inputValues.travelUid
   })
   const navigate = useNavigate()
+
+  const [mention, setMention] = useState(`일정을 생성중이에요\n잠시만 기다려주세요`)
   
   useEffect(()=>{
-    if (travelUid) {
+    if (typeof travelUid === 'number') {
       navigate(`/travel/${travelUid}`,{ replace: true})
+    
+    } else if (typeof travelUid === 'string') {
+      setMention(travelUid)
+    
     } else {
       return;
     }
@@ -19,8 +26,8 @@ function CreateLoading() {
 
   return (
   
-  <div>
-    <h1>로딩중</h1>
+  <div className="loading">
+    <div className="loading-mention text-center title-size title-weight">{mention}</div>
   </div>
   
   

@@ -17,7 +17,7 @@ import Period from "components/Inputs/Period";
 import Time from "components/Inputs/StartTime";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setInputValues } from "store/modules/inputValuesSlice";
+import { setInputValues, resetInputValues } from "store/modules/inputValuesSlice";
 import { createTravel } from "store/modules/inputValuesSlice";
 
 
@@ -132,6 +132,8 @@ function New() {
         navigate('/loading')
         dispatch(createTravel("123"));
         console.log("next");
+        dispatch(resetInputValues())
+        console.log("state리셋")
       }
     }
   };
@@ -144,9 +146,7 @@ function New() {
   // };
 
   useEffect(() => {
-    // if (inputValues.maxMemberCnt === "") {
-      navigate("/new/membercnt");
-    // }
+    navigate("/new/membercnt");
   }, []);
 
   return (
