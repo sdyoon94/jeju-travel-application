@@ -20,7 +20,6 @@ export const getTravelInfo = createAsyncThunk(
       })
       return response.data
     } catch (err) {
-      console.log(err)
       return thunkAPI.rejectWithValue()
     }
   }
