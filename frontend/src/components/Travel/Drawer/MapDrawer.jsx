@@ -53,8 +53,8 @@ const buildTags = (tag) => {
 
 function MapDrawer({ travel, scheduleIdx }) {
 
-    const day = scheduleIdx + 1
-
+    
+    const [ day, setDay ] = useState(scheduleIdx + 1)
     const [ route, setRoute ] = useState(travel.schedules[scheduleIdx].slice(1))
     const [ date, setDate ] = useState(
         format(
@@ -82,6 +82,7 @@ function MapDrawer({ travel, scheduleIdx }) {
     }, [ travel.schedules[scheduleIdx], scheduleIdx ])
 
     useEffect(() => {
+        setDay(scheduleIdx + 1)
         setDate(
             format(
                 addDays(
