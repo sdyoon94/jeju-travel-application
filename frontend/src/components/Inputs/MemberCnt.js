@@ -58,6 +58,10 @@ function MemberCnt(props) {
           textAlign: "center"
       }
     },
+    "& .MuiInputBase-input.Mui-disabled": {
+      WebkitTextFillColor: "rgb(0 0 0)",
+      color: "rgb(0 0 0)",
+    }
   });
 
   return (
@@ -108,6 +112,7 @@ function MemberCnt(props) {
               // variant="standard"
               InputProps={{ style: { fontSize: 20 }, endAdornment: <InputAdornment position="start"><div style={{fontSize: "20px",color:"black" }}>명</div></InputAdornment>}}
               // autoFocus
+              disabled
             />
             <button className="member-cnt-btn" onClick={incrementCount}>
               <Plus className="member-btn"></Plus>
