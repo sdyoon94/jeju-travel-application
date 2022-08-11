@@ -53,9 +53,8 @@ const buildTags = (tag) => {
 
 function MapDrawer({ travel, scheduleIdx }) {
 
-    
     const [ day, setDay ] = useState(scheduleIdx + 1)
-    // const [ route, setRoute ] = useState(travel.schedules[scheduleIdx].slice(1))
+    const [ route, setRoute ] = useState(travel.schedules[scheduleIdx])
     const [ date, setDate ] = useState(
         format(
             addDays(
@@ -77,9 +76,9 @@ function MapDrawer({ travel, scheduleIdx }) {
         setIsDrawerOpened(false)
     }
 
-    // useEffect(() => {
-    //     setRoute(travel.schedules[scheduleIdx].slice(1))
-    // }, [ travel.schedules[scheduleIdx], scheduleIdx ])
+    useEffect(() => {
+        setRoute(travel.schedules[scheduleIdx])
+    }, [ travel.schedules[scheduleIdx], scheduleIdx ])
 
     useEffect(() => {
         setDay(scheduleIdx + 1)
@@ -188,19 +187,10 @@ function MapDrawer({ travel, scheduleIdx }) {
 
     return (
         <>
-            {/* <MapMarker
-                className="map-marker"
-                onClick={toggleDrawer} 
-            /> */}
             <MapIcon
                 className="map-marker"
                 onClick={toggleDrawer} 
             />
-            {/* <img 
-                className="map-marker"
-                src="icons/maps.png"
-                alt="지도"
-            /> */}
             <Drawer
                 anchor={"bottom"}
                 open={isDrawerOpened}
@@ -210,7 +200,7 @@ function MapDrawer({ travel, scheduleIdx }) {
                 { loadError ? 
                     <div>현재 지도 API 호출이 원활하지 않습니다. </div> :
                     isLoaded ? 
-                        <Map route={travel.schedules[scheduleIdx]} markers={markers} /> : 
+                        <Map route={route} markers={markers} /> : 
                         <CircularProgress />
                 }
                 <PlaceInfo />
