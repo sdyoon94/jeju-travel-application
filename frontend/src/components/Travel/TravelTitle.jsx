@@ -39,7 +39,7 @@ function TravelTitle({ travel }) {
         if (travel.info.style) {
             const styles_ = []
             for (let i = 0; i < STYLE_COUNT; i++) {
-                if (String(travel.info.style).charAt(i) === '0') {
+                if (String(travel.info.style).charAt(i) === '1') {
                     styles_.push(STYLE_FORMAT[i])
                 }
             }

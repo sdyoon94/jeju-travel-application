@@ -101,9 +101,15 @@ button {
 .logo {
   display: flex;
   align-items: center;
-  position: static;
-  /* top: 3vh; */
+  position: absolute;
+  top: 9vw;
   left: 10vw;
+}
+
+@media screen and (max-height: 500px) {
+  .logo {
+    display:none;
+  }
 }
 
 

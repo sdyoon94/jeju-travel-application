@@ -14,7 +14,6 @@
   align-items: center;
   grid-template-columns: 80vw;
   justify-content: center;
-  grid-template-rows: 2fr 15fr;
 }
 
 .input-footer{
