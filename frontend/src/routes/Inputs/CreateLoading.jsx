@@ -24,6 +24,20 @@ function CreateLoading() {
     }
   },[travelUid])
 
+  useEffect(() => {
+    if (typeof travelUid === "string") {
+      if (isNaN(travelUid)) {
+        setMention(travelUid)
+      
+      } else if (!isNaN(travelUid)) {
+        navigate(`/travel/${travelUid}`,{ replace: true})  
+        
+      }
+    } else {
+      return;
+    }
+  },[travelUid])
+
   return (
   
   <div className="loading">

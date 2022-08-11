@@ -110,7 +110,7 @@ function MemberCnt(props) {
               value={props.inputValues.maxMemberCnt}
               onChange={handleChangeMemberCnt}
               // variant="standard"
-              InputProps={{ style: { fontSize: 20 }, endAdornment: <InputAdornment position="start"><div style={{fontSize: "20px",color:"black" }}>명</div></InputAdornment>}}
+              InputProps={{ style: { fontSize: 20 }, endAdornment: <InputAdornment position="center"><div style={{fontSize: "20px",color:"black" }}>명</div></InputAdornment>}}
               // autoFocus
               disabled
             />
