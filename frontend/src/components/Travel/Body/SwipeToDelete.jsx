@@ -7,12 +7,12 @@ import Place from "./Place"
 function SwipeToDelete({ place, placeIdx, scheduleIdx, startTime, timeReq, timeReqs, setTimeReqs, directionError, isFirst, isLast, hold, vehicle }) {
   const listElementRef = useRef()
   const wrapperRef = useRef()
-  console.log(place)
   const dragStartXRef = useRef(0)
   const dragStartYRef = useRef(0)
   const leftRef = useRef(0)
   const yRef = useRef(0)
   const draggedRef = useRef(false)
+  
 
   useEffect(() => {
     window.addEventListener("mouseup", onDragEndMouse)
@@ -47,7 +47,7 @@ function SwipeToDelete({ place, placeIdx, scheduleIdx, startTime, timeReq, timeR
     if (draggedRef.current) {
       requestAnimationFrame(updatePosition)
       const width = -leftRef.current - 10
-      if (width > 0 && Math.abs(dragStartYRef.current - yRef.current) < 4) {
+      if (width > 0 && Math.abs(dragStartYRef.current - yRef.current) < 7 && !hold) {
         setDeleteStyle({
           ...deleteStyle,
           backgroundColor: "red",
@@ -87,7 +87,7 @@ function SwipeToDelete({ place, placeIdx, scheduleIdx, startTime, timeReq, timeR
   const onDragEnd = () => {
     if (draggedRef.current) {
       draggedRef.current = false;
-      const threshold = 0.5;
+      const threshold = 0.4;
 
       if (
         (leftRef.current < listElementRef.current.offsetWidth * threshold * -1)

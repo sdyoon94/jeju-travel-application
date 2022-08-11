@@ -2,15 +2,13 @@ import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
-import Place from "components/Travel/Body/Place"
+import SwipeToDelete from "./SwipeToDelete"
 
 import { add, convert, revert } from "components/DateTime/time"
 import { fetchDirection } from "store/modules/directionSlice"
 import "./Schedule.css"
-// import SwipeToDelete from 'react-swipe-to-delete-component';
 
-// import 'react-swipe-to-delete-component/dist/swipe-to-delete.css';
-import SwipeToDelete from "./SwipeToDelete"
+
 const grid = 6
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: "none",
