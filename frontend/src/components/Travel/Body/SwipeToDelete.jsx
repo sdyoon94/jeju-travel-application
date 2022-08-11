@@ -7,9 +7,11 @@ import Place from "./Place"
 function SwipeToDelete({ place, placeIdx, scheduleIdx, startTime, timeReq, timeReqs, setTimeReqs, directionError, isFirst, isLast, hold, vehicle }) {
   const listElementRef = useRef()
   const wrapperRef = useRef()
-
+  console.log(place)
   const dragStartXRef = useRef(0)
+  const dragStartYRef = useRef(0)
   const leftRef = useRef(0)
+  const yRef = useRef(0)
   const draggedRef = useRef(false)
 
   useEffect(() => {
@@ -23,10 +25,12 @@ function SwipeToDelete({ place, placeIdx, scheduleIdx, startTime, timeReq, timeR
 
   const onDragStartMouse = (e) => {
     onDragStart(e.clientX)
+    dragStartYRef.current = e.clientY
     window.addEventListener("mousemove", onMouseMove)
   }
 
   const onDragStartTouch = (e) => {
+    dragStartYRef.current = e.targetTouches[0].clientY
     const touch = e.targetTouches[0]
     onDragStart(touch.clientX)
     window.addEventListener("touchmove", onTouchMove)
@@ -39,16 +43,16 @@ function SwipeToDelete({ place, placeIdx, scheduleIdx, startTime, timeReq, timeR
   }
   
   const updatePosition = () => {
+    
     if (draggedRef.current) {
       requestAnimationFrame(updatePosition)
       const width = -leftRef.current - 10
-      if (width > 0) {
+      if (width > 0 && Math.abs(dragStartYRef.current - yRef.current) < 4) {
         setDeleteStyle({
           ...deleteStyle,
           backgroundColor: "red",
           width: `${width}px`,
         })
-
       }
     }
     listElementRef.current.style.transform = `translateX(${leftRef.current}px)`
@@ -63,6 +67,7 @@ function SwipeToDelete({ place, placeIdx, scheduleIdx, startTime, timeReq, timeR
 
   const onTouchMove = (e) => {
     const touch = e.targetTouches[0]
+    yRef.current = touch.clientY
     const left = touch.clientX - dragStartXRef.current
     if (left < 0) {
       leftRef.current = left;
@@ -85,8 +90,8 @@ function SwipeToDelete({ place, placeIdx, scheduleIdx, startTime, timeReq, timeR
       const threshold = 0.5;
 
       if (
-        leftRef.current <
-        listElementRef.current.offsetWidth * threshold * -1
+        (leftRef.current < listElementRef.current.offsetWidth * threshold * -1)
+        && Math.abs(dragStartYRef.current - yRef.current) < 4
       ) {
         leftRef.current = -listElementRef.current.offsetWidth * 2;
         wrapperRef.current.style.maxHeight = 0;
@@ -109,7 +114,7 @@ function SwipeToDelete({ place, placeIdx, scheduleIdx, startTime, timeReq, timeR
     height: "5vh",
     zIndex: "-1",
     color: "white",
-    top: "2vh",
+    top: "2.5vh",
     right: "1vw",
     borderRadius: "5px",
     textAlign: "end",
