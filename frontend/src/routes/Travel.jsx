@@ -13,105 +13,105 @@ import api from "api"
 import { CircularProgress } from "@mui/material"
 
 function Travel({ params }) {
-    // travelId를 통해 여행 정보 가져오기
-    const { travelId } = params
-    const dispatch = useDispatch()
+	// travelId를 통해 여행 정보 가져오기
+	const { travelId } = params
+	const dispatch = useDispatch()
 
-    const [ error, setError ] = useState(null)
-    const [ isLoaded, setIsLoaded ] = useState(false)
-    const [ scheduleIdx, setScheduleIdx ] = useState(0)
+	const [ error, setError ] = useState(null)
+	const [ isLoaded, setIsLoaded ] = useState(false)
+	const [ scheduleIdx, setScheduleIdx ] = useState(0)
 
-    // get travel
-    const travel = useSelector((state) => state.travel)
+	// get travel
+	const travel = useSelector((state) => state.travel)
 
-    useEffect(() => {
-        const buildTravelInfoConfig = (travelId) => ({
-            method: "get",
-            url: api.travel.createTravelInfoUrl(travelId)
-        })
+	useEffect(() => {
+		const buildTravelInfoConfig = (travelId) => ({
+			method: "get",
+			url: api.travel.createTravelInfoUrl(travelId)
+			})
 
-        const buildTravelScheduleConfig = (travelId, day) => ({
-            method: "get",
-            url: api.travel.createTravelScheduleUrl(travelId, day)
-        })
+		const buildTravelScheduleConfig = (travelId, day) => ({
+			method: "get",
+			url: api.travel.createTravelScheduleUrl(travelId, day)
+		})
 
-        const fetchData = async (travelId) => {
-            const response = await axios(buildTravelInfoConfig(travelId))
+		const fetchData = async (travelId) => {
+			const response = await axios(buildTravelInfoConfig(travelId))
 
-            if (response.status === 200) {
-                const info = response.data.tripInfo
+			if (response.status === 200) {
+				const info = response.data.tripInfo
 
-                const { periodInDays } = info
-                dispatch(setTravelInfo(info))
-                dispatch(initSchedule({ payload: periodInDays }))
+				const { periodInDays } = info
+				dispatch(setTravelInfo(info))
+				dispatch(initSchedule({ payload: periodInDays }))
 
-                dispatch(initDirection(periodInDays))
+				dispatch(initDirection(periodInDays))
 
-                for (let day = 0; day < periodInDays; day++) {
-                    const response = await axios(buildTravelScheduleConfig(travelId, day))
+				for (let day = 0; day < periodInDays; day++) {
+					const response = await axios(buildTravelScheduleConfig(travelId, day))
 
-                    if (response.status === 200) {
-                        const schedule = response.data["일자별 Schedule List"]
+					if (response.status === 200) {
+						const schedule = response.data["일자별 Schedule List"]
 
-                        schedule.forEach(place => {
-                            if (!place.stayTime) {
-                                place.stayTime = 60
-                            }
-                        })
+						schedule.forEach(place => {
+							if (!place.stayTime) {
+								place.stayTime = 60
+							}
+						})
 
-                        dispatch(setSchedule({ scheduleIdx: day, schedule }))
-                    }
-                }
-            }
-        }
+						dispatch(setSchedule({ scheduleIdx: day, schedule }))
+					}
+				}
+			}
+		}
         
-        const updateState = async (travelId) => {
-            try {
-                const _ = await fetchData(travelId)
-                setIsLoaded(true)
-            }
-            catch (err) {
-                setError(err)
-            }
-        }
+		const updateState = async (travelId) => {
+			try {
+				const _ = await fetchData(travelId)
+				setIsLoaded(true)
+			}
+			catch (err) {
+				setError(err)
+			}
+		}
 
-        updateState(travelId)
-    }, [])
+		updateState(travelId)
+	}, [])
 
-    useEffect(() => {
-    }, [ travel ])
+	useEffect(() => {
+	}, [ travel ])
 
-    return (
-        <>
-            <div className="travel-container">
-                { error ?
-                    <div>에러 발생</div> :
-                    isLoaded ?
-                        <>
-                            <Header>
-                                <ConfigDrawer
-                                    travel={travel}
-                                    setTravel={(v)=>{dispatch(setTravel(v))}}
-                                />
-                            </Header>
-                            <TravelTitle
-                                travel={travel}
-                            />
-                            <TravelBody
-                                travel={travel}
-                                setSchedule={(v)=>{dispatch(setSchedule(v))}}
-                                scheduleIdx={scheduleIdx}
-                                setScheduleIdx={setScheduleIdx}
-                            />
-                        </> : 
-                        <>
-                            <CircularProgress /> <br />
-                            <div>여행 로딩중...</div>
-                        </>
-                }
-            </div>
-        </>
-    )
+	return (
+		<>
+			<div className="travel-container">
+				{ error 
+					? <div>에러 발생</div>
+					: isLoaded
+					?	<>
+						<Header>
+							<ConfigDrawer
+								travel={travel}
+								setTravel={(v)=>{dispatch(setTravel(v))}}
+							/>
+							</Header>
+							<TravelTitle
+									travel={travel}
+							/>
+							<TravelBody
+								travel={travel}
+								setSchedule={(v)=>{dispatch(setSchedule(v))}}
+								scheduleIdx={scheduleIdx}
+								setScheduleIdx={setScheduleIdx}
+							/>
+						</>
+						:	<>
+								<CircularProgress /> <br />
+								<div>여행 로딩중...</div>
+							</>
+				}
+			</div>
+		</>
+	)
 }
 
 export default Travel

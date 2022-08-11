@@ -1,8 +1,10 @@
 import { useRef, useEffect, useState } from "react"
 import "./SwipeToDelete.css"
 import Place from "./Place"
-
-
+import { useSelector, useDispatch } from "react-redux"
+import { deleteSchedule } from "store/modules/travelSlice"
+import api from "api"
+import axios from "axios"
 
 function SwipeToDelete({ place, placeIdx, scheduleIdx, startTime, timeReq, timeReqs, setTimeReqs, directionError, isFirst, isLast, hold, vehicle }) {
   const listElementRef = useRef()
@@ -12,6 +14,25 @@ function SwipeToDelete({ place, placeIdx, scheduleIdx, startTime, timeReq, timeR
   const leftRef = useRef(0)
   const yRef = useRef(0)
   const draggedRef = useRef(false)
+  const dispatch = useDispatch()
+  const { scheduleId } = place
+
+  const fetchDelete = async (scheduleId) => {
+    const response = await axios({
+      method: "delete",
+      url: api.schedule.scheduleUrl(scheduleId),
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`
+      }
+    })
+    if (response.status === 200) {
+      leftRef.current = -listElementRef.current.offsetWidth * 2
+      wrapperRef.current.style.maxHeight = 0
+      dispatch(deleteSchedule({scheduleIdx, scheduleId}))
+    }
+	}
+  useSelector(state => console.log(state.travel))
+
   
 
   useEffect(() => {
@@ -86,21 +107,20 @@ function SwipeToDelete({ place, placeIdx, scheduleIdx, startTime, timeReq, timeR
 
   const onDragEnd = () => {
     if (draggedRef.current) {
-      draggedRef.current = false;
-      const threshold = 0.4;
+      draggedRef.current = false
+      const threshold = 0.4
 
       if (
         (leftRef.current < listElementRef.current.offsetWidth * threshold * -1)
-        && Math.abs(dragStartYRef.current - yRef.current) < 4
+        && Math.abs(dragStartYRef.current - yRef.current) < 5
       ) {
-        leftRef.current = -listElementRef.current.offsetWidth * 2;
-        wrapperRef.current.style.maxHeight = 0;
+        fetchDelete(scheduleId)
       } else {
-        leftRef.current = 0;
+        leftRef.current = 0
       }
 
-      listElementRef.current.className = "BouncingListItem";
-      listElementRef.current.style.transform = `translateX(${leftRef.current}px)`;
+      listElementRef.current.className = "BouncingListItem"
+      listElementRef.current.style.transform = `translateX(${leftRef.current}px)`
     }
     setDeleteStyle({
       ...deleteStyle,

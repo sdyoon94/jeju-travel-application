@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-// import travel from "dummies/DummyTravel.json"
+
 
 // TODO: createAsyncThunk
 /* 
@@ -33,6 +33,7 @@ const initialState = {
 	error: null
 }
 
+
 const travelSlice = createSlice({
 	name: "travel",
 	initialState,
@@ -54,14 +55,17 @@ const travelSlice = createSlice({
 		},
 		setSchedule(state, { payload: { scheduleIdx, schedule } }) {
 			state.schedules[scheduleIdx] = schedule
+		},
+		deleteSchedule(state, { payload: {scheduleIdx, scheduleId} }){
+			state.schedules[scheduleIdx] = state.schedules[scheduleIdx].filter(place => place.scheduleId !== scheduleId)
 		}
 	},
 	// extraReducers: (builder) => {
 	// 	builder
-	// 		.addCase(fetchTravel.fulfilled, (state, action) => {
+	// 		.addCase(deleteSchedule.fulfilled, (state, action) => {
 	// 			console.log(action.payload)
 	// 		})
-	// 		.addCase(fetchTravel.rejected, (state, action) => {
+	// 		.addCase(deleteSchedule.rejected, (state, action) => {
 	// 			console.log(action.payload)
 	// 			state.error = action.payload
 	// 		})
@@ -70,5 +74,5 @@ const travelSlice = createSlice({
 
 const { actions, reducer } = travelSlice
 
-export const { editStartTime, editStayTime, setTravel, setTravelInfo, initSchedule, setSchedule } = actions
+export const { editStartTime, editStayTime, setTravel, setTravelInfo, initSchedule, setSchedule, deleteSchedule } = actions
 export default reducer
