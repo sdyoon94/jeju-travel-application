@@ -1,4 +1,4 @@
-import * as React from 'react';
+import {useState} from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -6,8 +6,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function AlertDialog() {
-  const [open, setOpen] = React.useState(false);
+
+
+function EditModal({open1, onClose, target, travel,setTravel}) {
+  const [open, setOpen] = useState(open1);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -20,7 +22,7 @@ export default function AlertDialog() {
   return (
     <div>
       <Dialog
-        open={open}
+        open={open1}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
@@ -44,3 +46,5 @@ export default function AlertDialog() {
     </div>
   );
 }
+
+export default EditModal 

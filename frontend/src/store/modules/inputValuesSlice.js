@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, isRejectedWithValue } from "@reduxjs/too
 import api from "api";
 import axios from "axios";
 import { addDays, format } from "date-fns";
-
+import {authHeader} from auth
 
 // TODO: createAsyncThunk + RTK Query API
 
@@ -25,6 +25,7 @@ const initialState = {
   travelUid : null,
 };
 
+
 export const createTravel = createAsyncThunk(
   "inputValues/createTravel",
   async (fake, thunkAPI) => {
@@ -46,6 +47,9 @@ export const createTravel = createAsyncThunk(
           startTime: state.inputValues.startTime,
           endTime: state.inputValues.endTime,
         },
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`
+        }
       });
       return response.data;
     } catch (err) {

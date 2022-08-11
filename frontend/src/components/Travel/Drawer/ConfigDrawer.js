@@ -7,7 +7,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
-import Modal from '../../Modal/Modal'
+import EditModal from 'components/EditModal/EditModal'
 
 import Budget from "components/Inputs/Budget";
 
@@ -15,7 +15,7 @@ import Budget from "components/Inputs/Budget";
 
 import "./ConfigDrawer.css"
 
-function ConfigDrawer(props) {
+function ConfigDrawer({travel, setTravel}) {
     const [ isDrawerOpened, setIsDrawerOpened ] = useState(false)
 
     const toggleDrawer = () => {
@@ -60,7 +60,20 @@ function ConfigDrawer(props) {
                 <p>이동수단 변경</p>
                 <p>여행 나가기</p>
             </Drawer>
-            <Dialog
+            <EditModal
+                open1={open}
+                onClose={handleClose}
+                target=''
+                travel={travel}
+                setTravel={()=>{setTravel()}}
+            >
+            </EditModal>
+            
+            
+            
+            
+            {/* <Dialog
+            // fullScreen
             open={open}
             onClose={handleClose}
             aria-labelledby="alert-dialog-title"
@@ -71,19 +84,19 @@ function ConfigDrawer(props) {
                     inputValues={props.travel}
                     setInputValues={props.setTravel}
                 ></Budget>
-                {/* <DialogContentText id="alert-dialog-description">
+                <DialogContentText id="alert-dialog-description">
                 Let Google help apps determine location. This means sending anonymous
                 location data to Google, even when no apps are running.
-                </DialogContentText> */}
+                </DialogContentText>
             </DialogContent>    
             <div>
                 <Button onClick={handleClose}>Disagree</Button>
-                <Button onClick={handleClose} autoFocus>
+                <Button variant="outlined"onClick={handleClose} autoFocus>
                 Agree
             </Button >
             </div>
 
-            </Dialog>
+            </Dialog> */}
         </div>
     )
 }
