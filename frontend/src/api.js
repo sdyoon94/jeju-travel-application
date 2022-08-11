@@ -29,6 +29,9 @@ const api = {
     },
     getTravelInfoUrl() {
       return HOST + TRAVEL + "showTripList"
+    },
+    getTravelJoinUrl(travelId) {
+      return `${HOST}trip/addUser/${travelId}`
     }
   },
   inputs: {
