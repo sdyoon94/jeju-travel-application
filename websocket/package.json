@@ -1,0 +1,16 @@
+{
+  "name": "websocket",
+  "version": "1.0.0",
+  "description": "websocket server",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "author": "efylo",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "socket.io": "^4.5.1"
+  }
+}
