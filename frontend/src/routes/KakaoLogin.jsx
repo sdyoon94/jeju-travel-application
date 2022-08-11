@@ -10,9 +10,9 @@ function KakaoLogin() {
     <div className="text-center">
       <p className="login-title-font block">놀멍쉬멍</p>
       <p className="login-subtitle-font">JEJU TRAVEL APP</p>
-      <img className="hareu-size" alt="하르방" src="icons/hareubang.png" />
+      <img className="hareu-size block" alt="하르방" src="icons/hareubang.png" />
       <a href={URL}>
-        <img className="kakao-box" alt="kakaoLoginBtn" src="icons/kakaoLogo.png"></img>
+        <img className="kakao-box-login block" alt="kakaoLoginBtn" src="icons/kakaoLogo.png"></img>
       </a>
     </div>
   )

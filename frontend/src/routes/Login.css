@@ -1,6 +1,6 @@
-.kakao-box {
+.kakao-box-login {
   width: 53vw;
-  margin-top: 10vh;
+  margin: 10vh auto 0;
 }
 
 .login-title-font {
@@ -17,4 +17,5 @@
 
 .hareu-size {
   width: 300px;
+  margin: 0 auto;
 }
