@@ -15,7 +15,7 @@ function SwipeToDelete({ travel, placeIdx, scheduleIdx, startTime, timeReq, time
   const yRef = useRef(0)
   const draggedRef = useRef(false)
   const dispatch = useDispatch()
-  const { scheduleId } = travel.scheduels[scheduleIdx][placeIdx]
+  const { scheduleId } = travel.schedules[scheduleIdx][placeIdx]
 
   const fetchDelete = async (scheduleId) => {
     const response = await axios({
