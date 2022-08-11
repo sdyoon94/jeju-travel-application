@@ -30,8 +30,8 @@ public class TripScheduleController {
 
     }
 
-    @PostMapping
-    public ResponseEntity<Map<String, Object>> createSchedule(Long tripId, Schedule schedule){
+    @PostMapping("/{tripId}")
+    public ResponseEntity<Map<String, Object>> createSchedule(@PathVariable("tripId") Long tripId, @RequestBody Schedule schedule){
         Map<String, Object> resultMap = new HashMap<>();
         try{
             tripScheduleService.createSchedule(tripId, schedule);
@@ -44,8 +44,8 @@ public class TripScheduleController {
         }
     }
 
-    @PutMapping
-    public ResponseEntity<Map<String, Object>> updateSchedule(Long scheduleId, Schedule schedule){
+    @PutMapping("/{scheduleId}")
+    public ResponseEntity<Map<String, Object>> updateSchedule(@PathVariable("scheduleId") Long scheduleId, Schedule schedule){
         Map<String, Object> resultMap = new HashMap<>();
         try{
             tripScheduleService.updateSchedule(scheduleId, schedule);
@@ -58,8 +58,8 @@ public class TripScheduleController {
         }
     }
 
-    @DeleteMapping
-    public ResponseEntity<Map<String, Object>> deleteSchedule(Long scheduleId){
+    @DeleteMapping("/{scheduleId}")
+    public ResponseEntity<Map<String, Object>> deleteSchedule(@PathVariable("scheduleId") Long scheduleId){
         Map<String, Object> resultMap = new HashMap<>();
         try{
             tripScheduleService.deleteSchedule(scheduleId);
