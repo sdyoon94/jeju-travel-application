@@ -200,7 +200,7 @@ function MapDrawer({ travel, scheduleIdx }) {
                 { loadError ? 
                     <div>현재 지도 API 호출이 원활하지 않습니다. </div> :
                     isLoaded ? 
-                        <Map route={travel.schedules[scheduleIdx]} markers={markers} /> : 
+                        <Map route={route} markers={markers} /> : 
                         <CircularProgress />
                 }
                 <PlaceInfo />
