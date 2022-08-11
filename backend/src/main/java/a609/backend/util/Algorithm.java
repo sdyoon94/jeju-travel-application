@@ -163,6 +163,11 @@ public class Algorithm {
 
         double d = distanceInKilometerByHaversine(lat1,lng1,lat2,lng2);
 
+        //중복체크하고 지우기~ 중복체크 안해서 같은 장소 반환으로 d=0 에러!
+        if(d<0.0001){
+            return new Point(lat1,lng1);
+        }
+
 
         double lat = ((d+8)*lat2-8*lat1)/d;
         double lng = ((d+8)*lng2-8*lng1)/d;
@@ -170,7 +175,7 @@ public class Algorithm {
 
         Point point = new Point(lat,lng);
         log.info("outPoint메소드 안--------------"+point.toString());
-        log.info("d"+d+"lat: "+lat+"lng: "+lng);
+        log.info("d:"+d+"lat: "+lat+"lng: "+lng);
 
         return point;
     }
