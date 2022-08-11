@@ -12,6 +12,8 @@ import javax.persistence.Column;
 @Setter
 public class ScheduleDTO {
 
+    private Long ScheduleId;
+
     private Long placeUid;
 
     private String placeName;
