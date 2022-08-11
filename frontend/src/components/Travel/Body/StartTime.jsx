@@ -1,18 +1,17 @@
-import { useState } from "react"
-// import { useDispatch } from "react-redux"
-// import { editStartTime, editStayTime } from "store/modules/travelSlice"
-import TimePicker from "rc-time-picker"
-import moment from "moment"
-import "rc-time-picker/assets/index.css"
-import { revert } from "components/DateTime/time"
-import { useDispatch } from "react-redux"
+import { useState, useEffect } from "react"
+import { convert, revert } from "components/DateTime/time"
 import { editStartTime, editStayTime } from "store/modules/travelSlice"
 
+import TimePicker from "rc-time-picker"
+import moment from "moment"
+import { useDispatch } from "react-redux"
+import "rc-time-picker/assets/index.css"
 
-function StartTime({ placeIdx, scheduleIdx, time, ...rest }) {
+
+function StartTime({ travel, placeIdx, scheduleIdx, ...rest }) {
   const dispatch = useDispatch()
 
-  const [startTime, setStartTime] = useState(moment(time, "HH:mm"))
+  const [startTime, setStartTime] = useState(moment(convert(travel.schedules[scheduleIdx][placeIdx].stayTime), "HH:mm"))
   
   const handleValue = (value) => {
     const newTime = value.format("HH:mm")
@@ -25,6 +24,11 @@ function StartTime({ placeIdx, scheduleIdx, time, ...rest }) {
     }
     setStartTime(value)
   }
+
+  useEffect(() => {
+      setStartTime(moment(convert(travel.schedules[scheduleIdx][placeIdx].stayTime), "HH:mm"))
+  }, [ travel.schedules[scheduleIdx][placeIdx].stayTime ])
+  
 
   return (
     <>

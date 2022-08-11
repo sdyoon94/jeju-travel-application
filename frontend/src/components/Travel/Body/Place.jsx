@@ -5,13 +5,12 @@ import { ReactComponent as AddSpot } from 'assets/add.svg'
 
 import StartTime from "./StartTime"
 import Exclamation from "./Exclamation"
-import { convert } from "components/DateTime/time"
 import "./Place.css"
 import "globalStyle.css"
 import TimeReq from "./TimeReq"
 
 
-function Place({ place, placeIdx, scheduleIdx, startTime, timeReq, timeReqs, setTimeReqs, directionError, isFirst, isLast, hold, vehicle }) {
+function Place({ travel, placeIdx, scheduleIdx, startTime, timeReq, timeReqs, setTimeReqs, directionError, isFirst, isLast, hold, vehicle }) {
 	const navigate = useNavigate()
 	const handleAddSpot = () => {
 		navigate("/search")
@@ -22,9 +21,9 @@ function Place({ place, placeIdx, scheduleIdx, startTime, timeReq, timeReqs, set
 			{isFirst && !hold && 
 				<StartTime 
 					style={{padding: "0vh 2vw"}} 
+					travel={travel}
 					placeIdx={0}
 					scheduleIdx={scheduleIdx}
-					time={startTime} 
 				/>
 			}
 			{!isFirst && !hold &&
@@ -32,11 +31,11 @@ function Place({ place, placeIdx, scheduleIdx, startTime, timeReq, timeReqs, set
 			}
 
 			<div className="place-info place-box">
-				<span className="overflow-x-dots">{place.placeName}</span>
-				<StartTime 
+				<span className="overflow-x-dots">{travel.schedules[scheduleIdx][placeIdx].placeName}</span>
+				<StartTime
+					travel={travel}
 					placeIdx={placeIdx}
 					scheduleIdx={scheduleIdx}
-					time={convert(place.stayTime)}
 				/>
 				{/* <p>{place.duration}</p> */}
 			</div>

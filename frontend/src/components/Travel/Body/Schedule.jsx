@@ -115,7 +115,7 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 		}
 		setPlaceholderProps({})
 
-		const schedule = reorder(travel.schedules[scheduleIdx], result.source.index + 1, result.destination.index + 1)
+		const schedule = reorder(travel.schedules[scheduleIdx], result.source.index, result.destination.index)
 
 		setSchedule({ 
 			scheduleIdx, 
@@ -173,8 +173,10 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 							display: day === 1 ? "grid": "none"
 							}}
 						>
-							{travel.schedules[scheduleIdx].slice(1).map((place, index) => (
-								<Draggable key={index} draggableId={index.toString()} index={index}>
+							{travel.schedules[scheduleIdx].map((_, index) => {
+								if (index === 0) return null
+
+								return (<Draggable key={index} draggableId={index.toString()} index={index}>
 									{(provided, snapshot) => (
 										<div
 											ref={provided.innerRef}
@@ -187,23 +189,23 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 										>
 											<SwipeToDelete
 												key={index}
-												place={place}
-												placeIdx={index+1}
+												travel={travel}
+												placeIdx={index}
 												scheduleIdx={scheduleIdx}
-												startTime={startTimes[index]}
-												timeReq={timeReqs[index]}
+												startTime={startTimes[index-1]}
+												timeReq={timeReqs[index-1]}
 												timeReqs={timeReqs}
 												setTimeReqs={setTimeReqs}
 												directionError={directionError}
-												isFirst={index === 0}
-												isLast={index === travel.schedules[scheduleIdx].length - 2}
+												isFirst={index === 1}
+												isLast={index === travel.schedules[scheduleIdx].length - 1}
 												hold={hold}
 												vehicle={vehicle}
 											/>
 										</div>
 									)}
 								</Draggable>
-							))}
+							)})}
 						</div>
 						{provided.placeholder}
 					</div>

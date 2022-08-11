@@ -6,7 +6,7 @@ import { deleteSchedule } from "store/modules/travelSlice"
 import api from "api"
 import axios from "axios"
 
-function SwipeToDelete({ place, placeIdx, scheduleIdx, startTime, timeReq, timeReqs, setTimeReqs, directionError, isFirst, isLast, hold, vehicle }) {
+function SwipeToDelete({ travel, placeIdx, scheduleIdx, startTime, timeReq, timeReqs, setTimeReqs, directionError, isFirst, isLast, hold, vehicle }) {
   const listElementRef = useRef()
   const wrapperRef = useRef()
   const dragStartXRef = useRef(0)
@@ -153,7 +153,7 @@ function SwipeToDelete({ place, placeIdx, scheduleIdx, startTime, timeReq, timeR
           onTouchStart={onDragStartTouch}
         >
           <Place
-            place={place}
+            travel={travel}
             placeIdx={placeIdx}
             scheduleIdx={scheduleIdx}
             startTime={startTime}
