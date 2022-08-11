@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
 import api from "api";
 import axios from "axios";
 import { addDays, format } from "date-fns";
@@ -49,6 +49,7 @@ export const createTravel = createAsyncThunk(
       });
       return response.data;
     } catch (err) {
+      return isRejectedWithValue(err.message)
     }
   }
 );

@@ -12,17 +12,17 @@ function CreateLoading() {
 
   const [mention, setMention] = useState(`일정을 생성중이에요\n잠시만 기다려주세요`)
   
-  useEffect(()=>{
-    if (typeof travelUid === 'number') {
-      navigate(`/travel/${travelUid}`,{ replace: true})
+  // useEffect(()=>{
+  //   if (typeof travelUid === 'number') {
+  //     navigate(`/travel/${travelUid}`,{ replace: true})
     
-    } else if (typeof travelUid === 'string') {
-      setMention(travelUid)
+  //   } else if (typeof travelUid === 'string') {
+  //     setMention(travelUid)
     
-    } else {
-      return;
-    }
-  },[travelUid])
+  //   } else {
+  //     return;
+  //   }
+  // },[travelUid])
 
   useEffect(() => {
     if (typeof travelUid === "string") {
@@ -31,7 +31,7 @@ function CreateLoading() {
       
       } else if (!isNaN(travelUid)) {
         navigate(`/travel/${travelUid}`,{ replace: true})  
-        
+
       }
     } else {
       return;

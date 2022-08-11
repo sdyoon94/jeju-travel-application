@@ -129,7 +129,7 @@ function New() {
       } else {
         setShow(false);
 
-        navigate('/loading')
+        navigate('/loading', {replace:true})
         dispatch(createTravel("123"));
         console.log("next");
         dispatch(resetInputValues())
