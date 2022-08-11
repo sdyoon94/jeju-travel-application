@@ -1,5 +1,15 @@
 .loading {
   height: 100vh;
   background-repeat: no-repeat;
-  background-image: url("../../public/icons/jeju.gif");
+  background-image: url("../../../public/icons/jeju.gif");
+}
+
+.loading-mention {
+  position: absolute;
+  top : 30vh;
+  left: 50%;
+  transform: translate(-50%, -50%);  
+  white-space: pre-wrap;
+  width: 100%;
+  line-height: 8vw;
 }
