@@ -107,8 +107,10 @@ public class Algorithm {
         //외점
         Point outPoint = outPoint(lat1,lng1,lat2,lng2,d);
         places = placeRepository.findTourByDistance(outPoint.lat,outPoint.lng,8.0,placeType);
-        if (places==null){
-            places = placeRepository.findTourByDistance(outPoint.lat,outPoint.lng,15.0,placeType);
+        double distance=8.0;
+        while (places==null){
+            distance+=2.0;
+            places = placeRepository.findTourByDistance(outPoint.lat,outPoint.lng,distance,placeType);
         }
         Collections.shuffle(places);
 
