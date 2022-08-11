@@ -30,7 +30,7 @@ public class Algorithm {
             schedule.setDay(day);
             schedule.setTrip(trip);
             if (placeType == 5) {//공항이면
-                Place place = placeRepository.findOneByPlaceUid(3781L);
+                Place place = placeRepository.findOneByPlaceUid(3762L);
                 schedule.setLat(place.getLat());
                 schedule.setLng(place.getLng());
                 schedule.setPlaceName(place.getPlaceName());

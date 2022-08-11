@@ -39,5 +39,11 @@ public class Place {
     @Column(name="THUMBS")
     private Integer Thumbs;
 
+    @Column(name="STYLE")
+    private Integer style;
+
+    @Column(name="TAG")
+    private String tag;
+
 
 }
