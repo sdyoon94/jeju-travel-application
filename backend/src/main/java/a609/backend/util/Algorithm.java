@@ -108,7 +108,7 @@ public class Algorithm {
         Point outPoint = outPoint(lat1,lng1,lat2,lng2,d);
         places = placeRepository.findTourByDistance(outPoint.lat,outPoint.lng,8.0,placeType);
         if (places==null){
-            places = placeRepository.findTourByDistance(outPoint.lat,outPoint.lng,12.0,placeType);
+            places = placeRepository.findTourByDistance(outPoint.lat,outPoint.lng,15.0,placeType);
         }
         Collections.shuffle(places);
 
