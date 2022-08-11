@@ -84,7 +84,7 @@ public class TripScheduleServiceImpl implements TripScheduleService{
         List<ScheduleDTO> scheduleList = new ArrayList<>();
         for (Schedule schedule : schedules) {
 
-            scheduleList.add(ScheduleDTO.builder().placeName(schedule.getPlaceName()).placeUid(schedule.getPlaceUid())
+            scheduleList.add(ScheduleDTO.builder().placeName(schedule.getPlaceName()).ScheduleId(schedule.getScheduleId()).placeUid(schedule.getPlaceUid())
                             .stayTime(schedule.getStayTime()).lat(schedule.getLat()).lng(schedule.getLng()).build());
         }
         return scheduleList;
@@ -92,6 +92,8 @@ public class TripScheduleServiceImpl implements TripScheduleService{
 
     @Override
     @Transactional
+    //placeuid
+    //placeuid=0 더미
     public void createSchedule(Long tripId, Schedule schedule) {
         schedule.setTrip(tripRepository.findOneByTripId(tripId));
         scheduleRepository.save(schedule);
@@ -101,10 +103,10 @@ public class TripScheduleServiceImpl implements TripScheduleService{
     @Transactional
     //이거 스케쥴 아이디로 조회할지 아니면 어떻게 할지 고민을 좀 해봐야된다
     public void updateSchedule(Long ScheduleId, Schedule schedule) {
+        //dto에 scheduleId 추가한다.
         Schedule originSchedule = scheduleRepository.findOneByScheduleId(ScheduleId);
         originSchedule.setPlaceName(schedule.getPlaceName());
         scheduleRepository.save(originSchedule);
-        //save 없어도 되나
 
     }
 
