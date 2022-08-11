@@ -1,0 +1,20 @@
+.kakao-box {
+  width: 53vw;
+  margin-top: 10vh;
+}
+
+.login-title-font {
+  font-family: "JejuHallasan";
+  font-size: 12vw;
+  margin-top: 20vh;
+  margin-bottom: 3vh;
+}
+
+.login-subtitle-font {
+  font-family: "JejuHallasan";
+  font-size: 4vw;
+}
+
+.hareu-size {
+  width: 300px;
+}

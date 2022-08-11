@@ -1,0 +1,16 @@
+.spot-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.spot-item {
+  align-self: center;
+}
+
+.duration-input {
+  width: 30px;
+  height: 15px;
+  font-size: 15px;
+  border: none;
+}
+

@@ -1,0 +1,17 @@
+.header {
+    height: 4vh;
+    padding: 2vh 4vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon {
+    width: 4vh;
+    height: 4vh;
+}
+
+p {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    align-self: center;
+}
