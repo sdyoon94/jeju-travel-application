@@ -2,21 +2,6 @@
   --vh: 100%;
 }
 
-* {
-  font-family: "JejuGothic";
-}
-
-@font-face {
-  font-family: "JejuGothic";
-  font-weight: normal;
-  src: url("./fonts/JejuGothic.ttf");
-}
-
-@font-face {
-  font-family: "JejuHallasan";
-  src: url("./fonts/JejuHallasan.ttf");
-}
-
 .inline-block {
   display: inline-block;
 }
@@ -25,8 +10,28 @@
   display: block;
 }
 
-.inline {
-  display: inline;
+.auth-btn {
+  margin-top: 20px;
+  background-color: #1E88E5;
+  width: 250px;
+  height: 40px;
+  color: white;
+  border: none;
+  border-radius: 15px;
+}
+
+.input-auth:focus {
+  outline: none;
+  border: 2px solid #1E88E5;
+}
+
+.input-auth {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 40px;
+  width: 230px;
+  border-radius: 10px;
+  border: 1px solid black;
 }
 
 .link {
@@ -34,52 +39,7 @@
   color: inherit;
 }
 
-.color-1 {
-  color: #1E88E5;
+.text-align {
+  /* text-align: center; */
 }
-
-.gray {
-  color: #8C8C8C;
-}
-
-.title-size {
-  font-size: 6vw;
-}
-
-.subtitle-size {
-  font-size: 5vw;
-}
-
-.content-size {
-  font-size: 4vw;
-}
-
-.subcontent-size {
-  font-size: 3vw;
-}
-
-.text-center {
-  text-align: center;
-}
-
-input {
-  cursor: pointer;
-}
-
-button {
-  cursor: pointer;
-}
-
-.gamgyul {
-  width: 6vw;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  top: 9vw;
-  left: 10vw;
-}
-
 
