@@ -23,7 +23,7 @@ public class Algorithm {
     @Autowired
     ScheduleRepository scheduleRepository;
 
-    public int create(Trip trip, int placeType, int day, int cnt, int startTurn) {
+    public int create(Trip trip, int placeType, int day, int cnt, int startTurn,int[] visit) {
 
         for (int i = 0; i < cnt; i++) {
             Schedule schedule = new Schedule();
@@ -31,6 +31,7 @@ public class Algorithm {
             schedule.setTrip(trip);
             if (placeType == 5) {//공항이면
                 Place place = placeRepository.findOneByPlaceUid(3762L);
+                visit[Math.toIntExact(place.getPlaceUid())]=1;
                 schedule.setLat(place.getLat());
                 schedule.setLng(place.getLng());
                 schedule.setPlaceName(place.getPlaceName());
@@ -45,6 +46,7 @@ public class Algorithm {
                 int turn = Math.toIntExact(scheduleRepository.countByTripTripIdAndDay(trip.getTripId(), day - 1));
                 Schedule schedule1 = scheduleRepository.findByTripTripIdAndDayAndTurn(trip.getTripId(), day - 1, turn - 1);//전날 숙소를 시작장소로
 
+                visit[Math.toIntExact(schedule1.getPlaceUid())]=1;
                 schedule.setPlaceUid(schedule1.getPlaceUid());//전날 잡은 숙소로
                 schedule.setPlaceName(schedule1.getPlaceName());
                 schedule.setLat(schedule1.getLat());
@@ -54,6 +56,8 @@ public class Algorithm {
             } else if (day==0&&startTurn==1) {//첫째날은 공항 주변
                 Schedule schedule1 = scheduleRepository.findByTripTripIdAndDayAndTurn(trip.getTripId(), 0, 0);
                 Place place = selectFirstDayPlace(schedule1.getLat(),schedule1.getLng(),placeType);//공항 중심으로
+
+                visit[Math.toIntExact(schedule1.getPlaceUid())]=1;
                 schedule.setPlaceUid(place.getPlaceUid());
                 schedule.setPlaceName(place.getPlaceName());
                 schedule.setLat(place.getLat());
@@ -76,8 +80,9 @@ public class Algorithm {
                 log.info(trip.getTripId().toString());
 
 
-                Place place = selectPlace(schedule1.getLat(), schedule1.getLng(),schedule2.getLat(),schedule2.getLng(), placeType);
+                Place place = selectPlace(schedule1.getLat(), schedule1.getLng(),schedule2.getLat(),schedule2.getLng(), placeType,visit);
 
+                visit[Math.toIntExact(place.getPlaceUid())]=1;
                 schedule.setPlaceUid(place.getPlaceUid());//전날 잡은 숙소로
                 schedule.setPlaceName(place.getPlaceName());
                 schedule.setLat(place.getLat());
@@ -93,7 +98,7 @@ public class Algorithm {
     }
 
     //이전 장소 반경 내 장소 선택
-    public Place selectPlace(double lat1, double lng1,double lat2,double lng2, int placeType) {//인자 스타일 추가
+    public Place selectPlace(double lat1, double lng1,double lat2,double lng2, int placeType,int[] visit) {//인자 스타일 추가
 
         List<Place> places = new ArrayList<>();
         //외점구해서 찾기
@@ -113,18 +118,25 @@ public class Algorithm {
         Point outPoint = outPoint(lat1,lng1,lat2,lng2);
         log.info("-----------------------------"+String.valueOf(outPoint.lat));
         log.info(String.valueOf(outPoint.lng));
+        Place place ;
 
-        while (places.isEmpty()){
+        do {
+            //do while 돌 경우 places에 한두개만 있으면 계속 무한로프.. 반경 넗게 재검색해야..
+            places.clear();
+
+            while (places.isEmpty()){
+                places = placeRepository.findTourByDistance(outPoint.lat,outPoint.lng,distance,placeType);
+                distance+=2.0;
+            }
+
+            log.info(String.valueOf(places.size()));
+            Collections.shuffle(places);
+            place = places.get(0);
+            log.info(String.valueOf(visit[Math.toIntExact(place.getPlaceUid())]));
+        }while (visit[Math.toIntExact(place.getPlaceUid())]==1);
 
 
-            places = placeRepository.findTourByDistance(outPoint.lat,outPoint.lng,distance,placeType);
-            distance+=2.0;
-        }
-
-        log.info(String.valueOf(places.size()));
-        Collections.shuffle(places);
-
-        return places.get(0);
+        return place;
     }
 
     //첫쨋날 공항
@@ -163,10 +175,10 @@ public class Algorithm {
 
         double d = distanceInKilometerByHaversine(lat1,lng1,lat2,lng2);
 
-        //중복체크하고 지우기~ 중복체크 안해서 같은 장소 반환으로 d=0 에러!
-        if(d<0.0001){
-            return new Point(lat1,lng1);
-        }
+//        //중복체크하고 지우기~ 중복체크 안해서 같은 장소 반환으로 d=0 에러!
+//        if(d<0.0001){
+//            return new Point(lat1,lng1);
+//        }
 
 
         double lat = ((d+8)*lat2-8*lat1)/d;

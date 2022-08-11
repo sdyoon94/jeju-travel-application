@@ -135,9 +135,10 @@ public class TripServiceImpl implements TripService{
         UserTrip userTrip = new UserTrip();
         userTrip.setTrip(savedTrip);
         userTrip.setUser(user);
+        int[] visit = new int[4000];
 
         for(int i=0;i<savedTrip.getPeriodInDays();i++){
-            tripScheduleService.registerSchedule(savedTrip,i);
+            tripScheduleService.registerSchedule(savedTrip,i,visit);
         }
 
         return userTripRepository.save(userTrip).getTrip().getTripId().toString();
