@@ -103,10 +103,14 @@ public class Algorithm {
 //        Collections.shuffle(places);
 //        Place place2 = places.get(0);
 
-        double d = distanceInKilometerByHaversine(lat1,lng1,lat2,lng2);
+//        double d = distanceInKilometerByHaversine(lat1,lng1,lat2,lng2);
         //외점
         double distance=8.0;
-        Point outPoint = outPoint(lat1,lng1,lat2,lng2,d);
+        log.info("------outpoint 위-----------------------"+lat1);
+        log.info(String.valueOf(lat2));
+        log.info(String.valueOf(lng1));
+        log.info(String.valueOf(lng2));
+        Point outPoint = outPoint(lat1,lng1,lat2,lng2);
         log.info("-----------------------------"+String.valueOf(outPoint.lat));
         log.info(String.valueOf(outPoint.lng));
 
@@ -145,14 +149,25 @@ public class Algorithm {
             this.lat = lat;
             this.lng = lng;
         }
+
+        @Override
+        public String toString() {
+            return "Point{" +
+                    "lat=" + lat +
+                    ", lng=" + lng +
+                    '}';
+        }
     }
 
-    public static Point outPoint(double lat1,double lng1, double lat2,double lng2, double d){
+    public static Point outPoint(double lat1,double lng1, double lat2,double lng2){
+
+        double d = distanceInKilometerByHaversine(lat1,lng1,lat2,lng2);
 
 
         double lat = ((d+8)*lat2-8*lat1)/d;
         double lng = ((d+8)*lng2-8*lng1)/d;
         Point point = new Point(lat,lng);
+        log.info("outPoint메소드 안--------------"+point.toString());
 
         return point;
     }
