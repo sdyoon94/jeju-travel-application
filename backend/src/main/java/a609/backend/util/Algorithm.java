@@ -166,8 +166,11 @@ public class Algorithm {
 
         double lat = ((d+8)*lat2-8*lat1)/d;
         double lng = ((d+8)*lng2-8*lng1)/d;
+
+
         Point point = new Point(lat,lng);
         log.info("outPoint메소드 안--------------"+point.toString());
+        log.info("d"+d+"lat: "+lat+"lng: "+lng);
 
         return point;
     }
