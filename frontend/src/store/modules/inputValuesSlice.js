@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, isRejectedWithValue } from "@reduxjs/too
 import api from "api";
 import axios from "axios";
 import { addDays, format } from "date-fns";
-import {authHeader} from auth
+// import {authHeader} from auth
 
 // TODO: createAsyncThunk + RTK Query API
 
