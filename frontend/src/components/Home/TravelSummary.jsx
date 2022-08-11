@@ -4,8 +4,7 @@ import AvatarGroup from "@mui/material/AvatarGroup"
 import { format, addDays } from "date-fns"
 
 function TripSummary({travelUid, idx, title, startDate, period, members, travelLength}) {
-  console.log(startDate)
-
+  
   const endDate = format(
     addDays(new Date(startDate), period - 1), "yyyy-MM-dd"
   )

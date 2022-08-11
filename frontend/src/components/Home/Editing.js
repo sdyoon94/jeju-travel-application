@@ -32,7 +32,9 @@ function EditIng ({ nickname, profileImg, handleNickname, handleProfileImg, setF
 
   const handleClick = () => {
     dispatch(signout())
-    // navigate("/login", { replace: true })
+    if (!sessionStorage.getItem("acessToken")) {
+      navigate("/login", { replace: true })
+    }
   }
 
 

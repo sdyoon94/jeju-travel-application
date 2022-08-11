@@ -4,14 +4,14 @@
 }
 
 .login-title-font {
-  font-family: "JejuHallasan";
+  font-family: "JejuHallasan" !important;
   font-size: 12vw;
   margin-top: 20vh;
   margin-bottom: 3vh;
 }
 
 .login-subtitle-font {
-  font-family: "JejuHallasan";
+  font-family: "JejuHallasan" !important;
   font-size: 4vw;
 }
 

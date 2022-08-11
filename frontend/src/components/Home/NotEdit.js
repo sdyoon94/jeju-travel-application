@@ -12,7 +12,9 @@ function NotEdit ({ editStart, setopen }) {
 
   const handleClick = () => {
     dispatch(logout())
-    navigate("/login", { replace: true })
+    if (!sessionStorage.getItem("acessToken")) {
+      navigate("/login", { replace: true })
+    }
   }
 
   return (

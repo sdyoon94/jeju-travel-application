@@ -11,36 +11,32 @@ const initialState = {
   error: null,
 }
 
-export const authHeader = {
-  Authorization: `Bearer ${initialState.token}` 
-}
-
 export const editNickname = createAsyncThunk(
   "auth/editNickname",
-  async (newNickname, thunkAPI) => {
+  async (newNickname, {getState, rejectWithValue}) => {
     try {
       const response = await axios({
         method: "patch",
         url: api.accounts.editNicknameUrl(),
         data: {nickname: newNickname},
-        headers: authHeader
+        headers: {
+          Authorization: `Bearer ${getState().auth.token}`
+        }
       })
       return response.data
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.response)
+      return rejectWithValue(err.response)
     }
   }
 )
 
 export const editProfileImg = createAsyncThunk(
   "auth/editProfileImg",
-  async (formdata, thunkAPI) => {
-    console.log('사진')
-    const state = thunkAPI.getState()
+  async (formdata, {getState, rejectWithValue}) => {
     try {
       const response = await axios({
         method:"post",
-        url: api.accounts.editProfileImgUrl(state.auth.id),
+        url: api.accounts.editProfileImgUrl(getState().auth.id),
         headers: {
           "content-type": "multipart/form-data",
         },
@@ -49,47 +45,50 @@ export const editProfileImg = createAsyncThunk(
       console.log('프사 변경', response)
       return response.data
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.response.data)
+      return rejectWithValue(err.response.data)
     }
   }
 )
 
 export const logout = createAsyncThunk(
   "auth/logout",
-  async (payload, thunkAPI) => {
+  async (payload, {getState, rejectWithValue}) => {
     try {
       const response = await axios({
         method: "post",
         url: api.accounts.logoutUrl(),
-        headers: authHeader
+        headers: {
+          Authorization: `Bearer ${getState().auth.token}`
+        }
       })
       return response.data
     } catch (err) {
-      console.log(err)
-      return thunkAPI.rejectWithValue(err.response.data)
+      return rejectWithValue(err.response.data)
     }
   }
 )
 
 export const signout = createAsyncThunk(
   "auth/signout",
-  async (thunkAPI) => {
+  async (payload, {getState, rejectWithValue}) => {
     try {
       const response = await axios({
         method: "delete",
-        url: api.accounts.signoutUrl()
+        url: api.accounts.signoutUrl(),
+        headers: {
+          Authorization: `Bearer ${getState().auth.token}`
+        }
       })
-      console.log(response)
       return response.data
     } catch (err) {
       console.log(err)
-      return thunkAPI.rejectWithValue(err.response.data)
+      return rejectWithValue(err.response.data)
     }
   }
 )
 
 
-const loginSlice = createSlice({
+const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
@@ -118,12 +117,15 @@ const loginSlice = createSlice({
     .addCase(logout.fulfilled, (state, { payload }) => {
       sessionStorage.clear()
     })
+    .addCase(logout.rejected, (state, {payload}) => {
+      console.log(payload)
+    })
     .addCase(signout.fulfilled, (state, { payload }) => {
       sessionStorage.clear()
     })
   }
 })
 
-const { actions, reducer } = loginSlice
+const { actions, reducer } = authSlice
 export const { login, setToken } = actions
 export default reducer
