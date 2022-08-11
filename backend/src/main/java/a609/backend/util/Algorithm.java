@@ -105,13 +105,16 @@ public class Algorithm {
 
         double d = distanceInKilometerByHaversine(lat1,lng1,lat2,lng2);
         //외점
-        Point outPoint = outPoint(lat1,lng1,lat2,lng2,d);
-        places = placeRepository.findTourByDistance(outPoint.lat,outPoint.lng,8.0,placeType);
         double distance=8.0;
+        Point outPoint = outPoint(lat1,lng1,lat2,lng2,d);
+
         while (places.isEmpty()){
-            distance+=2.0;
+
             places = placeRepository.findTourByDistance(outPoint.lat,outPoint.lng,distance,placeType);
+            distance+=2.0;
         }
+
+        log.info(String.valueOf(places.size()));
         Collections.shuffle(places);
 
         return places.get(0);
