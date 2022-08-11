@@ -107,8 +107,11 @@ public class Algorithm {
         //외점
         double distance=8.0;
         Point outPoint = outPoint(lat1,lng1,lat2,lng2,d);
+        log.info("-----------------------------"+String.valueOf(outPoint.lat));
+        log.info(String.valueOf(outPoint.lng));
 
         while (places.isEmpty()){
+
 
             places = placeRepository.findTourByDistance(outPoint.lat,outPoint.lng,distance,placeType);
             distance+=2.0;
