@@ -1,6 +1,7 @@
 import { AvatarGroup, Avatar, Divider } from "@mui/material"
 
 import React, { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
 import { format, addDays } from "date-fns"
 
 import "./TravelTitle.css"
@@ -22,6 +23,7 @@ function TravelTitle({ travel }) {
             "yyyy-MM-dd"
         )
     )
+    const nickname = useSelector((state) => state.auth.nickname)
 
     useEffect(() => {
         setEndDate(
@@ -51,7 +53,7 @@ function TravelTitle({ travel }) {
     }, [ travel.info.style ])
 
     // 여행 참여 링크
-    const joinUrl = "http://localhost:3000"
+    const joinUrl = `https://i7a609.p.ssafy.io/join/${travel.info.tripId}/${encodeURIComponent(nickname)}`
 
     useEffect(() => {
         initKakao()
@@ -68,9 +70,10 @@ function TravelTitle({ travel }) {
 
     const share = () => {
         window.Kakao.Share.sendDefault({
-            objectType: 'text',
+            objectType: "text",
             text:
-              '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
+              `${nickname}님이 제주도 여행에 초대하셨습니다.`,
+            buttonTitle: "여행 참여하기",
             link: {
               mobileWebUrl:
                 joinUrl,

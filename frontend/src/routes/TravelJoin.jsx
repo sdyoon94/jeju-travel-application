@@ -12,13 +12,12 @@ const URL = "https://i7a609.p.ssafy.io/oauth2/authorization/kakao"
 function TravelJoin() {
 
   const navigate = useNavigate()
-  const { travelUid } = useParams()
+  const { travelId, nickname } = useParams()
   const { id } = useSelector((state) => state.auth)
-
 
   const isLoggedIn = id ? true : false
 
-  const [ title, setTitle ] = useState("여행 제목")
+  const inviter = decodeURIComponent(nickname)
   
   /* 비동기 통신 - 여행 메타 정보 받아오는 부분
 
@@ -26,7 +25,7 @@ function TravelJoin() {
   try {
     const resp = axios({
       method: "get",
-      url: `~/join/${travelUid}/meta`
+      url: `~/join/${travelId}/meta`
     })
     setTitle(resp.data.title)
     setIsLoaded(true)
@@ -53,7 +52,7 @@ function TravelJoin() {
     try {
       const resp = await axios({
         method: "get",
-        url: `~/join/${travelUid}`
+        url: `~/join/${travelId}`
       })
       // 메인 페이지로 보내거나, 바로 여행에 참여시키거나
       navigate("/", {
@@ -77,7 +76,7 @@ function TravelJoin() {
         <CircularProgress />
       } */}
       <div className="travel-join-title subtitle-size">
-        <p>{ title }에 초대되었습니다.</p>
+        <p>{ inviter }의 여행에 초대되었습니다.</p>
         <p>같이 제주도로 떠날까요?</p>
       </div>
       <div className="travel-join-body">

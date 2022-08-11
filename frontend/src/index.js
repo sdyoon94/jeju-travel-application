@@ -37,7 +37,7 @@ root.render(
         {/* Public route */}
         <Route path="login" element={<KakaoLogin />} />
         <Route path="oauth2/redirect/" element={<KakaoRedirect />} />
-        <Route path="join/:travelUid" element={<TravelJoin />} />
+        <Route path="join/:travelId/:nickname" element={<TravelJoin />} />
       </Routes>
     </BrowserRouter>
   </Provider>
