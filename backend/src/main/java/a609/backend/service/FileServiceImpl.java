@@ -25,7 +25,7 @@ public class FileServiceImpl implements FileService{
     @Autowired
     UserService userService;
 
-    private String uploadPath =File.separator+"home"+ File.separator+"ubuntu"+File.separator+"jeju";
+    private String uploadPath =File.separator+"home"+ File.separator+"ubuntu"+File.separator+"jeju"+File.separator;
     private String dbPath = File.separator + "saimedia" + File.separator +"Album";
 
     @Override
