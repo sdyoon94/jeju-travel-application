@@ -1,11 +1,12 @@
 import axios from "axios"
 import api from "api"
 
-import { useDispatch, useSelector } from "react-redux"
+import {  useSelector } from "react-redux"
 import { useParams, useNavigate } from "react-router-dom"
 
 import "./TravelJoin.css"
 import "../globalStyle.css"
+import { useState, useEffect } from "react"
 
 const URL = "https://i7a609.p.ssafy.io/oauth2/authorization/kakao"
 
@@ -18,9 +19,16 @@ function TravelJoin() {
     navigate("/", { replace: true })
   }
 
-  const { id } = useSelector((state) => state.auth)
+  const [ isLoggedIn, setIsLoggedIn ] = useState(false)
 
-  const isLoggedIn = id ? true : false
+  const auth = useSelector((state) => state.auth)
+
+  useEffect(() => {
+    if (auth) {
+      setIsLoggedIn(true)
+    }
+  }, [ auth ])
+  
 
   const inviter = decodeURIComponent(nickname)
 
