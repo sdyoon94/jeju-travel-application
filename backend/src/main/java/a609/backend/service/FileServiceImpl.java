@@ -56,20 +56,9 @@ public class FileServiceImpl implements FileService{
                 Path path = Paths.get(savePath);
                 file.transferTo(path);
             //이미 등록된 사진이 있으면 삭제
-//            if(userRepository.findOneByKakaoId(id)!=null){
-//               user.setImagePath("");
-//               userRepository.save(user);
-//            }
-//            Path copyOfLocation = Paths.get(uploadDir + File.separator + StringUtils.cleanPath(file.getOriginalFilename()));
-//            //저장될 경로
-////          String filePath = savePath + "\\" + id + "." + extractExt(file.getOriginalFilename());
-//            String filePath = "/var/lib/jenkins/jeju/" +  id + "." + extractExt(file.getOriginalFilename());
-//
-//            File newfile = new File("/var/lib/jenkins/jeju" );
-////            Files.copy(file.getInputStream(), savePath, StandardCopyOption.REPLACE_EXISTING);
-////            Files.copy(file.getInputStream(), copyOfLocation, StandardCopyOption.REPLACE_EXISTING);
-//            file.transferTo(newfile);
-//            newfile.createNewFile();
+            if(userRepository.findOneByKakaoId(id)!=null){
+               this.deleteById(token);
+            }
 
             user.setImagePath(savePath);
 
@@ -94,7 +83,7 @@ public class FileServiceImpl implements FileService{
         Long id =((Long) jwtUtil.parseJwtToken(token).get("id"));
 
         User targetImage = userRepository.findOneByKakaoId(id);
-        if(targetImage!=null){
+        if(targetImage.getImagePath()!=null){
             File file = new File(targetImage.getImagePath());
             file.delete();
             targetImage.setImagePath("");
