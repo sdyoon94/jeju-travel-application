@@ -8,10 +8,10 @@ function SearchResultItem({item, isLast}) {
   const dispatch = useDispatch()
 
   const handleClickSpot = (e) => {
-    const uid = e.target.id
-    const name = e.target.getAttribute("name")
+    const placeUid = e.target.id
+    const placeName = e.target.getAttribute("name")
     if (!checked) {
-      dispatch(addSpot({uid, name}))
+      dispatch(addSpot({placeUid, placeName}))
     }
     setChecked(true)
   } 

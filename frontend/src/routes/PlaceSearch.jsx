@@ -1,15 +1,18 @@
 import Header from "components/Header/Header"
 import { useState } from "react"
-import { useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { useSelector, useDispatch } from "react-redux"
+import { useNavigate, useParams } from "react-router-dom"
 import axios from "axios"
 import SearchBody from "components/PlaceSearch/SearchBody"
 import SelectedSpots from "components/PlaceSearch/SelectedSpots"
 import RecommendList from "components/PlaceSearch/RecommendList"
+import { addSchedule } from "store/modules/travelSlice"
+import { resetSpot } from "store/modules/selectedSpotsSlice"
 import "./placesearch.css"
 
 function PlaceSearch() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [spotSearch, setSpotSearch] = useState("")
   const [resultLst, setresultLst] = useState([])
   const selectedSpots = useSelector(state => state.selectedSpots)
@@ -43,21 +46,30 @@ function PlaceSearch() {
       borderBottom: "2px solid black"
     })
   }
+  
+  const { travelId, dayId } = useParams()
 
   const handleInputBtn = () => {
-    navigate("/address")
+    navigate(`/address/${travelId}/${dayId}`)
   }
-
+  
   const handleSubmit = () => {
-    navigate("/travel")
-    // 장소 추가하는 action
+    navigate(`/travel/${travelId}`)
+    dispatch(addSchedule({ dayId, selectedSpots}))
+    dispatch(resetSpot())
+  }
+  
+  const handleSubmitInputBtn = () => {
+    navigate(`/address/${travelId}/${dayId}`)
+    dispatch(addSchedule({ dayId, selectedSpots}))
+    dispatch(resetSpot())
   }
 
   return (
     <>
       <Header style={{ margin: "3vh 4vw"}} />
       <div className="text-center">
-        <img className="search-icon" alt="searchIcon" src="icons/searchIcon.png" />
+        <img className="search-icon" alt="searchIcon" src="/icons/searchIcon.png" />
         <div style={containerStyle} className="search-input-container">
           <input autoFocus className="search-input"
             value={spotSearch}
@@ -71,7 +83,7 @@ function PlaceSearch() {
       <SearchBody spotSearch={spotSearch} resultLst={resultLst} />
       { selectedSpots.length !== 0 && resultLst.length === 0 && spotSearch &&
         <div className="text-center">
-        <p onClick={handleInputBtn} className="content-size" style={{ marginTop: "5vh", cursor: "pointer"}}>장소 직접 추가하러 가기!</p>
+        <p onClick={handleSubmitInputBtn} className="content-size" style={{ marginTop: "5vh", cursor: "pointer"}}>장소 직접 추가하러 가기!</p>
         <p className="content-size gray">지금까지 선택된 장소는 자동으로 일정에 추가돼요.</p>
         </div>
       }
