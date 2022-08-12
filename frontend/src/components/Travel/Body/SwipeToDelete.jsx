@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react"
 import "./SwipeToDelete.css"
 import Place from "./Place"
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
 import { deleteSchedule } from "store/modules/travelSlice"
 import api from "api"
 import axios from "axios"
@@ -31,9 +31,6 @@ function SwipeToDelete({ travel, placeIdx, scheduleIdx, startTime, timeReq, time
       dispatch(deleteSchedule({scheduleIdx, scheduleId}))
     }
 	}
-  useSelector(state => console.log(state.travel))
-
-  
 
   useEffect(() => {
     window.addEventListener("mouseup", onDragEndMouse)
