@@ -43,8 +43,8 @@ div.style-select-btns button {
 }
 
 .style-icon {
-  height: 20px;
-  width: 20;
+  /* height: 20px;
+  width: 20px; */
   border: none;
   align-self:center;
 }

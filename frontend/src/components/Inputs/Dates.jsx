@@ -31,7 +31,7 @@ function Calender({inputValues,setInputValues}) {
   // const [startDate, setStartDate] = useState(inputValues.range[0].startDate)
   // const [endDate, setEndDate] = useState(inputValues.range[0].endDate)
   // const [periodInDays, setPeriodInDays] = useState(inputValues.periodInDays)
-
+  console.log(inputValues.range)
 
   const handleChange = (item) => {
 
@@ -41,7 +41,7 @@ function Calender({inputValues,setInputValues}) {
       endDate: addDays(startDate, 19),
       key: "selection",
     }
-    
+    console.log('여기', [item.selection])
     setInputValues(['range',[item.selection]])
     const periodInDays = differenceInDays(item.selection.endDate, item.selection.startDate )
     if (periodInDays >= 19) {

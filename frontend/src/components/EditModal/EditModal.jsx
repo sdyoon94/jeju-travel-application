@@ -8,22 +8,23 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 
 
-function EditModal({open1, onClose, target, travel,setTravel}) {
-  const [open, setOpen] = useState(open1);
+function EditModal({open, onClose, target, travel,setTravel}) {
+  
+  // const [open, setOpen] = useState(open1);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
 
   return (
     <div>
       <Dialog
-        open={open1}
-        onClose={handleClose}
+        open={open}
+        onClose={onClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -37,10 +38,10 @@ function EditModal({open1, onClose, target, travel,setTravel}) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
+          {/* <Button onClick={handleClose}>Disagree</Button>
           <Button onClick={handleClose} autoFocus>
             Agree
-          </Button>
+          </Button> */}
         </DialogActions>
       </Dialog>
     </div>
