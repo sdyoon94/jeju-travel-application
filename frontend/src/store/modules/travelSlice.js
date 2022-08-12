@@ -57,6 +57,7 @@ const travelSlice = createSlice({
 			state.schedules[scheduleIdx] = schedule
 		},
 		deleteSchedule(state, { payload: {scheduleIdx, scheduleId} }){
+			console.log(scheduleId)
 			state.schedules[scheduleIdx] = state.schedules[scheduleIdx].filter(place => place.scheduleId !== scheduleId)
 		},
 		addSchedule(state, { payload: { dayId, selectedSpots} }) {
