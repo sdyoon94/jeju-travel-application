@@ -105,7 +105,7 @@ public class TripScheduleServiceImpl implements TripScheduleService{
                 if(hungry>=11.5&& hungry<13.5&&restaurant<1){
                     placeType=3;
                 }
-                if (hungry>=17.5&&hungry<19.5&&restaurant<3){
+                if (hungry>=17.5&&hungry<19.5&&restaurant<2){
                     placeType=3;
                 }
                 Algorithm.Check ch = algorithm.create(trip, placeType, day, 1, turn, visit, hungry,tire,restaurant,cafe);//관광지 추가
