@@ -37,7 +37,7 @@ public class FileServiceImpl implements FileService{
 
 
             // 파일이 저장되는 폴더가 없으면 폴더를 생성합니다.
-            File uploadPathFolder = new File(uploadPath, String.valueOf(id));
+            File uploadPathFolder = new File(uploadPath+File.separator+id, String.valueOf(id));
             if (!uploadPathFolder.exists()) {
                 uploadPathFolder.mkdir();
             }
