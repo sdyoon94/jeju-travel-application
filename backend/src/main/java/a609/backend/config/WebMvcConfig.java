@@ -29,26 +29,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
 //    파일업로드
-//    private String connectPath = "/imagePath/**";
-//    private String resourcePath = "file:///home/ubuntu/jeju/";
-//
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler(connectPath)
-//                .addResourceLocations(resourcePath);
-//    }
-    private final  String uploadImagesPath;
-
-    public WebMvcConfig(@Value("${custom.path.upload-images}") String uploadImagesPath) {
-        this.uploadImagesPath = uploadImagesPath;
-    }
-
+    @Value("${resources.location}")
+    private String resourcesLocation;
+    @Value("${resources.uri_path:}")
+    private String resourcesUriPath;
 
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry){
-        registry.addResourceHandler("classpath:**/tmp/tomcat.*");
-        registry.addResourceHandler("/static/imagePath/**")
-                .addResourceLocations("file:///" + uploadImagesPath );
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler(resourcesUriPath + "/**")
+                .addResourceLocations("file://" + resourcesLocation);
 
     }
 

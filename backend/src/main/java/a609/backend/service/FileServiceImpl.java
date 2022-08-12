@@ -25,45 +25,50 @@ public class FileServiceImpl implements FileService{
     @Autowired
     UserService userService;
 
+    private String uploadPath =File.separator+"home"+ File.separator+"uduntu"+File.separator+"jeju";
+    private String dbPath = File.separator + "saimedia" + File.separator +"Album";
+
     @Override
     public void uploadFile(MultipartFile file, Long id) {
         try {
             // 실행되는 위치의 'files' 폴더에 파일이 저장됩니다.
 //            String savePath = System.getProperty("user.dir") + "\\files";
-            String savePath = "/var/lib/jenkins/jeju/"+ LocalDate.now()+"/";
+            String savePath = uploadPath+File.separator+id;
 
 
             // 파일이 저장되는 폴더가 없으면 폴더를 생성합니다.
-            if (!new File(savePath).exists()) {
-                new File(savePath).mkdir();
+            File uploadPathFolder = new File(uploadPath, String.valueOf(id));
+            if (!uploadPathFolder.exists()) {
+                uploadPathFolder.mkdir();
             }
 
-            User user = userService.searchByKakaoId(id);
+                User user = userService.searchByKakaoId(id);
 
+                Path path = Paths.get(savePath);
+                file.transferTo(path);
             //이미 등록된 사진이 있으면 삭제
 //            if(userRepository.findOneByKakaoId(id)!=null){
 //               user.setImagePath("");
 //               userRepository.save(user);
 //            }
-            Path copyOfLocation = Paths.get(uploadDir + File.separator + StringUtils.cleanPath(file.getOriginalFilename()));
-            //저장될 경로
-//          String filePath = savePath + "\\" + id + "." + extractExt(file.getOriginalFilename());
-            String filePath = "/var/lib/jenkins/jeju/" +  id + "." + extractExt(file.getOriginalFilename());
+//            Path copyOfLocation = Paths.get(uploadDir + File.separator + StringUtils.cleanPath(file.getOriginalFilename()));
+//            //저장될 경로
+////          String filePath = savePath + "\\" + id + "." + extractExt(file.getOriginalFilename());
+//            String filePath = "/var/lib/jenkins/jeju/" +  id + "." + extractExt(file.getOriginalFilename());
+//
+//            File newfile = new File("/var/lib/jenkins/jeju" );
+////            Files.copy(file.getInputStream(), savePath, StandardCopyOption.REPLACE_EXISTING);
+////            Files.copy(file.getInputStream(), copyOfLocation, StandardCopyOption.REPLACE_EXISTING);
+//            file.transferTo(newfile);
+//            newfile.createNewFile();
 
-            File newfile = new File("/var/lib/jenkins/jeju" );
-//            Files.copy(file.getInputStream(), savePath, StandardCopyOption.REPLACE_EXISTING);
-//            Files.copy(file.getInputStream(), copyOfLocation, StandardCopyOption.REPLACE_EXISTING);
-            file.transferTo(newfile);
-            newfile.createNewFile();
-
-
-
-            user.setImagePath(filePath);
+            user.setImagePath(savePath);
 
             userRepository.save(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     @Override
