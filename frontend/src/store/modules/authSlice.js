@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import api from "api"
 import axios from "axios"
+import jwt_decode from "jwt-decode"
 
 
 const initialState = {
@@ -93,7 +94,20 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     login(state, { payload }) {
-      state.token = payload
+      const accessToken = payload
+      
+      const decoded = jwt_decode(accessToken)
+
+      state.token = accessToken
+      sessionStorage.setItem("accessToken", accessToken)
+      state.nickname = decoded.nickname
+      sessionStorage.setItem("nickname", decoded.nickname)
+      state.id = decoded.id
+      sessionStorage.setItem("id", decoded.id)
+      state.profileImg = decoded.image_path
+      sessionStorage.setItem("image_path", decoded.image_path)
+      
+      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
     },
     setToken(state, { payload }) {
       state.token = payload.accessToken
