@@ -42,7 +42,7 @@ public class FileController {
     public ResponseEntity<Map<String, String>> fileView(@RequestHeader Map<String,Object> token) {
         Map<String, String> resultMap = new HashMap<>();
         User image = fileService.findImageById((String) token.get("authorization"));
-        if (image ==null) {
+        if (image.getImagePath() ==null) {
             resultMap.put("message", "등록된 사진이 없습니다.");
         } else {
             resultMap.put("image_path",image.getImagePath());
