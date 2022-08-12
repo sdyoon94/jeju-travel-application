@@ -38,19 +38,19 @@ public class FileController {
 
     }
 
-    @GetMapping("/view/{id}")
+    @GetMapping("/view")
     public ResponseEntity<Map<String, String>> fileView(@RequestHeader Map<String,Object> token) {
         Map<String, String> resultMap = new HashMap<>();
         User image = fileService.findImageById((String) token.get("authorization"));
         if (image ==null) {
             resultMap.put("message", "등록된 사진이 없습니다.");
         } else {
-            resultMap.put("filePath",image.getImagePath());
+            resultMap.put("image_path",image.getImagePath());
         }
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete")
     public ResponseEntity<Map<String, String>> fileDelete(@RequestHeader Map<String,Object> token) {
         Map<String, String> resultMap = new HashMap<>();
         int check= fileService.deleteById((String) token.get("authorization"));
