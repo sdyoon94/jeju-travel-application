@@ -52,6 +52,7 @@ public class Schedule {
     @Column(name="TURN")
     private Integer turn;
 
+    //좀이따 날리기
     @Column(name="IS_CUSTOM")
     private Boolean isCustom;
 

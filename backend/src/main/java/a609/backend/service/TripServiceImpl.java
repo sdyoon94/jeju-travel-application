@@ -125,6 +125,9 @@ public class TripServiceImpl implements TripService{
     public String registerTrip(Trip trip,String token) {
         User user = userRepository.findOneByKakaoId((Long)jwtUtil.parseJwtToken(token).get("id"));
         Trip trip1 = trip;
+        if(trip1.getVehicle()==null){
+            trip1.setVehicle("car");
+        }
         trip1.setTripName(user.getNickname()+"의 여행");
         //방장권한도 줘야됨
         Trip savedTrip = tripRepository.save(trip1);
