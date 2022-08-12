@@ -11,6 +11,7 @@ import EditModal from 'components/EditModal/EditModal'
 
 import Budget from "components/Inputs/Budget";
 import Dates from "components/EditModal/EditDates"
+import Vehicle from "components/EditModal/EditVehicle"
 
 import { ko } from "date-fns/locale";
 import {parseISO,addDays} from "date-fns"
@@ -92,8 +93,12 @@ function ConfigDrawer({travel, setTravel}) {
             name : "dates",
             form : <Dates inputValues={info} setInputValues={editInfo}></Dates>,
             isFull : true,
-        }
-    
+        },
+        {
+            name : "vehicle",
+            form : <Vehicle inputValues={info} setInputValues={editInfo}></Vehicle>,
+            isFull : false,
+        },
     ]
 
 
@@ -110,6 +115,7 @@ function ConfigDrawer({travel, setTravel}) {
     const [open, setOpen] = useState({
         "dates" : false,
         "budget": false,
+        "vehicle": false,
     });
     // const [target, setTarget] = useState(false)
 
@@ -156,10 +162,10 @@ function ConfigDrawer({travel, setTravel}) {
             >
                 <h1>설정</h1>
                 <p>여행 제목 변경</p>
-                <p >여행 날짜 변경</p>
-                <p onClick={()=>{handleClickOpen("dates")}}> 여행 스타일 수정 </p>
+                <p onClick={()=>{handleClickOpen("dates")}}>여행 날짜 변경</p>
+                <p > 여행 스타일 수정 </p>
                 <p onClick={()=>{handleClickOpen("budget")}}> 여행경비변경 </p>
-                <p>이동수단 변경</p>
+                <p onClick={()=>{handleClickOpen("vehicle")}} >이동수단 변경  </p>
                 <p>여행 나가기</p>
             </Drawer>
             
