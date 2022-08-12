@@ -47,7 +47,7 @@ public class TripScheduleServiceImpl implements TripScheduleService{
 
         if (day == 0) {//첫째날
 
-            turn = algorithm.create(trip, 5, day, 1, turn,visit,hungry,tire,restaurant,cafe).getTurn();//공항
+            turn = algorithm.create(trip, 5, day, 1, turn,visit,hungry,tire,restaurant).getTurn();//공항
 
             double startTime = trip.getStartTime().toSecondOfDay() / 60/60;//확인필요
             log.info("확인필요 --------"+startTime);
@@ -61,19 +61,19 @@ public class TripScheduleServiceImpl implements TripScheduleService{
                 if (hungry>=17.5&&hungry<19.5&&restaurant<2){
                     placeType=3;
                 }
-                Algorithm.Check ch = algorithm.create(trip, placeType, day, 1, turn, visit, hungry,tire,restaurant,cafe);//관광지 추가
+                Algorithm.Check ch = algorithm.create(trip, placeType, day, 1, turn, visit, hungry,tire,restaurant);//관광지 추가
                 hungry= ch.getHungry();
                 turn=ch.getTurn();
                 restaurant=ch.getRestaurant();
-                cafe=ch.getCafe();
+
             }
 
 //            turn = algorithm.create(trip, 0, day, 2, turn,visit,hungry,tire,restaurant,cafe);//관광지추가
             if (trip.getPeriodInDays() > 1) {//당일치기 아니면 숙소추가
-                algorithm.create(trip, 2, day, 1, turn,visit,hungry,tire,restaurant,cafe);
+                algorithm.create(trip, 2, day, 1, turn,visit,hungry,tire,restaurant);
             }
             if (trip.getPeriodInDays() == 1) {//당일치기면 공항
-                algorithm.create(trip, 5, day, 1, turn,visit,hungry,tire,restaurant,cafe);//공항
+                algorithm.create(trip, 5, day, 1, turn,visit,hungry,tire,restaurant);//공항
             }
         } else if (day == trip.getPeriodInDays() - 1) {//마지막날
             hungry=9;
@@ -86,15 +86,15 @@ public class TripScheduleServiceImpl implements TripScheduleService{
                 if (hungry>=17.5&&hungry<19.5&&restaurant<2){
                     placeType=3;
                 }
-                Algorithm.Check ch = algorithm.create(trip, placeType, day, 1, turn, visit, hungry,tire,restaurant,cafe);//관광지 추가
+                Algorithm.Check ch = algorithm.create(trip, placeType, day, 1, turn, visit, hungry,tire,restaurant);//관광지 추가
                 hungry= ch.getHungry();
                 turn=ch.getTurn();
                 restaurant=ch.getRestaurant();
-                cafe=ch.getCafe();
+
             }
 
 //            turn = algorithm.create(trip, 0, day, 2, turn,visit,hungry,tire,restaurant,cafe);//관광지 추가
-            algorithm.create(trip, 5, day, 1, turn,visit,hungry,tire,restaurant,cafe);//공항
+            algorithm.create(trip, 5, day, 1, turn,visit,hungry,tire,restaurant);//공항
 
         } else {
 
@@ -102,19 +102,23 @@ public class TripScheduleServiceImpl implements TripScheduleService{
             while(hungry<20.0) {//8시 이전이면
                 log.info("Hungry -------------------"+hungry);
                 placeType=0;
-                if(hungry>=11.5&& hungry<13.5&&restaurant<1){
+                if(tire>=4){ //피로도 4이상이면 카페가기
+                    placeType=4;
+                }
+                if(hungry>=11.5&& hungry<14.0&&restaurant<1){//점심시간
                     placeType=3;
                 }
-                if (hungry>=17.5&&hungry<19.5&&restaurant<2){
+                if (hungry>=17.5&&hungry<20.5&&restaurant<2){
                     placeType=3;
                 }
-                Algorithm.Check ch = algorithm.create(trip, placeType, day, 1, turn, visit, hungry,tire,restaurant,cafe);//관광지 추가
+
+                Algorithm.Check ch = algorithm.create(trip, placeType, day, 1, turn, visit, hungry,tire,restaurant);//관광지 추가
                 hungry= ch.getHungry();
                 turn=ch.getTurn();
                 restaurant=ch.getRestaurant();
-                cafe=ch.getCafe();//관광지 추가
+
             }
-            algorithm.create(trip, 2, day, 1, turn,visit,hungry,tire,restaurant,cafe);//숙소
+            algorithm.create(trip, 2, day, 1, turn,visit,hungry,tire,restaurant);//숙소
         }
 
 
