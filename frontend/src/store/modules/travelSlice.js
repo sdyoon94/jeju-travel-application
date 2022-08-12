@@ -59,9 +59,8 @@ const travelSlice = createSlice({
 		deleteSchedule(state, { payload: {scheduleIdx, scheduleId} }){
 			state.schedules[scheduleIdx] = state.schedules[scheduleIdx].filter(place => place.scheduleId !== scheduleId)
 		},
-		addSchedule(state, { payload: { scheduleIdx, selectedSpots} }) {
-			console.log(scheduleIdx, selectedSpots)
-			// state.schedules[scheduleIdx].push('newspot')
+		addSchedule(state, { payload: { dayId, selectedSpots} }) {
+			state.schedules[dayId].push(...selectedSpots)
 		}
 	},
 	// extraReducers: (builder) => {

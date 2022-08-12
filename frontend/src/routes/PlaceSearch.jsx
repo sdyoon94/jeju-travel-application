@@ -7,6 +7,7 @@ import SearchBody from "components/PlaceSearch/SearchBody"
 import SelectedSpots from "components/PlaceSearch/SelectedSpots"
 import RecommendList from "components/PlaceSearch/RecommendList"
 import { addSchedule } from "store/modules/travelSlice"
+import { resetSpot } from "store/modules/selectedSpotsSlice"
 import "./placesearch.css"
 
 function PlaceSearch() {
@@ -51,10 +52,17 @@ function PlaceSearch() {
   const handleInputBtn = () => {
     navigate(`/address/${travelId}/${dayId}`)
   }
-
+  
   const handleSubmit = () => {
     navigate(`/travel/${travelId}`)
     dispatch(addSchedule({ dayId, selectedSpots}))
+    dispatch(resetSpot())
+  }
+  
+  const handleSubmitInputBtn = () => {
+    navigate(`/address/${travelId}/${dayId}`)
+    dispatch(addSchedule({ dayId, selectedSpots}))
+    dispatch(resetSpot())
   }
 
   return (
@@ -75,7 +83,7 @@ function PlaceSearch() {
       <SearchBody spotSearch={spotSearch} resultLst={resultLst} />
       { selectedSpots.length !== 0 && resultLst.length === 0 && spotSearch &&
         <div className="text-center">
-        <p onClick={handleInputBtn} className="content-size" style={{ marginTop: "5vh", cursor: "pointer"}}>장소 직접 추가하러 가기!</p>
+        <p onClick={handleSubmitInputBtn} className="content-size" style={{ marginTop: "5vh", cursor: "pointer"}}>장소 직접 추가하러 가기!</p>
         <p className="content-size gray">지금까지 선택된 장소는 자동으로 일정에 추가돼요.</p>
         </div>
       }

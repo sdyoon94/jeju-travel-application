@@ -14,9 +14,9 @@ function SelectedSpots() {
   return(
     <div className="selected-box">
       {selected.map(place => 
-        <div key={place.uid} className="inline-block">
-          <span className="subcontent-size">{place.name} 
-            <span id={place.uid} onClick={handleDelete} style={{cursor: "pointer"}}> X</span>
+        <div key={place.placeUid} className="inline-block">
+          <span className="subcontent-size">{place.placeName} 
+            <span id={place.placeUid} onClick={handleDelete} style={{cursor: "pointer"}}> X</span>
           </span>
         </div>
       )}
