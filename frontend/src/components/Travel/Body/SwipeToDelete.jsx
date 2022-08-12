@@ -17,6 +17,8 @@ function SwipeToDelete({ travel, placeIdx, scheduleIdx, startTime, timeReq, time
   const dispatch = useDispatch()
   const { scheduleId } = travel.schedules[scheduleIdx][placeIdx]
 
+  console.log(travel.schedules[scheduleIdx])
+
   const fetchDelete = async (scheduleId) => {
     const response = await axios({
       method: "delete",
@@ -26,8 +28,9 @@ function SwipeToDelete({ travel, placeIdx, scheduleIdx, startTime, timeReq, time
       }
     })
     if (response.status === 200) {
-      leftRef.current = -listElementRef.current.offsetWidth * 2
-      wrapperRef.current.style.maxHeight = 0
+      console.log('delete')
+      // leftRef.current = -listElementRef.current.offsetWidth * 2
+      // wrapperRef.current.style.maxHeight = 0
       dispatch(deleteSchedule({scheduleIdx, scheduleId}))
     }
 	}
@@ -88,7 +91,7 @@ function SwipeToDelete({ travel, placeIdx, scheduleIdx, startTime, timeReq, time
     yRef.current = touch.clientY
     const left = touch.clientX - dragStartXRef.current
     if (left < 0) {
-      leftRef.current = left;
+      leftRef.current = left
     }
   }
 
@@ -111,12 +114,10 @@ function SwipeToDelete({ travel, placeIdx, scheduleIdx, startTime, timeReq, time
         (leftRef.current < listElementRef.current.offsetWidth * threshold * -1)
         && Math.abs(dragStartYRef.current - yRef.current) < 5
       ) {
+        // 
         fetchDelete(scheduleId)
-      } else {
-        leftRef.current = 0
-      }
-
-      listElementRef.current.className = "BouncingListItem"
+      } 
+      leftRef.current = 0
       listElementRef.current.style.transform = `translateX(${leftRef.current}px)`
     }
     setDeleteStyle({
