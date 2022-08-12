@@ -5,6 +5,8 @@ import a609.backend.db.entity.Schedule;
 import a609.backend.db.entity.Trip;
 import a609.backend.db.repository.PlaceRepository;
 import a609.backend.db.repository.ScheduleRepository;
+import a609.backend.service.TripScheduleServiceImpl;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,15 +25,45 @@ public class Algorithm {
     @Autowired
     ScheduleRepository scheduleRepository;
 
-    public int create(Trip trip, int placeType, int day, int cnt, int startTurn,int[] visit) {
 
+    @Getter
+    public static class Check{
+        double hungry;
+        int tire,restaurant,cafe,turn;
+
+        public Check(double hungry, int tire, int restaurant, int cafe, int turn) {
+            this.hungry = hungry;
+            this.tire = tire;
+            this.restaurant = restaurant;
+            this.cafe = cafe;
+            this.turn = turn;
+        }
+
+        @Override
+        public String toString() {
+            return "Chech{" +
+                    "hungry=" + hungry +
+                    ", tire=" + tire +
+                    ", restaurant=" + restaurant +
+                    ", cafe=" + cafe +
+                    ", turn=" + turn +
+                    '}';
+        }
+    }
+
+
+
+    public Check create(Trip trip, int placeType, int day, int cnt, int startTurn, int[] visit,double hungry,int tire,int restaurant,int cafe) {
+
+
+        Check checkList = null;
         for (int i = 0; i < cnt; i++) {
             Schedule schedule = new Schedule();
             schedule.setDay(day);
             schedule.setTrip(trip);
             if (placeType == 5) {//공항이면
                 Place place = placeRepository.findOneByPlaceUid(3762L);
-                visit[Math.toIntExact(place.getPlaceUid())]=1;
+                visit[Math.toIntExact(place.getPlaceUid())] = 1;
                 schedule.setLat(place.getLat());
                 schedule.setLng(place.getLng());
                 schedule.setPlaceName(place.getPlaceName());
@@ -46,18 +78,18 @@ public class Algorithm {
                 int turn = Math.toIntExact(scheduleRepository.countByTripTripIdAndDay(trip.getTripId(), day - 1));
                 Schedule schedule1 = scheduleRepository.findByTripTripIdAndDayAndTurn(trip.getTripId(), day - 1, turn - 1);//전날 숙소를 시작장소로
 
-                visit[Math.toIntExact(schedule1.getPlaceUid())]=1;
+                visit[Math.toIntExact(schedule1.getPlaceUid())] = 1;
                 schedule.setPlaceUid(schedule1.getPlaceUid());//전날 잡은 숙소로
                 schedule.setPlaceName(schedule1.getPlaceName());
                 schedule.setLat(schedule1.getLat());
                 schedule.setLng(schedule1.getLng());
 
                 schedule.setStayTime(540);
-            } else if (day==0&&startTurn==1) {//첫째날은 공항 주변
+            } else if (day == 0 && startTurn == 1) {//첫째날은 공항 주변
                 Schedule schedule1 = scheduleRepository.findByTripTripIdAndDayAndTurn(trip.getTripId(), 0, 0);
-                Place place = selectFirstDayPlace(schedule1.getLat(),schedule1.getLng(),placeType);//공항 중심으로
+                Place place = selectFirstDayPlace(schedule1.getLat(), schedule1.getLng(), placeType);//공항 중심으로
 
-                visit[Math.toIntExact(schedule1.getPlaceUid())]=1;
+                visit[Math.toIntExact(schedule1.getPlaceUid())] = 1;
                 schedule.setPlaceUid(place.getPlaceUid());
                 schedule.setPlaceName(place.getPlaceName());
                 schedule.setLat(place.getLat());
@@ -67,11 +99,11 @@ public class Algorithm {
                 Schedule schedule1;
                 Schedule schedule2;
                 //전 일정 반경으로 설정
-                if(startTurn==1) {//첫번째 순서는 전날 마지막 일정과 숙소로
+                if (startTurn == 1) {//첫번째 순서는 전날 마지막 일정과 숙소로
                     int turn = Math.toIntExact(scheduleRepository.countByTripTripIdAndDay(trip.getTripId(), day - 1));
-                    schedule1 = scheduleRepository.findByTripTripIdAndDayAndTurn(trip.getTripId(), day-1, turn - 2);
-                    schedule2 = scheduleRepository.findByTripTripIdAndDayAndTurn(trip.getTripId(), day-1, turn - 1);
-                }else {//이전 장소 1 2로
+                    schedule1 = scheduleRepository.findByTripTripIdAndDayAndTurn(trip.getTripId(), day - 1, turn - 2);
+                    schedule2 = scheduleRepository.findByTripTripIdAndDayAndTurn(trip.getTripId(), day - 1, turn - 1);
+                } else {//이전 장소 1 2로
                     schedule1 = scheduleRepository.findByTripTripIdAndDayAndTurn(trip.getTripId(), day, startTurn - 2);
                     schedule2 = scheduleRepository.findByTripTripIdAndDayAndTurn(trip.getTripId(), day, startTurn - 1);
                 }
@@ -80,20 +112,31 @@ public class Algorithm {
                 log.info(trip.getTripId().toString());
 
 
-                Place place = selectPlace(schedule1.getLat(), schedule1.getLng(),schedule2.getLat(),schedule2.getLng(), placeType,visit);
+                Place place = selectPlace(schedule1.getLat(), schedule1.getLng(), schedule2.getLat(), schedule2.getLng(), placeType, visit);
 
-                visit[Math.toIntExact(place.getPlaceUid())]=1;
+                visit[Math.toIntExact(place.getPlaceUid())] = 1;
                 schedule.setPlaceUid(place.getPlaceUid());//전날 잡은 숙소로
                 schedule.setPlaceName(place.getPlaceName());
                 schedule.setLat(place.getLat());
                 schedule.setLng(place.getLng());
             }
-
+            Place place = placeRepository.findOneByPlaceUid(schedule.getPlaceUid());
+            tire += place.getTire();
+            hungry++;
+            if (place.getPlaceType() == 4) {
+                cafe++;
+            }
+            if (place.getPlaceType() == 3) {
+                restaurant++;
+            }
 
             schedule.setTurn(startTurn++);
             scheduleRepository.save(schedule);
+            checkList = new Check(hungry, tire, restaurant, cafe, startTurn);
+            log.info("--------------------------------"+hungry);
+            log.info("-----------------------------"+placeType);
         }
-        return startTurn;
+        return checkList;
 
     }
 
@@ -176,9 +219,10 @@ public class Algorithm {
         double d = distanceInKilometerByHaversine(lat1,lng1,lat2,lng2);
 
 //        //중복체크하고 지우기~ 중복체크 안해서 같은 장소 반환으로 d=0 에러!
-//        if(d<0.0001){
-//            return new Point(lat1,lng1);
-//        }
+        //장소 달라도 좌표 같은 곳이 존재..
+        if(d<0.0001){
+            return new Point(lat1,lng1);
+        }
 
 
         double lat = ((d+8)*lat2-8*lat1)/d;

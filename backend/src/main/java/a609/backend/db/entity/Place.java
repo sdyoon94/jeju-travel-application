@@ -45,5 +45,8 @@ public class Place {
     @Column(name="TAG")
     private String tag;
 
+    @Column(name="TIRE")
+    private Integer tire;
+
 
 }
