@@ -10,7 +10,8 @@ import { initDirection } from "store/modules/directionSlice"
 import { setTravel, setTravelInfo, initSchedule, setSchedule } from "store/modules/travelSlice"
 import axios from "axios"
 import api from "api"
-import { CircularProgress } from "@mui/material"
+
+import "routes/Inputs/CreateLoading.css"
 
 function Travel({ params }) {
 	// travelId를 통해 여행 정보 가져오기
@@ -103,10 +104,11 @@ function Travel({ params }) {
 								setScheduleIdx={setScheduleIdx}
 							/>
 						</>
-						:	<>
-								<CircularProgress /> <br />
-								<div>여행 로딩중...</div>
-							</>
+						:	<div className="loading">
+								<div className="loading-mention text-center title-size title-weight">
+									여행을 불러오는 중입니다...
+								</div>
+							</div>
 				}
 			</div>
 		</>
