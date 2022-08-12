@@ -31,9 +31,6 @@ function SwipeToDelete({ place, placeIdx, scheduleIdx, startTime, timeReq, timeR
       dispatch(deleteSchedule({scheduleIdx, scheduleId}))
     }
 	}
-  useSelector(state => console.log(state.travel))
-
-  
 
   useEffect(() => {
     window.addEventListener("mouseup", onDragEndMouse)

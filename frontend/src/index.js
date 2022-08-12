@@ -31,8 +31,8 @@ root.render(
         <Route path="edit" element={<PrivateRoute component={ Edit } />} />
         <Route path="travel/:travelId" element={<PrivateRoute component={ Travel } />} />
         <Route path="traveledit" element={<PrivateRoute component={ TravelEdit } />} />
-        <Route path="search" element={<PrivateRoute component={ PlaceSearch } />} />
-        <Route path="address" element={<PrivateRoute component={ AddressInput } />} />
+        <Route path="search/:travelId/:dayId" element={<PrivateRoute component={ PlaceSearch } />} />
+        <Route path="address/:travelId/:dayId" element={<PrivateRoute component={ AddressInput } />} />
         <Route path="loading" element={<PrivateRoute component={ CreateLoading } />} />
         {/* Public route */}
         <Route path="login" element={<KakaoLogin />} />

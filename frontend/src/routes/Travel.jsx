@@ -49,6 +49,7 @@ function Travel({ params }) {
 
 				for (let day = 0; day < periodInDays; day++) {
 					const response = await axios(buildTravelScheduleConfig(travelId, day))
+					console.log(response)
 
 					if (response.status === 200) {
 						const schedule = response.data["일자별 Schedule List"]

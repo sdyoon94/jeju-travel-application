@@ -58,6 +58,10 @@ const travelSlice = createSlice({
 		},
 		deleteSchedule(state, { payload: {scheduleIdx, scheduleId} }){
 			state.schedules[scheduleIdx] = state.schedules[scheduleIdx].filter(place => place.scheduleId !== scheduleId)
+		},
+		addSchedule(state, { payload: { scheduleIdx, selectedSpots} }) {
+			console.log(scheduleIdx, selectedSpots)
+			// state.schedules[scheduleIdx].push('newspot')
 		}
 	},
 	// extraReducers: (builder) => {
@@ -74,5 +78,5 @@ const travelSlice = createSlice({
 
 const { actions, reducer } = travelSlice
 
-export const { editStartTime, editStayTime, setTravel, setTravelInfo, initSchedule, setSchedule, deleteSchedule } = actions
+export const { editStartTime, editStayTime, setTravel, setTravelInfo, initSchedule, setSchedule, deleteSchedule, addSchedule } = actions
 export default reducer

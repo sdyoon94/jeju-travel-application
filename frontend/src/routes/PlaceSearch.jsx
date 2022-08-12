@@ -1,15 +1,17 @@
 import Header from "components/Header/Header"
 import { useState } from "react"
-import { useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { useSelector, useDispatch } from "react-redux"
+import { useNavigate, useParams } from "react-router-dom"
 import axios from "axios"
 import SearchBody from "components/PlaceSearch/SearchBody"
 import SelectedSpots from "components/PlaceSearch/SelectedSpots"
 import RecommendList from "components/PlaceSearch/RecommendList"
+import { addSchedule } from "store/modules/travelSlice"
 import "./placesearch.css"
 
 function PlaceSearch() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [spotSearch, setSpotSearch] = useState("")
   const [resultLst, setresultLst] = useState([])
   const selectedSpots = useSelector(state => state.selectedSpots)
@@ -43,21 +45,23 @@ function PlaceSearch() {
       borderBottom: "2px solid black"
     })
   }
+  
+  const { travelId, dayId } = useParams()
 
   const handleInputBtn = () => {
-    navigate("/address")
+    navigate(`/address/${travelId}/${dayId}`)
   }
 
   const handleSubmit = () => {
-    navigate("/travel")
-    // 장소 추가하는 action
+    navigate(`/travel/${travelId}`)
+    dispatch(addSchedule({ dayId, selectedSpots}))
   }
 
   return (
     <>
       <Header style={{ margin: "3vh 4vw"}} />
       <div className="text-center">
-        <img className="search-icon" alt="searchIcon" src="icons/searchIcon.png" />
+        <img className="search-icon" alt="searchIcon" src="/icons/searchIcon.png" />
         <div style={containerStyle} className="search-input-container">
           <input autoFocus className="search-input"
             value={spotSearch}
