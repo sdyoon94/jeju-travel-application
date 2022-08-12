@@ -36,7 +36,7 @@ public class FileServiceImpl implements FileService{
         Long id =((Long) jwtUtil.parseJwtToken(token).get("id"));
 
 
-        String uploadPath =File.separator+"home"+ File.separator+"ubuntu"+File.separator+"jeju"+File.separator+id;
+        String uploadPath =File.separator+"home"+ File.separator+"ubuntu"+File.separator+"jeju";
         String dbPath = File.separator + "saimedia" + File.separator +"Album";
 
         try {
@@ -53,12 +53,13 @@ public class FileServiceImpl implements FileService{
 
                 User user = userService.searchByKakaoId(id);
 
-                Path path = Paths.get(savePath);
-                file.transferTo(path);
+
             //이미 등록된 사진이 있으면 삭제
             if(userRepository.findOneByKakaoId(id)!=null){
                this.deleteById(token);
             }
+            Path path = Paths.get(savePath);
+            file.transferTo(path);
 
             user.setImagePath(savePath);
 
