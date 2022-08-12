@@ -24,11 +24,10 @@ function TravelJoin() {
   const auth = useSelector((state) => state.auth)
 
   useEffect(() => {
-    if (auth) {
+    if (auth.token) {
       setIsLoggedIn(true)
     }
-  }, [ auth ])
-  
+  }, [ auth.token ])
 
   const inviter = decodeURIComponent(nickname)
 

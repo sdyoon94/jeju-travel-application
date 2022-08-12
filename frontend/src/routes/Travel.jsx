@@ -19,7 +19,6 @@ function Travel({ params }) {
 
 	const [ error, setError ] = useState(null)
 	const [ isLoaded, setIsLoaded ] = useState(false)
-	const [ authLoaded, setAuthLoaded ] = useState(false)
 	const [ scheduleIdx, setScheduleIdx ] = useState(0)
 
 	// get travel
@@ -80,12 +79,6 @@ function Travel({ params }) {
 		updateState(travelId)
 	}, [])
 
-	useEffect(() => {
-		if (auth) {
-			setAuthLoaded(true)
-		}
-	}, [ auth ])
-
 	return (
 		<>
 			<div className="travel-container">
@@ -99,15 +92,10 @@ function Travel({ params }) {
 									setTravel={(v)=>{dispatch(setTravel(v))}}
 								/>
 							</Header>
-							<> 
-							{
-								authLoaded ? 
-									<TravelTitle
-											travel={travel}
-											auth={auth}
-									/> : null
-							}
-							</>
+							<TravelTitle
+								travel={travel}
+								auth={auth}
+							/>
 							<TravelBody
 								travel={travel}
 								setSchedule={(v)=>{dispatch(setSchedule(v))}}
