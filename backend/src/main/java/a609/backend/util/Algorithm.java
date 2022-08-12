@@ -5,7 +5,6 @@ import a609.backend.db.entity.Schedule;
 import a609.backend.db.entity.Trip;
 import a609.backend.db.repository.PlaceRepository;
 import a609.backend.db.repository.ScheduleRepository;
-import a609.backend.service.TripScheduleServiceImpl;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,7 +121,8 @@ public class Algorithm {
             }
             Place place = placeRepository.findOneByPlaceUid(schedule.getPlaceUid());
             tire += place.getTire();
-            hungry++;
+//            hungry++;
+            hungry+=1.5;
             if (place.getPlaceType() == 4) {
                 cafe++;
             }
