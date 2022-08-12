@@ -4,8 +4,6 @@ import api from "api"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams, useNavigate } from "react-router-dom"
 
-import { setInvited } from "store/modules/travelJoinSlice"
-
 import "./TravelJoin.css"
 import "../globalStyle.css"
 
@@ -13,7 +11,6 @@ const URL = "https://i7a609.p.ssafy.io/oauth2/authorization/kakao"
 
 function TravelJoin() {
 
-  const dispatch = useDispatch()
   const navigate = useNavigate()
   const { travelId, nickname } = useParams()
 
@@ -51,7 +48,8 @@ function TravelJoin() {
 
   // 로그인 클릭 시 동작
   const handleLoginClick = async () => {
-    dispatch(setInvited({ travelId, nickname }))
+    sessionStorage.setItem("invite-info", JSON.stringify({ travelId, nickname }))
+    window.location.replace = URL
   }
 
   return (
@@ -72,9 +70,9 @@ function TravelJoin() {
           </>
           : 
           <>
-            <a onClick={handleLoginClick} href={URL} style={{height: "12vw"}}>
+            <div onClick={handleLoginClick} style={{height: "12vw"}}>
               <img className="kakao-box" alt="kakaoLoginBtn" src="/icons/kakaoLogo.png"></img>
-            </a>
+            </div>
             <span>로그인 후 이용할 수 있는 서비스입니다. </span>
           </>
         }
