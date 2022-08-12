@@ -17,7 +17,6 @@ function SwipeToDelete({ travel, placeIdx, scheduleIdx, startTime, timeReq, time
   const dispatch = useDispatch()
   const { scheduleId } = travel.schedules[scheduleIdx][placeIdx]
 
-  console.log(travel.schedules[scheduleIdx])
 
   const fetchDelete = async (scheduleId) => {
     const response = await axios({
@@ -28,9 +27,6 @@ function SwipeToDelete({ travel, placeIdx, scheduleIdx, startTime, timeReq, time
       }
     })
     if (response.status === 200) {
-      console.log('delete')
-      // leftRef.current = -listElementRef.current.offsetWidth * 2
-      // wrapperRef.current.style.maxHeight = 0
       dispatch(deleteSchedule({scheduleIdx, scheduleId}))
     }
 	}
