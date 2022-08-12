@@ -19,16 +19,16 @@ public class FileController {
     @Autowired
     FileService fileService;
 
-    @PostMapping("/upload/{id}")
-    public ResponseEntity<Map<String, String>> fileUpload(@PathVariable Long id, @RequestParam("file") MultipartFile file) throws IOException {
+    @PostMapping("/upload")
+    public ResponseEntity<Map<String, String>> fileUpload(@RequestHeader Map<String,Object> token, @RequestParam("file") MultipartFile file) throws IOException {
 
         Map<String, String> resultMap = new HashMap<>();
         HttpStatus status = null;
         // 이미지 파일만 업로드 가능
         if (file.getContentType().startsWith("image") ) {
-            fileService.uploadFile(file,id);
+            fileService.uploadFile(file,(String) token.get("authorization"));
 //            fileService.fileUpload(file);
-            User image = fileService.findImageById(id);
+            User image = fileService.findImageById((String) token.get("authorization"));
             resultMap.put("image_path",image.getImagePath());
         }else {
             resultMap.put("message","이미지 파일만 업로드 가능합니다.");
@@ -39,9 +39,9 @@ public class FileController {
     }
 
     @GetMapping("/view/{id}")
-    public ResponseEntity<Map<String, String>> fileView(@PathVariable Long id) {
+    public ResponseEntity<Map<String, String>> fileView(@RequestHeader Map<String,Object> token) {
         Map<String, String> resultMap = new HashMap<>();
-        User image = fileService.findImageById(id);
+        User image = fileService.findImageById((String) token.get("authorization"));
         if (image ==null) {
             resultMap.put("message", "등록된 사진이 없습니다.");
         } else {
@@ -51,9 +51,9 @@ public class FileController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Map<String, String>> fileDelete(@PathVariable Long id) {
+    public ResponseEntity<Map<String, String>> fileDelete(@RequestHeader Map<String,Object> token) {
         Map<String, String> resultMap = new HashMap<>();
-        int check= fileService.deleteById(id);
+        int check= fileService.deleteById((String) token.get("authorization"));
         if(check==1){
             resultMap.put("message", "Success");
         }else {

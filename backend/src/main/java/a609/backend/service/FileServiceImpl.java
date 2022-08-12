@@ -2,6 +2,7 @@ package a609.backend.service;
 
 import a609.backend.db.entity.User;
 import a609.backend.db.repository.UserRepository;
+import a609.backend.util.JwtUtil;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,19 @@ public class FileServiceImpl implements FileService{
     @Autowired
     UserService userService;
 
-    private String uploadPath =File.separator+"home"+ File.separator+"ubuntu"+File.separator+"jeju";
-    private String dbPath = File.separator + "saimedia" + File.separator +"Album";
+    @Autowired
+    JwtUtil jwtUtil;
+
+
 
     @Override
-    public void uploadFile(MultipartFile file, Long id) {
+    public void uploadFile(MultipartFile file,String token) {
+        Long id =((Long) jwtUtil.parseJwtToken(token).get("id"));
+
+
+        String uploadPath =File.separator+"home"+ File.separator+"ubuntu"+File.separator+"jeju"+File.separator+id;
+        String dbPath = File.separator + "saimedia" + File.separator +"Album";
+
         try {
             // 실행되는 위치의 'files' 폴더에 파일이 저장됩니다.
 //            String savePath = System.getProperty("user.dir") + "\\files";
@@ -72,15 +81,19 @@ public class FileServiceImpl implements FileService{
     }
 
     @Override
-    public User findImageById(Long id) {
+    public User findImageById(String token) {
+        Long id =((Long) jwtUtil.parseJwtToken(token).get("id"));
 
         return userRepository.findOneByKakaoId(id);
     }
 
-    @Override
-    public int deleteById(Long id) {
 
-        User targetImage = this.findImageById(id);
+
+    @Override
+    public int deleteById(String token) {
+        Long id =((Long) jwtUtil.parseJwtToken(token).get("id"));
+
+        User targetImage = userRepository.findOneByKakaoId(id);
         if(targetImage!=null){
             File file = new File(targetImage.getImagePath());
             file.delete();
@@ -94,29 +107,6 @@ public class FileServiceImpl implements FileService{
 
     private String uploadDir = System.getProperty("user.dir") + "\\files";
 
-    public void fileUpload(MultipartFile multipartFile) {
-        // File.seperator 는 OS종속적이다.
-        String savePath = "/var/lib/jenkins/jeju/";
-        // Spring에서 제공하는 cleanPath()를 통해서 ../ 내부 점들에 대해서 사용을 억제한다
-        Path copyOfLocation = Paths.get(savePath );
-
-//        Path copyOfLocation = Paths.get(savePath);
-
-        try {
-            // inputStream을 가져와서
-            // copyOfLocation (저장위치)로 파일을 쓴다.
-            // copy의 옵션은 기존에 존재하면 REPLACE(대체한다), 오버라이딩 한다
-            if (!new File(savePath).exists()) {
-                new File(savePath).mkdir();
-            }
-            log.info("어디저장되는걸까"+copyOfLocation);
-            Files.copy(multipartFile.getInputStream(), copyOfLocation, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }
-
-    }
 
     // 확장자 추출
     private String extractExt(String originalFilename) {
