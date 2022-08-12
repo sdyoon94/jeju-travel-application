@@ -7,7 +7,6 @@ import New from "./routes/Inputs/New";
 // import App from './App'
 import Travel from "routes/Travel";
 import Home from "./routes/Home";
-import TravelEdit from "routes/TravelEdit";
 import KakaoLogin from "routes/KakaoLogin";
 import KakaoRedirect from "routes/KakaoRedirect"
 import Edit from 'components/Home/EditTest'
@@ -16,7 +15,7 @@ import AddressInput from 'routes/AddressInput'
 import TravelJoin from 'routes/TravelJoin';
 import PrivateRoute from "components/PrivateRoute";
 import CreateLoading from "routes/Inputs/CreateLoading";
-
+import ScheduleFix from "routes/ScheduleFix";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -30,10 +29,10 @@ root.render(
         </Route>
         <Route path="edit" element={<PrivateRoute component={ Edit } />} />
         <Route path="travel/:travelId" element={<PrivateRoute component={ Travel } />} />
-        <Route path="traveledit" element={<PrivateRoute component={ TravelEdit } />} />
         <Route path="search/:travelId/:dayId" element={<PrivateRoute component={ PlaceSearch } />} />
         <Route path="address/:travelId/:dayId" element={<PrivateRoute component={ AddressInput } />} />
         <Route path="loading" element={<PrivateRoute component={ CreateLoading } />} />
+        <Route path="travel/:travelId/fix" element={<PrivateRoute component={ ScheduleFix } />} />
         {/* Public route */}
         <Route path="login" element={<KakaoLogin />} />
         <Route path="oauth2/redirect/" element={<KakaoRedirect />} />
