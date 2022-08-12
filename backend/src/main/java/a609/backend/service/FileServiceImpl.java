@@ -25,7 +25,7 @@ public class FileServiceImpl implements FileService{
     @Autowired
     UserService userService;
 
-    private String uploadPath =File.separator+"home"+ File.separator+"ubuntu"+File.separator+"jeju"+File.separator;
+    private String uploadPath =File.separator+"home"+ File.separator+"ubuntu"+File.separator+"jeju";
     private String dbPath = File.separator + "saimedia" + File.separator +"Album";
 
     @Override
@@ -33,7 +33,7 @@ public class FileServiceImpl implements FileService{
         try {
             // 실행되는 위치의 'files' 폴더에 파일이 저장됩니다.
 //            String savePath = System.getProperty("user.dir") + "\\files";
-            String savePath = uploadPath;
+            String savePath = uploadPath+File.separator+id + "." + extractExt(file.getOriginalFilename());
 
 
             // 파일이 저장되는 폴더가 없으면 폴더를 생성합니다.
