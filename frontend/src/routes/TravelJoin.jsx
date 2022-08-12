@@ -49,7 +49,7 @@ function TravelJoin() {
   // 로그인 클릭 시 동작
   const handleLoginClick = async () => {
     sessionStorage.setItem("invite-info", JSON.stringify({ travelId, nickname }))
-    window.location.replace = URL
+    window.location.href = URL
   }
 
   return (
