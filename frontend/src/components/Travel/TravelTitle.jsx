@@ -23,7 +23,9 @@ function TravelTitle({ travel }) {
             "yyyy-MM-dd"
         )
     )
-    const nickname = useSelector((state) => state.auth.nickname)
+
+    const auth = useSelector((state) => state.auth)
+    const { nickname } = auth
 
     useEffect(() => {
         setEndDate(
@@ -52,9 +54,6 @@ function TravelTitle({ travel }) {
         }
     }, [ travel.info.style ])
 
-    // 여행 참여 링크
-    const joinUrl = `https://i7a609.p.ssafy.io/join/${travel.info.tripId}/${encodeURIComponent(nickname)}`
-
     useEffect(() => {
         initKakao()
     }, [])
@@ -67,6 +66,7 @@ function TravelTitle({ travel }) {
             }
         }
     }
+    const joinUrl = `https://i7a609.p.ssafy.io/join/${travel.info.tripId}/${encodeURIComponent(nickname)}`
 
     const share = () => {
         window.Kakao.Share.sendDefault({
