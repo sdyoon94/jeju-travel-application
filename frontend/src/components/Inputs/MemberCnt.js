@@ -55,7 +55,7 @@ function MemberCnt(props) {
     },
     "& .MuiInputBase-root": {
       "& input": {
-          textAlign: "center"
+          textAlign: "start"
       }
     },
     "& .MuiInputBase-input.Mui-disabled": {
@@ -101,7 +101,7 @@ function MemberCnt(props) {
           </label> */}
           <div className="control-member-cnt">
             <button className="member-cnt-btn" onClick={decrementCount}>
-              <Minus className="member-btn"></Minus>
+              <Minus width="5vw" height="5vw"></Minus>
             </button>
             <ExampleTextField
               id="member-cnt-input"
@@ -110,12 +110,12 @@ function MemberCnt(props) {
               value={props.inputValues.maxMemberCnt}
               onChange={handleChangeMemberCnt}
               // variant="standard"
-              InputProps={{ style: { fontSize: 20 }, endAdornment: <InputAdornment position="center"><div style={{fontSize: "20px",color:"black" }}>명</div></InputAdornment>}}
+              InputProps={{ style: { fontSize : '5vw' }, endAdornment: <InputAdornment position="start"><div style={{fontSize : '5vw', color:"black" }}>명</div></InputAdornment>}}
               // autoFocus
               disabled
             />
             <button className="member-cnt-btn" onClick={incrementCount}>
-              <Plus className="member-btn"></Plus>
+              <Plus width="5vw" height="5vw"></Plus>
             </button>
           </div>
         </label>

@@ -26,7 +26,7 @@ function Period(props) {
     if (name === "bak") {
       if (0 <= value && value <= 19) {
         props.setInputValues(["periodInDays", event.target.value]);
-        setShow(true);
+        setShow(false);
       } else if (value > 19) {
         props.setInputValues(["periodInDays", "19"]);
         setAlertMessage("최대 20일까지 설정 할 수 있어요");

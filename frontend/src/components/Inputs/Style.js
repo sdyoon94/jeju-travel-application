@@ -18,37 +18,37 @@ function Style({ inputValues, setInputValues }) {
     {
       eng: "eating",
       kor: "식도락",
-      svg: <Eating fill={setSvg(0)} className="style-icon"></Eating>,
+      svg: <Eating fill={setSvg(0)} width="5vw" height="5vw" className="style-icon"></Eating>,
     },
     {
       eng: "market",
       kor: "전통시장",
-      svg: <Eating fill={setSvg(1)} className="style-icon"></Eating>,
+      svg: <Eating fill={setSvg(1)} width="5vw" height="5vw" className="style-icon"></Eating>,
     },
     {
       eng: "phtospot",
       kor: "포토스팟",
-      svg: <Photospot fill={setSvg(2)} className="style-icon"></Photospot>,
+      svg: <Photospot fill={setSvg(2)} width="5vw" height="5vw" className="style-icon"></Photospot>,
     },
     {
       eng: "activity",
       kor: "체험/액티비티",
-      svg: <Activity fill={setSvg(3)} className="style-icon"></Activity>,
+      svg: <Activity fill={setSvg(3)} width="5vw" height="5vw" className="style-icon"></Activity>,
     },
     {
       eng: "popular",
       kor: "유명관광지",
-      svg: <Eating fill={setSvg(4)} className="style-icon"></Eating>,
+      svg: <Eating fill={setSvg(4)} width="5vw" height="5vw" className="style-icon"></Eating>,
     },
     {
       eng: "nature",
       kor: "자연",
-      svg: <Nature fill={setSvg(5)} className="style-icon"></Nature>,
+      svg: <Nature fill={setSvg(5)} width="5vw" height="5vw" className="style-icon"></Nature>,
     },
     {
       eng: "relax",
       kor: "여유",
-      svg: <Eating fill={setSvg(6)} className="style-icon"></Eating>,
+      svg: <Eating fill={setSvg(6)} width="5vw" height="5vw" className="style-icon"></Eating>,
     },
   ];
 
