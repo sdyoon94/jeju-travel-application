@@ -42,7 +42,7 @@ function TravelJoin() {
   const handleJoinClick = async () => {
     axios({
       method: "put",
-      url: api.travel.getTravelJoinUrl(),
+      url: api.travel.getTravelJoinUrl(travelId),
       validateStatus: status => status === 200
     })
     .then((_) => {
