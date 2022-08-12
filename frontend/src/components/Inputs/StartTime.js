@@ -43,17 +43,32 @@ function StartTime(props) {
   return (
     <div className="startTime-container">
       <div className="startTime-header">
-        <div className="inline-block subcontentfont-weight title-size text-center" >
-          <span>제주도에</span>
-          <span className="color-1"> 도착하는 시간</span>
+        <div className="inline-block subcontentfont-weight title-size " >
+          <span>전체일정의 </span>
+          <span className="color-1">시작시간</span>
           <span>과</span>
         </div>
-        <div className=" subcontentfont-weight title-size text-center ">
-        <span className="color-1"> 떠나는 시간</span>
-        <span>을</span>
-        <span>알려주세요</span>
+        <div className=" subcontentfont-weight title-size ">
+          <span className="color-1"> 끝나는 시간</span>
+          <span>을 알려주세요</span>
         </div>
+
+        {/* <div className="inline-block subcontentfont-weight title-size " >
+          <span>제주도에 </span>
+          <span className="color-1">도착하는 시간,</span>
+        </div>
+        <div className=" subcontentfont-weight title-size ">
+        <span>제주도를 </span>
+        <span className="color-1">떠나는 시간</span>
+        <span>을 </span>
+        </div>
+        <div className=" subcontentfont-weight title-size ">
+          <span>알려주세요</span>
+        </div> */}
+      
+
       </div>
+      
       <div className="startTime-body">
         <div className="time-input-box">
           <label className="input-label" htmlFor="select-startTime">
@@ -79,7 +94,7 @@ function StartTime(props) {
         </div>
         <div className="time-input-box">
           <label className="input-label" htmlFor="select-endTime">
-            끝시간
+            끝 시간
           </label>
           <TextField
             className="select-startTime"
