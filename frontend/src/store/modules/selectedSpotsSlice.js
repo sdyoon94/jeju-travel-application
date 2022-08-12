@@ -8,14 +8,20 @@ const selectedSpotsSlice = createSlice({
   initialState,
   reducers: {
     addSpot(state, { payload }) {
-      state.push(payload)
+      state.push({
+        ...payload,
+        stayTime: 60
+      })
     },
     deleteSpot(state, { payload }) {
-      return state.filter(spot => spot.uid !==  payload)
+      return state.filter(spot => spot.placeUid !==  payload)
+    },
+    resetSpot(state, action) {
+      return []
     }
   }
 })
 
 const { actions, reducer } = selectedSpotsSlice
-export const { addSpot, deleteSpot } = actions
+export const { addSpot, deleteSpot, resetSpot } = actions
 export default reducer

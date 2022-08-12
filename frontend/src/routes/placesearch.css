@@ -50,6 +50,8 @@
   border: 1px solid #808080;
   box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2);
   border-radius: 10px;
+  height: 32px;
+    overflow-x: scroll;
 }
 
 .selected-box > div {
