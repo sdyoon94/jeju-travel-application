@@ -2,7 +2,6 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit"
 
 import travelList from './modules/travelListSlice'
 import auth from './modules/authSlice'
-import courseList from './modules/courseListSlice'
 
 import travel from './modules/travelSlice'
 import distanceMatrix from './modules/distanceMatrixSlice'
@@ -19,7 +18,6 @@ const rootReducer = combineReducers({
     direction,
     travelList, 
     auth, 
-    courseList,
     selectedSpots,
     inputValues,
     travelJoin,
