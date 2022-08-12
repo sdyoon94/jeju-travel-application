@@ -19,6 +19,7 @@ function Travel({ params }) {
 
 	const [ error, setError ] = useState(null)
 	const [ isLoaded, setIsLoaded ] = useState(false)
+	const [ authLoaded, setAuthLoaded ] = useState(false)
 	const [ scheduleIdx, setScheduleIdx ] = useState(0)
 
 	// get travel
@@ -80,7 +81,10 @@ function Travel({ params }) {
 	}, [])
 
 	useEffect(() => {
-	}, [ travel ])
+		if (auth) {
+			setAuthLoaded(true)
+		}
+	}, [ auth ])
 
 	return (
 		<>
@@ -89,16 +93,21 @@ function Travel({ params }) {
 					? <div>에러 발생</div>
 					: isLoaded
 					?	<>
-						<Header>
-							<ConfigDrawer
-								travel={travel}
-								setTravel={(v)=>{dispatch(setTravel(v))}}
-							/>
-							</Header>
-							<TravelTitle
+							<Header>
+								<ConfigDrawer
 									travel={travel}
-									auth={auth}
-							/>
+									setTravel={(v)=>{dispatch(setTravel(v))}}
+								/>
+							</Header>
+							<> 
+							{
+								authLoaded ? 
+									<TravelTitle
+											travel={travel}
+											auth={auth}
+									/> : null
+							}
+							</>
 							<TravelBody
 								travel={travel}
 								setSchedule={(v)=>{dispatch(setSchedule(v))}}
