@@ -14,7 +14,7 @@ function KakaoRedirect() {
   const params = new URL(href).searchParams
   const accessToken = params.get("token")
 
-  const { isInvited, invitedTravelId, inviterNickname } = useSelector((state) => state.travelJoin)
+  const inviteInfo = JSON.parse(sessionStorage.getItem("invite-info"))
   
   useEffect(() => {
     if (accessToken) {
@@ -25,12 +25,13 @@ function KakaoRedirect() {
       sessionStorage.setItem("id", decoded.id)
       sessionStorage.setItem("image_path", decoded.image_path)
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
-      
-      if (isInvited > 0) {
-        navigate(`/join/${invitedTravelId}/${inviterNickname}`, {
+
+      if (inviteInfo) {
+        const path = `/join/${inviteInfo.travelId}/${inviteInfo.nickname}`
+        sessionStorage.removeItem("invite-info")
+        navigate(path, {
           replace: true
         })
-        dispatch(pollInvited())
       }
       else {
         navigate("/", { replace: true })

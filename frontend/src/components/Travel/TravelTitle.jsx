@@ -1,7 +1,6 @@
 import { AvatarGroup, Avatar, Divider } from "@mui/material"
 
 import React, { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
 import { format, addDays } from "date-fns"
 
 import "./TravelTitle.css"
@@ -11,7 +10,7 @@ const KAKAO_API_KEY = "03817511d5315ef223b0e6861c8f729e"
 const STYLE_COUNT = 7
 const STYLE_FORMAT = ["식도락", "전통 시장", "포토스팟", "체험/액티비티", "유명관광지", "자연", "여유"]
 
-function TravelTitle({ travel }) {
+function TravelTitle({ travel, auth }) {
 
     const [ styles, setStyles ] = useState([])
     const [ endDate, setEndDate ] = useState(
@@ -23,9 +22,6 @@ function TravelTitle({ travel }) {
             "yyyy-MM-dd"
         )
     )
-
-    const auth = useSelector((state) => state.auth)
-    const { nickname } = auth
 
     useEffect(() => {
         setEndDate(
@@ -66,18 +62,18 @@ function TravelTitle({ travel }) {
             }
         }
     }
-    const joinUrl = `https://i7a609.p.ssafy.io/join/${travel.info.tripId}/${encodeURIComponent(nickname)}`
 
     const share = () => {
+        const joinUrl = `https://i7a609.p.ssafy.io/join/${travel.info.tripId}/${encodeURIComponent(auth.nickname)}`
         window.Kakao.Share.sendDefault({
             objectType: "text",
             text:
-              `${nickname}님이 제주도 여행에 초대하셨습니다.`,
+            `${auth.nickname}님이 제주도 여행에 초대하셨습니다.`,
             buttonTitle: "여행 참여하기",
             link: {
-              mobileWebUrl:
+            mobileWebUrl:
                 joinUrl,
-              webUrl:
+            webUrl:
                 joinUrl,
             }
         })

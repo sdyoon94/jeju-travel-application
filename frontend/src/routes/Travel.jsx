@@ -23,6 +23,7 @@ function Travel({ params }) {
 
 	// get travel
 	const travel = useSelector((state) => state.travel)
+	const auth = useSelector((state) => state.auth)
 
 	useEffect(() => {
 		const buildTravelInfoConfig = (travelId) => ({
@@ -96,6 +97,7 @@ function Travel({ params }) {
 							</Header>
 							<TravelTitle
 									travel={travel}
+									auth={auth}
 							/>
 							<TravelBody
 								travel={travel}
