@@ -5,14 +5,17 @@ import a609.backend.db.entity.Trip;
 import a609.backend.db.entity.Schedule;
 import a609.backend.db.repository.PlaceRepository;
 import a609.backend.db.repository.ScheduleRepository;
+import a609.backend.db.repository.TripRepository;
 import a609.backend.payload.response.ScheduleDTO;
 import a609.backend.util.Algorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -26,6 +29,11 @@ public class TripScheduleServiceImpl implements TripScheduleService{
 
     @Autowired
     PlaceRepository placeRepository;
+
+    @Autowired
+    TripRepository tripRepository;
+
+
 
     @Override
     public void registerSchedule(Trip trip,int day,int[] visit) {
@@ -112,10 +120,7 @@ public class TripScheduleServiceImpl implements TripScheduleService{
 
     }
 
-    @Override
-    public void updateSchedule() {
 
-    }
 
     @Override
     public List<ScheduleDTO> showTripSceduleList(Long tripId, int day) {
@@ -123,10 +128,34 @@ public class TripScheduleServiceImpl implements TripScheduleService{
         List<ScheduleDTO> scheduleList = new ArrayList<>();
         for (Schedule schedule : schedules) {
 
-            scheduleList.add(ScheduleDTO.builder().placeName(schedule.getPlaceName()).placeUid(schedule.getPlaceUid())
+            scheduleList.add(ScheduleDTO.builder().placeName(schedule.getPlaceName()).ScheduleId(schedule.getScheduleId()).placeUid(schedule.getPlaceUid())
                             .stayTime(schedule.getStayTime()).lat(schedule.getLat()).lng(schedule.getLng()).build());
         }
         return scheduleList;
     }
 
+    @Override
+    @Transactional
+    //placeuid
+    //placeuid=0 더미
+    public void createSchedule(Long tripId, Schedule schedule) {
+        schedule.setTrip(tripRepository.findOneByTripId(tripId));
+        scheduleRepository.save(schedule);
+    }
+
+    @Override
+    @Transactional
+    //이거 스케쥴 아이디로 조회할지 아니면 어떻게 할지 고민을 좀 해봐야된다
+    public void updateSchedule(Long ScheduleId, Schedule schedule) {
+        //dto에 scheduleId 추가한다.
+        Schedule originSchedule = scheduleRepository.findOneByScheduleId(ScheduleId);
+        originSchedule.setPlaceName(schedule.getPlaceName());
+        scheduleRepository.save(originSchedule);
+
+    }
+
+    @Override
+    public void deleteSchedule(Long scheduleId) {
+        scheduleRepository.deleteById(scheduleId);
+    }
 }

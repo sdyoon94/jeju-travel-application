@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1")
 public class UserController {
@@ -60,7 +59,7 @@ public class UserController {
             status = HttpStatus.OK;
         } else {
             resultMap.put("message", "잘못된 토큰");
-            status = HttpStatus.OK;
+            status = HttpStatus.BAD_REQUEST;
         }
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
