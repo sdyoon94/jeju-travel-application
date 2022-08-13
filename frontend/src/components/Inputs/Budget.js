@@ -30,6 +30,7 @@ function Budget(props) {
       <div className="budget-body">
         <div className="budget-input">        
             <TextField
+              autoFocus
               id="number-duration"
               name="bak"
               type="number"
