@@ -4,8 +4,8 @@ const SCHEDULE = "schedule/"
 
 const api = {
   accounts: {
-    editProfileImgUrl(userId) {
-      return HOST + `file/upload/${userId}`;
+    editProfileImgUrl() {
+      return HOST + "file/upload";
     },
     editNicknameUrl() {
       return HOST + "users";

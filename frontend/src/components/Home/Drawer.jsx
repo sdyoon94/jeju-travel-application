@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { ReactComponent as HamburgertBtn } from 'assets/hamburger-button.svg'
 import { SwipeableDrawer } from '@mui/material'
@@ -9,8 +9,8 @@ import NotEdit from "./NotEdit"
 
 function Drawer() {
   const dispatch = useDispatch()
-  const name = useSelector((state) => state.auth.nickname) || sessionStorage.getItem("nickname")
-  const img = useSelector((state) => state.auth.profileImg) || sessionStorage.getItem("image_path")
+  const name = useSelector((state) => state.auth.nickname)
+  const img = useSelector((state) => state.auth.profileImg)
   const [nickname, setNickname] = useState(name)
   const [profileImg, setProfileImg] = useState(img)
   const [open, setopen] = useState(false)
@@ -33,11 +33,11 @@ function Drawer() {
     setEdit(false)
     if (modify.nickname) {
       dispatch(editNickname(nickname))
-      setModify({...modify, nickname: false})
+      setModify({...modify, "nickname": false})
     }
     if (modify.img) {
       dispatch(editProfileImg(file))
-      setModify({...modify, img: false})
+      setModify({...modify, "img": false})
     }
   }
   
@@ -46,11 +46,11 @@ function Drawer() {
       setEdit(false)
       if (modify.nickname) {
         dispatch(editNickname(nickname))
-        setModify({...modify, nickname: false})
+        setModify({...modify, "nickname": false})
       }
       if (modify.img) {
         dispatch(editProfileImg(file))
-        setModify({...modify, img: false})
+        setModify({...modify, "img": false})
       }
     }
   }
@@ -84,7 +84,7 @@ function Drawer() {
         {
           edit
           ? <EditIng nickname={nickname} profileImg={profileImg} handleNickname={handleNickname} handleProfileImg={handleProfileImg} setFile={setFile} editEnd={editEnd} handleOnKeyPress={handleOnKeyPress} />
-          : <NotEdit editStart={editStart} setopen={setopen} />
+          : <NotEdit editStart={editStart} profileImg={profileImg} />
         }
       </SwipeableDrawer>
     </>

@@ -2,14 +2,14 @@ import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { logout } from "store/modules/authSlice"
 import { Avatar, Box } from "@mui/material"
+import { useEffect } from "react"
 
 
-function NotEdit ({ editStart, setopen }) {
+function NotEdit ({ editStart, profileImg }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const nickname = useSelector((state) => state.auth.nickname) || sessionStorage.getItem("nickname")
-  const profileImg = useSelector((state) => state.auth.profileImg) || sessionStorage.getItem("image_path")
-
+  
   const handleClick = () => {
     dispatch(logout())
     if (!sessionStorage.getItem("acessToken")) {
