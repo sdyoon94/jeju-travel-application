@@ -29,7 +29,7 @@ public class FileController {
             fileService.uploadFile(file,(String) token.get("authorization"));
 //            fileService.fileUpload(file);
             User image = fileService.findImageById((String) token.get("authorization"));
-            resultMap.put("image_path","http://i7a609.p.ssafy.io:8080"+image.getImagePath());
+            resultMap.put("image_path",image.getImagePath());
         }else {
             resultMap.put("message","이미지 파일만 업로드 가능합니다.");
         }
@@ -45,7 +45,7 @@ public class FileController {
         if (image.getImagePath() ==null) {
             resultMap.put("message", "등록된 사진이 없습니다.");
         } else {
-            resultMap.put("image_path","http://i7a609.p.ssafy.io:8080"+image.getImagePath());
+            resultMap.put("image_path",image.getImagePath());
         }
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }

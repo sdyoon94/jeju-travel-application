@@ -61,7 +61,8 @@ public class FileServiceImpl implements FileService{
             Path path = Paths.get(savePath);
             file.transferTo(path);
 
-            user.setImagePath(savePath);
+            user.setImagePath("http://i7a609.p.ssafy.io:8080"+savePath);
+            user.setDbImagePath(savePath);
 
             userRepository.save(user);
         } catch (Exception e) {
@@ -85,7 +86,7 @@ public class FileServiceImpl implements FileService{
 
         User targetImage = userRepository.findOneByKakaoId(id);
         if(targetImage.getImagePath()!=null){
-            File file = new File(targetImage.getImagePath());
+            File file = new File(targetImage.getDbImagePath());
             file.delete();
             targetImage.setImagePath("");
             userRepository.save(targetImage);
