@@ -12,4 +12,6 @@ public interface PlaceService {
 
     List<FindPlaceDTO> findPlace(String keyword);
 
+    List<FindPlaceDTO> recommendPlace(Long tripId, int day);
+
 }

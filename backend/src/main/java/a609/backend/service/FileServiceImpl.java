@@ -60,7 +60,9 @@ public class FileServiceImpl implements FileService{
             Path path = Paths.get(savePath);
             file.transferTo(path);
 
-            user.setImagePath("http://i7a609.p.ssafy.io:8080"+savePath);
+
+            user.setImagePath("https://i7a609.p.ssafy.io:8080"+savePath);
+            //////여기가 이상한데???
             user.setDbImagePath(savePath);
 
             userRepository.save(user);
