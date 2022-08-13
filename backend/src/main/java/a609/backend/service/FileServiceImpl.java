@@ -54,7 +54,7 @@ public class FileServiceImpl implements FileService{
             User user = userService.searchByKakaoId(id);
 
             //이미 등록된 사진이 있으면 삭제
-            if(userRepository.findOneByKakaoId(id)!=null){
+            if(userRepository.findOneByKakaoId(id).getDbImagePath()!=null){
                this.deleteById(token);
             }
             Path path = Paths.get(savePath);
@@ -84,7 +84,7 @@ public class FileServiceImpl implements FileService{
         Long id =((Long) jwtUtil.parseJwtToken(token).get("id"));
 
         User targetUser = userRepository.findOneByKakaoId(id);
-        if(targetUser.getImagePath()!=null){
+        if(targetUser.getDbImagePath()!=null){
             File file = new File(targetUser.getDbImagePath());
             file.delete();
             targetUser.setImagePath("");
