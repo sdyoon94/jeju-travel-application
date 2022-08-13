@@ -39,6 +39,7 @@ public class Algorithm {
 
         @Override
         public String toString() {
+            //감자: 오타다! 오타!
             return "Chech{" +
                     "hungry=" + hungry +
                     ", tire=" + tire +
@@ -115,11 +116,15 @@ public class Algorithm {
                 schedule.setLng(place.getLng());
             }
             Place place = placeRepository.findOneByPlaceUid(schedule.getPlaceUid());
+
+            // 감자: 소요시간 같이 곱해주는게 좀 더 적합한거 같음(등산 1시간vs등산 2시간)
             tire += place.getTire();
 
             if(placeType==3){//밥먹으면 피로도 리셋
                 tire=0;
             }
+
+            //감자: 음수로 떨어질수도 있음. 카페에서 약물을 파는게 아니면 max를 씁시다
             if(placeType==4){//카페가면 피로도 -2
                 tire-=2;
             }
@@ -129,7 +134,8 @@ public class Algorithm {
             String st = String.valueOf(trip.getStyle());
 
             //여유면 일정 띄엄띄엄
-            if(st.length()>=6) {
+
+            if(st.length()>=6) { //감자: st 지금 101011 같은게 아니라 한자리수로 해놨는데 이거 동작함? 안할거 같은데
                 for (int j = st.length(); j <= 0; j--) {
                     int flag = st.charAt(j) - '0';
                     if(j==6&&flag==1){
