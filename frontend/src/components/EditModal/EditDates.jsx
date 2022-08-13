@@ -1,5 +1,6 @@
 import "globalStyle.css";
 import "../Inputs/Dates.css";
+import 'components/EditModal/EditDates.css'
 import { DateRange } from "react-date-range";
 import { addDays } from "date-fns";
 import { ko } from "date-fns/locale";
@@ -11,8 +12,8 @@ import { format, differenceInDays,parseISO} from "date-fns";
 
 
 function Calender({inputValues,setInputValues}) {
-  const [show, setShow] = useState(false);
-  const [warningMessage, setWarningMessage] = useState("")
+  // const [show, setShow] = useState(false);
+  // const [warningMessage, setWarningMessage] = useState("")
   const [isFirst, setIsFirst] = useState(true)
 
   // const [range, setRange] = useState(inputValues.range)
@@ -40,42 +41,19 @@ function Calender({inputValues,setInputValues}) {
     setIsFirst(!isFirst)
 
   }
-  //   const startDate = item.selection.startDate
-  //   const limitEndDate = {
-  //     startDate: startDate,
-  //     endDate: addDays(startDate, 19),
-  //     key: "selection",
-  //   }
-  //   console.log('여기', [item.selection])
-  //   setInputValues(['range',[item.selection]])
-  //   const periodInDays = differenceInDays(item.selection.endDate, item.selection.startDate )
-  //   if (periodInDays >= 19) {
-  //     setWarningMessage("19일 이상 못감")
-  //     setShow(true)
-  //     setInputValues(['range',[limitEndDate]])
-  //     setInputValues(['periodInDays','19'])
-  //   } else if (periodInDays == 0) {
-  //     setWarningMessage("최소 1박 2일은 가야죠")
-  //     setShow(true)
-  //     setInputValues(['periodInDays',""])
-  //   } else { 
-  //     setShow(false)
-  //     setInputValues(['periodInDays',String(periodInDays)])
-  //   }
 
-  // }
 
   return (
-    <div className="dates-container">
+    <div className="edit-dates-container">
       {/* <button onClick={abc}>button</button> */}
       <div className="dates-header">
       <div className="inline-block subcontentfont-weight title-size" >
           <span>여행 </span>
-          <span className="color-1">기간 </span>
+          <span className="color-1">날짜 </span>
           <span>정하기</span>
         </div>
         <div className="subcontentfont-weight content-size text-center gray">
-          여행 기간은 최대 20일이에요
+          여행 기간은 {inputValues.periodInDays}일로 변경 할 수 없어요
         </div>
       </div>
       <div className="adates-body">
@@ -97,7 +75,7 @@ function Calender({inputValues,setInputValues}) {
           color={"#1E88E5"}
         />
       </div>
-      {show && <div className="warning2">{warningMessage}</div>}
+      {/* {show && <div className="warning2">{warningMessage}</div>} */}
       </div>
   );
 }
