@@ -27,4 +27,19 @@ public class PlaceController {
         resultMap.put("findPlaces", findPlaces);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
+
+    @GetMapping("/recommend/{tripId}/{day}")
+    public ResponseEntity<?> findPlace(@PathVariable("tripId") Long tripId, @PathVariable("day") int day){
+        Map<String, Object> resultMap = new HashMap<>();
+        try{
+            List<FindPlaceDTO> recommendPlaces = placeService.recommendPlace(tripId, day);
+            resultMap.put("recommendPlaces", recommendPlaces);
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+
+        }catch(Exception e){
+            e.printStackTrace();
+            resultMap.put("message", "추천에서 에러났다아아아아");
+            return new ResponseEntity<>(resultMap, HttpStatus.BAD_REQUEST);
+        }
+    }
 }
