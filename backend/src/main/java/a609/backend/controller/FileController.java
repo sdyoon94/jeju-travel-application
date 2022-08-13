@@ -25,16 +25,23 @@ public class FileController {
         Map<String, String> resultMap = new HashMap<>();
         HttpStatus status = null;
         // 이미지 파일만 업로드 가능
-        if (file.getContentType().startsWith("image") ) {
-            fileService.uploadFile(file,(String) token.get("authorization"));
+        try {
+            if (file.getContentType().startsWith("image")) {
+                fileService.uploadFile(file, (String) token.get("authorization"));
 //            fileService.fileUpload(file);
-            User image = fileService.findImageById((String) token.get("authorization"));
-            resultMap.put("image_path",image.getImagePath());
-        }else {
-            resultMap.put("message","이미지 파일만 업로드 가능합니다.");
+                User image = fileService.findImageById((String) token.get("authorization"));
+                resultMap.put("image_path", image.getImagePath());
+            } else {
+                resultMap.put("message", "이미지 파일만 업로드 가능합니다.");
+            }
+            return new ResponseEntity<Map<String, String>>(resultMap, HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            resultMap.put("message", "파일 이미지 용량 초과");
+            return new ResponseEntity<Map<String, String>>(resultMap, HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<Map<String, String>>(resultMap, HttpStatus.OK);
+
 
     }
 
