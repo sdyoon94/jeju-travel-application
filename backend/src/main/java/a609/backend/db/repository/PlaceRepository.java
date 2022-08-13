@@ -44,5 +44,8 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
     //여유일때
     @Query(value = "select * from Place p where (6371*acos(cos(radians(:lng))*cos(radians(p.lng))*cos(radians(p.lat)-radians(:lat))+sin(radians(:lng))*sin(radians(p.lng))))<:distance and p.place_type=:placeType  and NOT p.style IN (:style1,:style2)", nativeQuery = true)
     List<Place> findRelaxByDistance(@Param("lat") Double lat, @Param("lng") Double lng, @Param("distance") Double distance, @Param("placeType") Integer placeType,@Param("style1") Integer style1,@Param("style2") Integer style2);
+
+
+
 //
 }
