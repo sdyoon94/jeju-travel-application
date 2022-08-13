@@ -60,7 +60,7 @@ public class FileServiceImpl implements FileService{
             Path path = Paths.get(savePath);
             file.transferTo(path);
 
-            user.setImagePath("https://i7a609.p.ssafy.io:8080"+savePath);
+            user.setImagePath("http://i7a609.p.ssafy.io:8080"+savePath);
             user.setDbImagePath(savePath);
 
             userRepository.save(user);
