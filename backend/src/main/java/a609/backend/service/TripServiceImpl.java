@@ -147,9 +147,9 @@ public class TripServiceImpl implements TripService{
 
     @Override
     public boolean addUser(Long tripId, String token) {
-        UserTrip userTrip = new UserTrip();
         Long kakaoId = (Long)jwtUtil.parseJwtToken(token).get("id");
-        if(userTripRepository.countByUserKakaoIdAndTripTripId(tripId, kakaoId)==0){
+        if(userTripRepository.countByUserKakaoIdAndTripTripId(kakaoId, tripId)==0){
+            UserTrip userTrip = new UserTrip();
             userTrip.setUser(userRepository.findOneByKakaoId((Long)jwtUtil.parseJwtToken(token).get("id")));
             userTrip.setTrip(tripRepository.findOneByTripId(tripId));
             userTripRepository.save(userTrip);
