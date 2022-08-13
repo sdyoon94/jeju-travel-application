@@ -1,6 +1,8 @@
 const HOST = "https://i7a609.p.ssafy.io/api/v1/"
+
 const TRAVEL = "trip/"
 const SCHEDULE = "schedule/"
+const PLACE = "place/"
 
 const api = {
   accounts: {
@@ -43,6 +45,14 @@ const api = {
     scheduleUrl(scheduleId) {
       return HOST + SCHEDULE + `${scheduleId}`
     },
+  },
+  place: {
+    searchUrl(input) {
+      return HOST + PLACE + `find?q=${input}`
+    },
+    recommendUrl(travelId, dayId) {
+      return HOST + PLACE + `recommend/${travelId}/${dayId}`
+    }
   }
 };
 

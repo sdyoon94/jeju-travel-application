@@ -21,9 +21,9 @@ function Recommend({ spot, isLast }) {
       <div style={{display: "flex"}}>
         <img className="search-img" style={{alignSelf: "center"}} alt={spot.name} src={spot.imgPath} />
         <div style={{width: "55vw"}}>
-          <span className="content-size block">{spot.name}</span>
-          {spot.tags.map((tag, idx) => 
-            <span className="subcontent-size inline-block" key={idx}>#{tag}</span>
+          <span className="content-size block">{spot.placeName}</span>
+          {spot.tag.map((item, idx) => 
+            <span className="subcontent-size inline-block" key={idx}>#{item}</span>
           )}
         </div>
         <span 

@@ -8,6 +8,7 @@ import SelectedSpots from "components/PlaceSearch/SelectedSpots"
 import RecommendList from "components/PlaceSearch/RecommendList"
 import { addSchedule } from "store/modules/travelSlice"
 import { resetSpot } from "store/modules/selectedSpotsSlice"
+import api from "api"
 import "./placesearch.css"
 
 function PlaceSearch() {
@@ -18,7 +19,7 @@ function PlaceSearch() {
   const selectedSpots = useSelector(state => state.selectedSpots)
   
   const inputSearch = async(query) => {
-    const response = await axios.get(`https://i7a609.p.ssafy.io/api/v1/place/find?q=${query}`)
+    const response = await axios.get(api.place.searchUrl(query))
     setresultLst(response.data.findPlaces)
   }
 
