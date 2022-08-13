@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
+import { Link } from "react-router-dom"
 
 import Header from "components/Header/Header"
 import TravelTitle from "components/Travel/TravelTitle"
@@ -10,7 +11,7 @@ import { initDirection } from "store/modules/directionSlice"
 import { setTravel, setTravelInfo, initSchedule, setSchedule } from "store/modules/travelSlice"
 import axios from "axios"
 import api from "api"
-
+import "./Travel.css"
 import "routes/Inputs/CreateLoading.css"
 
 function Travel({ params }) {
@@ -88,12 +89,18 @@ function Travel({ params }) {
 					? <div>에러 발생</div>
 					: isLoaded
 					?	<>
-							<Header>
+							<div className="travel-header">
+								<div>
+									<Link style={{ textDecoration: "none", color:"black", display: "flex", alignItems: "center" }} to={'/'}>
+									<span>놀멍쉬멍</span>
+									<img className="gamgyul" alt="gamgyulImg" src="/icons/gamgyul.jpg" />
+									</Link>
+								</div>
 								<ConfigDrawer
 									travel={travel}
 									setTravel={(v)=>{dispatch(setTravel(v))}}
 								/>
-							</Header>
+							</div>
 							<TravelTitle
 								travel={travel}
 								auth={auth}

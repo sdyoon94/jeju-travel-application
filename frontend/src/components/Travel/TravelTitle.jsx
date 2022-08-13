@@ -98,13 +98,13 @@ function TravelTitle({ travel, auth }) {
                     }
                 </AvatarGroup>
             </div>
-            <div className="travel-info content-size content-weight">
+            <div className="travel-info subcontent-size content-weight">
                 <span className="travel-info-content">
                     {travel.info.startDate ? travel.info.startDate : format(new Date(), "yyyy-MM-dd")} ~ {endDate}
                 </span>
                 <span className="travel-info-content">₩{travel.info.budget}만원</span>
             </div>
-            <div className="travel-style-container content-size">
+            <div className="travel-style-container subcontent-size">
                 {
                     styles.map((style, i) => 
                         <span className="travel-style" key={i}>#{style}</span>
