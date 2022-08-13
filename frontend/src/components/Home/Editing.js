@@ -19,7 +19,7 @@ function EditIng ({ nickname, profileImg, handleNickname, handleProfileImg, setF
       formData.append("file", img)
       // for (const keyValue of formData) console.log('11', keyValue)
       reader.onload = () => {
-      if(reader.readyState === 2){
+        if(reader.readyState === 2){
         handleProfileImg(reader.result)
         setFile(formData)
       }
@@ -52,7 +52,7 @@ function EditIng ({ nickname, profileImg, handleNickname, handleProfileImg, setF
           type='file' 
           style={{display:'none'}}
           accept='image/*' 
-          name='profile_img'
+          name="profile_img"
           onChange={onChange}
           ref={fileInput}/>
         <span onClick={editEnd}>완료</span>

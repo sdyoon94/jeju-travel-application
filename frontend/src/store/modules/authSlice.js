@@ -37,13 +37,13 @@ export const editProfileImg = createAsyncThunk(
     try {
       const response = await axios({
         method:"post",
-        url: api.accounts.editProfileImgUrl(getState().auth.id),
+        url: api.accounts.editProfileImgUrl(),
         headers: {
           "content-type": "multipart/form-data",
+          Authorization: `Bearer ${getState().auth.token}`
         },
         data: formdata
       })
-      console.log('프사 변경', response)
       return response.data
     } catch (err) {
       return rejectWithValue(err.response.data)
@@ -82,7 +82,6 @@ export const signout = createAsyncThunk(
       })
       return response.data
     } catch (err) {
-      console.log(err)
       return rejectWithValue(err.response.data)
     }
   }
@@ -116,7 +115,8 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
     .addCase(editProfileImg.fulfilled, (state, { payload }) => {
-      console.log('비동기 결과', {payload})
+      state.profileImg = payload.image_path
+      sessionStorage.setItem("image_path", payload.image_path)
     })
     .addCase(editProfileImg.rejected, (state, { payload }) => {
       state.error = payload
@@ -126,13 +126,13 @@ const authSlice = createSlice({
       sessionStorage.setItem("nickname", payload.nickname)
     })
     .addCase(editNickname.rejected, (state, {payload}) => {
-      console.log('실패', payload)
+      state.error = payload
     })
     .addCase(logout.fulfilled, (state, { payload }) => {
       sessionStorage.clear()
     })
     .addCase(logout.rejected, (state, {payload}) => {
-      console.log(payload)
+      state.error = payload
     })
     .addCase(signout.fulfilled, (state, { payload }) => {
       sessionStorage.clear()
