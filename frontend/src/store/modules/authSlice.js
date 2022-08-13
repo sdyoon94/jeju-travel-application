@@ -34,6 +34,7 @@ export const editNickname = createAsyncThunk(
 export const editProfileImg = createAsyncThunk(
   "auth/editProfileImg",
   async (formdata, {getState, rejectWithValue}) => {
+    // for (const keyValue of formdata) console.log('11', keyValue)
     try {
       const response = await axios({
         method:"post",

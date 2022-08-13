@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
-import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router"
+import { useDispatch, useSelector } from "react-redux"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
 import SwipeToDelete from "./SwipeToDelete"
@@ -7,6 +8,7 @@ import SwipeToDelete from "./SwipeToDelete"
 import { add, convert, revert } from "components/DateTime/time"
 import { fetchDirection } from "store/modules/directionSlice"
 import "./Schedule.css"
+import { ReactComponent as AddSpot } from 'assets/add.svg'
 
 
 const grid = 6
@@ -31,6 +33,12 @@ const queryAttr = "data-rbd-drag-handle-draggable-id"
 // const VEHICLE_TRANSIT = "walk"
 
 function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
+	const navigate = useNavigate()
+	const travelId = useSelector(state => state.travel.info.tripId)
+	const handleAddSpot = () => {
+		console.log("눌림")
+		navigate(`/search/${travelId}/${scheduleIdx}`)
+	}
 	const className = "schedule day-" + day
 
 	const dispatch = useDispatch()
@@ -206,6 +214,7 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 									)}
 								</Draggable>
 							)})}
+							<AddSpot onClick={handleAddSpot} className="add-spot" />
 						</div>
 						{provided.placeholder}
 					</div>

@@ -10,32 +10,19 @@ function CreateLoading() {
   })
   const navigate = useNavigate()
 
-  const [mention, setMention] = useState(`일정을 생성중이에요\n잠시만 기다려주세요`)
-  
-  // useEffect(()=>{
-  //   if (typeof travelUid === 'number') {
-  //     navigate(`/travel/${travelUid}`,{ replace: true})
-    
-  //   } else if (typeof travelUid === 'string') {
-  //     setMention(travelUid)
-    
-  //   } else {
-  //     return;
-  //   }
-  // },[travelUid])
+  const [mention, setMention] = useState("즐거운 여행이 됐으면 좋겠어요!")
+  console.log(travelUid)
+  console.log(mention)
 
   useEffect(() => {
     if (typeof travelUid === "string") {
-      if (isNaN(travelUid)) {
-        setMention(travelUid)
-      
-      } else if (!isNaN(travelUid)) {
+      if (!isNaN(travelUid)) {
         navigate(`/travel/${travelUid}`,{ replace: true})  
-
       }
     } else {
       return;
     }
+  // eslint-disable-next-line
   },[travelUid])
 
   return (

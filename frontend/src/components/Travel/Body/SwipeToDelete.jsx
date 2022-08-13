@@ -110,7 +110,6 @@ function SwipeToDelete({ travel, placeIdx, scheduleIdx, startTime, timeReq, time
         (leftRef.current < listElementRef.current.offsetWidth * threshold * -1)
         && Math.abs(dragStartYRef.current - yRef.current) < 5
       ) {
-        // 
         fetchDelete(scheduleId)
       } 
       leftRef.current = 0

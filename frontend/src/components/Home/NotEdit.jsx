@@ -2,7 +2,6 @@ import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { logout } from "store/modules/authSlice"
 import { Avatar, Box } from "@mui/material"
-import { useEffect } from "react"
 
 
 function NotEdit ({ editStart, profileImg }) {
