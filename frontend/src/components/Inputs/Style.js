@@ -1,10 +1,13 @@
 import { useState } from "react";
 import "globalStyle.css";
 import "./Style.css";
-import { ReactComponent as Eating } from "assets/styles/eating.svg";
 import { ReactComponent as Photospot } from "assets/styles/photospot.svg";
 import { ReactComponent as Nature } from "assets/styles/nature.svg";
-import { ReactComponent as Activity } from "assets/styles/activity.svg";
+import { ReactComponent as Activity } from "assets/styles/sport.svg";
+import { ReactComponent as Shop } from "assets/styles/shop.svg"
+import { ReactComponent as Eat } from "assets/styles/eat.svg"
+import { ReactComponent as Crown } from "assets/styles/crown.svg"
+import { ReactComponent as Relax } from "assets/styles/relax.svg"
 
 // const imgg = <input type="image" src="https://item.kakaocdn.net/do/493188dee481260d5c89790036be0e66f604e7b0e6900f9ac53a43965300eb9a" style={{border: "double", height: "80px", width:"170px"}}/>
 
@@ -18,12 +21,12 @@ function Style({ inputValues, setInputValues }) {
     {
       eng: "eating",
       kor: "식도락",
-      svg: <Eating fill={setSvg(0)} width="5vw" height="5vw" className="style-icon"></Eating>,
+      svg: <Eat fill={setSvg(0)} width="5vw" height="5vw" className="style-icon"></Eat>,
     },
     {
       eng: "market",
       kor: "전통시장",
-      svg: <Eating fill={setSvg(1)} width="5vw" height="5vw" className="style-icon"></Eating>,
+      svg: <Shop fill={setSvg(1)} width="5vw" height="5vw" className="style-icon"></Shop>,
     },
     {
       eng: "phtospot",
@@ -32,13 +35,13 @@ function Style({ inputValues, setInputValues }) {
     },
     {
       eng: "activity",
-      kor: "체험/액티비티",
+      kor: "액티비티/체험",
       svg: <Activity fill={setSvg(3)} width="5vw" height="5vw" className="style-icon"></Activity>,
     },
     {
       eng: "popular",
       kor: "유명관광지",
-      svg: <Eating fill={setSvg(4)} width="5vw" height="5vw" className="style-icon"></Eating>,
+      svg: <Crown fill={setSvg(4)} width="5vw" height="5vw" className="style-icon"></Crown>,
     },
     {
       eng: "nature",
@@ -48,7 +51,7 @@ function Style({ inputValues, setInputValues }) {
     {
       eng: "relax",
       kor: "여유",
-      svg: <Eating fill={setSvg(6)} width="5vw" height="5vw" className="style-icon"></Eating>,
+      svg: <Relax fill={setSvg(6)} width="5vw" height="5vw" className="style-icon"></Relax>,
     },
   ];
 
@@ -78,7 +81,7 @@ function Style({ inputValues, setInputValues }) {
         <div className="subcontentfont-weight content-size text-center gray">취향에 맞는 일정과 장소를 추천드려요!</div>
       </div>
       <div className="style-body">
-        <div className="subtitle-size">여행 스타일~</div>
+        <div className="subtitle-size">여행 스타일</div>
         <div className="style-select-btns">
           {styles.map((style, i) => {
             return (
