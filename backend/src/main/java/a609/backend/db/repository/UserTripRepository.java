@@ -16,6 +16,7 @@ public interface UserTripRepository extends JpaRepository<UserTrip, Long> {
 
     List<UserTrip> findByTripTripId(Long tripId);
 
+    int countByUserKakaoIdAndTripTripId(Long tripId, Long KakaoId);
     void deleteByTripTripIdAndUserKakaoId(Long tripId, Long KakaoId);
     void deleteByTripTripId(Long tripId);
     void deleteByUserKakaoId(Long kakaoId);

@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -147,11 +146,17 @@ public class TripServiceImpl implements TripService{
     }
 
     @Override
-    public void addUser(Long tripId, String token) {
+    public boolean addUser(Long tripId, String token) {
         UserTrip userTrip = new UserTrip();
-        userTrip.setUser(userRepository.findOneByKakaoId((Long)jwtUtil.parseJwtToken(token).get("id")));
-        userTrip.setTrip(tripRepository.findOneByTripId(tripId));
-        userTripRepository.save(userTrip);
+        Long kakaoId = (Long)jwtUtil.parseJwtToken(token).get("id");
+        if(userTripRepository.countByUserKakaoIdAndTripTripId(tripId, kakaoId)==0){
+            userTrip.setUser(userRepository.findOneByKakaoId((Long)jwtUtil.parseJwtToken(token).get("id")));
+            userTrip.setTrip(tripRepository.findOneByTripId(tripId));
+            userTripRepository.save(userTrip);
+            return true;
+        }else{
+            return false;
+        }
 
     }
 

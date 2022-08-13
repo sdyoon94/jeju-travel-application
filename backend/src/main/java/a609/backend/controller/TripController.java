@@ -92,8 +92,12 @@ public class TripController {
     @PutMapping("/addUser/{tripId}")
     public ResponseEntity<Map<String,Object>> addMember(@PathVariable Long tripId,@RequestHeader Map<String,Object> token){
         Map<String, Object> resultMap = new HashMap<>();
-        tripService.addUser(tripId,(String) token.get("authorization"));
-        resultMap.put("message", "Success");
+        boolean success = tripService.addUser(tripId,(String) token.get("authorization"));
+        if(success){
+            resultMap.put("message", "Success");
+        }else{
+            resultMap.put("message", "이미 참여한 여행입니다");
+        }
         return new ResponseEntity<Map<String,Object>>(resultMap, HttpStatus.OK);
     }
 
