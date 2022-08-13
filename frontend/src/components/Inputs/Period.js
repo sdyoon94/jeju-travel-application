@@ -67,6 +67,7 @@ function Period(props) {
         <div className="period-input">
           {show && <div className="warning2">{alertMessage}</div>}
           <TextField
+            autoFocus
             id="number-period"
             name="bak"
             type="number"
