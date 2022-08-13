@@ -84,12 +84,13 @@ public class FileServiceImpl implements FileService{
     public int deleteById(String token) {
         Long id =((Long) jwtUtil.parseJwtToken(token).get("id"));
 
-        User targetImage = userRepository.findOneByKakaoId(id);
-        if(targetImage.getImagePath()!=null){
-            File file = new File(targetImage.getDbImagePath());
+        User targetUser = userRepository.findOneByKakaoId(id);
+        if(targetUser.getImagePath()!=null){
+            File file = new File(targetUser.getDbImagePath());
             file.delete();
-            targetImage.setImagePath("");
-            userRepository.save(targetImage);
+            targetUser.setImagePath("");
+            targetUser.setDbImagePath("");
+            userRepository.save(targetUser);
             return 1;
         }else {
             return 0;
