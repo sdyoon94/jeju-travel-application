@@ -78,6 +78,7 @@ function Travel({ params }) {
 		}
 
 		updateState(travelId)
+	// eslint-disable-next-line
 	}, [])
 
 	return (
@@ -106,7 +107,7 @@ function Travel({ params }) {
 						</>
 						:	<div className="loading">
 								<div className="loading-mention text-center title-size title-weight">
-									여행을 불러오는 중입니다...
+									여행을 불러오는 중입니다!
 								</div>
 							</div>
 				}

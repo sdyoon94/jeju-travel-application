@@ -1,8 +1,5 @@
-import { useNavigate } from "react-router"
-import { useSelector } from "react-redux"
 import { ReactComponent as Car } from "assets/car-side.svg"
 import { ReactComponent as Bus } from "assets/bus-alt.svg"
-import { ReactComponent as AddSpot } from 'assets/add.svg'
 
 import StartTime from "./StartTime"
 import Exclamation from "./Exclamation"
@@ -12,12 +9,6 @@ import TimeReq from "./TimeReq"
 
 
 function Place({ travel, placeIdx, scheduleIdx, startTime, timeReq, timeReqs, setTimeReqs, directionError, isFirst, isLast, hold, vehicle }) {
-	const navigate = useNavigate()
-	const travelId = useSelector(state => state.travel.info.tripId)
-	
-	const handleAddSpot = () => {
-		navigate(`/search/${travelId}/${scheduleIdx}`)
-	}
 
 	return (
 		<>
@@ -40,12 +31,8 @@ function Place({ travel, placeIdx, scheduleIdx, startTime, timeReq, timeReqs, se
 					placeIdx={placeIdx}
 					scheduleIdx={scheduleIdx}
 				/>
-				{/* <p>{place.duration}</p> */}
 			</div>
 
-			{isLast && !hold &&
-				<AddSpot onClick={handleAddSpot} className="add-spot" />
-			}
 			{!isLast && !hold &&
 				<div className="text-center transportation">
 					{	directionError ?

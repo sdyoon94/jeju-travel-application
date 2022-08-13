@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { ReactComponent as HamburgertBtn } from 'assets/hamburger-button.svg'
 import { SwipeableDrawer } from '@mui/material'
