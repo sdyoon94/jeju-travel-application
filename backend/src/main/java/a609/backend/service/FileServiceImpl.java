@@ -50,9 +50,8 @@ public class FileServiceImpl implements FileService{
             if (!uploadPathFolder.exists()) {
                 uploadPathFolder.mkdir();
             }
-
-                User user = userService.searchByKakaoId(id);
-
+        //r경로
+            User user = userService.searchByKakaoId(id);
 
             //이미 등록된 사진이 있으면 삭제
             if(userRepository.findOneByKakaoId(id)!=null){
