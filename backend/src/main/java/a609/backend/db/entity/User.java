@@ -38,6 +38,9 @@ public class User implements UserDetails {
     @Column(name="IMAGE_PATH")
     String imagePath;
 
+    @Column(name="DB_IMAGE_PATH")
+    String dbImagePath;
+
     @Column(name="REFRESH_TOKEN")
     String refreshToken;
 
