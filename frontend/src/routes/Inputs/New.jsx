@@ -23,14 +23,15 @@ import { createTravel } from "store/modules/inputValuesSlice";
 
 function New() {
 
+  
   function setScreenSize() {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   }
 
-  useEffect(() => {
-    setScreenSize();
-  });
+ 
+
+  
 
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
@@ -92,6 +93,11 @@ function New() {
   const navigate = useNavigate();
   const params = useParams();
   const form = inputForms[params.input];
+  
+  useEffect(() => {
+    setScreenSize();
+  },[params.input]);
+ 
 
   const nextRoute = function () {
     if (params.input === "membercnt" && inputValues.maxMemberCnt >= 2) {
@@ -144,10 +150,15 @@ function New() {
   //   const route = "/new/" + nextRoute();
   //   navigate(route);
   // };
+  useEffect(()=>{
+    setShow(false);
+  }, [inputValues])
 
   useEffect(() => {
     navigate("/new/membercnt");
   }, []);
+  
+  
 
   return (
     <div className="input-container">
@@ -160,7 +171,7 @@ function New() {
           다음
         </Button>
       </div>
-      {show && <div className="warning">필수 입력 값이에요 모두 입력 해주세요</div>}
+      {show && <div className="warning">필수 입력 값이에요</div>}
     </div>
   );
 }
