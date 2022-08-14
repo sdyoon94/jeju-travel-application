@@ -63,7 +63,14 @@ public class FileServiceImpl implements FileService {
 //            }
             File check = new File(uploadPath);
             if (check.exists()) {
-                check.delete();
+                File[] folder_list = check.listFiles(); //파일리스트 얻어오기
+
+                for (int j = 0; j < folder_list.length; j++) {
+                    folder_list[j].delete();
+                }
+                if(folder_list.length == 0 && check.isDirectory()){
+                    check.delete();
+                }
             }
             check.mkdir();
             Path path = Paths.get(savePath);
