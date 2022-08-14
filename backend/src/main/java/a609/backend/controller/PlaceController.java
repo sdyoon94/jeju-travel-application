@@ -44,7 +44,7 @@ public class PlaceController {
         }
     }
 
-    @GetMapping("/find/{placeuid}")
+    @GetMapping("/findbyuid/{placeuid}")
     public ResponseEntity<?> findPlaceByUid(@PathVariable("placeuid") Long placeUid){
         Map<String, Object> resultMap = new HashMap<>();
         try{
