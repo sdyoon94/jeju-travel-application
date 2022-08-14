@@ -92,11 +92,16 @@ public class TripController {
     @PutMapping("/addUser/{tripId}")
     public ResponseEntity<Map<String,Object>> addMember(@PathVariable Long tripId,@RequestHeader Map<String,Object> token){
         Map<String, Object> resultMap = new HashMap<>();
-        boolean success = tripService.addUser(tripId,(String) token.get("authorization"));
-        if(success){
+        int addresult = tripService.addUser(tripId,(String) token.get("authorization"));
+        if(addresult==1){
             resultMap.put("message", "Success");
-        }else{
+        }else if(addresult==2){
             resultMap.put("message", "이미 참여한 여행입니다");
+        }else if(addresult==3){
+            resultMap.put("message", "인원제한을 초과했습니다");
+        }else{
+            resultMap.put("message", "인원추가에서 정체불명의 에러가 발생했다아아아아");
+            return new ResponseEntity<Map<String,Object>>(resultMap, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<Map<String,Object>>(resultMap, HttpStatus.OK);
     }
