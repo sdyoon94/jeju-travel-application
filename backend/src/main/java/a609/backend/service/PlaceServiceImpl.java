@@ -22,6 +22,9 @@ public class PlaceServiceImpl implements PlaceService{
     @Autowired
     ScheduleRepository scheduleRepository;
 
+    @Autowired
+    TripRepository tripRepository;
+
     @Override
     public List<FindPlaceDTO> findPlace(String keyword) {
         List<Place> places = placeRepository.findByPlaceNameContains(keyword);
@@ -43,19 +46,30 @@ public class PlaceServiceImpl implements PlaceService{
 
     @Override
     public List<FindPlaceDTO> recommendPlace(Long tripId, int day) {
-        //피로도 고려하는건 추후에 수정합시다.
+
         HashSet<Place> beforeRecommend = new HashSet<>();
         List<Place> tempList = new ArrayList<>();
+        int style = tripRepository.findOneByTripId(tripId).getStyle();
         List<Schedule> scheduleNow = scheduleRepository.findByTripTripIdAndDayOrderByTurn(tripId, day);
+        List<Integer> tripStyles = new ArrayList<>();
+        tripStyles.add(9);
+        for(int i=0;i<7;i++){
+            if((style&(1<<i))==(1<<i)){
+                tripStyles.add(i);
+            }
+        }
         for (Schedule schedule : scheduleNow) {
-            List<Place> tourByDistance = placeRepository.findTourByDistance(schedule.getLat(), schedule.getLng(), 5D, 0);
+            List<Place> tourByDistance = placeRepository.findRecommendByDistance(schedule.getLat(), schedule.getLng(), 5D, tripStyles);
             for (Place place : tourByDistance) {
                 beforeRecommend.add(place);
             }
         }
+
         for (Place place : beforeRecommend) {
+            if(place.getThumbs()==null) System.out.println(place.getPlaceName());
             tempList.add(place);
         }
+
         Collections.sort(tempList, (o1, o2) -> o1.getThumbs() - o2.getThumbs());
         return tempList.stream().map(o -> new FindPlaceDTO(o)).collect(Collectors.toList()).subList(0,Math.min(tempList.size(),7));
     }

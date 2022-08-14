@@ -30,8 +30,7 @@ public class FindPlaceDTO {
     public FindPlaceDTO(Place o) {
         this.placeUid=o.getPlaceUid();
         this.placeName=o.getPlaceName();
-        this.tag = Arrays.stream(o.getTag().split(" ")).collect(Collectors.toList());
+        this.tag = Arrays.stream(o.getTag().replaceAll(" ", "").split(",")).collect(Collectors.toList());
         this.imgPath=o.getImgPath();
-
     }
 }
