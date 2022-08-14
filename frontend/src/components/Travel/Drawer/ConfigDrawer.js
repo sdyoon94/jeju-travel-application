@@ -21,6 +21,7 @@ import Fix from "routes/ScheduleFix"
 import {parseISO,addDays} from "date-fns"
 
 import "./ConfigDrawer.css"
+import "globalStyle.css"
 import "components/EditModal/ModalCommon.css"
 
 
@@ -227,15 +228,16 @@ function ConfigDrawer({travel, setTravel}) {
                 anchor={"bottom"}
                 open={isDrawerOpened}
                 onClose={closeDrawer}
+                className="travel-drawer"
             >
-                <h1>설정</h1>
-                <p onClick={()=>{handleClickOpen("name")}}> 여행 제목 변경 </p>
-                <p onClick={()=>{handleClickOpen("dates")}}> 여행 날짜 변경 </p>
-                <p onClick={()=>{handleClickOpen("style")}}> 여행 스타일 수정 </p>
-                <p onClick={()=>{handleClickOpen("budget")}}> 여행경비변경 </p>
-                <p onClick={()=>{handleClickOpen("vehicle")}} > 이동수단 변경  </p>
-                <p onClick={()=>{handleClickOpen("fix")}} > 여행지 고정  </p>
-                <p onClick={()=>{handleClickOpen("exit")}}> 여행 나가기 </p>
+                <header className="subcontent-size title-weight">설정</header>
+                <p className="content-size content-weight" onClick={()=>{handleClickOpen("name")}}> 여행 제목 변경 </p>
+                <p className="content-size content-weight" onClick={()=>{handleClickOpen("dates")}}> 여행 날짜 변경 </p>
+                <p className="content-size content-weight" onClick={()=>{handleClickOpen("style")}}> 여행 스타일 수정 </p>
+                <p className="content-size content-weight" onClick={()=>{handleClickOpen("budget")}}> 여행경비변경 </p>
+                <p className="content-size content-weight" onClick={()=>{handleClickOpen("vehicle")}} > 이동수단 변경  </p>
+                <p className="content-size content-weight" onClick={()=>{handleClickOpen("fix")}} > 여행지 고정  </p>
+                <p className="content-size content-weight red" onClick={()=>{handleClickOpen("exit")}}> 여행 나가기 </p>
             </Drawer>
             
             {/* ////////////////////////////DIALOGS//////////////////////////////////////////////////// */}

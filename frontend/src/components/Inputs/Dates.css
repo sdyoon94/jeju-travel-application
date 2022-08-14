@@ -3,6 +3,7 @@
   grid-template-rows: 4fr 7fr;
   height:100%;
   justify-content: stretch;
+  /* gap: 3rem; */
   
 }
 
