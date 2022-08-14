@@ -3,7 +3,13 @@ package a609.backend.service;
 import a609.backend.db.entity.User;
 import a609.backend.db.repository.UserRepository;
 import a609.backend.util.JwtUtil;
+import com.drew.imaging.ImageMetadataReader;
+import com.drew.metadata.Directory;
+import com.drew.metadata.Metadata;
+import com.drew.metadata.exif.ExifIFD0Directory;
+import com.drew.metadata.jpeg.JpegDirectory;
 import lombok.extern.slf4j.Slf4j;
+import org.imgscalr.Scalr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -121,6 +127,7 @@ public class FileServiceImpl implements FileService {
         int originHeight = inputImage.getHeight();
         // 변경할 가로 길이
         int newWidth = 500;
+        int rotate = 1;
 
         if (originWidth > newWidth) {
             // 기존 이미지 비율을 유지하여 세로 길이 설정
@@ -131,7 +138,30 @@ public class FileServiceImpl implements FileService {
 // Image.SCALE_REPLICATE : ReplicateScaleFilter 클래스로 구체화 된 이미지 크기 조절 알고리즘
 // Image.SCALE_SMOOTH : 속도보다 이미지 부드러움을 우선
 // Image.SCALE_AREA_AVERAGING : 평균 알고리즘 사용
-            Image resizeImage = inputImage.getScaledInstance(newWidth, newHeight, Image.SCALE_FAST);
+
+            //회전후 저장 위해 메타데이터 읽기
+            try{
+                Metadata metadata = ImageMetadataReader.readMetadata(file.getInputStream());
+                Directory directory = metadata.getFirstDirectoryOfType(ExifIFD0Directory.class);
+                if(directory!=null){
+                    rotate = directory.getInt(ExifIFD0Directory.TAG_ORIENTATION);
+                }
+            } catch(Exception e){
+                System.out.println("메타데이터 읽기에서 에러났다아아아");
+                e.printStackTrace();
+            }
+            switch(rotate){
+                case 6:
+                    inputImage = Scalr.rotate(inputImage, Scalr.Rotation.CW_90);
+                    break;
+                case 3:
+                    inputImage = Scalr.rotate(inputImage, Scalr.Rotation.CW_180);
+                    break;
+                case 8:
+                    inputImage = Scalr.rotate(inputImage, Scalr.Rotation.CW_270);
+            }
+
+           Image resizeImage = inputImage.getScaledInstance(newWidth, newHeight, Image.SCALE_FAST);
             BufferedImage newImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
             Graphics graphics = newImage.getGraphics();
             graphics.drawImage(resizeImage, 0, 0, null);
