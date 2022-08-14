@@ -30,7 +30,7 @@ function Recommend({ spot, isLast }) {
           style={{marginLeft: "auto", alignSelf: "center"}}
           onClick={handleClickSpot}
           id={spot.placeUid}
-          name={spot.name}
+          name={spot.placeName}
           className="select-click" >선택</span>
       </div>
       {isLast ? null : <hr />}
