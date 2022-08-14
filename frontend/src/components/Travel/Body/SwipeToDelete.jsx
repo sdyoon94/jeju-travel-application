@@ -64,7 +64,7 @@ function SwipeToDelete({ travel, placeIdx, scheduleIdx, startTime, timeReq, time
     if (draggedRef.current) {
       requestAnimationFrame(updatePosition)
       const width = -leftRef.current - 10
-      if (width > 0 && Math.abs(dragStartYRef.current - yRef.current) < 7 && !hold) {
+      if (width > 0 && Math.abs(dragStartYRef.current - yRef.current) < 9 && !hold) {
         setDeleteStyle({
           ...deleteStyle,
           backgroundColor: "red",
@@ -108,7 +108,7 @@ function SwipeToDelete({ travel, placeIdx, scheduleIdx, startTime, timeReq, time
 
       if (
         (leftRef.current < listElementRef.current.offsetWidth * threshold * -1)
-        && Math.abs(dragStartYRef.current - yRef.current) < 5
+        && Math.abs(dragStartYRef.current - yRef.current) < 9
       ) {
         fetchDelete(scheduleId)
       } 
