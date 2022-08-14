@@ -146,18 +146,20 @@ public class TripServiceImpl implements TripService{
     }
 
     @Override
-    public boolean addUser(Long tripId, String token) {
+    public int addUser(Long tripId, String token) {
+        //1. 성공 2. 중복 3. 인원초과
         Long kakaoId = (Long)jwtUtil.parseJwtToken(token).get("id");
-        if(userTripRepository.countByUserKakaoIdAndTripTripId(kakaoId, tripId)==0){
+        if(userTripRepository.countByTripTripId(tripId)>7){
+            return 3;
+        }else if(userTripRepository.countByUserKakaoIdAndTripTripId(kakaoId, tripId)==0){
             UserTrip userTrip = new UserTrip();
             userTrip.setUser(userRepository.findOneByKakaoId((Long)jwtUtil.parseJwtToken(token).get("id")));
             userTrip.setTrip(tripRepository.findOneByTripId(tripId));
             userTripRepository.save(userTrip);
-            return true;
+            return 1;
         }else{
-            return false;
+            return 2;
         }
-
     }
 
     @Override

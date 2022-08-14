@@ -12,7 +12,7 @@ public interface TripService {
     String registerTrip(Trip trip,String token);
     void updateTrip(Long tripId,Trip trip);
     void deleteTrip(Long tripId);
-    boolean addUser(Long tripId, String token);
+    int addUser(Long tripId, String token);
     void deleteUserTrip(Long tripId, String token);
 
 }
