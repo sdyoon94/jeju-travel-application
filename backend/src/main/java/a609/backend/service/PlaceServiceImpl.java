@@ -6,6 +6,7 @@ import a609.backend.db.entity.Trip;
 import a609.backend.db.repository.PlaceRepository;
 import a609.backend.db.repository.ScheduleRepository;
 import a609.backend.db.repository.TripRepository;
+import a609.backend.payload.response.FindPlaceByUidDTO;
 import a609.backend.payload.response.FindPlaceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,5 +73,12 @@ public class PlaceServiceImpl implements PlaceService{
 
         Collections.sort(tempList, (o1, o2) -> o1.getThumbs() - o2.getThumbs());
         return tempList.stream().map(o -> new FindPlaceDTO(o)).collect(Collectors.toList()).subList(0,Math.min(tempList.size(),7));
+    }
+
+    @Override
+    public FindPlaceByUidDTO findPlaceByUid(Long placeUid) {
+        Place findPlace = placeRepository.findOneByPlaceUid(placeUid);
+        return new FindPlaceByUidDTO(findPlace);
+
     }
 }

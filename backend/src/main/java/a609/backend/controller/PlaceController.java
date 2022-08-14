@@ -2,6 +2,7 @@ package a609.backend.controller;
 
 import a609.backend.db.entity.Place;
 import a609.backend.db.repository.PlaceRepository;
+import a609.backend.payload.response.FindPlaceByUidDTO;
 import a609.backend.payload.response.FindPlaceDTO;
 import a609.backend.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,20 @@ public class PlaceController {
             e.printStackTrace();
             resultMap.put("message", "추천에서 에러났다아아아아");
             return new ResponseEntity<>(resultMap, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/find/{placeuid}")
+    public ResponseEntity<?> findPlaceByUid(@PathVariable("placeuid") Long placeUid){
+        Map<String, Object> resultMap = new HashMap<>();
+        try{
+            FindPlaceByUidDTO placeByUid = placeService.findPlaceByUid(placeUid);
+            resultMap.put("place", placeByUid);
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }catch(Exception e){
+            e.printStackTrace();
+            resultMap.put("message", "장소uid조회에서 에러났다아아아");
+            return new ResponseEntity<>(resultMap,HttpStatus.BAD_REQUEST);
         }
     }
 }
