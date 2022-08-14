@@ -123,15 +123,10 @@ public class FileServiceImpl implements FileService {
         // 이미지 읽어 오기
         BufferedImage inputImage = ImageIO.read(file.getInputStream());
         // 이미지 세로 가로 측정
-        int originWidth = inputImage.getWidth();
-        int originHeight = inputImage.getHeight();
-        // 변경할 가로 길이
-        int newWidth = 500;
+
         int rotate = 1;
 
-        if (originWidth > newWidth) {
-            // 기존 이미지 비율을 유지하여 세로 길이 설정
-            int newHeight = (originHeight * newWidth) / originWidth;
+
             // 이미지 품질 설정
 // Image.SCALE_DEFAULT : 기본 이미지 스케일링 알고리즘 사용
 // Image.SCALE_FAST : 이미지 부드러움보다 속도 우선
@@ -160,6 +155,13 @@ public class FileServiceImpl implements FileService {
                 case 8:
                     inputImage = Scalr.rotate(inputImage, Scalr.Rotation.CW_270);
             }
+            int originWidth = inputImage.getWidth();
+            int originHeight = inputImage.getHeight();
+            // 변경할 가로 길이
+            int newWidth = 500;
+            if (originWidth > newWidth) {
+            // 기존 이미지 비율을 유지하여 세로 길이 설정
+            int newHeight = (originHeight * newWidth) / originWidth;
 
            Image resizeImage = inputImage.getScaledInstance(newWidth, newHeight, Image.SCALE_FAST);
             BufferedImage newImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
