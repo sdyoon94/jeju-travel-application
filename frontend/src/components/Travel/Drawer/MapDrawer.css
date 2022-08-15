@@ -20,6 +20,10 @@
   padding: 2vh 5vw;
 }
 
+#place-link {
+  color: black;
+}
+
 #place-name {
   height: 3vh;
   padding: 0;

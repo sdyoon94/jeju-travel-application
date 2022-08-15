@@ -1,6 +1,7 @@
 import { CircularProgress, Drawer } from "@mui/material"
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 import { useCallback, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { format, addDays } from "date-fns"
 
 import { ReactComponent as MapIcon } from "assets/map.svg"
@@ -44,16 +45,16 @@ const divideCenter = (center, len) => {
   center.lng /= len
 }
 // tag 처리 함수
-const buildTags = (tag) => {
-  const tags = tag.split(",")
-  if (tags.length === 0) {
-    return "#태그없음"
-  }
-  if (tags.length === 1) {
-    return `#${tag}`
-  }
-  return tags.reduce((prev, curr) => `#${prev} #${curr}`)
-}
+// const buildTags = (tag) => {
+//   const tags = tag.split(",")
+//   if (tags.length === 0) {
+//     return "#태그없음"
+//   }
+//   if (tags.length === 1) {
+//     return `#${tag}`
+//   }
+//   return tags.reduce((prev, curr) => `#${prev} #${curr}`)
+// }
 
 
 
@@ -80,7 +81,6 @@ function MapDrawer({ travel, scheduleIdx }) {
   }
   const closeDrawer = () => {
     setIsDrawerOpened(false)
-    // setPlaceInfo({})
   }
 
   useEffect(() => {
@@ -108,10 +108,20 @@ function MapDrawer({ travel, scheduleIdx }) {
     googleMapsApiKey: API_KEY
   })
 
+  // const navigate = useNavigate()
+  // const handleNaverSearch = (e) => {
+  //   console.log(e.target.innerText)
+  //   navigate(`/https://m.search.naver.com/search.naver?query=제주공항`)
+  // }
+
+  // console.log(document.getElementById("place-name").innerText)
+
   const PlaceInfo = () => {
     return (
     <div id="place">
-      <div id="place-name"></div>
+      <a id="place-link" href="">
+        <div id="place-name"></div>
+      </a>
       <div id="place-spec">
         <img id="place-image" alt="장소 이미지" src=""></img>
         <div id="place-info">
@@ -121,24 +131,11 @@ function MapDrawer({ travel, scheduleIdx }) {
             사람 모양 아이콘을 드래그하여 스트리트 뷰를 <br /> 확인할 수 있어요. 
           </div>
         </div>
-
-        {/* { placeInfo.placeName && <img id="place-image" alt="장소 이미지" src={placeInfo.imgPath}></img> }
-        <div id="place-info">
-          { placeInfo.placeName && <div id="place-addr">{placeInfo.roadAddress}</div> }
-          { placeInfo.placeName
-            ? placeInfo.tag.map((item, index) => 
-            <span key={index} className="subcontent-size">#{item}</span>)
-            : <div id="place-tag">
-              지도의 마커를 클릭하여 관광지 정보를 확인하세요. <br /> 
-              사람 모양 아이콘을 드래그하면 스트리트 뷰를 확인할 수 있어요. 
-            </div>
-          }
-        </div> */}
       </div>
     </div>
   )}
   const token = useSelector(state => state.auth.token)
-  // const [placeInfo, setPlaceInfo] = useState({})
+
   const fetchPlaceInfo = async(placeUid) => {
     const response = await axios({
       url: api.place.placeInfoUrl(placeUid),
@@ -146,7 +143,6 @@ function MapDrawer({ travel, scheduleIdx }) {
       headers: {Authorization: `Bearer ${token}`}
     })
     return response.data.place
-    // setPlaceInfo(response.data.place)
   }
 
   const Map = ({ route, markers }) => {
@@ -191,9 +187,8 @@ function MapDrawer({ travel, scheduleIdx }) {
           const promise = fetchPlaceInfo(place.placeUid)
           const getData = () => {
             promise.then((res) => {
-              console.log(res, "res")
-   
               document.getElementById("place-name").innerText = res.placeName
+              document.getElementById("place-link").href = `https://m.search.naver.com/search.naver?query=${res.placeName}`
               document.getElementById("place-name").style.display = "block"
               document.getElementById("place-image").src = res.imgPath ? res.imgPath : "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Jeju_Island.jpg/320px-Jeju_Island.jpg"
               document.getElementById("place-image").style.display = "block"
