@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
 import { ReactComponent as HamburgertBtn } from 'assets/hamburger-button.svg'
 import { SwipeableDrawer } from '@mui/material'
 import { editNickname, editProfileImg } from "store/modules/authSlice"
@@ -10,7 +9,6 @@ import NotEdit from "./NotEdit"
 
 function Drawer() {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const name = useSelector((state) => state.auth.nickname)
   const img = useSelector((state) => state.auth.profileImg)
   const [nickname, setNickname] = useState(name)
@@ -19,18 +17,18 @@ function Drawer() {
   const [edit, setEdit] = useState(false)
   const [file, setFile] = useState(null)
   const [modify, setModify] = useState({"nickname": false, "img": false})
+  const [refresh, setRefresh] = useState(false)
 
   const handleDrawer = (open) => function(e) {
     if (e && e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) {
       return
     }
-    if (open === false) {
-      navigate("/")
+    if (open === false && refresh) {
+      setRefresh(false)
+      window.location.reload()
     }
     setopen(open)
   }
-
-  console.log(open)
 
   const editStart = () => {
     setEdit(true)
@@ -76,6 +74,7 @@ function Drawer() {
       ...modify,
       "img": true
     })
+    setRefresh(true)
   }
 
 

@@ -9,7 +9,6 @@ import Travel from "routes/Travel";
 import Home from "./routes/Home";
 import KakaoLogin from "routes/KakaoLogin";
 import KakaoRedirect from "routes/KakaoRedirect"
-import Edit from 'components/Home/EditTest'
 import PlaceSearch from 'routes/PlaceSearch'
 import AddressInput from 'routes/AddressInput'
 import TravelJoin from 'routes/TravelJoin';
@@ -27,7 +26,6 @@ root.render(
         <Route path="new" element={<PrivateRoute component={ New } />}>
           <Route path=":input" element={<New />} />
         </Route>
-        <Route path="edit" element={<PrivateRoute component={ Edit } />} />
         <Route path="travel/:travelId" element={<PrivateRoute component={ Travel } />} />
         <Route path="search/:travelId/:dayId" element={<PrivateRoute component={ PlaceSearch } />} />
         <Route path="address/:travelId/:dayId" element={<PrivateRoute component={ AddressInput } />} />

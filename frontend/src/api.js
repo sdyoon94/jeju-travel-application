@@ -52,6 +52,9 @@ const api = {
     },
     recommendUrl(travelId, dayId) {
       return HOST + PLACE + `recommend/${travelId}/${dayId}`
+    },
+    placeInfoUrl(placeUid) {
+      return HOST + PLACE + `find/${placeUid}`
     }
   }
 };
