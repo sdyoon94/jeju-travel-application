@@ -81,7 +81,7 @@ public class Algorithm {
                 schedule.setStayTime(540);
             } else if (day == 0 && startTurn == 1) {//첫째날은 공항 주변
                 Schedule schedule1 = scheduleRepository.findByTripTripIdAndDayAndTurn(trip.getTripId(), 0, 0);
-                Place place = selectFirstDayPlace(schedule1.getLat(), schedule1.getLng(), placeType,trip.getStyle());//공항 중심으로
+                Place place = selectAroundPlace(schedule1.getLat(), schedule1.getLng(), placeType,trip.getStyle());//공항 중심으로
 
                 visit[Math.toIntExact(schedule1.getPlaceUid())] = 1;
                 schedule.setPlaceUid(place.getPlaceUid());
@@ -121,10 +121,9 @@ public class Algorithm {
                 tire=0;
             }
             if(placeType==4){//카페가면 피로도 -2
-                tire-=2;
+                tire= Math.max(tire-2, 0);
             }
 
-//            hungry++;
             hungry+=1.25;
             String st = String.valueOf(trip.getStyle());
 
@@ -221,8 +220,8 @@ public class Algorithm {
         return place;
     }
 
-    //첫쨋날 공항
-    public Place selectFirstDayPlace(double lat1, double lng1, int placeType,int style) {//인자 스타일 추가
+    //첫쨋날 반경 내 검색
+    public Place selectAroundPlace(double lat1, double lng1, int placeType, int style) {//인자 스타일 추가
 
         List<Place> places = new ArrayList<>();
         places = placeRepository.findToursByDistance(lat1, lng1, 8.0, placeType,style);
