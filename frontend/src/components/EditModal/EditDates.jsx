@@ -19,7 +19,7 @@ function Calender({inputValues,setInputValues}) {
   // const [range, setRange] = useState(inputValues.range)
 
   const handleChange = (item) => {
-    console.log("셀렉션",item.selection)
+
     // setRange([item.selection])
 
     const startDate = isFirst? item.selection.startDate : item.selection.endDate
