@@ -1,7 +1,6 @@
 import axios from "axios"
-import { createTravelLogger } from "../logger.js"
 import { addSchedule, addTravelInfo, initSchedules, release, terminate } from "../stateManager.js"
-import { ERRORS } from "../emitter.js"
+import { ERRORS } from "../eventHandler.js"
 import { APIS } from "../apiHandler.js"
 import { logApiInfo, logApiError } from "./apiLogger.js"
 

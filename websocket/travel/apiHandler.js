@@ -1,5 +1,6 @@
 import { isTerminated, remove } from "./stateManager.js"
-import { ERRORS, errorEmitter, CAST_TYPES } from "./emitter.js"
+import { errorEmitter, CAST_TYPES } from "./emitter.js"
+import { ERRORS } from "./eventHandler.js"
 import { fetchTravel } from "./api/fetchTravel.js"
 
 const APIS = {
