@@ -38,18 +38,14 @@ function ConfigDrawer({travel, setTravel}) {
 
     
     ///// Modal 조작 부분 ///// 
-    console.log(travel.info.tripId)
-    console.log(travel.info.style)
+    
     //스타일 속성 정수형에서 배열로
     const integerToArray =  (n) => {
         const str = String(n)
         const mapfn  = (arg) => Number(arg)
-        
         const arr = Array.from(str,mapfn)
-        
         const emptyArr = Array(7-arr.length).fill(0)
         
-        console.log([...emptyArr, ...arr])
         return [...emptyArr, ...arr]    
     }
     
@@ -96,7 +92,7 @@ function ConfigDrawer({travel, setTravel}) {
 
     const forms = [
         { 
-            name : 'name',
+            name : 'tripName',
             form: <TravelName inputValues={info} setInputValues={editInfo}></TravelName>,
             isFull : false
         },
@@ -106,7 +102,7 @@ function ConfigDrawer({travel, setTravel}) {
             isFull : false
         },
         {
-            name : "dates",
+            name : "range",
             form : <Dates inputValues={info} setInputValues={editInfo}></Dates>,
             isFull : true,
         },
@@ -149,8 +145,8 @@ function ConfigDrawer({travel, setTravel}) {
     
     //Modal 호출
     const [open, setOpen] = useState({
-        "name" : false,
-        "dates" : false,
+        "tripName" : false,
+        "range" : false,
         "budget": false,
         "style" : false,
         "vehicle": false,
@@ -174,6 +170,11 @@ function ConfigDrawer({travel, setTravel}) {
     // re-recommend 일때만 취소버튼 ===> 그냥수정요청
     // 나머지 상황에서는 취소버튼 ===> 모달닫고, setInfo
     const handleClose = (formName) => {
+        //재추천-취소
+        if (formName === 'rerecommend') {
+            console.log('변경실행')
+        }
+        
         
         setOpen({
             ...open,
@@ -194,15 +195,68 @@ function ConfigDrawer({travel, setTravel}) {
     // 재추천상황 ===> 재추천요청
     // 나머지 ===>  수정요청
     
-    const handleConfirm = async (name) => {
-        // style/budget/fix 창에서 확인 클릭시 자기는 닫고 재추천 모달 열기
-        if (name === 'style') {
-            await handleClickOpen('rerecommend')
-            await handleClose('style')
+    const handleConfirm = (name) => {
+        
+        // console.log(initialInfo[name])
+        // console.log(info[name])
+        // console.log(JSON.stringify(initialInfo[name]))
+        // console.log(JSON.stringify(info[name]))
+        
+        //재추천일 때 
+        if (name === "rerecommend") {
+            setOpen({
+                ...open,
+                [name] : false,
+                ['fix'] : true
+               })
             
-            console.log(open.style)
-            console.log(open.style)
+            return
         }
+
+        if (name === 'fix') {
+            console.log('재주천')
+            setOpen({
+                ...open,
+                [name] : false,
+            })
+            return
+        }
+
+        if (name === 'exit') {
+            console.log('여행탈퇴')
+            setOpen({
+                ...open,
+                [name] : false,
+            })
+            return
+        }
+        
+
+        // 실제로 변경 된 값이 있는지 판단 => 변경 값없으면 걍 꺼줌 
+        if ( JSON.stringify(initialInfo[name]) === JSON.stringify(info[name]) ){
+            console.log('그냥꺼짐')
+            handleClose(name)
+        
+        } else {
+            // style/budget의 경우 재추천 물어보기
+            if (name === 'budget'|| name === 'style') {
+                setOpen({
+                 ...open,
+                 [name] : false,
+                 ['rerecommend'] : true
+                })
+             } else {
+                console.log("인포정보그냥변경")
+                handleClose(name)
+             }
+
+
+
+
+        }
+
+        // style/budget/fix 창에서 확인 클릭시 자기는 닫고 재추천 모달 열기
+        
     }
 
     // 모달 버튼 이름 바꿔주기
@@ -231,12 +285,12 @@ function ConfigDrawer({travel, setTravel}) {
                 className="travel-drawer"
             >
                 <header className="subcontent-size title-weight">설정</header>
-                <p className="content-size content-weight" onClick={()=>{handleClickOpen("name")}}> 여행 제목 변경 </p>
-                <p className="content-size content-weight" onClick={()=>{handleClickOpen("dates")}}> 여행 날짜 변경 </p>
+                <p className="content-size content-weight" onClick={()=>{handleClickOpen("tripName")}}> 여행 제목 변경 </p>
+                <p className="content-size content-weight" onClick={()=>{handleClickOpen("range")}}> 여행 날짜 변경 </p>
                 <p className="content-size content-weight" onClick={()=>{handleClickOpen("style")}}> 여행 스타일 수정 </p>
                 <p className="content-size content-weight" onClick={()=>{handleClickOpen("budget")}}> 여행경비변경 </p>
                 <p className="content-size content-weight" onClick={()=>{handleClickOpen("vehicle")}} > 이동수단 변경  </p>
-                <p className="content-size content-weight" onClick={()=>{handleClickOpen("fix")}} > 여행지 고정  </p>
+                {/* <p className="content-size content-weight" onClick={()=>{handleClickOpen("fix")}} > 여행지 고정  </p> */}
                 <p className="content-size content-weight red" onClick={()=>{handleClickOpen("exit")}}> 여행 나가기 </p>
             </Drawer>
             
@@ -246,7 +300,7 @@ function ConfigDrawer({travel, setTravel}) {
                 return (
                    <Dialog 
                         className={value.isFull? 'full-modal modal-container': 'small-modal modal-container'}
-                        key={index} 
+                        key={value.name} 
                         fullScreen={value.isFull} 
                         open={open[value.name]} 
                         onClose={()=>{handleClose(value.name)}}>
@@ -275,7 +329,10 @@ function ConfigDrawer({travel, setTravel}) {
             })
             }
 
-            <Dialog open={open.rerecommend}> 
+            {/* <Dialog
+                className='small-modal modal-container'
+                fullScreen={false} 
+                open={open.rerecommend}> 
                 <div className="dialog-content">
                     <ReRecommend></ReRecommend>
                 </div>
@@ -283,7 +340,7 @@ function ConfigDrawer({travel, setTravel}) {
                     <Button onClick={()=>{handleClose('rerecommend')}}>필요없어요</Button>
                     <Button variant="outlined"onClick={()=>{handleClose('rerecommend')}}>재추천받기</Button >
                 </div>
-            </Dialog>
+            </Dialog> */}
 
 
 

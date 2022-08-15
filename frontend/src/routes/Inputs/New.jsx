@@ -97,6 +97,11 @@ function New() {
   useEffect(() => {
     setScreenSize();
   },[params.input]);
+
+  // useEffect(() => {
+  //   setScreenSize();
+  // },[window.innerHeight]);
+  // document.get
  
 
   const nextRoute = function () {
