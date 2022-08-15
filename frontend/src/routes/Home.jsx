@@ -1,3 +1,4 @@
+import { useState } from "react"
 import TravelList from "components/Home/TravelList"
 import Drawer from "components/Home/Drawer"
 import Gamgyul from "components/Header/Gamgyul"
