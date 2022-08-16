@@ -49,7 +49,7 @@ public class TripScheduleServiceImpl implements TripScheduleService{
 
             hungry=startTime;
 
-            while(hungry<19.0) {//7시 이전이면
+            while(hungry<20.0) {//8시 이전이면
                 placeType=0;
                 if (hungry>=11.0&& hungry<=14.0&&restaurant<1){
                     placeType=3;
@@ -113,7 +113,7 @@ public class TripScheduleServiceImpl implements TripScheduleService{
         } else {
 
             hungry=6.7;
-            while(hungry<19.0) {//7시 이전이면
+            while(hungry<20.0) {//8시 이전이면
 
                 placeType=0;
 
