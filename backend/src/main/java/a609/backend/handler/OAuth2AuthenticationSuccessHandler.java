@@ -30,19 +30,22 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
 
         Long id = (Long)oAuth2User.getAttribute("id");
-        String nickname, imagePath;
-        if(userRepository.countByKakaoId(id)>0){
-            User user = userRepository.findOneByKakaoId(id);
-            nickname = user.getNickname();
-            imagePath = user.getImagePath();
-        }else {
+        User user;
+        if((user = userRepository.findOneByKakaoId(id))==null){
             Map<String, Object> properties = (Map<String, Object>) oAuth2User.getAttributes().get("properties");
-            nickname = (String) properties.get("nickname");
-            imagePath = (String) properties.get(("profile_image_url"));
+            user = User.builder()
+                    .kakaoId(id)
+                    .nickname((String)properties.get("nickname"))
+                    .imagePath((String) properties.get("profile_image_url"))
+                    .build();
         }
-        String jwt = jwtUtil.generateJwtToken(id, nickname, imagePath);
+        String accessToken = jwtUtil.generateJwtToken(user);
+        String refreshToken = jwtUtil.generateRefreshToken(id);
 
-        String url = makeRedirectUrl(jwt);
+        user.setRefreshToken(refreshToken);
+        userRepository.save(user);
+
+        String url = makeRedirectUrl(accessToken, refreshToken);
         System.out.println("url: " + url);
         if (response.isCommitted()) {
             logger.debug("응답이 이미 커밋된 상태입니다. " + url + "로 리다이렉트하도록 바꿀 수 없습니다.");
@@ -51,8 +54,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         getRedirectStrategy().sendRedirect(request, response, url);
     }
 
-    private String makeRedirectUrl(String token) {
-        return UriComponentsBuilder.fromUriString("http://i7a609.p.ssafy.io/oauth2/redirect?token="+token)
+    private String makeRedirectUrl(String accessToken, String refreshToken) {
+        return UriComponentsBuilder.fromUriString("https://i7a609.p.ssafy.io/oauth2/redirect?accessToken="+accessToken+"&refreshToken="+refreshToken)
                 .build().toUriString();
     }
 }

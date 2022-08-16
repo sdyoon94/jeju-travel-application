@@ -4,6 +4,7 @@ import a609.backend.db.entity.User;
 import a609.backend.service.UserService;
 import a609.backend.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -25,7 +26,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try{
             String jwt = parseJwt(request);
-            if(jwt != null && jwtUtil.validateJwtToken(jwt)) {
+            if(jwt != null && jwtUtil.validateJwtToken(jwt) == HttpStatus.OK) {
                 Long username = jwtUtil.parseJwtToken(jwt).get("id", Long.class);
                 User user = userService.searchByKakaoId(username);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
