@@ -71,7 +71,7 @@ public class TripScheduleController {
     }
 
     @PutMapping("/{scheduleId}")
-    public ResponseEntity<Map<String, Object>> updateSchedule(@PathVariable("scheduleId") Long scheduleId, Schedule schedule){
+    public ResponseEntity<Map<String, Object>> updateSchedule(@PathVariable("scheduleId") Long scheduleId, @RequestBody Schedule schedule){
         Map<String, Object> resultMap = new HashMap<>();
         try{
             tripScheduleService.updateSchedule(scheduleId, schedule);
