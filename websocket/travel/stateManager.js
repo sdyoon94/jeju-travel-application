@@ -34,7 +34,7 @@ const initalize = (travelId, roomTable) => {
     error: null,
     fetched: 0,
     connectedSockets: [],
-    travelInfo: null,
+    travelInfo: {},
     schedules: null,
     deletedScheduleList: [],
     authorities: {

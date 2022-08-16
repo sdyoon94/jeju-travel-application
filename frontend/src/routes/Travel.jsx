@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, usePrams } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 
@@ -13,7 +13,10 @@ import api from "api"
 import "./Travel.css"
 import "routes/Inputs/CreateLoading.css"
 
-import {io} from "socket.io-client"
+import { io } from "socket.io-client"
+
+
+// const socket = io('http://localhost:5000/travel', data)
 
 function Travel({ params }) {
 	const token = useSelector(state => state.auth.token)
@@ -21,9 +24,9 @@ function Travel({ params }) {
 	const { travelId } = params
 	const dispatch = useDispatch()
 
-	const [ error, setError ] = useState(null)
-	const [ isLoaded, setIsLoaded ] = useState(false)
-	const [ scheduleIdx, setScheduleIdx ] = useState(0)
+	const [error, setError] = useState(null)
+	const [isLoaded, setIsLoaded] = useState(false)
+	const [scheduleIdx, setScheduleIdx] = useState(0)
 
 	// get travel
 	const travel = useSelector((state) => state.travel)
@@ -34,9 +37,10 @@ function Travel({ params }) {
 			method: "get",
 			url: api.travel.createTravelInfoUrl(travelId),
 			headers: {
-				Authorization: `Bearer ${token}`}
+				Authorization: `Bearer ${token}`
+			}
 
-			})
+		})
 
 		const buildTravelScheduleConfig = (travelId, day) => ({
 			method: "get",
@@ -76,53 +80,60 @@ function Travel({ params }) {
 				}
 			}
 		}
-        
+
 		const updateState = async (travelId) => {
 			try {
 				const _ = await fetchData(travelId)
 				setIsLoaded(true)
 			}
 			catch (err) {
-				console.log(err.response.status)
 				setError(err.response.status)
 			}
 		}
-
 		updateState(travelId)
-	// eslint-disable-next-line
+		// eslint-disable-next-line
 	}, [])
 
-	// useEffect(()=>{
-	// 	const Token = sessionStorage.getItem("accessToken")
-	// 	const data = {
-	// 		auth: {token: Token},
-	// 		query: {travelId: travelId },
-	// 	}
-		
-	// 	const socket = io('http://localhost:5000/travel',
-	// 										{
-	// 											 auth:{token:Token},
-	// 											 query:{travelId:travelId}
-	// 											})	
-	// })
+	const connectSocket = () => {
+	
+		const data = {
+			auth: { token },
+			query: { travelId },
+		}
+		const socket = io('http://localhost:5000/travel', data)
+		console.log(socket)
+		socket.on("get travel", (data) => {
+			console.log(data)
+			dispatch()
+		})
+		socket.on("connect", () => {
+			console.log("connect")
+		})
+
+	}
+	
+
+	useEffect(() => {
+		connectSocket()
+	},[])
 
 	return (
 		<>
 			<div className="travel-container">
-				{ error === 403
+				{error === 403
 					? <Error403 />
 					: isLoaded
-					?	<>
+						? <>
 							<div className="travel-header">
 								<div>
-									<Link style={{ textDecoration: "none", color:"black", display: "flex", alignItems: "center" }} to={'/'}>
-									<span>놀멍쉬멍</span>
-									<img className="gamgyul" alt="gamgyulImg" src="/icons/gamgyul.jpg" />
+									<Link style={{ textDecoration: "none", color: "black", display: "flex", alignItems: "center" }} to={'/'}>
+										<span>놀멍쉬멍</span>
+										<img className="gamgyul" alt="gamgyulImg" src="/icons/gamgyul.jpg" />
 									</Link>
 								</div>
 								<ConfigDrawer
 									travel={travel}
-									setTravel={(v)=>{dispatch(setTravel(v))}}
+									setTravel={(v) => { dispatch(setTravel(v)) }}
 								/>
 							</div>
 							<TravelTitle
@@ -131,16 +142,16 @@ function Travel({ params }) {
 							/>
 							<TravelBody
 								travel={travel}
-								setSchedule={(v)=>{dispatch(setSchedule(v))}}
+								setSchedule={(v) => { dispatch(setSchedule(v)) }}
 								scheduleIdx={scheduleIdx}
 								setScheduleIdx={setScheduleIdx}
 							/>
 						</>
-						:	<div className="loading">
-								<div className="loading-mention text-center title-size title-weight">
-									여행을 불러오는 중입니다!
-								</div>
+						: <div className="loading">
+							<div className="loading-mention text-center title-size title-weight">
+								여행을 불러오는 중입니다!
 							</div>
+						</div>
 				}
 			</div>
 		</>

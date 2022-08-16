@@ -55,7 +55,7 @@ const fetchTravel = async (travelId, roomTable, token) => {
 
   roomTable[travelId].fetched = true
   release(travelId, roomTable)
-  return
+  return "실행됨"
 }
 // ===== Fetch API requests end =====
 
