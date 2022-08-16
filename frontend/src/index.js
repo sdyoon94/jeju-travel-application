@@ -15,6 +15,7 @@ import TravelJoin from 'routes/TravelJoin';
 import PrivateRoute from "components/PrivateRoute";
 import CreateLoading from "routes/Inputs/CreateLoading";
 import ScheduleFix from "routes/ScheduleFix";
+import Error404 from "routes/Error404";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -35,6 +36,7 @@ root.render(
         <Route path="login" element={<KakaoLogin />} />
         <Route path="oauth2/redirect/" element={<KakaoRedirect />} />
         <Route path="join/:travelId/:nickname" element={<TravelJoin />} />
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </BrowserRouter>
   </Provider>

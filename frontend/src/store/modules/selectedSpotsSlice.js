@@ -10,7 +10,7 @@ const selectedSpotsSlice = createSlice({
     addSpot(state, { payload }) {
       state.push({
         ...payload,
-        stayTime: 60
+        // stayTime: "60"
       })
     },
     deleteSpot(state, { payload }) {

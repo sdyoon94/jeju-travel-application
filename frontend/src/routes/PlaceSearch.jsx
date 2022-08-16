@@ -53,9 +53,9 @@ function PlaceSearch() {
   const handleInputBtn = () => {
     navigate(`/address/${travelId}/${dayId}`)
   }
-  
+  console.log(useSelector(state => state.travel.schedules[dayId]))
   const handleSubmit = () => {
-    navigate(`/travel/${travelId}`)
+    // navigate(`/travel/${travelId}`)
     dispatch(addSchedule({ dayId, selectedSpots}))
     dispatch(resetSpot())
   }
