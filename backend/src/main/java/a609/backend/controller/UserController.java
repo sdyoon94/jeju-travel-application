@@ -49,19 +49,23 @@ public class UserController {
     }
 
     @GetMapping("/auth/verify")
-    public ResponseEntity<Map<String, Object>> verifyToken(@RequestHeader Map<String, Object> header) {
+    public ResponseEntity<Void> verifyToken(@RequestHeader Map<String, Object> header) {
         String token = (String) header.get("authorization");
         log.info("토큰 : {}", token);
-        Map<String, Object> resultMap = new HashMap<>();
-        HttpStatus status;
-        if (jwtUtil.validateJwtToken(token)) {
-            resultMap.put("message", "유효한 토큰");
-            status = HttpStatus.OK;
-        } else {
-            resultMap.put("message", "잘못된 토큰");
-            status = HttpStatus.BAD_REQUEST;
+        return new ResponseEntity<Void>(jwtUtil.validateJwtToken(token));
+    }
+
+    @GetMapping("/auth/refresh")
+    public ResponseEntity<?> refreshToken(@RequestHeader Map<String, Object> header) {
+        String accessToken = (String) header.get("authorization");
+        String refreshToken = (String) header.get("refreshToken");
+
+        Map<String, Object> resultMap = userService.refreshToken(accessToken, refreshToken);
+        if(resultMap != null){
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
 
     @PostMapping("/logout")

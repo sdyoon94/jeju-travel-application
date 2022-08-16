@@ -6,6 +6,7 @@ import a609.backend.util.JwtUtil;
 import a609.backend.util.KaKaoUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -35,30 +36,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        log.info("유저리퀘스트엔 무엇이 들었을까? : {}", userRequest.getAccessToken().toString());
-        log.info("어디셔널 : {}", userRequest.getAdditionalParameters().toString());
         OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
         Map<String, Object> attributes = oAuth2User.getAttributes();
-        log.info("오오스2유저 어트리뷰트엔 무엇이 들었을까? : {}", attributes.toString());
-
-        Long kakaoId = (Long)attributes.get("id");
-
-        Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
-        String email = (String) kakaoAccount.get("email");
-
-        Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
-        String nickname = (String) properties.get("nickname");
-        String imagePath = (String) properties.get("profile_image");
-
-        User user;
-        if (userRepository.countByKakaoId(kakaoId)==0) {
-            user = User.builder().kakaoId(kakaoId).nickname(nickname).imagePath(imagePath).build();
-            userRepository.save(user);
-        } else{
-            user = userRepository.findOneByKakaoId(kakaoId);
-        }
 
         return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority("USER")), attributes, "id");
     }
@@ -157,5 +138,24 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteUserByKakaoId((Long)jwtUtil.parseJwtToken(token).get("id"));
     }
 
+    @Override
+    public Map<String, Object> refreshToken(String accessToken, String refreshToken){
+        Long id;
+        if((id = (Long)jwtUtil.parseJwtToken(accessToken).get("id")) == jwtUtil.parseJwtToken(refreshToken).get("id")){
+            User user = searchByKakaoId(id);
+            if (jwtUtil.validateJwtToken(refreshToken) == HttpStatus.OK
+                    && user.getRefreshToken().equals(refreshToken.substring(7))) {
+                String newAccessToken = jwtUtil.generateJwtToken(user);
+                String newRefreshToken = jwtUtil.generateRefreshToken(id);
+                user.setRefreshToken(newRefreshToken);
+                userRepository.save(user);
 
+                Map<String, Object> tokens = new HashMap<>(2);
+                tokens.put("accessToken", newAccessToken);
+                tokens.put("refreshToken", newRefreshToken);
+                return tokens;
+            }
+        }
+        return null;
+    }
 }
