@@ -31,5 +31,5 @@ public interface ScheduleRepository extends JpaRepository<Schedule,Long> {
 
     void deleteAllByTripTripId(Long tripId);
 
-    void deleteAllByTripTripIdAndDay(Long tripId,int day);
+    void deleteByTripTripIdAndDay(Long tripId,int day);
 }

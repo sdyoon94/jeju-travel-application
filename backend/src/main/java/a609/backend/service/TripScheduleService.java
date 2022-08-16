@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface TripScheduleService {
-    void registerSchedule(Trip trip,int day,int[] visit,boolean reRecommend,double hungry,int turn,int restaurant,int tire);
+    void registerSchedule(Trip trip,int day,int[] visit,boolean reRecommend,double hungry,int turn,int restaurant,int tired);
 
     void updateSchedule(Long ScheduleId, Schedule schedule);
 

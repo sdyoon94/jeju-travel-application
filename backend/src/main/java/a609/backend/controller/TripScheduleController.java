@@ -3,7 +3,6 @@ package a609.backend.controller;
 import a609.backend.db.entity.Schedule;
 import a609.backend.db.entity.Trip;
 import a609.backend.db.repository.ScheduleRepository;
-import a609.backend.payload.request.ReRecommend;
 import a609.backend.payload.response.ScheduleDTO;
 import a609.backend.service.TripScheduleService;
 import com.nimbusds.jose.shaded.json.JSONArray;
@@ -98,6 +97,4 @@ public class TripScheduleController {
             return new ResponseEntity<>(resultMap, HttpStatus.BAD_REQUEST);
         }
     }
-
-
 }
