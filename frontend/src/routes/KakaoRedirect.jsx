@@ -32,9 +32,8 @@ function KakaoRedirect() {
   
   
   return (
-    <>
-      <span>잠시만 기다려주세요</span>
-    </>
+    <div className="loading">
+  </div>
   )
 }
 
