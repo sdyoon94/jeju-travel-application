@@ -6,6 +6,7 @@ import a609.backend.db.repository.TripRepository;
 import a609.backend.payload.response.FindTripDTO;
 import a609.backend.payload.response.TripInfoDTO;
 import a609.backend.service.TripService;
+import a609.backend.util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,9 +45,13 @@ public class TripController {
     }
 
     @GetMapping("/showTripInfo/{tripId}")
-    public ResponseEntity<Map<String,Object>> showTripInfo(@PathVariable Long tripId){
+    public ResponseEntity<Map<String,Object>> showTripInfo(@PathVariable Long tripId, @RequestHeader Map<String,Object> header){
         Map<String, Object> resultMap = new HashMap<>();
-        FindTripDTO tripInfo = tripService.showTripInfo(tripId);
+        FindTripDTO tripInfo = tripService.showTripInfo(tripId, (String)header.get("authorization"));
+        if(tripInfo==null) {
+            resultMap.put("message", "너는 권한이 없어요");
+            return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.FORBIDDEN);
+        }
         resultMap.put("tripInfo", tripInfo);
         return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
     }
