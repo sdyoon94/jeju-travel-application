@@ -38,18 +38,19 @@ const travelSlice = createSlice({
 	name: "travel",
 	initialState,
 	reducers: {
+		// setTravelInfo()
 		editStayTime(state, { payload: {scheduleIdx, placeIdx, stayTime} }) {
 			state.schedules[scheduleIdx][placeIdx]["stayTime"] = stayTime
 		},
 		editStartTime(state, { payload: {scheduleIdx, placeIdx, stayTime} }) {
 			state.schedules[scheduleIdx][placeIdx]["stayTime"] = stayTime
 		},
-		setTravel(state, { payload }) {
-			state[payload[0]] = payload[1]
-		},
-		setTravelInfo(state, { payload }) {
-			state.info = payload
-		},
+		// setTravel(state, { payload }) {
+		// 	state[payload[0]] = payload[1]
+		// },
+		// setTravelInfo(state, { payload }) {
+		// 	state.info = payload
+		// },
 		initSchedule(state, { payload: periodInDays }) {
 			state.schedules = new Array(periodInDays)
 		},
@@ -64,16 +65,7 @@ const travelSlice = createSlice({
 			state.schedules[dayId].push(...selectedSpots)
 		}
 	},
-	// extraReducers: (builder) => {
-	// 	builder
-	// 		.addCase(deleteSchedule.fulfilled, (state, action) => {
-	// 			console.log(action.payload)
-	// 		})
-	// 		.addCase(deleteSchedule.rejected, (state, action) => {
-	// 			console.log(action.payload)
-	// 			state.error = action.payload
-	// 		})
-	// }
+
 })
 
 const { actions, reducer } = travelSlice

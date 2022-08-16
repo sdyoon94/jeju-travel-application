@@ -1,6 +1,6 @@
 .schedule {
-    height: 60vh;
-    display: grid;
-    grid-auto-rows: min-content;
-    overflow-y: scroll;
+  height: 60vh;
+  display: grid;
+  grid-auto-rows: min-content;
+  overflow-y: scroll;
 }

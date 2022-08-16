@@ -1,67 +1,67 @@
 .travel-title-container {
-    height: 16vh;
-    padding: 2vh 7vw 0;
-    display: grid;
-    grid-template-rows: 5fr 2fr 2fr 3fr auto;
-    margin: 0 10px;
+  height: 16vh;
+  padding: 2vh 7vw 0;
+  display: grid;
+  grid-template-rows: 5fr 2fr 2fr 3fr auto;
+  margin: 0 10px;
 }
 
 .travel-title-container div {
-    width: 80vw;
+  width: 80vw;
 }
 
 .travel-title {
-    height: 5vh;
-    display: flex;
-    align-items: center;
+  height: 5vh;
+  display: flex;
+  align-items: center;
 }
 
 .travel-title .avatar-group {
-    width: fit-content;
-    display: inline-flex;
-    padding: 0.5vh 0.8vw;
+  width: fit-content;
+  display: inline-flex;
+  padding: 0.5vh 0.8vw;
 }
 
 .travel-title .avatar-group * {
-    height: 6vw;
-    width: 6vw;
-    font-size: 3vw;
+  height: 6vw;
+  width: 6vw;
+  font-size: 3vw;
 }
 
 .travel-info {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .travel-info .travel-info-content {
-    padding-right: 4vw;
+  padding-right: 4vw;
 }
 
 .travel-style-container {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .travel-style-container .travel-style {
-    padding-right: 2vw;
+  padding-right: 2vw;
 }
 
 #kakao-link-btn {
-    display: flex;
-    height: 4vh;
-    justify-content: flex-end;
-    align-items: center;
+  display: flex;
+  height: 4vh;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 #kakao-link-btn span {
-    padding-right: 2vw;
+  padding-right: 2vw;
 }
 
 #kakao-link-btn img {
-    height: 3vh;
-    width: 3vh; 
+  height: 3vh;
+  width: 3vh;
 }
 
 .divider {
-    padding: 0vh 2vh;
+  padding: 0vh 2vh;
 }

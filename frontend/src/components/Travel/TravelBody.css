@@ -1,11 +1,11 @@
 .course-container {
-    height: 67vh;
-    margin: 0 10px;
+	height: 67vh;
+	margin: 0 10px;
 }
 
 .map-drawer-container {
-    width: 80vw;
-    margin: 0vh 6vw 1vh;
-    display: flex;
-    justify-content: end;
+  width: 80vw;
+  margin: 0vh 6vw 1vh;
+  display: flex;
+	justify-content: flex-end;
 }

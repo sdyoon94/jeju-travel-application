@@ -18,6 +18,9 @@ const travelBuilder = (io, nsp) => {
   namespace.on("connection", async (socket) => {
     let { query, auth } = socket.handshake
     let { travelId } = query
+
+    
+
     let { token } = auth
     let { id } = jwtDecode(token)
     
@@ -39,9 +42,10 @@ const travelBuilder = (io, nsp) => {
     try {
       // travel info 받아오기 (socket의 토큰을 활용)
       const travelInfo = await fetchTravelInfo(travelId, socket.data.token)
-
+      
       // 여행에 참여 중인 멤버인지 확인
       let verified = false
+      
       const { member } = travelInfo
       member.forEach(memberInfo => {
         const { kakaoId } = memberInfo
@@ -49,10 +53,10 @@ const travelBuilder = (io, nsp) => {
           verified = true
         }
       })
-
+      
       // 여행에 참여 중인 멤버인 경우, travelInfo의 member 업데이트
       if (verified) {
-        roomTable[room].travelInfo.member = member
+        roomTable[travelId].travelInfo.member = member
         logger.info(`travelId (${travelId})에 속한 멤버 - id (${id})`)
       }
       // 아닌 경우 throw Error()
@@ -73,6 +77,13 @@ const travelBuilder = (io, nsp) => {
       dispatch(travelId, roomTable)
       try {
         await fetchTravel(travelId, roomTable, socket.data.token)
+        namespace.to(travelId).emit("get travel", {
+          status: 1,
+          travel: {
+            travelInfo: roomTable[travelId].travelInfo,
+            schedules: roomTable[travelId].schedules
+          }
+        })
       }
       catch (err) {
         logger.error(`travelId (${travelId}) fetch 에러`)
@@ -80,6 +91,15 @@ const travelBuilder = (io, nsp) => {
         socket.disconnect()
         return
       }
+    }
+    else {
+      socket.emit("get travel", {
+        status: 1,
+        travel: {
+          travelInfo: roomTable[travelId].travelInfo,
+          schedules: roomTable[travelId].schedules
+        }
+      })
     }
 
     // 정상적으로 여행에 참가가 가능한 경우, roomTable에 socket push
