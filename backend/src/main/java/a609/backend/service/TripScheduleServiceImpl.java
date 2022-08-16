@@ -54,7 +54,7 @@ public class TripScheduleServiceImpl implements TripScheduleService{
                 if (hungry>=11.0&& hungry<=14.0&&restaurant<1){
                     placeType=3;
                 }
-                if (hungry>=17.0&&hungry<19.5&&restaurant<2){
+                if (hungry>=17.0&&hungry<20.0&&restaurant<2){
                     placeType=3;
                 }
 
@@ -88,7 +88,7 @@ public class TripScheduleServiceImpl implements TripScheduleService{
                 if (hungry>=11.0&& hungry<=14.0&&restaurant<1){
                     placeType=3;
                 }
-                if (hungry>=17.0&&hungry<19.5&&restaurant<2){
+                if (hungry>=17.0&&hungry<20.0&&restaurant<2){
                     placeType=3;
                 }
 
