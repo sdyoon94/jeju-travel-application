@@ -29,19 +29,8 @@ public class PlaceServiceImpl implements PlaceService{
     @Override
     public List<FindPlaceDTO> findPlace(String keyword) {
         List<Place> places = placeRepository.findByPlaceNameContains(keyword);
-        List<FindPlaceDTO> placeDTOs = new ArrayList<>();
-        for(Place place: places){
-            FindPlaceDTO dto = new FindPlaceDTO();
-            dto.setPlaceName(place.getPlaceName());
-            dto.setPlaceUid(place.getPlaceUid());
-            dto.setImgPath(place.getImgPath());
-            List<String> tags = Arrays.stream(place.getTag().split(",")).collect(Collectors.toList());
-            if(tags.get(0).equals("")){
-                tags= new ArrayList<>();
-            }
-            dto.setTag(tags);
-            placeDTOs.add(dto);
-        }
+        List<FindPlaceDTO> placeDTOs = places.stream().map(place -> new FindPlaceDTO(place)).collect(Collectors.toList());
+
         return placeDTOs;
     }
 
