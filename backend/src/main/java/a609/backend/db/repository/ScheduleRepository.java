@@ -4,6 +4,7 @@ import a609.backend.db.entity.Schedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,4 +29,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule,Long> {
     Schedule findByTripTripIdAndDayAndTurn(Long tripId,int day,int turn);
     Long countByTripTripIdAndDay(Long tripId,int day);
 
+    void deleteAllByTripTripId(Long tripId);
+
+    void deleteByTripTripIdAndDay(Long tripId,int day);
 }

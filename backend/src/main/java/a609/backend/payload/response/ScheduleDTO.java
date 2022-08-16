@@ -12,7 +12,7 @@ import javax.persistence.Column;
 @Setter
 public class ScheduleDTO {
 
-    private Long ScheduleId;
+    private Long scheduleId;
 
     private Long placeUid;
 

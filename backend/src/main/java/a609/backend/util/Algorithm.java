@@ -25,32 +25,29 @@ public class Algorithm {
     ScheduleRepository scheduleRepository;
 
     @Getter
-    public static class Check{
+    public static class Check {
         double hungry;
-        int tire,restaurant,turn;
+        int tire, restaurant, turn;
 
         public Check(double hungry, int tire, int restaurant, int turn) {
             this.hungry = hungry;
             this.tire = tire;
             this.restaurant = restaurant;
-
             this.turn = turn;
         }
 
         @Override
         public String toString() {
-            //감자: 오타다! 오타!
-            return "Chech{" +
+            return "Check{" +
                     "hungry=" + hungry +
                     ", tire=" + tire +
                     ", restaurant=" + restaurant +
-
                     ", turn=" + turn +
                     '}';
         }
     }
 
-    public Check create(Trip trip, int placeType, int day, int cnt, int startTurn, int[] visit,double hungry,int tire,int restaurant) {
+    public Check create(Trip trip, int placeType, int day, int cnt, int startTurn, int[] visit, double hungry, int tired, int restaurant) {
 
         Check checkList = null;
         for (int i = 0; i < cnt; i++) {
@@ -58,7 +55,7 @@ public class Algorithm {
             schedule.setDay(day);
             schedule.setTrip(trip);
             if (placeType == 5) {//공항이면
-                Place place = placeRepository.findOneByPlaceUid(3762L);
+                Place place = placeRepository.findOneByPlaceName("제주공항");
                 visit[Math.toIntExact(place.getPlaceUid())] = 1;
                 schedule.setLat(place.getLat());
                 schedule.setLng(place.getLng());
@@ -78,17 +75,18 @@ public class Algorithm {
                 schedule.setPlaceName(schedule1.getPlaceName());
                 schedule.setLat(schedule1.getLat());
                 schedule.setLng(schedule1.getLng());
-
                 schedule.setStayTime(540);
             } else if (day == 0 && startTurn == 1) {//첫째날은 공항 주변
                 Schedule schedule1 = scheduleRepository.findByTripTripIdAndDayAndTurn(trip.getTripId(), 0, 0);
-                Place place = selectFirstDayPlace(schedule1.getLat(), schedule1.getLng(), placeType,trip.getStyle());//공항 중심으로
+                Place place = selectAroundPlace(schedule1.getLat(), schedule1.getLng(), placeType, trip.getStyle());//공항 중심으로
 
                 visit[Math.toIntExact(schedule1.getPlaceUid())] = 1;
                 schedule.setPlaceUid(place.getPlaceUid());
                 schedule.setPlaceName(place.getPlaceName());
                 schedule.setLat(place.getLat());
                 schedule.setLng(place.getLng());
+                schedule.setStayTime(120);
+
 
             } else {
                 Schedule schedule1;
@@ -107,60 +105,50 @@ public class Algorithm {
                 log.info(trip.getTripId().toString());
 
 
-                Place place = selectPlace(schedule1.getLat(), schedule1.getLng(), schedule2.getLat(), schedule2.getLng(), placeType, visit,trip.getStyle(),hungry);
+                Place place = selectPlace(schedule1.getLat(), schedule1.getLng(), schedule2.getLat(), schedule2.getLng(), placeType, visit, trip.getStyle(), hungry);
 
                 visit[Math.toIntExact(place.getPlaceUid())] = 1;
                 schedule.setPlaceUid(place.getPlaceUid());//전날 잡은 숙소로
                 schedule.setPlaceName(place.getPlaceName());
                 schedule.setLat(place.getLat());
                 schedule.setLng(place.getLng());
+                schedule.setStayTime(120);
             }
             Place place = placeRepository.findOneByPlaceUid(schedule.getPlaceUid());
+            tired += place.getTire();
 
-            // 감자: 소요시간 같이 곱해주는게 좀 더 적합한거 같음(등산 1시간vs등산 2시간)
-            tire += place.getTire();
 
-            if(placeType==3){//밥먹으면 피로도 리셋
-                tire=0;
+            if (placeType == 4) {//카페가면 피로도 -3
+                tired = Math.max(tired - 3, 0);
             }
 
-            //감자: 음수로 떨어질수도 있음. 카페에서 약물을 파는게 아니면 max를 씁시다
-            if(placeType==4){//카페가면 피로도 -2
-                tire-=2;
-            }
-
-//            hungry++;
-            hungry+=1.25;
-            String st = String.valueOf(trip.getStyle());
-
-            //여유면 일정 띄엄띄엄
-
-            if(st.length()>=6) { //감자: st 지금 101011 같은게 아니라 한자리수로 해놨는데 이거 동작함? 안할거 같은데
-                for (int j = st.length(); j <= 0; j--) {
-                    int flag = st.charAt(j) - '0';
-                    if(j==6&&flag==1){
-                        hungry+=2.4;
-                    }
-
-                }
-            }
-
-            if (place.getPlaceType() == 3) {
+            //시간
+            if (placeType == 3) {//밥먹으면 피로도 리셋
+                hungry += 1.3;
+                schedule.setStayTime(60);
+                tired = 0;
                 restaurant++;
+            } else{
+                hungry += 2.4;
+            }
+            //여유면 1시간 더
+            for(int s=0;s<7;s++) {
+                if ((trip.getStyle() & (1 << s)) >0) {
+                    if (s==0) hungry+=0.3;
+                }
             }
 
             schedule.setTurn(startTurn++);
             scheduleRepository.save(schedule);
-            checkList = new Check(hungry, tire, restaurant, startTurn);
-            log.info("-------------------------HUNGRY-------"+hungry);
-            log.info("------------------------placeType-----"+placeType);
+            checkList = new Check(hungry, tired, restaurant, startTurn);
+
         }
         return checkList;
 
     }
 
     //이전 장소 반경 내 장소 선택
-    public Place selectPlace(double lat1, double lng1,double lat2,double lng2, int placeType,int[] visit,int style,double hungry) {//인자 스타일 추가
+    public Place selectPlace(double lat1, double lng1, double lat2, double lng2, int placeType, int[] visit, int style, double hungry) {//인자 스타일 추가
 
         List<Place> places = new ArrayList<>();
         List<Place> resultPlaces = new ArrayList<>();
@@ -172,80 +160,111 @@ public class Algorithm {
 //        Place place2 = places.get(0);
 //        double d = distanceInKilometerByHaversine(lat1,lng1,lat2,lng2);
         //외점
-        double distance=8.0;
-        log.info("------outpoint 위-----------------------"+lat1);
+        double distance = 8.0;
+        log.info("------outpoint 위-----------------------" + lat1);
         log.info(String.valueOf(lat2));
         log.info(String.valueOf(lng1));
         log.info(String.valueOf(lng2));
-        Point outPoint = outPoint(lat1,lng1,lat2,lng2);
-        log.info("-----------------------------"+String.valueOf(outPoint.lat));
+        Point outPoint = outPoint(lat1, lng1, lat2, lng2);
+        log.info("-----------------------------" + String.valueOf(outPoint.lat));
         log.info(String.valueOf(outPoint.lng));
-        Place place ;
-        int relax = 0; //여유
-        do {
+        Place place;
 
-            //do while 돌 경우 places에 한두개만 있으면 계속 무한로프.. 반경 넗게 재검색해야..
-            resultPlaces.clear();
-            //스타일에 따른 선택
-            String st = String.valueOf(style);
-            while (resultPlaces.isEmpty()){
 
-                for (int i = st.length();i<=0;i--){
-                    int flag = st.charAt(i)-'0';
+        //do while 돌 경우 places에 한두개만 있으면 계속 무한로프.. 반경 넗게 재검색해야..
+        resultPlaces.clear();
+        //스타일에 따른 선택
+        String st = String.valueOf(style);
 
-                    if (flag==0) continue;
+        while (resultPlaces.isEmpty()) {
+//
+//            for(int i=0;i<7;i++){
+//                if((style&(1<<i))==(1<<i)){
 
-                    if(i==6&&flag==1){//여유는 액티비티 등산 빼고
-                        places = placeRepository.findRelaxByDistance(outPoint.lat,outPoint.lng, distance, placeType,3,7);
-                        resultPlaces.addAll(places);
-                        places = placeRepository.findTourByDistance(outPoint.lat, outPoint.lng, distance, 4);//카페
+            for(int i=0;i<7;i++) {
+                if ((style & (1 << i)) >0) {
+
+
+                    if (i == 0) {//여유는 액티비티 등산 빼고
+                        places = placeRepository.findRelaxByDistance(outPoint.lat, outPoint.lng, distance, placeType, 3, 7);
+                        for (Place k : places) {
+                            if (visit[Math.toIntExact(k.getPlaceUid())] == 1) {
+                                continue;
+                            }
+                            resultPlaces.add(k);
+                        }
 
                     } else {
-                        places = placeRepository.findToursByDistance(outPoint.lat, outPoint.lng, distance, placeType, style);
+                        places = placeRepository.findToursByDistance(outPoint.lat, outPoint.lng, distance, placeType, 6-i);
+                        for (Place k : places) {
+                            if (visit[Math.toIntExact(k.getPlaceUid())] == 1) {
+                                continue;
+                            }
+                            resultPlaces.add(k);
+                        }
                     }
-                    resultPlaces.addAll(places);
 
                 }
-                if (resultPlaces.isEmpty()){//알맞은 스타일 없다면..스타일 없는 것까지 검색
-                    places= placeRepository.findToursByDistance(outPoint.lat,outPoint.lng,distance,placeType,9);
-                    resultPlaces.addAll(places);
+                if (resultPlaces.isEmpty()) {//알맞은 스타일 없다면..스타일 없는 것까지 검색
+                    places = placeRepository.findToursByDistance(outPoint.lat, outPoint.lng, distance, placeType, 9);
+                    for (Place k : places) {
+                        if (visit[Math.toIntExact(k.getPlaceUid())] == 1) {
+                            continue;
+                        }
+                        resultPlaces.add(k);
+                    }
                 }
 //                if (resultPlaces.isEmpty()) {//그래도 없다면..
 //                    places= placeRepository.findTourByDistance(outPoint.lat,outPoint.lng,distance,placeType);
 //                    resultPlaces.addAll(places);
 //                }
-                distance+=2.0;
+                distance += 2.0;
             }
+        }
 
-            log.info("결과 List size "+String.valueOf(resultPlaces.size()));
-            Collections.shuffle(resultPlaces);
-            place = resultPlaces.get(0);
-            log.info(String.valueOf(visit[Math.toIntExact(place.getPlaceUid())]));
-        }while (visit[Math.toIntExact(place.getPlaceUid())]==1);
+        log.info("결과 List size " + String.valueOf(resultPlaces.size()));
 
+        //인기순
+        Collections.sort(resultPlaces, (o1, o2) -> o1.getThumbs() - o2.getThumbs());
+        resultPlaces = resultPlaces.subList(0, Math.min(resultPlaces.size(), 7));
+        Collections.shuffle(resultPlaces);
+//
+
+        place = resultPlaces.get(0);
+        log.info(String.valueOf(visit[Math.toIntExact(place.getPlaceUid())]));
 
         return place;
     }
 
-    //첫쨋날 공항
-    public Place selectFirstDayPlace(double lat1, double lng1, int placeType,int style) {//인자 스타일 추가
+    //첫쨋날 반경 내 검색
+    public Place selectAroundPlace(double lat1, double lng1, int placeType, int style) {//인자 스타일 추가
 
         List<Place> places = new ArrayList<>();
-        places = placeRepository.findToursByDistance(lat1, lng1, 8.0, placeType,style);
-        if (places.isEmpty()){//알맞은 스타일 없다면..
-            places= placeRepository.findTourByDistance(lat1, lng1,8.0, placeType);
+
+        String st = String.valueOf(style);
+
+        for (int i = 6; i >= 7 - st.length(); i--) {
+            int flag = st.charAt(6 - i) - '0';
+
+            if (flag == 0) continue;
+
+            places = placeRepository.findToursByDistance(lat1, lng1, 8.0, placeType, style);
+
+        }
+        if (places.isEmpty()) {//알맞은 스타일 없다면..
+            places = placeRepository.findTourByDistance(lat1, lng1, 8.0, placeType);
         }
         //latlng 2구하기
         Collections.shuffle(places);
-        Place place2 = places.get(0);
         return places.get(0);
     }
 
 
-    public static class Point{
-      double lat;
-      double lng;
-        public Point(double lat,double lng) {
+    public static class Point {
+        double lat;
+        double lng;
+
+        public Point(double lat, double lng) {
             super();
             this.lat = lat;
             this.lng = lng;
@@ -260,24 +279,24 @@ public class Algorithm {
         }
     }
 
-    public static Point outPoint(double lat1,double lng1, double lat2,double lng2){
+    public static Point outPoint(double lat1, double lng1, double lat2, double lng2) {
 
-        double d = distanceInKilometerByHaversine(lat1,lng1,lat2,lng2);
+        double d = distanceInKilometerByHaversine(lat1, lng1, lat2, lng2);
 
 //        //중복체크하고 지우기~ 중복체크 안해서 같은 장소 반환으로 d=0 에러!
         //장소 달라도 좌표 같은 곳이 존재..
-        if(d<0.0001){
-            return new Point(lat1,lng1);
+        if (d < 0.0001) {
+            return new Point(lat1, lng1);
         }
 
 
-        double lat = ((d+8)*lat2-8*lat1)/d;
-        double lng = ((d+8)*lng2-8*lng1)/d;
+        double lat = ((d + 8) * lat2 - 8 * lat1) / d;
+        double lng = ((d + 8) * lng2 - 8 * lng1) / d;
 
 
-        Point point = new Point(lat,lng);
-        log.info("outPoint메소드 안--------------"+point.toString());
-        log.info("d:"+d+"lat: "+lat+"lng: "+lng);
+        Point point = new Point(lat, lng);
+        log.info("outPoint메소드 안--------------" + point.toString());
+        log.info("d:" + d + "lat: " + lat + "lng: " + lng);
 
         return point;
     }
