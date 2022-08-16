@@ -8,10 +8,12 @@ function Recommend({ spot, isLast }) {
   const dispatch = useDispatch()
 
   const handleClickSpot = (e) => {
-    const placeUid = e.target.id
+    const placeUid = Number(e.target.id)
     const placeName = e.target.getAttribute("name")
+    const lat = Number(e.target.getAttribute("lat"))
+    const lng = Number(e.target.getAttribute("lng"))
     if (!checked) {
-      dispatch(addSpot({placeUid, placeName}))
+      dispatch(addSpot({placeUid, placeName, lat, lng}))
     }
     setChecked(true)
   } 
@@ -31,6 +33,8 @@ function Recommend({ spot, isLast }) {
           onClick={handleClickSpot}
           id={spot.placeUid}
           name={spot.placeName}
+          lat={spot.lat}
+          lng={spot.lng}
           className="select-click" >선택</span>
       </div>
       {isLast ? null : <hr />}
