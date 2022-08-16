@@ -131,11 +131,12 @@ public class Algorithm {
             } else{
                 hungry += 2.4;
             }
+
             //여유면 1시간 더
-            for(int s=0;s<7;s++) {
-                if ((trip.getStyle() & (1 << s)) >0) {
-                    if (s==0) hungry+=0.3;
-                }
+
+            if ((trip.getStyle() & 1) >0) {
+                    hungry+=0.5;
+                    schedule.setStayTime(schedule.getStayTime()+30);
             }
 
             schedule.setTurn(startTurn++);
