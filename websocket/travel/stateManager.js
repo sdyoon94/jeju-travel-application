@@ -107,7 +107,6 @@ const initAuthorities = (room, roomTable, travelInfo) => {
   authorities.budget = {id: null, authorized: false}
   authorities.vehicle = {id: null, authorized: false}
   authorities.style = {id: null, authorized: false}
-  authorities.member = {id: null, authorized: false}
 
   for (let i = 0; i < periodInDays; i++) {
     authorities.schedules.push({id: null, authorized: false})
