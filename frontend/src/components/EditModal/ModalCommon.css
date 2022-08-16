@@ -1,0 +1,59 @@
+.full-modal {
+  
+  /* display : grid; 
+  justify-content: stretch; */
+  
+}
+
+.small-modal {
+
+}
+
+.modal-container{
+
+}
+
+
+.full-dialog-content{
+  height: 100%;
+  display:grid;
+  align-items: center;
+  grid-template-columns: 80vw;
+  justify-content: center;
+}
+
+.small-dialog-content{
+  height: 30vh;
+  display:grid;
+  align-items: center;
+  grid-template-columns: 70vw;
+  justify-content: center;
+}
+
+
+
+
+.dialog-btns-top {
+  position:absolute;
+  top : 4vh;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-between;
+  width: 100%;
+  gap : 50vw;
+}
+
+.dialog-btns-bottom {
+  /* position:absolute; */
+  bottom: 0vh;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-between;
+  width: 100%;
+  gap : 1px;
+  
+}
+
+.dialog-btns-bottom button{
+  border-radius: 0;
+}

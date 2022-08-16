@@ -1,0 +1,73 @@
+.travel-name-container {
+  display: grid;
+  grid-template-rows: 4fr 7fr;
+  height:100%;
+}
+
+
+
+/****** header ******/
+.travel-name-header {
+  display:grid;
+  align-content: end;
+  justify-content: center;
+  line-height: 8vw;
+  
+}
+
+/****** body ******/
+.travel-name-body {
+  display:grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.travel-name-input {
+  display: grid;
+  width:60vw;
+  justify-content: center;
+  
+  /* font-weight: 700;
+  color:rgba(30, 136, 229, 1);
+  width:50vw;
+  line-height: 5vh; */
+}
+
+
+
+
+.travel-name-input-body {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  justify-self: center;
+  font-size: 25px;
+  font-weight: 700;
+  color:black;
+
+}
+
+.input-label{
+  font-family: 'Inter';
+  font-style: bold;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 3vh;
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+
+  color: #000000;
+
+}
+
+/* .warning {
+  position: absolute;
+  z-index:1;
+  top: 52vh;
+  font-size: 10px;
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 700;
+  line-height: 30px;
+  color:rgb(190, 11, 11)
+} */

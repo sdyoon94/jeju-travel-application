@@ -1,0 +1,72 @@
+.dates-container {
+  display: grid;
+  grid-template-rows: 4fr 7fr;
+  height:100%;
+  justify-content: stretch;
+  /* gap: 3rem; */
+  
+}
+
+/* #standard-number {
+  background-color:  rgba(217, 217, 217, 1) !important;
+} */
+
+/****** header ******/
+.dates-header {
+  display:grid;
+  align-content: end;
+  justify-content: start;
+  line-height: 10vw;
+  margin-left: 3vw;
+  
+}
+
+
+/****** body ******/
+.adates-body {
+  display:grid;
+  justify-content: stretch;
+  align-items: center;
+  /* border : 2px solid gray; */
+}
+
+.adates-body > div {
+  border : 2px solid gray;
+  border-radius: 10px;
+  padding: 1vh 0;
+  width: 100%;
+  display: grid;
+  justify-content: stretch;
+}
+
+.adates-body div {
+  font-size: 2.6vw;
+  /* font-size : 1.2vh;
+  justify-self: stretch;
+  justify-content: center; */
+}
+/* .dates-input {
+  display: grid;
+  grid-row: 2/3;
+  align-self: end; 
+  font-size: 25px;
+  font-weight: 700;
+  color:rgba(30, 136, 229, 1);
+  width:50vw;
+  line-height: 5vh;
+}
+
+
+
+
+.dates-input-body {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  justify-self: center;
+  font-size: 25px;
+  font-weight: 700;
+  color:black;
+
+} */
+
+
