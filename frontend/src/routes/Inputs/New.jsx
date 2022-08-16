@@ -108,7 +108,7 @@ function New() {
     if (params.input === "membercnt" && inputValues.maxMemberCnt >= 2) {
       setShow(false);
       navigate("/new/period");
-    } else if (params.input === "membercnt" && inputValues.maxMemberCnt == 1) {
+    } else if (params.input === "membercnt" && inputValues.maxMemberCnt === 1) {
       setShow(false);
       navigate("/new/date");
     } else if (inputValues.maxMemberCnt === "") {
@@ -121,7 +121,7 @@ function New() {
         navigate("/new/style");
       }
     } else if (params.input === "style") {
-      if (inputValues.style == [0, 0, 0, 0, 0, 0, 0].toString()) {
+      if (inputValues.style === [0, 0, 0, 0, 0, 0, 0].toString()) {
         setShow(true);
       } else {
         setShow(false);
