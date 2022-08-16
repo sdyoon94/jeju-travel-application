@@ -1,5 +1,5 @@
 import axios from "axios"
-import { addSchedule, addTravelInfo, initSchedules, release, terminate } from "../stateManager.js"
+import { addSchedule, addTravelInfo, initAuthorities, initSchedules, release, terminate } from "../stateManager.js"
 import { ERRORS } from "../eventHandler.js"
 import { APIS } from "../apiHandler.js"
 import { logApiInfo, logApiError } from "./apiLogger.js"
@@ -17,6 +17,7 @@ const fetchTravelInfo = async (room, roomTable) => {
     const travelInfo = response.data.tripInfo
     addTravelInfo(room, roomTable, travelInfo)
     initSchedules(room, roomTable, travelInfo)
+    initAuthorities(room, roomTable, travelInfo)
 
     logApiInfo("fetchTravelInfo", {key: "travelId", value: travelId})
 

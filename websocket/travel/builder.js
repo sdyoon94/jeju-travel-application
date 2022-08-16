@@ -1,4 +1,4 @@
-import { isInitialized, initalize, dispatch, create } from "./stateManager.js"
+import { isInitialized, initalize, dispatch, create, asyncProcess } from "./stateManager.js"
 import { apiHandler, APIS } from "./apiHandler.js"
 import { createTravelLogger } from "./logger.js"
 import { EVENTS } from "./eventHandler.js"
@@ -37,6 +37,19 @@ const travelBuilder = (io, nsp) => {
         { socket, namespace, room, roomTable })
     })
 
+    socket.on("disconnect", async (reason) => {
+      // 서버에서 직접 disconnect를 시킨 경우
+      if (reason === "server namespace disconnect") {
+        return
+      }
+      const arg = null
+      await asyncProcess(EVENTS.LEAVE_EVENT, arg, 
+        { socket, namespace, room, roomTable })
+      if (roomTable[room].onlineMembers === 0) {
+
+      }
+    })
+
     // check fetched 이벤트 핸들러
     socket.on(EVENTS.CHECK_FETCHED_EVENT.eventName, () => {
       const room = socket.data.room
@@ -53,10 +66,28 @@ const travelBuilder = (io, nsp) => {
         { socket, namespace, room, roomTable })
     })
 
-    // update staytime 이벤트 핸들러
-    socket.on(EVENTS.UPDATE_STAYTIME_EVENT.eventName, (day, turn, staytime) => {
+    // grant authority 이벤트 핸들러
+    socket.on(EVENTS.GRANT_AUTHORITY_EVENT.eventName, (authorityName, day) => {
       const room = socket.data.room
-      const arg = { day, turn, staytime }
+      const id = socket.data.id
+      const arg = { id, authorityName, day }
+      process(EVENTS.GRANT_AUTHORITY_EVENT, arg,
+        { socket, namespace, room, roomTable })
+    })
+
+    // revoke authority 이벤트 핸들러
+    socket.on(EVENTS.REVOKE_AUTHORITY_EVENT.eventName, (authorityName, day) => {
+      const room = socket.data.room
+      const id = socket.data.id
+      const arg = { id, authorityName, day }
+      process(EVENTS.REVOKE_AUTHORITY_EVENT, arg, 
+        { socket, namespace, room, roomTable })
+    })
+
+    // update staytime 이벤트 핸들러
+    socket.on(EVENTS.UPDATE_STAYTIME_EVENT.eventName, (day, turn, stayTime) => {
+      const room = socket.data.room
+      const arg = { day, turn, stayTime }
       process(EVENTS.UPDATE_STAYTIME_EVENT, arg,
         { socket, namespace, room, roomTable })
     })
