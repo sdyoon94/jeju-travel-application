@@ -44,8 +44,8 @@ public class PlaceServiceImpl implements PlaceService{
         List<Integer> tripStyles = new ArrayList<>();
         tripStyles.add(9);
         for(int i=0;i<7;i++){
-            if((style&(1<<i))==(1<<i)){
-                tripStyles.add(i);
+            if((style&(1<<i))==0){
+                tripStyles.add(6-i);
             }
         }
         for (Schedule schedule : scheduleNow) {
