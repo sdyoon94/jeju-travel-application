@@ -167,9 +167,15 @@ public class TripScheduleServiceImpl implements TripScheduleService{
     @Transactional
     //이거 스케쥴 아이디로 조회할지 아니면 어떻게 할지 고민을 좀 해봐야된다
     public void updateSchedule(Long ScheduleId, Schedule schedule) {
-        //dto에 scheduleId 추가한다.
         Schedule originSchedule = scheduleRepository.findOneByScheduleId(ScheduleId);
+
         originSchedule.setPlaceName(schedule.getPlaceName());
+        originSchedule.setTurn(schedule.getTurn());
+        originSchedule.setStayTime(schedule.getStayTime());
+        originSchedule.setPlaceName(schedule.getPlaceName());
+        originSchedule.setPlaceUid(schedule.getPlaceUid());
+        originSchedule.setLat(schedule.getLat());
+        originSchedule.setLng(schedule.getLng());
         scheduleRepository.save(originSchedule);
 
     }
