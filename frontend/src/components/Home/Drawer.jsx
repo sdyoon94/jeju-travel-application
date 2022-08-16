@@ -30,8 +30,6 @@ function Drawer() {
     setopen(open)
   }
 
-  console.log(open)
-
   const editStart = () => {
     setEdit(true)
   }

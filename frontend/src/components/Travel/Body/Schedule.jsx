@@ -36,7 +36,6 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 	const navigate = useNavigate()
 	const travelId = useSelector(state => state.travel.info.tripId)
 	const handleAddSpot = () => {
-		console.log("눌림")
 		navigate(`/search/${travelId}/${scheduleIdx}`)
 	}
 	const className = "schedule day-" + day
