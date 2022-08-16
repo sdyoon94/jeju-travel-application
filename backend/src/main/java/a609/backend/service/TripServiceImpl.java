@@ -149,7 +149,8 @@ public class TripServiceImpl implements TripService{
     public int addUser(Long tripId, String token) {
         //1. 성공 2. 중복 3. 인원초과
         Long kakaoId = (Long)jwtUtil.parseJwtToken(token).get("id");
-        if(userTripRepository.countByTripTripId(tripId)>7){
+        int maxMember = tripRepository.findOneByTripId(tripId).getMaxMemberCnt();
+        if(userTripRepository.countByTripTripId(tripId)>maxMember){
             return 3;
         }else if(userTripRepository.countByUserKakaoIdAndTripTripId(kakaoId, tripId)==0){
             UserTrip userTrip = new UserTrip();
