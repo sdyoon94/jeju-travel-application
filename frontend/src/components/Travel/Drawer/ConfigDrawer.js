@@ -307,8 +307,8 @@ function ConfigDrawer({travel, setTravel}) {
                         
                         {value.isFull &&
                         <div className="dialog-btns-top">
-                            <Button onClick={()=>{handleClose(value.name)}}>취소</Button>
-                            <Button onClick={()=>{handleConfirm(value.name)}}>{buttonName(value.name)}</Button >
+                            <Button style={{color: "black"}} onClick={()=>{handleClose(value.name)}}>취소</Button>
+                            <Button style={{color: "black"}} onClick={()=>{handleConfirm(value.name)}}>{buttonName(value.name)}</Button >
                         </div> 
                         }
                         

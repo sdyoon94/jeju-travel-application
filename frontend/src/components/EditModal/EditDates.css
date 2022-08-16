@@ -1,7 +1,7 @@
 .edit-dates-container{
   height: 100%;
   display: grid;
-  grid-template-rows: 3fr 7fr;
+  grid-template-rows: 3fr 6fr;
   justify-content: stretch;
   /* gap : 5vh; */
 }
