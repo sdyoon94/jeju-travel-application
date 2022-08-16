@@ -13,6 +13,8 @@ import api from "api"
 import "./Travel.css"
 import "routes/Inputs/CreateLoading.css"
 
+import {io} from "socket.io-client"
+
 function Travel({ params }) {
 	const token = useSelector(state => state.auth.token)
 	// travelId를 통해 여행 정보 가져오기
@@ -32,8 +34,8 @@ function Travel({ params }) {
 			method: "get",
 			url: api.travel.createTravelInfoUrl(travelId),
 			headers: {
-				Authorization: `Bearer ${token}`
-			}
+				Authorization: `Bearer ${token}`}
+
 			})
 
 		const buildTravelScheduleConfig = (travelId, day) => ({
@@ -89,6 +91,20 @@ function Travel({ params }) {
 		updateState(travelId)
 	// eslint-disable-next-line
 	}, [])
+
+	// useEffect(()=>{
+	// 	const Token = sessionStorage.getItem("accessToken")
+	// 	const data = {
+	// 		auth: {token: Token},
+	// 		query: {travelId: travelId },
+	// 	}
+		
+	// 	const socket = io('http://localhost:5000/travel',
+	// 										{
+	// 											 auth:{token:Token},
+	// 											 query:{travelId:travelId}
+	// 											})	
+	// })
 
 	return (
 		<>

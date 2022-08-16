@@ -108,7 +108,7 @@ function New() {
     if (params.input === "membercnt" && inputValues.maxMemberCnt >= 2) {
       setShow(false);
       navigate("/new/period");
-    } else if (params.input === "membercnt" && inputValues.maxMemberCnt == 1) {
+    } else if (params.input === "membercnt" && inputValues.maxMemberCnt === '1') {
       setShow(false);
       navigate("/new/date");
     } else if (inputValues.maxMemberCnt === "") {
@@ -121,19 +121,19 @@ function New() {
         navigate("/new/style");
       }
     } else if (params.input === "style") {
-      if (inputValues.style == [0, 0, 0, 0, 0, 0, 0].toString()) {
-        setShow(true);
-      } else {
-        setShow(false);
-        navigate("/new/budget");
-      }
-    } else if (params.input === "budget") {
-      if (inputValues.budget === "") {
+      if (inputValues.style === [0, 0, 0, 0, 0, 0, 0].toString()) {
         setShow(true);
       } else {
         setShow(false);
         navigate("/new/time");
       }
+    // } else if (params.input === "budget") {
+    //   if (inputValues.budget === "") {
+    //     setShow(true);
+    //   } else {
+    //     setShow(false);
+    //     navigate("/new/time");
+    //   }
     } else if (params.input === "time") {
       if (inputValues.startTime === "" || inputValues.endTime === "") {
         setShow(true);
