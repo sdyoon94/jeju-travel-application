@@ -61,6 +61,8 @@ public class Algorithm {
                 schedule.setLng(place.getLng());
                 schedule.setPlaceName(place.getPlaceName());
                 schedule.setPlaceUid(place.getPlaceUid());
+                schedule.setStayTime(0);
+
                 if (day == 0 && startTurn == 0) {//첫쨋날 시작시간 지정
                     schedule.setStayTime(trip.getStartTime().toSecondOfDay() / 60);
                 }
@@ -128,18 +130,24 @@ public class Algorithm {
                 schedule.setStayTime(60);
                 tired = 0;
                 restaurant++;
-            } else{
-                hungry += 2.4;
-            }
-
-            //여유면 1시간 더
-
-            if ((trip.getStyle() & 1) >0) {
-                    hungry+=0.5;
-                    schedule.setStayTime(schedule.getStayTime()+30);
+            } else {
+                hungry += 2.3;
             }
 
             schedule.setTurn(startTurn++);
+            int SchedulePlacetype = placeRepository.findOneByPlaceUid(schedule.getPlaceUid()).getPlaceType();
+            //여유면 30분 더
+            if (schedule.getStayTime() != null && (trip.getStyle() & 1) > 0 && SchedulePlacetype == 0 ) {
+
+                hungry += 0.5;
+                schedule.setStayTime(schedule.getStayTime() + 30);
+
+            }
+
+            if (placeType==2){
+                schedule.setStayTime(0);
+            }
+
             scheduleRepository.save(schedule);
             checkList = new Check(hungry, tired, restaurant, startTurn);
 
@@ -182,8 +190,8 @@ public class Algorithm {
 //            for(int i=0;i<7;i++){
 //                if((style&(1<<i))==(1<<i)){
 
-            for(int i=0;i<7;i++) {
-                if ((style & (1 << i)) >0) {
+            for (int i = 0; i < 7; i++) {
+                if ((style & (1 << i)) > 0) {
 
 
                     if (i == 0) {//여유는 액티비티 등산 빼고
@@ -196,7 +204,7 @@ public class Algorithm {
                         }
 
                     } else {
-                        places = placeRepository.findToursByDistance(outPoint.lat, outPoint.lng, distance, placeType, 6-i);
+                        places = placeRepository.findToursByDistance(outPoint.lat, outPoint.lng, distance, placeType, 6 - i);
                         for (Place k : places) {
                             if (visit[Math.toIntExact(k.getPlaceUid())] == 1) {
                                 continue;
@@ -284,16 +292,14 @@ public class Algorithm {
 
         double d = distanceInKilometerByHaversine(lat1, lng1, lat2, lng2);
 
-//        //중복체크하고 지우기~ 중복체크 안해서 같은 장소 반환으로 d=0 에러!
+        //중복체크 안해서 같은 장소 반환으로 d=0 에러!
         //장소 달라도 좌표 같은 곳이 존재..
         if (d < 0.0001) {
             return new Point(lat1, lng1);
         }
 
-
         double lat = ((d + 8) * lat2 - 8 * lat1) / d;
         double lng = ((d + 8) * lng2 - 8 * lng1) / d;
-
 
         Point point = new Point(lat, lng);
         log.info("outPoint메소드 안--------------" + point.toString());
@@ -301,7 +307,6 @@ public class Algorithm {
 
         return point;
     }
-
 
     public static double distanceInKilometerByHaversine(double x1, double y1, double x2, double y2) {
         double distance;
