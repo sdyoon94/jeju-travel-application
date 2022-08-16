@@ -31,7 +31,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 //    파일업로드
     @Value("${resources.location}")
     private String resourcesLocation;
-    @Value("${resources.uri_path:}")
+    @Value("${resources.uri_path}")
     private String resourcesUriPath;
 
     @Override
