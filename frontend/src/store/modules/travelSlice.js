@@ -38,24 +38,26 @@ const travelSlice = createSlice({
 	name: "travel",
 	initialState,
 	reducers: {
-		// setTravelInfo()
+		setTravelInfo(state, { payload }) {
+			state.info = payload
+		},
 		editStayTime(state, { payload: {scheduleIdx, placeIdx, stayTime} }) {
 			state.schedules[scheduleIdx][placeIdx]["stayTime"] = stayTime
 		},
 		editStartTime(state, { payload: {scheduleIdx, placeIdx, stayTime} }) {
 			state.schedules[scheduleIdx][placeIdx]["stayTime"] = stayTime
 		},
-		// setTravel(state, { payload }) {
-		// 	state[payload[0]] = payload[1]
-		// },
+		setTravel(state, { payload }) {
+			state[payload[0]] = payload[1]
+		},
 		// setTravelInfo(state, { payload }) {
 		// 	state.info = payload
 		// },
 		initSchedule(state, { payload: periodInDays }) {
 			state.schedules = new Array(periodInDays)
 		},
-		setSchedule(state, { payload: { scheduleIdx, schedule } }) {
-			state.schedules[scheduleIdx] = schedule
+		setSchedule(state, { payload }) {
+			state.schedules = payload
 		},
 		deleteSchedule(state, { payload: {scheduleIdx, scheduleId} }){
 			console.log(scheduleId)
