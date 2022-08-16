@@ -18,7 +18,7 @@ const travelBuilder = (io, nsp) => {
     logger.info(`client connected - [${socket.id}]`)
     let { query, auth } = socket.handshake
     let { travelId } = query
-
+    console.log("소켓에서 받음", auth,query)
     // client socket 최초 접근 시퀀스
     const room = travelId + ""
     socket.data.room = room
