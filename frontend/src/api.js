@@ -21,6 +21,9 @@ const api = {
     verifyUrl() {
       return HOST + "auth/verify";
     },
+    refreshUrl() {
+      return HOST + "auth/refresh"
+    }
   },
   travel: {
     createTravelInfoUrl(travelId) {
