@@ -288,7 +288,7 @@ function ConfigDrawer({travel, setTravel}) {
                 <p className="content-size content-weight" onClick={()=>{handleClickOpen("tripName")}}> 여행 제목 변경 </p>
                 <p className="content-size content-weight" onClick={()=>{handleClickOpen("range")}}> 여행 날짜 변경 </p>
                 <p className="content-size content-weight" onClick={()=>{handleClickOpen("style")}}> 여행 스타일 수정 </p>
-                <p className="content-size content-weight" onClick={()=>{handleClickOpen("budget")}}> 여행경비변경 </p>
+                {/* <p className="content-size content-weight" onClick={()=>{handleClickOpen("budget")}}> 여행경비변경 </p> */}
                 <p className="content-size content-weight" onClick={()=>{handleClickOpen("vehicle")}} > 이동수단 변경  </p>
                 {/* <p className="content-size content-weight" onClick={()=>{handleClickOpen("fix")}} > 여행지 고정  </p> */}
                 <p className="content-size content-weight red" onClick={()=>{handleClickOpen("exit")}}> 여행 나가기 </p>
@@ -307,8 +307,8 @@ function ConfigDrawer({travel, setTravel}) {
                         
                         {value.isFull &&
                         <div className="dialog-btns-top">
-                            <Button onClick={()=>{handleClose(value.name)}}>취소</Button>
-                            <Button onClick={()=>{handleConfirm(value.name)}}>{buttonName(value.name)}</Button >
+                            <Button style={{color: "black"}} onClick={()=>{handleClose(value.name)}}>취소</Button>
+                            <Button style={{color: "black"}} onClick={()=>{handleConfirm(value.name)}}>{buttonName(value.name)}</Button >
                         </div> 
                         }
                         

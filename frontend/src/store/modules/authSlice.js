@@ -6,6 +6,7 @@ import jwt_decode from "jwt-decode"
 
 const initialState = {
   token: sessionStorage.getItem("accessToken") || "",
+  refreshToken: sessionStorage.getItem("refreshToken") || "",
   nickname: sessionStorage.getItem("nickname") || "",
   profileImg: sessionStorage.getItem("image_path") || "",
   id: sessionStorage.getItem("id") || "",
@@ -93,9 +94,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    login(state, { payload }) {
-      const accessToken = payload
-      
+    login(state, { payload: {accessToken, refreshToken} }) {
       const decoded = jwt_decode(accessToken)
 
       state.token = accessToken
@@ -106,8 +105,23 @@ const authSlice = createSlice({
       sessionStorage.setItem("id", decoded.id)
       state.profileImg = decoded.image_path
       sessionStorage.setItem("image_path", decoded.image_path)
+
+      state.refreshToken = refreshToken
+      sessionStorage.setItem("refreshToken", refreshToken)
       
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
+    },
+    clear(state, { payload }) {
+      state = {
+        token: "",
+        refreshToken: "",
+        nickname: "",
+        profileImg: "",
+        id: "",
+        error: null
+      }
+
+      sessionStorage.clear()
     },
     setToken(state, { payload }) {
       state.token = payload.accessToken
@@ -142,5 +156,5 @@ const authSlice = createSlice({
 })
 
 const { actions, reducer } = authSlice
-export const { login, setToken } = actions
+export const { login, setToken, clear } = actions
 export default reducer

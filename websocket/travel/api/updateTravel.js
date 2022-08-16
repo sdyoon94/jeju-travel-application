@@ -49,11 +49,15 @@ const updateSchedule = async (day, turn, room, roomTable) => {
     logApiInfo("updateSchedule", 
       { key: "travelId", value: travelId},
       { key: "scheduleId", value: scheduleId })
+    
+    return true
   }
   catch (err) {
     logApiError("updateSchedule", err, 
       { key: "travelId", value: travelId },
       { key: "scheduleId", value: schedule.scheduleId })
+
+    return false
   }
 }
 
@@ -109,10 +113,33 @@ const deleteSchedule = async (index, room, roomTable) => {
     logApiInfo("deleteSchedule",
       { key: "travelId", value: travelId },
       { key: "scheduleId", value: scheduleId })
+    
+    return true
   }
   catch (err) {
     logApiError("deleteSchedule", err,
       { key: "travelId", value: travelId },
       { key: "scheduleId", value: scheduleId })
+    
+    return false
   }
+}
+
+const updateAllSchedule = (room, roomTable) => {
+
+  const promises = []
+
+  const schedules = roomTable[room].schedules
+
+  schedules.forEach(scheduleList => {
+    scheduleList.forEach(schedule => {
+      if (schedule.status === DATA_)
+    })
+  })
+
+}
+
+const updateTravel = async (room, roomTable) => {
+  let updated = await updateTravelInfo(room, roomTable)
+
 }
