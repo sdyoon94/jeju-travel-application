@@ -6,7 +6,8 @@ import a609.backend.payload.response.TripInfoDTO;
 
 public interface TripService {
 
-    FindTripDTO showTripInfo(Long tripId);
+    FindTripDTO showTripInfo(Long tripId, String token);
+
     TripInfoDTO showTripList(String token);
 
     String registerTrip(Trip trip,String token);

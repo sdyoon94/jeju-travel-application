@@ -1,7 +1,6 @@
 package a609.backend.service;
 
 import a609.backend.db.entity.*;
-import a609.backend.db.repository.ScheduleRepository;
 import a609.backend.db.repository.TripRepository;
 import a609.backend.db.repository.UserRepository;
 import a609.backend.db.repository.UserTripRepository;
@@ -33,9 +32,6 @@ public class TripServiceImpl implements TripService{
     UserRepository userRepository;
 
     @Autowired
-    ScheduleRepository scheduleRepository;
-
-    @Autowired
     UserTripRepository userTripRepository;
 
     @Autowired
@@ -45,7 +41,12 @@ public class TripServiceImpl implements TripService{
     Algorithm algorithm;
 
     @Override
-    public FindTripDTO showTripInfo(Long tripId) {
+    public FindTripDTO showTripInfo(Long tripId, String token) {
+        Long kakaoId = (Long) jwtUtil.parseJwtToken(token).get("id");
+        int cnt = userTripRepository.countByUserKakaoIdAndTripTripId(kakaoId, tripId);
+        if(cnt ==0){
+            return null;
+        }
         Trip trip = tripRepository.findOneByTripId(tripId);
         FindTripDTO findTripDTO = new FindTripDTO();
         findTripDTO.setTripId(trip.getTripId());
@@ -68,10 +69,6 @@ public class TripServiceImpl implements TripService{
 
 
         findTripDTO.setMember(user);
-
-
-
-
         return findTripDTO;
     }
 
