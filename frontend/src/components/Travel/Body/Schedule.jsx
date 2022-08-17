@@ -141,7 +141,6 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
   } 
 
 	const onDragUpdate = update => {
-		setHold(true)
     if(!update.destination){
       return
     }
@@ -176,10 +175,12 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 	const socket = useSelector(state => state.socket.socket)
 
 	const onDragStart = (e) => {
+		setHold(true)
 		socket.emit("grant schedules authority", {day: scheduleIdx}, (response) => {
 			if (response.status === "bad") {
 				onDragEnd()
 			}
+			console.log(response)
 		})
 
 	}
