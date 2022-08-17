@@ -308,6 +308,24 @@ const travelBuilder = (io, nsp) => {
         );
       }
     );
+
+    // put travel info 이벤트 핸들러
+    socket.on(
+      EVENTS.PUT_TRAVELINFO_EVENT.eventName,
+      ({ tripName, startDate, style, vehicle }, callback) => {
+        const travelId = socket.data.travelId;
+        const arg = { tripName, startDate, style, vehicle };
+        EVENTS.PUT_TRAVELINFO_EVENT.call(
+          socket,
+          namespace,
+          travelId,
+          roomTable,
+          EVENTS.PUT_TRAVELINFO_EVENT.eventName,
+          arg,
+          callback
+        );
+      }
+    );
   });
 };
 

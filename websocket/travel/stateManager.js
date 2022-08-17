@@ -25,6 +25,20 @@ const DATA_STATUSES = {
   REMOVED: 4
 }
 
+class RegExp_ extends RegExp {
+  [Symbol.match](str) {
+    const result = RegExp.prototype[Symbol.match].call(this, str)
+    if (result) {
+      return true
+    }
+    return false
+  }
+}
+
+// DATE_REGEXP
+const DATE_REGEXP = new RegExp_(/\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])/g)
+const STYLE_REGEXP = new RegExp_(/[0-1]{7}/g)
+
 // ===== roomTable state manager start =====
 const isInitialized = (travelId, roomTable) => roomTable[travelId] ? true : false
 
@@ -181,7 +195,7 @@ const grantTravelInfoAuthority = (travelId, roomTable, { id }) => {
 
   grantAuthority(authority, id)
 
-  logger.debug(logMsgBuilder("grant travelinfo authority", roomTable[travelId].authorities.travelInfo))
+  logger.info(logMsgBuilder("grant travelinfo authority", roomTable[travelId].authorities.travelInfo))
 }
 
 // GRANT_SCHEDULES_AUTHORITY
@@ -203,7 +217,7 @@ const grantSchedulesAuthority = (travelId, roomTable, { id, day }) => {
 
   grantAuthority(authority, id)
 
-  logger.debug(logMsgBuilder("grant schedules authority", roomTable[travelId].authorities.schedules))
+  logger.info(logMsgBuilder("grant schedules authority", roomTable[travelId].authorities.schedules))
 }
 
 
@@ -232,7 +246,7 @@ const revokeTravelInfoAuthority = (travelId, roomTable, { id }) => {
   }
 
   revokeAuthority(authority)
-  logger.debug(logMsgBuilder("revoke travelinfo authority", roomTable[travelId].authorities.travelInfo))
+  logger.info(logMsgBuilder("revoke travelinfo authority", roomTable[travelId].authorities.travelInfo))
 }
 
 // REVOKE_SCHEDULES_AUTHORITY - 권한 회수
@@ -253,7 +267,7 @@ const revokeSchedulesAuthority = (travelId, roomTable, { id, day }) => {
   }
 
   revokeAuthority(authority)
-  logger.debug(logMsgBuilder("revoke schedules authority", roomTable[travelId].authorities.schedules[day]))
+  logger.info(logMsgBuilder("revoke schedules authority", roomTable[travelId].authorities.schedules[day]))
 }
 
 // REVOKE_ALL_AUTHORITIES
@@ -324,7 +338,7 @@ const updateStaytime = (travelId, roomTable, { day, turn, stayTime }) => {
     schedule.status = DATA_STATUSES.UPDATED
   }
 
-  logger.debug(logMsgBuilder("update staytime", roomTable[travelId].schedules[day][turn]))
+  logger.info(logMsgBuilder("update staytime", roomTable[travelId].schedules[day][turn]))
 }
 
 // SWAP_SCHEDULE
@@ -355,7 +369,7 @@ const swapSchedule = (travelId, roomTable, { day, turn1, turn2 }) => {
     scheduleList[turn2].status = DATA_STATUSES.UPDATED
   }
 
-  logger.debug(logMsgBuilder("update staytime", roomTable[travelId].schedules[day]))
+  logger.info(logMsgBuilder("update staytime", roomTable[travelId].schedules[day]))
 }
 
 // CREATE_SCHEDULE
@@ -380,7 +394,7 @@ const createSchedule = (travelId, roomTable,
 
   swap(scheduleList, len-1, len-2)
 
-  logger.debug(logMsgBuilder("create schedule", roomTable[travelId].schedules[day]))
+  logger.info(logMsgBuilder("create schedule", roomTable[travelId].schedules[day]))
 }
 
 // DELETE_SCHEDULE
@@ -404,9 +418,34 @@ const deleteSchedule = (travelId, roomTable, { day, turn }) => {
   deletedSchedule.status = DATA_STATUSES.DELETED
   roomTable[travelId].deletedScheduleList.push(deletedSchedule)
 
-  logger.debug(logMsgBuilder("delete schedule", roomTable[travelId].schedules[day]))
-  logger.debug(logMsgBuilder("delete schedule", roomTable[travelId].deletedScheduleList))
+  logger.info(logMsgBuilder("delete schedule", roomTable[travelId].schedules[day]))
+  logger.info(logMsgBuilder("delete schedule", roomTable[travelId].deletedScheduleList))
 }
+
+// PUT_TRAVELINFO
+const putTravelInfo = (travelId, roomTable, 
+    { tripName, startDate, style, vehicle }) => {
+  if (tripName) {
+    roomTable[travelId].travelInfo.tripName = tripName
+  }
+  if (startDate && startDate.match(DATE_REGEXP)) {
+    roomTable[travelId].travelInfo.startDate = startDate
+  }
+  // style 어떤 방식으로 보내오나 확인
+  if (style && typeof style === "string" && style.match(STYLE_REGEXP)) {
+    roomTable[travelId].travelInfo.style = Number(style)
+  }
+  if (style && typeof style === "number" && Number.isInteger(style) && style >= 0 && style < 128) {
+    roomTable[travelId].travelInfo.style = style
+  }
+  if (vehicle && (vehicle === "car" || vehicle === "walk")) {
+    roomTable[travelId].travelInfo.vehicle = vehicle
+  }
+
+  return { tripName, startDate, style, vehicle } = roomTable[travelId].travelInfo
+}
+
+
 // ===== state management functions end =====
 
 export { DATA_STATUSES }
@@ -418,3 +457,4 @@ export { grantTravelInfoAuthority, grantSchedulesAuthority }
 export { revokeTravelInfoAuthority, revokeSchedulesAuthority, revokeAllAuthorities }
 export { checkTravelInfoAuthority, checkSchedulesAuthority }
 export { updateStaytime, swapSchedule, createSchedule, deleteSchedule }
+export { putTravelInfo }

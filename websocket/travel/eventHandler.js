@@ -1,5 +1,5 @@
 import { eventEmitter, errorEmitter, CAST_TYPES } from "./emitter.js"
-import { checkSchedulesAuthority, checkTravelInfoAuthority } from "./stateManager.js"
+import { checkSchedulesAuthority, checkTravelInfoAuthority, putTravelInfo } from "./stateManager.js"
 import { grantSchedulesAuthority, grantTravelInfoAuthority } from "./stateManager.js"
 import { revokeSchedulesAuthority, revokeTravelInfoAuthority } from "./stateManager.js"
 import { revokeAllAuthorities } from "./stateManager.js"
@@ -230,6 +230,34 @@ const EVENTS = {
         eventEmitter({ socket, namespace, room },
           CAST_TYPES.BROADCAST_CLIENT, eventName,
           { day, turn })
+      }
+      catch (err) {
+        callback(CALLBACK_RESPONSE.BAD)
+      }
+    }
+  },
+  PUT_TRAVELINFO_EVENT: {
+    eventName: "put travel info",
+    call: (socket, namespace, travelId, roomTable, eventName,
+        { tripName, startDate, style, vehicle }, callback) => {
+      if (!typeCheck(TYPE_FUNCTION, callback)) {
+        return
+      }
+      const room = travelId
+      try {
+        checkTravelInfoAuthority(travelId, roomTable, { 
+          id: socket.data.id
+        })
+        const response = putTravelInfo(travelId, roomTable, {
+          tripName,
+          startDate,
+          style,
+          vehicle
+        })
+        callback(CALLBACK_RESPONSE.OK)
+        eventEmitter({ socket, namespace, room },
+          CAST_TYPES.BROADCAST_CLIENT, eventName,
+          response)
       }
       catch (err) {
         callback(CALLBACK_RESPONSE.BAD)
