@@ -1,145 +1,138 @@
 import axios from "axios"
-import { ERRORS } from "../eventHandler.js"
 import { APIS } from "../apiHandler.js"
-import { logApiInfo, logApiError } from "./apiLogger.js"
+import { DATA_STATUSES } from "../stateManager.js"
 
-const updateTravelInfo = async (room, roomTable) => {
-  try {
-    const travelId = room
-    const travelInfo = roomTable[room].travelInfo
-    const response = await axios({
-      method: "put",
-      url: `${APIS.HOST_SERVER}/trip/update/${travelId}`,
-      validateStatus: status => status === 200,
-      data: {
+const INVALID_ARGUMENT_ERROR = new Error("invalid argument error")
 
-      }
-    })
-
-    return true
-  }
-  catch (err) {
-    logApiError("updateTravelInfo", err, 
-      { key: "travelId", value: travelId })
-
-    return false
-  }
+const checkArgs = (...args) => {
+  args.forEach(arg => {
+    if (!arg) {
+      throw INVALID_ARGUMENT_ERROR
+    }
+  })
 }
 
-const updateSchedule = async (day, turn, room, roomTable) => {
-  try {
-    const travelId = room
-    const schedule = roomTable[room].schedules[day][turn]
-    const { scheduleId, placeUid, placeName, stayTime, lat, lng } = schedule
+const updateTravelInfo = async (travelId, roomTable, token) => {
+  const travelInfo = roomTable[travelId].travelInfo
+  const { budget, startDate, style, tripName, vehicle } = travelInfo
 
-    await axios({
-      method: "put",
-      url: `${APIS.HOST_SERVER}/schedule/${schedule.scheduleId}`,
-      validateStatus: status => status === 200,
-      data: { 
-        scheduleId, 
-        placeUid, 
-        placeName, 
-        stayTime, 
-        lat, 
-        lng 
-      }
-    })
+  checkArgs(budget, startDate, style, tripName, vehicle)
 
-    logApiInfo("updateSchedule", 
-      { key: "travelId", value: travelId},
-      { key: "scheduleId", value: scheduleId })
-    
-    return true
-  }
-  catch (err) {
-    logApiError("updateSchedule", err, 
-      { key: "travelId", value: travelId },
-      { key: "scheduleId", value: schedule.scheduleId })
-
-    return false
-  }
+  await axios({
+    method: "put",
+    url: `${APIS.HOST_SERVER}/trip/update/${travelId}`,
+    validateStatus: status => status === 200,
+    headers: {
+      Authorization: token
+    },
+    data: {
+      budget,
+      startDate,
+      style,
+      tripName,
+      vehicle
+    }
+  })
 }
 
-const createSchedule = async (day, turn, room, roomTable) => {
-  try {
-    const travelId = room
-    const schedule = roomTable[room].schedules[day][turn]
-    const { placeUid, placeName, stayTime, lat, lng } = schedule
+const updateSchedule = async (day, turn, travelId, roomTable, token) => {
+  const schedule = roomTable[travelId].schedules[day][turn]
+  const { scheduleId, placeUid, placeName, stayTime, lat, lng } = schedule
 
-    await axios({
-      method: "post",
-      url: `${APIS.HOST_SERVER}/schedule/${travelId}`,
-      validateStatus: status => status === 200,
-      data: {
-        placeUid,
-        placeName,
-        stayTime,
-        lat,
-        lng,
-        turn
-      }
-    })
+  checkArgs(scheduleId, placeUid, placeName, stayTime, lat, lng)
 
-    logApiInfo("createSchedule", 
-      { key: "travelId", value: travelId },
-      { key: "placeUid", value: placeUid},
-      { key: "placeName", value: placeName })
-
-    return true
-  } 
-  catch (err) {
-    logApiError("createSchedule", err, 
-      { key: "travelId", value: travelId },
-      { key: "placeUid", value: placeUid },
-      { key: "placeName", value: placeName })
-    
-    return false
-  }
+  await axios({
+    method: "put",
+    url: `${APIS.HOST_SERVER}/schedule/${scheduleId}`,
+    validateStatus: status => status === 200,
+    headers: {
+      Authorization: token
+    },
+    data: { 
+      placeUid, 
+      placeName, 
+      stayTime, 
+      lat, 
+      lng,
+      turn
+    }
+  })
 }
 
-const deleteSchedule = async (index, room, roomTable) => {
-  try {
-    const travelId = room
-    const schedule = roomTable[room].deletedScheduleList[index]
-    const { scheduleId } = schedule
+const createSchedule = async (day, turn, travelId, roomTable, token) => {
+  const schedule = roomTable[travelId].schedules[day][turn]
+  const { placeUid, placeName, stayTime, lat, lng } = schedule
 
-    await axios({
-      method: "delete",
-      url: `${APIS.HOST_SERVER}/schedule/${scheduleId}`,
-      validateStatus: status => status === 200
-    })
+  checkArgs(placeUid, placeName, stayTime, lat, lng)
 
-    logApiInfo("deleteSchedule",
-      { key: "travelId", value: travelId },
-      { key: "scheduleId", value: scheduleId })
-    
-    return true
-  }
-  catch (err) {
-    logApiError("deleteSchedule", err,
-      { key: "travelId", value: travelId },
-      { key: "scheduleId", value: scheduleId })
-    
-    return false
-  }
+  await axios({
+    method: "post",
+    url: `${APIS.HOST_SERVER}/schedule/${travelId}`,
+    validateStatus: status => status === 200,
+    headers: {
+      Authorization: token
+    },
+    data: {
+      day,
+      placeUid,
+      placeName,
+      stayTime,
+      lat,
+      lng,
+      turn
+    }
+  })
 }
 
-const updateAllSchedule = (room, roomTable) => {
+const deleteSchedule = async (index, travelId, roomTable, token) => {
+  const schedule = roomTable[travelId].deletedScheduleList[index]
+  const { scheduleId } = schedule
 
+  checkArgs(scheduleId)
+
+  await axios({
+    method: "delete",
+    url: `${APIS.HOST_SERVER}/schedule/${scheduleId}`,
+    validateStatus: status => status === 200,
+    headers: {
+      Authorization: token
+    }
+  })
+}
+
+const updateAllSchedule = async (travelId, roomTable, token) => {
   const promises = []
 
-  const schedules = roomTable[room].schedules
+  const schedules = roomTable[travelId].schedules
 
-  schedules.forEach(scheduleList => {
-    scheduleList.forEach(schedule => {
-      if (schedule.status === DATA_)
+  schedules.forEach((scheduleList, day) => {
+    scheduleList.forEach((schedule, turn) => {
+      switch (schedule.status) {
+        case DATA_STATUSES.UPDATED:
+          promises.push(updateSchedule(day, turn, travelId, roomTable, token))
+          break
+        case DATA_STATUSES.CREATED:
+          promises.push(createSchedule(day, turn, travelId, roomTable, token))
+          break
+        default:
+          break
+      }
     })
   })
 
+  const deletedScheduleList = roomTable[travelId].deletedScheduleList
+
+  deletedScheduleList.forEach((schedule, index) => {
+    switch (schedule.status) {
+      case DATA_STATUSES.DELETED:
+        promises.push(deleteSchedule(index, travelId, roomTable, token))
+        break
+      default:
+        break
+    }
+  })
+
+  return Promise.all(promises)
 }
 
-const updateTravel = async (room, roomTable) => {
-  let updated = await updateTravelInfo(room, roomTable)
-
-}
+export { updateTravelInfo, updateAllSchedule }

@@ -75,17 +75,18 @@ const pushSocket = (socket, travelId, roomTable) => {
   return roomTable[travelId].connectedSockets.push(socket)
 }
 
-const popSocket = (id, travelId, roomTable) => {
+const popSocket = (socket, travelId, roomTable) => {
   const connectedSockets = roomTable[travelId].connectedSockets
   const len = roomTable[travelId].connectedSockets.length
   for (let i = 0; i < len; i++) {
-    const socket = connectedSockets[i]
-    if (socket.data.id === id) {
-
+    const connectedSocket = connectedSockets[i]
+    if (socket.id === connectedSocket.id) {
+      connectedSockets.splice(i, 1)
+      break
     }
   }
 
-  return roomTable[travelId]
+  return roomTable[travelId].connectedSockets.length
 }
 // ===== room state management end =====
 
@@ -409,6 +410,7 @@ const deleteSchedule = (travelId, roomTable, { day, turn }) => {
 }
 // ===== state management functions end =====
 
+export { DATA_STATUSES }
 export { isInitialized, initalize, create }
 export { isTerminated, isBlocked, terminate, remove, dispatch, release }
 export { addTravelInfo, initSchedules, initAuthorities, addSchedule }
