@@ -267,10 +267,10 @@ const revokeAllAuthorities = (travelId, roomTable, { id }) => {
   const authorities = roomTable[travelId].authorities
 
   authorities.schedules.forEach(authority => {
-    check(authority, id) && revoke(authority)
+    checkAuthority(authority, id) && revoke(authority)
   })
 
-  check(authorities.travelInfo, id) && revoke(authorities.travelInfo)
+  checkAuthority(authorities.travelInfo, id) && revoke(authorities.travelInfo)
 }
 
 // CHECK_TRAVELINFO_AUTHORITY

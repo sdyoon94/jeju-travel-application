@@ -108,7 +108,9 @@ const travelBuilder = (io, nsp) => {
     pushSocket(socket, travelId, roomTable)
 
     socket.on("disconnect", async (reason) => {
-      const { travelId, token } = socket.data
+      const { travelId, token, id } = socket.data
+
+      revokeAllAuthorities(travelId, roomTable, { id })
 
       revokeAllAuthorities(travelId, roomTable, { id: socket.data.id })
 

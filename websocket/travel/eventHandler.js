@@ -43,7 +43,24 @@ const ERRORS = {
   INPUT_ERROR: (err) => ({
     statusCode: 5,
     msg: err.message
-  })
+  }),
+  CALLBACK_ERROR: {
+    statusCode: 6,
+    msg: "no callback error"
+  }
+}
+
+const TYPE_FUNCTION = "function"
+
+const typeCheck = (typeName, variable) => {
+  const flag = typeof variable === typeName
+
+  if (!flag) {
+    errorEmitter({ socket, namespace, room },
+      CAST_TYPES.UNICAST, ERRORS.CALLBACK_ERROR)
+  }
+
+  return flag
 }
 
 // EVENT
@@ -51,6 +68,9 @@ const EVENTS = {
   FETCH_TRAVEL_EVENT: {
     eventName: "fetch travel",
     call: (socket, namespace, travelId, roomTable, eventName, _, callback) => {
+      if (!typeCheck(TYPE_FUNCTION, callback)) {
+        return
+      }
       const room = travelId
       callback(CALLBACK_RESPONSE.OK)
       eventEmitter({ socket, namespace, room },
@@ -63,6 +83,9 @@ const EVENTS = {
   GRANT_TRAVELINFO_AUTHORITY_EVENT: {
     eventName: "grant travelinfo authority",
     call: (socket, namespace, travelId, roomTable, eventName, { id }, callback) => {
+      if (!typeCheck(TYPE_FUNCTION, callback)) {
+        return
+      }
       const room = travelId
       try {
         grantTravelInfoAuthority(travelId, roomTable, { id })
@@ -77,6 +100,9 @@ const EVENTS = {
     eventName: "grant schedules authority",
     call: (socket, namespace, travelId, roomTable, eventName, 
       { id, day }, callback) => {
+        if (!typeCheck(TYPE_FUNCTION, callback)) {
+          return
+        }
         const room = travelId
         try {
           grantSchedulesAuthority(travelId, roomTable, { id, day })
@@ -91,6 +117,9 @@ const EVENTS = {
     eventName: "revoke travelinfo authority",
     call: (socket, namespace, travelId, roomTable, eventName, 
         { id }, callback) => {
+      if (!typeCheck(TYPE_FUNCTION, callback)) {
+        return
+      }
       const room = travelId
       try {
         revokeTravelInfoAuthority(travelId, roomTable, { id })
@@ -105,6 +134,9 @@ const EVENTS = {
     eventName: "revoke schedules authority",
     call: (socket, namespace, travelId, roomTable, eventName, 
         { id, day }, callback) => {
+      if (!typeCheck(TYPE_FUNCTION, callback)) {
+        return
+      }
       const room = travelId
       try {
         revokeSchedulesAuthority(travelId, roomTable, { id, day })
@@ -119,6 +151,9 @@ const EVENTS = {
     eventName: "update staytime",
     call: (socket, namespace, travelId, roomTable, eventName, 
         { day, turn, stayTime }, callback) => {
+      if (!typeCheck(TYPE_FUNCTION, callback)) {
+        return
+      }
       const room = travelId
       try {
         checkSchedulesAuthority(travelId, roomTable, { 
@@ -140,6 +175,9 @@ const EVENTS = {
     eventName: "swap schedule",
     call: (socket, namespace, travelId, roomTable, eventName, 
         { day, turn1, turn2 }, callback) => {
+      if (!typeCheck(TYPE_FUNCTION, callback)) {
+        return
+      }
       const room = travelId
       try {
         checkSchedulesAuthority(travelId, roomTable, { 
@@ -161,6 +199,9 @@ const EVENTS = {
     eventName: "create schedule",
     call: (socket, namespace, travelId, roomTable, eventName,
         { day, placeUid, placeName, lat, lng }, callback) => {
+      if (!typeCheck(TYPE_FUNCTION, callback)) {
+        return
+      }
       const room = travelId
       try {
         checkSchedulesAuthority(travelId, roomTable, { 
@@ -182,6 +223,9 @@ const EVENTS = {
     eventName: "delete schedule",
     call: (socket, namespace, travelId, roomTable, eventName,
         { day, turn }) => {
+      if (!typeCheck(TYPE_FUNCTION, callback)) {
+        return
+      }
       const room = travelId
       try {
         checkSchedulesAuthority(travelId, roomTable, { 
