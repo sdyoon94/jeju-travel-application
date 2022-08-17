@@ -33,9 +33,10 @@ function SwipeToDelete({ travel, placeIdx, scheduleIdx, startTime, timeReq, time
     //   }
     // })
     // if (response.status === 200) {
-    //   dispatch(deleteSchedule({scheduleIdx, scheduleId}))
+    //   dispatch(deleteSchedule({scheduleIdx, scheduleId})) >>> 리덕스 없애는 애
     // }
 	}
+  
 
   useEffect(() => {
     window.addEventListener("mouseup", onDragEndMouse)

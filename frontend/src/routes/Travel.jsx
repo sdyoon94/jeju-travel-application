@@ -12,12 +12,14 @@ import {
 	setTravelInfo,
 	initSchedule,
 	setSchedule,
+	deleteSchedule,
 } from "store/modules/travelSlice";
 import { initSocket } from "store/modules/socketSlice";
 import axios from "axios";
 import api from "api";
 import "./Travel.css";
 import "routes/Inputs/CreateLoading.css";
+
 
 import { io } from "socket.io-client";
 
@@ -98,8 +100,7 @@ function Travel({ params }) {
 	// 	// eslint-disable-next-line
 	// }, [])
 
-
-	const socket = useSelector(state => state.socket.socket)
+	const socket = useSelector((state) => state.socket.socket);
 
 	useEffect(() => {
 		if (socket) {
@@ -107,25 +108,25 @@ function Travel({ params }) {
 				dispatch(setTravelInfo(data.travel.travelInfo));
 				dispatch(initSchedule(data.travel.schedules));
 				setIsLoaded(true);
-				setError(false)
+				setError(false);
 			});
 
 			socket.on("error", (err) => {
-				console.log(err, "err")
+				console.log(err, "err");
 				if (err === 403) {
-					setError(403)
+					setError(403);
 				}
 			})
-		}
-	}, [ socket ])
+			socket.on("delete schedule", ({ day, turn }) => {
+				dispatch(deleteSchedule({day,turn}))
+				console.log("삭제성공", day, turn)
+			})	
+			}
+		}, [ socket ])
+		
 
 	const connectSocket = () => {
-		// const data = {
-		// 	auth: { token },
-		// 	query: { travelId },
-		// };
-		// const socket = io("http://localhost:5000/travel", data);
-		dispatch(initSocket(travelId))
+		dispatch(initSocket(travelId));
 
 		// socket.on("get travel", (data) => {
 		// 	dispatch(setTravelInfo(data.travel.travelInfo));
@@ -140,12 +141,11 @@ function Travel({ params }) {
 		// 		setError(403)
 		// 	}
 		// })
-
 	};
-
+ 
 	useEffect(() => {
 		connectSocket();
-		console.log("socket...please")
+		console.log("socket...please");
 	}, []);
 
 	return (
@@ -174,7 +174,7 @@ function Travel({ params }) {
 									/>
 								</Link>
 							</div>
-								<ConfigDrawer
+							<ConfigDrawer
 								travel={travel}
 								setTravel={(v) => {
 									dispatch(setTravel(v));
