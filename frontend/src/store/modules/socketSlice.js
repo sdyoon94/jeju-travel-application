@@ -14,7 +14,7 @@ const socketSlice = createSlice({
         auth: { token: sessionStorage.getItem("accessToken")},
         query: { travelId },
       };
-      const socket = io("http://localhost:5000/travel", data);
+      const socket = io("wss://i7a609.p.ssafy.io/travel", data);
       state.socket = socket
     }
   }
