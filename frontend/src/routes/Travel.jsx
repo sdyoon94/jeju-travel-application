@@ -13,6 +13,7 @@ import {
 	initSchedule,
 	setSchedule,
 } from "store/modules/travelSlice";
+import { initSocket } from "store/modules/socketSlice";
 import axios from "axios";
 import api from "api";
 import "./Travel.css";
@@ -103,12 +104,21 @@ function Travel({ params }) {
 			query: { travelId },
 		};
 		const socket = io("http://localhost:5000/travel", data);
+		dispatch(initSocket(socket))
 
 		socket.on("get travel", (data) => {
 			dispatch(setTravelInfo(data.travel.travelInfo));
 			dispatch(setSchedule(data.travel.schedules));
 			setIsLoaded(true);
+			setError(false)
 		});
+
+		socket.on("error", (err) => {
+			console.log(err, "err")
+			if (err === 403) {
+				setError(403)
+			}
+		})
 	};
 
 	useEffect(() => {
