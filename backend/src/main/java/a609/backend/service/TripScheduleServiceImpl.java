@@ -224,6 +224,21 @@ public class TripScheduleServiceImpl implements TripScheduleService {
 
             int cnt = 0;//추가해야될 일정 수
             for (Schedule fixedSchedule : scheduleList) {//고정된 일정
+                try{
+                    Long scid = fixedSchedule.getScheduleId();
+                    System.out.println(scid);
+                }catch (Exception e){
+                    e.printStackTrace();
+                    System.out.println("===========스케쥴 id조회 문제 =============");
+                }
+
+
+                try{
+                     Schedule temp = scheduleRepository.findOneByScheduleId(fixedSchedule.getScheduleId());
+                }catch(Exception e){
+                    e.printStackTrace();
+                    System.out.println("==================스케쥴 자체의 문제===============");
+                }
                 int fixedScheduleTurn = scheduleRepository.findOneByScheduleId(fixedSchedule.getScheduleId()).getTurn();
                 for (int turn = forTurn; turn < originScheduleCnt; turn++) {
                     if (fixedScheduleTurn == turn) {//고정된 번호 같다면
