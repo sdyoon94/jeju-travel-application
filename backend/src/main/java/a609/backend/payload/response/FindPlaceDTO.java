@@ -33,6 +33,7 @@ public class FindPlaceDTO {
         this.placeUid=o.getPlaceUid();
         this.placeName=o.getPlaceName();
         this.tag = Arrays.stream(o.getTag().replaceAll(" ", "").split(",")).collect(Collectors.toList());
+        tag=tag.subList(0,Math.min(tag.size(),5));
         this.imgPath=o.getImgPath();
         this.lat=o.getLat();
         this.lng=o.getLng();
