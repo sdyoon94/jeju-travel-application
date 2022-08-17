@@ -9,7 +9,7 @@ const reorder = (list, startIndex, endIndex) => {
 }
 
 const initialState = {
-  socket: "",
+  socket: null,
 };
 
 const socketSlice = createSlice({
@@ -17,6 +17,11 @@ const socketSlice = createSlice({
   initialState,
   reducers: {
     initSocket(state, { payload: travelId }) {
+      if (state.socket) {
+        state.socket.disconnect()
+        state.socket = null
+      }
+
       const data = {
         auth: { token: sessionStorage.getItem("accessToken") },
         query: { travelId },
@@ -25,9 +30,9 @@ const socketSlice = createSlice({
       // wss://i7a609.p.ssafy.io/travel
       const socket = io("wss://i7a609.p.ssafy.io/travel", data);
       state.socket = socket
-      // socket.on("connect", () => {
-      //   console.log("connected")
-      // })
+      socket.on("connect", () => {
+        console.log("connected")
+      })
     },
     addSwapScheduleEvent(state, { payload: { setSchedule, travel } }) {
       state.socket.on("swap schedule", ({day, turn1, turn2}) => {
