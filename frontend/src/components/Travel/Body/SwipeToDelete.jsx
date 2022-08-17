@@ -26,7 +26,7 @@ function SwipeToDelete({ travel, placeIdx, scheduleIdx, startTime, timeReq, time
         dispatch(deleteSchedule({day: scheduleIdx, turn: placeIdx}))
       }
     })
-	}
+  }
   
 
   useEffect(() => {
