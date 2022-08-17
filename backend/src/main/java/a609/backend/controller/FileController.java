@@ -57,16 +57,5 @@ public class FileController {
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<Map<String, String>> fileDelete(@RequestHeader Map<String,Object> token) {
-        Map<String, String> resultMap = new HashMap<>();
-        int check= fileService.deleteById((String) token.get("authorization"));
-        if(check==1){
-            resultMap.put("message", "Success");
-        }else {
-            resultMap.put("message", "존재하지 않는 이미지입니다.");
-        }
-        return new ResponseEntity<>(resultMap, HttpStatus.OK);
-    }
 
 }
