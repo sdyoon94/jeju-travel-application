@@ -112,8 +112,6 @@ const travelBuilder = (io, nsp) => {
 
       revokeAllAuthorities(travelId, roomTable, { id })
 
-      revokeAllAuthorities(travelId, roomTable, { id: socket.data.id })
-
       if (travelId && popSocket(socket, travelId, roomTable) === 0) {
         try {
           await updateTravelInfo(travelId, roomTable, token)
