@@ -5,6 +5,15 @@ import { revokeSchedulesAuthority, revokeTravelInfoAuthority } from "./stateMana
 import { revokeAllAuthorities } from "./stateManager.js"
 import { updateStaytime, swapSchedule, createSchedule, deleteSchedule } from "./stateManager.js"
 
+const CALLBACK_RESPONSE = {
+  OK: {
+    status: "ok"
+  },
+  BAD: {
+    statqus: "bad"
+  }
+}
+
 // ERROR
 const ERRORS = {
   UNKNOWN_CAST_TYPE_ERROR: {
@@ -41,7 +50,9 @@ const ERRORS = {
 const EVENTS = {
   FETCH_TRAVEL_EVENT: {
     eventName: "fetch travel",
-    call: (socket, namespace, travelId, roomTable, eventName, _) => {
+    call: (socket, namespace, travelId, roomTable, eventName, _, callback) => {
+      const room = travelId
+      callback(CALLBACK_RESPONSE.OK)
       eventEmitter({ socket, namespace, room },
         CAST_TYPES.UNICAST, eventName, {
           travelInfo: roomTable[travelId].travelInfo,
@@ -51,136 +62,119 @@ const EVENTS = {
   },
   GRANT_TRAVELINFO_AUTHORITY_EVENT: {
     eventName: "grant travelinfo authority",
-    call: (socket, namespace, travelId, roomTable, eventName, { id }) => {
+    call: (socket, namespace, travelId, roomTable, eventName, { id }, callback) => {
+      const room = travelId
       try {
         grantTravelInfoAuthority(travelId, roomTable, { id })
-        eventEmitter({ socket, namespace, room },
-          CAST_TYPES.UNICAST, eventName, {
-            granted: 1
-          })
+        callback(CALLBACK_RESPONSE.OK)
       }
       catch (err) {
-        eventEmitter({ socket, namespace, room },
-          CAST_TYPES.UNICAST, eventName, {
-            granted: 0
-          })
+        callback(CALLBACK_RESPONSE.BAD)
       }
     }
   },
   GRANT_SCHEDULES_AUTHORITY_EVENT: {
     eventName: "grant schedules authority",
     call: (socket, namespace, travelId, roomTable, eventName, 
-      { id, day }) => {
+      { id, day }, callback) => {
+        const room = travelId
         try {
           grantSchedulesAuthority(travelId, roomTable, { id, day })
-          eventEmitter({ socket, namespace, room },
-            CAST_TYPES.UNICAST, eventName, {
-              granted: 1
-            })
+          callback(CALLBACK_RESPONSE.OK)
         }
         catch (err) {
-          eventEmitter({ socket, namespace, room },
-            CAST_TYPES.UNICAST, eventName, {
-              granted: 0
-            })
+          callback(CALLBACK_RESPONSE.BAD)
         }
       }
   },
   REVOKE_TRAVELINFO_AUTHORITY_EVENT: {
     eventName: "revoke travelinfo authority",
     call: (socket, namespace, travelId, roomTable, eventName, 
-      { id }) => {
+        { id }, callback) => {
+      const room = travelId
       try {
         revokeTravelInfoAuthority(travelId, roomTable, { id })
-        eventEmitter({ socket, namespace, room },
-          CAST_TYPES.UNICAST, eventName, {
-            revoked: 1
-          })
+        callback(CALLBACK_RESPONSE.OK)
       }
       catch (err) {
-        eventEmitter({ socket, namespace, room },
-          CAST_TYPES.UNICAST, eventName, {
-            revoked: 0
-          })
+        callback(CALLBACK_RESPONSE.BAD)
       }
     }
   },
   REVOKE_SCHEDULES_AUTHORITY_EVENT: {
     eventName: "revoke schedules authority",
     call: (socket, namespace, travelId, roomTable, eventName, 
-        { id, day }) => {
+        { id, day }, callback) => {
+      const room = travelId
       try {
         revokeSchedulesAuthority(travelId, roomTable, { id, day })
-        eventEmitter({ socket, namespace, room },
-          CAST_TYPES.UNICAST, eventName, {
-            revoked: 1
-          })
+        callback(CALLBACK_RESPONSE.OK)
       }
       catch (err) {
-        eventEmitter({ socket, namespace, room },
-          CAST_TYPES.UNICAST, eventName, {
-            revoked: 0
-          })
+        callback(CALLBACK_RESPONSE.BAD)
       }
     }
   },
   UPDATE_STAYTIME_EVENT: {
     eventName: "update staytime",
     call: (socket, namespace, travelId, roomTable, eventName, 
-        { day, turn, stayTime }) => {
+        { day, turn, stayTime }, callback) => {
+      const room = travelId
       try {
         checkSchedulesAuthority(travelId, roomTable, { 
           id: socket.data.id, 
           day 
         })
         updateStaytime(travelId, roomTable, { day, turn, stayTime })
+        callback(CALLBACK_RESPONSE.OK)
         eventEmitter({ socket, namespace, room },
           CAST_TYPES.BROADCAST_SERVER, eventName, 
           { day, turn, stayTime })
       }
       catch (err) {
-        errorEmitter({ socket, namespace, room },
-          CAST_TYPES.UNICAST, ERRORS.INPUT_ERROR(err))
+        callback(CALLBACK_RESPONSE.BAD)
       }
     }
   },
   SWAP_SCHEDULE_EVENT: {
     eventName: "swap schedule",
     call: (socket, namespace, travelId, roomTable, eventName, 
-        { day, turn1, turn2 }) => {
+        { day, turn1, turn2 }, callback) => {
+      const room = travelId
       try {
         checkSchedulesAuthority(travelId, roomTable, { 
           id: socket.data.id, 
           day 
         })
         swapSchedule(travelId, roomTable, { day, turn1, turn2 })
+        callback(CALLBACK_RESPONSE.OK)
         eventEmitter({ socket, namespace, room },
           CAST_TYPES.BROADCAST_SERVER, eventName,
           { day, turn1, turn2 })
-      }
-      catch (err) {
-        errorEmitter({ socket, namespace, room },
-          CAST_TYPES.UNICAST, ERRORS.INPUT_ERROR(err))
+        }
+        catch (err) {
+        callback(CALLBACK_RESPONSE.BAD)
       }
     }
   },
   CREATE_SCHEDULE_EVENT: {
     eventName: "create schedule",
     call: (socket, namespace, travelId, roomTable, eventName,
-        { day, placeUid, placeName, lat, lng }) => {
+        { day, placeUid, placeName, lat, lng }, callback) => {
+      const room = travelId
       try {
         checkSchedulesAuthority(travelId, roomTable, { 
           id: socket.data.id, 
           day 
         })
         createSchedule(travelId, roomTable, { day, placeUid, placeName, lat, lng })
+        callback(CALLBACK_RESPONSE.OK)
         eventEmitter({ socket, namespace, room },
           CAST_TYPES.BROADCAST_SERVER, eventName,
           { day, placeUid, placeName, lat, lng })
       }
       catch (err) {
-        errorEmitter({ socket, namespace, room },
-          CAST_TYPES.UNICAST, ERRORS.INPUT_ERROR(err))
+        callback(CALLBACK_RESPONSE.BAD)
       }
     }
   },
@@ -188,19 +182,20 @@ const EVENTS = {
     eventName: "delete schedule",
     call: (socket, namespace, travelId, roomTable, eventName,
         { day, turn }) => {
+      const room = travelId
       try {
         checkSchedulesAuthority(travelId, roomTable, { 
           id: socket.data.id, 
           day 
         })
         deleteSchedule(travelId, roomTable, { day, turn })
+        callback(CALLBACK_RESPONSE.OK)
         eventEmitter({ socket, namespace, room },
           CAST_TYPES.BROADCAST_SERVER, eventName,
           { day, turn })
       }
       catch (err) {
-        errorEmitter({ socket, namespace, room },
-          CAST_TYPES.UNICAST, ERRORS.INPUT_ERROR(err))
+        callback(CALLBACK_RESPONSE.BAD)
       }
     }
   }
