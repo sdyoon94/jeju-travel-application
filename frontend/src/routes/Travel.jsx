@@ -96,7 +96,7 @@ function Travel({ params }) {
 	// 	updateState(travelId)
 	// 	// eslint-disable-next-line
 	// }, [])
-
+	const[socket,setSocket] = useState()
 	const connectSocket = () => {
 		const data = {
 			auth: { token },
@@ -109,6 +109,7 @@ function Travel({ params }) {
 			dispatch(setSchedule(data.travel.schedules));
 			setIsLoaded(true);
 		});
+		setSocket(socket)
 	};
 
 	useEffect(() => {
@@ -141,7 +142,8 @@ function Travel({ params }) {
 									/>
 								</Link>
 							</div>
-							<ConfigDrawer
+								<ConfigDrawer
+									socket={socket }
 								travel={travel}
 								setTravel={(v) => {
 									dispatch(setTravel(v));
