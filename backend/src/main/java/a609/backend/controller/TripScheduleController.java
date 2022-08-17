@@ -41,7 +41,12 @@ public class TripScheduleController {
     @PostMapping("/recommend/{tripId}")
     public ResponseEntity<Map<String,Object>> recommendScheduleList(@PathVariable Long tripId,@RequestBody Map<String,Schedule[]> schedules){
         Map<String, Object> resultMap = new HashMap<>();
-        List<ScheduleDTO> recommendScheduleList = tripScheduleService.recommendScheduleList(schedules, tripId);
+        try {
+            tripScheduleService.recommendScheduleList(schedules, tripId);
+            resultMap.put("message","재추천 success");
+        }catch (Exception e){
+            resultMap.put("message","재추천 fail");
+        }
         return new ResponseEntity<Map<String,Object>>(resultMap, HttpStatus.OK);
 
     }

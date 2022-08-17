@@ -193,7 +193,7 @@ public class TripScheduleServiceImpl implements TripScheduleService {
     //재추천
     @Transactional
     @Override
-    public List<ScheduleDTO> recommendScheduleList(Map<String, Schedule[]> schedules, Long tripId) {
+    public void recommendScheduleList(Map<String, Schedule[]> schedules, Long tripId) {
         int visit[] = new int[4000];
         Schedule firstAirPortSchedule = scheduleRepository.findByTripTripIdAndDayAndTurn(tripId, 0, 0);//첫번째 공항스케줄
         Trip trip = firstAirPortSchedule.getTrip();
@@ -273,7 +273,6 @@ public class TripScheduleServiceImpl implements TripScheduleService {
             }
         }
 
-        return null;
     }
 
     @Transactional

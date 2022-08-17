@@ -23,5 +23,5 @@ public interface TripScheduleService {
     public void deleteOriginalSchedule(int turn, int day, Long tripId);
 
     //재추천
-    List<ScheduleDTO> recommendScheduleList(Map<String, Schedule[]> schedules, Long tripId);
+    void recommendScheduleList(Map<String, Schedule[]> schedules, Long tripId);
 }
