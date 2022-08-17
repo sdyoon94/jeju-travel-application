@@ -60,4 +60,5 @@ public class Trip {
     private Integer maxMemberCnt;
 
 
+
 }

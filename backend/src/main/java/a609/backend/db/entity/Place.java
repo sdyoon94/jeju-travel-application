@@ -21,11 +21,6 @@ public class Place {
     @Column(name="PLACE_TYPE")
     private Integer placeType;
 
-
-    //이거 삭제해야됨!
-    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
-    List<PlaceTag> placeTag = new ArrayList<>();
-
     @Column(name="ROAD_ADDRESS")
     private String roadAddress;
 

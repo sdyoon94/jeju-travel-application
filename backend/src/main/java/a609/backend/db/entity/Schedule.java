@@ -16,10 +16,6 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="SCHEDULE_ID")
     private Long scheduleId;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "PLACE_UID")
-//    private Place place;
 
     @Column(name = "PLACE_UID")
     private Long placeUid;
@@ -40,20 +36,14 @@ public class Schedule {
     @Column(name="STAY_TIME")
     private Integer stayTime;
 
-    @Column(name="COST")
-    private Integer cost;
-
-    @Column(name="IS_FIXED")
-    private Boolean isFixed;
-
     @Column(name="DAY")
     private Integer day;
 
     @Column(name="TURN")
     private Integer turn;
 
-    //좀이따 날리기
     @Column(name="IS_CUSTOM")
-    private Boolean isCustom;
+    private boolean isCustom;
+
 
 }
