@@ -17,7 +17,7 @@ function PlaceSearch() {
   const [spotSearch, setSpotSearch] = useState("")
   const [resultLst, setresultLst] = useState([])
   const selectedSpots = useSelector(state => state.selectedSpots)
-  const socket = useSelector(state => state.auth.auth)
+  const socket = useSelector(state => state.socket.socket)
   
   const inputSearch = async(query) => {
     const response = await axios.get(api.place.searchUrl(query))

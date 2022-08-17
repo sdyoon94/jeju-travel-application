@@ -143,6 +143,7 @@ function Travel({ params }) {
 
 	useEffect(() => {
 		connectSocket();
+		console.log("socket...please")
 	}, []);
 
 	return (
