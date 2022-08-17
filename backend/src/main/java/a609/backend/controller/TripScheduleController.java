@@ -18,10 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import sun.reflect.annotation.ExceptionProxy;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @CrossOrigin("*")
@@ -41,6 +38,7 @@ public class TripScheduleController {
     @PostMapping("/recommend/{tripId}")
     public ResponseEntity<Map<String,Object>> recommendScheduleList(@PathVariable Long tripId,@RequestBody Map<String,Schedule[]> schedules){
         Map<String, Object> resultMap = new HashMap<>();
+        System.out.println(Arrays.toString(schedules.get(0)));
         try {
             tripScheduleService.recommendScheduleList(schedules, tripId);
             resultMap.put("message","재추천 success");
