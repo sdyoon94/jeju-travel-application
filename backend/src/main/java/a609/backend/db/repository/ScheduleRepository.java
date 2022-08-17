@@ -29,7 +29,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule,Long> {
     Schedule findByTripTripIdAndDayAndTurn(Long tripId,int day,int turn);
     Long countByTripTripIdAndDay(Long tripId,int day);
 
-    void deleteAllByTripTripId(Long tripId);
+    void deleteByTripTripIdAndDayAndTurn(Long tripId,int day,int turn);
 
     void deleteByTripTripIdAndDay(Long tripId,int day);
 }

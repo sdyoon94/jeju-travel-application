@@ -4,6 +4,7 @@ import a609.backend.db.entity.Schedule;
 import a609.backend.db.entity.Trip;
 import a609.backend.payload.response.ScheduleDTO;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,9 @@ public interface TripScheduleService {
     void createSchedule(Long tripId, Schedule schedule);
 
     void deleteSchedule(Long scheduleId);
+
+    @Transactional
+    public void deleteOriginalSchedule(int turn, int day, Long tripId);
 
     //재추천
     List<ScheduleDTO> recommendScheduleList(Map<String, Schedule[]> schedules, Long tripId);

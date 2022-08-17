@@ -141,7 +141,6 @@ public class Algorithm {
 
                 hungry += 0.5;
                 schedule.setStayTime(schedule.getStayTime() + 30);
-
             }
 
             if (placeType==2){
@@ -214,7 +213,7 @@ public class Algorithm {
                     }
 
                 }
-                if (resultPlaces.isEmpty()) {//알맞은 스타일 없다면..스타일 없는 것까지 검색
+                if (resultPlaces.isEmpty()) {//알맞은 스타일 없다면 스타일 없는 것까지 검색
                     places = placeRepository.findToursByDistance(outPoint.lat, outPoint.lng, distance, placeType, 9);
                     for (Place k : places) {
                         if (visit[Math.toIntExact(k.getPlaceUid())] == 1) {
