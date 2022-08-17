@@ -128,6 +128,8 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 			scheduleIdx, 
 			schedule
 		})
+
+		socket.emit("revoke schedules authority", { day: scheduleIdx})
 		
 		// setRoute(route => reorder(route, result.source.index, result.destination.index))
   } 
@@ -165,8 +167,19 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
   }
     // course가 변경되었을 때 로직
 
+	const socket = useSelector(state => state.socket.socket)
+
+	const onDragStart = (e) => {
+		socket.emit("grant schedules authority", {day: scheduleIdx}, (response) => {
+			if (response.status === "bad") {
+				onDragEnd()
+			}
+		})
+
+	}
+
 	return (
-		<DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
+		<DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate} onDragStart={onDragStart}>
 			<Droppable droppableId="droppable">
 				{(provided, snapshot) => (
 					<div
@@ -213,7 +226,7 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 									)}
 								</Draggable>
 							)})}
-							<AddSpot onClick={handleAddSpot} className="add-spot" />
+							{ !hold && <AddSpot onClick={handleAddSpot} className="add-spot" /> }
 						</div>
 						{provided.placeholder}
 					</div>

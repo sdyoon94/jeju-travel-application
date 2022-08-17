@@ -104,7 +104,7 @@ function Travel({ params }) {
 		if (socket) {
 			socket.on("get travel", (data) => {
 				dispatch(setTravelInfo(data.travel.travelInfo));
-				dispatch(setSchedule(data.travel.schedules));
+				dispatch(initSchedule(data.travel.schedules));
 				setIsLoaded(true);
 				setError(false)
 			});
