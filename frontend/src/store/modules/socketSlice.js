@@ -28,7 +28,7 @@ const socketSlice = createSlice({
       };
       // http://localhost:5000/travel
       // wss://i7a609.p.ssafy.io/travel
-      const socket = io("wss://i7a609.p.ssafy.io/travel", data);
+      const socket = io("http://localhost:5000/travel", data);
       state.socket = socket
       socket.on("connect", () => {
         console.log("connected")

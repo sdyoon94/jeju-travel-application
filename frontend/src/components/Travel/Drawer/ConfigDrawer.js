@@ -1,6 +1,6 @@
 import { Drawer } from "@mui/material";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { ReactComponent as Settings } from "assets/settings.svg";
 
@@ -21,6 +21,7 @@ import { parseISO, addDays, format } from "date-fns";
 import "./ConfigDrawer.css";
 import "globalStyle.css";
 import "components/EditModal/ModalCommon.css";
+import {setTravelInfo} from "store/modules/travelSlice"
 
 function ConfigDrawer({ travel, setTravel }) {
   ///// Drawer 조작 부분 /////
@@ -35,6 +36,7 @@ function ConfigDrawer({ travel, setTravel }) {
     setIsDrawerOpened(false);
   };
 
+  const dispatch = useDispatch()
   ///// Modal 조작 부분 /////
 
   //스타일 속성 정수형에서 배열로
@@ -153,8 +155,9 @@ function ConfigDrawer({ travel, setTravel }) {
       startDate: format(info.range[0].startDate, "yyyy-MM-dd"),
       style: info.style.join(""),
     };
-    socket.emit("여행정보수정내용저장", data, (response) => {
+    socket.emit("put travel info", data, (response) => {
       if (response.status === "ok") {
+        dispatch(setTravelInfo(data))
         alert("여행정보가 변경되었습니다");
       } else if (response.status === "bad") {
         alert("여행정보변경에 실패했습니다 다시 시도해주세요");
@@ -178,7 +181,6 @@ function ConfigDrawer({ travel, setTravel }) {
 
   const revoke = () => {
     socket.emit("revoke travelinfo authority", (response) => {
-      console.log("권한뺏김", response.status);
     });
   };
 
@@ -432,61 +434,6 @@ function ConfigDrawer({ travel, setTravel }) {
         );
       })}
 
-      {/* <Dialog
-                className='small-modal modal-container'
-                fullScreen={false} 
-                open={open.rerecommend}> 
-                <div className="dialog-content">
-                    <ReRecommend></ReRecommend>
-                </div>
-                <div className="dialog-btns-bottom">
-                    <Button onClick={()=>{handleClose('rerecommend')}}>필요없어요</Button>
-                    <Button variant="outlined"onClick={()=>{handleClose('rerecommend')}}>재추천받기</Button >
-                </div>
-            </Dialog> */}
-
-      {/* <Dialog
-             fullScreen={true}
-             open={open}
-             onClose={handleClose}
-            >
-            <DialogContent>
-                {target}    
-            </DialogContent>
-            <div>
-                <Button onClick={handleClose}>Disagree</Button>
-                <Button variant="outlined"onClick={handleClose} autoFocus>
-                AGREE
-                </Button >
-            </div>
-            </Dialog> */}
-
-      {/*             
-            <Dialog
-            // fullScreen
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-            >
-            <DialogContent>
-                <Budget
-                    inputValues={info}
-                    setInputValues={editInfo}
-                ></Budget>
-                <DialogContentText id="alert-dialog-description">
-                Let Google help apps determine location. This means sending anonymous
-                location data to Google, even when no apps are running.
-                </DialogContentText>
-            </DialogContent>    
-            <div>
-                <Button onClick={handleClose}>Disagree</Button>
-                <Button variant="outlined"onClick={handleClose} autoFocus>
-                Agree
-            </Button >
-            </div>```````````````````
-
-            </Dialog> */}
     </div>
   );
 }
