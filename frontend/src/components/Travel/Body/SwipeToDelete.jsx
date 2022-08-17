@@ -17,13 +17,13 @@ function SwipeToDelete({ travel, placeIdx, scheduleIdx, startTime, timeReq, time
   const dispatch = useDispatch()
   const { scheduleId } = travel.schedules[scheduleIdx][placeIdx]
   const socket = useSelector(state => state.socket.socket)
+  const [authority, setAuthority] = useState(false)
 
 
   const fetchDelete = async (scheduleId) => {
-    console.log(scheduleIdx, placeIdx)
 
     socket.emit("delete schedule", {day: scheduleIdx, turn: placeIdx}, (response) => {
-      console.log("delete", response)
+      // console.log("delete", response)
     })
     // const response = await axios({
     //   method: "delete",=
@@ -60,6 +60,13 @@ function SwipeToDelete({ travel, placeIdx, scheduleIdx, startTime, timeReq, time
   }
   
   const onDragStart = (clientX) => {
+    // grant
+    socket.emit("grant schedules authority", {day: scheduleIdx}, (response) => {
+			// console.log("delete authority", response)
+      if (response.status === "ok") {
+        setAuthority(true)
+      }
+		})
     draggedRef.current = true
     dragStartXRef.current = clientX
     requestAnimationFrame(updatePosition)
@@ -125,7 +132,16 @@ function SwipeToDelete({ travel, placeIdx, scheduleIdx, startTime, timeReq, time
       ...deleteStyle,
       backgroundColor: "white"
     })
+    setAuthority(false)
   }
+  
+  useEffect(() => {
+    if (authority === false) {
+      socket.emit("revoke schedules authority", { day: scheduleIdx }, (response) => {
+        // console.log("revoke", response)
+      })
+    }
+  }, [authority])
 
   const [ deleteStyle, setDeleteStyle ] = useState({
     position: "absolute",
