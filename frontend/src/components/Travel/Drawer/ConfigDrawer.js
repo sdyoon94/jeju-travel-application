@@ -28,7 +28,7 @@ function ConfigDrawer({ travel, setTravel }) {
 
   const toggleDrawer = () => {
     setIsDrawerOpened(true);
-    socket.emit("grant travelinfo authority");
+    // socket.emit("grant travelinfo authority",()=>);
   };
   const closeDrawer = () => {
     setIsDrawerOpened(false);
@@ -146,7 +146,7 @@ function ConfigDrawer({ travel, setTravel }) {
 
   const socketInfoSubmit = () => {
     // 데이터 재 가공
-    data = {
+    const data = {
       ...info,
       startDate: format(info.range[0].startDate, "yyyy-MM-dd"),
       style: info.style.join(""),
@@ -165,17 +165,20 @@ function ConfigDrawer({ travel, setTravel }) {
   };
 
   const grant = () => {
-    socket.emit("grant schedules authority", (response) => {
+    console.log("그랜트 실행");
+    socket.emit("grant travelinfo authority", (response) => {
       if (response.status === "bad") {
         alert("현재 다른 사용자가 수정 중 입니다 잠시만 기다려 주세요");
       }
+      console.log(response.status);
     });
   };
 
   const revoke = () => {
     socket.emit("revoke travelinfo authority", (response) => {
-      console.log("권한뺏김")
-    })
+      console.log("권한뺏김", response.status);
+    });
+  };
 
   // 모달 열기
   const handleClickOpen = (formName) => {
@@ -212,7 +215,7 @@ function ConfigDrawer({ travel, setTravel }) {
       [formName]: false,
     });
 
-    revoke()
+    revoke();
 
     // !!!!!!!! Drawer의 state 초기화 시켜주기 (수정중 취소를 누르고 다시 들어오면 변경중이던 데이터가 남아있음)
     setInfo(initialInfo);
@@ -472,7 +475,7 @@ function ConfigDrawer({ travel, setTravel }) {
                 <Button variant="outlined"onClick={handleClose} autoFocus>
                 Agree
             </Button >
-            </div>
+            </div>```````````````````
 
             </Dialog> */}
     </div>
