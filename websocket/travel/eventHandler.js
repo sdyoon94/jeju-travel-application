@@ -52,16 +52,7 @@ const ERRORS = {
 
 const TYPE_FUNCTION = "function"
 
-const typeCheck = (typeName, variable) => {
-  const flag = typeof variable === typeName
-
-  if (!flag) {
-    errorEmitter({ socket, namespace, room },
-      CAST_TYPES.UNICAST, ERRORS.CALLBACK_ERROR)
-  }
-
-  return flag
-}
+const typeCheck = (typeName, variable) => typeof variable === typeName
 
 // EVENT
 const EVENTS = {
@@ -69,6 +60,8 @@ const EVENTS = {
     eventName: "fetch travel",
     call: (socket, namespace, travelId, roomTable, eventName, _, callback) => {
       if (!typeCheck(TYPE_FUNCTION, callback)) {
+        errorEmitter({ socket, namespace, room },
+          CAST_TYPES.UNICAST, ERRORS.CALLBACK_ERROR)
         return
       }
       const room = travelId
