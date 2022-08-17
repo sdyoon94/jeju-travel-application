@@ -1,9 +1,18 @@
 import jwtDecode from "jwt-decode";
 
-import { initalize, dispatch, create, pushSocket } from "./stateManager.js";
+import {
+  initalize,
+  dispatch,
+  create,
+  pushSocket,
+  popSocket,
+  revokeAllAuthorities,
+} from "./stateManager.js";
 import { createTravelLogger } from "./logger.js";
 import { EVENTS } from "./eventHandler.js";
 import { fetchTravel, fetchTravelInfo } from "./api/fetchTravel.js";
+import { updateAllSchedule, updateTravelInfo } from "./api/updateTravel.js";
+import { logApiError } from "./api/apiLogger.js";
 
 const logger = createTravelLogger("namespace");
 
@@ -103,15 +112,47 @@ const travelBuilder = (io, nsp) => {
     pushSocket(socket, travelId, roomTable);
 
     socket.on("disconnect", async (reason) => {
+      const { travelId, token, id } = socket.data;
+
+      revokeAllAuthorities(travelId, roomTable, { id });
+
+      revokeAllAuthorities(travelId, roomTable, { id: socket.data.id });
+
+      if (travelId && popSocket(socket, travelId, roomTable) === 0) {
+        try {
+          await updateTravelInfo(travelId, roomTable, token);
+        } catch (err) {
+          logApiError(
+            "update travel info",
+            err,
+            { key: "travelId", value: travelId },
+            { key: "token", value: token }
+          );
+        }
+        try {
+          await updateAllSchedule(travelId, roomTable, token);
+        } catch (err) {
+          logApiError(
+            "update schedule",
+            err,
+            { key: "travelId", value: travelId },
+            { key: "token", value: token }
+          );
+        }
+      }
+
       // 서버에서 직접 disconnect를 시킨 경우
-      if (reason === "server namespace disconnect") {
-        return;
+      switch (reason) {
+        case "server namespace disconnect":
+          break;
+        case "client namespace disconnect":
+          break;
       }
       // 업데이트 코드 작성해서 올리기
     });
 
     // fetch travel 이벤트 핸들러
-    socket.on(EVENTS.FETCH_TRAVEL_EVENT.eventName, () => {
+    socket.on(EVENTS.FETCH_TRAVEL_EVENT.eventName, (callback) => {
       const travelId = socket.data.travelId;
       const arg = null;
       EVENTS.FETCH_TRAVEL_EVENT.call(
@@ -120,12 +161,13 @@ const travelBuilder = (io, nsp) => {
         travelId,
         roomTable,
         EVENTS.FETCH_TRAVEL_EVENT.eventName,
-        arg
+        arg,
+        callback
       );
     });
 
     // grant travelinfo authority 이벤트 핸들러
-    socket.on(EVENTS.GRANT_TRAVELINFO_AUTHORITY_EVENT.eventName, () => {
+    socket.on(EVENTS.GRANT_TRAVELINFO_AUTHORITY_EVENT.eventName, (callback) => {
       const travelId = socket.data.travelId;
       const id = socket.data.id;
       const arg = { id };
@@ -135,88 +177,108 @@ const travelBuilder = (io, nsp) => {
         travelId,
         roomTable,
         EVENTS.GRANT_TRAVELINFO_AUTHORITY_EVENT.eventName,
-        arg
+        arg,
+        callback
       );
-      console.log("grant t-info auth 받았슴다");
     });
 
     // grant schedules authority 이벤트 핸들러
-    socket.on(EVENTS.GRANT_SCHEDULES_AUTHORITY_EVENT.eventName, ({ day }) => {
-      const travelId = socket.data.travelId;
-      const id = socket.data.id;
-      const arg = { id, day };
-      EVENTS.GRANT_SCHEDULES_AUTHORITY_EVENT.call(
-        socket,
-        namespace,
-        travelId,
-        roomTable,
-        EVENTS.GRANT_SCHEDULES_AUTHORITY_EVENT.eventName,
-        arg
-      );
-    });
+    socket.on(
+      EVENTS.GRANT_SCHEDULES_AUTHORITY_EVENT.eventName,
+      ({ day }, callback) => {
+        const travelId = socket.data.travelId;
+        const id = socket.data.id;
+        const arg = { id, day };
+        EVENTS.GRANT_SCHEDULES_AUTHORITY_EVENT.call(
+          socket,
+          namespace,
+          travelId,
+          roomTable,
+          EVENTS.GRANT_SCHEDULES_AUTHORITY_EVENT.eventName,
+          arg,
+          callback
+        );
+      }
+    );
 
     // revoke travelinfo authority 이벤트 핸들러
-    socket.on(EVENTS.REVOKE_TRAVELINFO_AUTHORITY_EVENT.eventName, () => {
-      const travelId = socket.data.travelId;
-      const id = socket.data.id;
-      const arg = { id };
-      EVENTS.REVOKE_TRAVELINFO_AUTHORITY_EVENT.call(
-        socket,
-        namespace,
-        travelId,
-        roomTable,
-        EVENTS.REVOKE_TRAVELINFO_AUTHORITY_EVENT.eventName,
-        arg
-      );
-    });
+    socket.on(
+      EVENTS.REVOKE_TRAVELINFO_AUTHORITY_EVENT.eventName,
+      (callback) => {
+        const travelId = socket.data.travelId;
+        const id = socket.data.id;
+        const arg = { id };
+        EVENTS.REVOKE_TRAVELINFO_AUTHORITY_EVENT.call(
+          socket,
+          namespace,
+          travelId,
+          roomTable,
+          EVENTS.REVOKE_TRAVELINFO_AUTHORITY_EVENT.eventName,
+          arg,
+          callback
+        );
+      }
+    );
 
     // revoke schedules authority 이벤트 핸들러
-    socket.on(EVENTS.REVOKE_SCHEDULES_AUTHORITY_EVENT.eventName, ({ day }) => {
-      const travelId = socket.data.travelId;
-      const id = socket.data.id;
-      const arg = { id, day };
-      EVENTS.REVOKE_SCHEDULES_AUTHORITY_EVENT.call(
-        socket,
-        namespace,
-        travelId,
-        roomTable,
-        EVENTS.REVOKE_SCHEDULES_AUTHORITY_EVENT.eventName,
-        arg
-      );
-    });
+    socket.on(
+      EVENTS.REVOKE_SCHEDULES_AUTHORITY_EVENT.eventName,
+      ({ day }, callback) => {
+        const travelId = socket.data.travelId;
+        const id = socket.data.id;
+        const arg = { id, day };
+        EVENTS.REVOKE_SCHEDULES_AUTHORITY_EVENT.call(
+          socket,
+          namespace,
+          travelId,
+          roomTable,
+          EVENTS.REVOKE_SCHEDULES_AUTHORITY_EVENT.eventName,
+          arg,
+          callback
+        );
+      }
+    );
 
     // update staytime 이벤트 핸들러
-    socket.on(EVENTS.UPDATE_STAYTIME_EVENT.eventName, (day, turn, stayTime) => {
-      const travelId = socket.data.travelId;
-      const arg = { day, turn, stayTime };
-      EVENTS.UPDATE_STAYTIME_EVENT.call(
-        socket,
-        namespace,
-        travelId,
-        roomTable,
-        EVENTS.UPDATE_STAYTIME_EVENT.eventName,
-        arg
-      );
-    });
+    socket.on(
+      EVENTS.UPDATE_STAYTIME_EVENT.eventName,
+      ({ day, turn, stayTime }, callback) => {
+        const travelId = socket.data.travelId;
+        const arg = { day, turn, stayTime };
+        EVENTS.UPDATE_STAYTIME_EVENT.call(
+          socket,
+          namespace,
+          travelId,
+          roomTable,
+          EVENTS.UPDATE_STAYTIME_EVENT.eventName,
+          arg,
+          callback
+        );
+      }
+    );
 
     // swap schedule 이벤트 핸들러
-    socket.on(EVENTS.SWAP_SCHEDULE_EVENT.eventName, (day, turn1, turn2) => {
-      const travelId = socket.data.travelId;
-      const arg = { day, turn1, turn2 };
-      EVENTS.SWAP_SCHEDULE_EVENT.call(
-        socket,
-        namespace,
-        travelId,
-        roomTable,
-        EVENTS.SWAP_SCHEDULE_EVENT.eventName,
-        arg
-      );
-    });
+    socket.on(
+      EVENTS.SWAP_SCHEDULE_EVENT.eventName,
+      ({ day, turn1, turn2 }, callback) => {
+        const travelId = socket.data.travelId;
+        const arg = { day, turn1, turn2 };
+        EVENTS.SWAP_SCHEDULE_EVENT.call(
+          socket,
+          namespace,
+          travelId,
+          roomTable,
+          EVENTS.SWAP_SCHEDULE_EVENT.eventName,
+          arg,
+          callback
+        );
+      }
+    );
 
     // create schedule 이벤트 핸들러
     socket.on(
       EVENTS.CREATE_SCHEDULE_EVENT.eventName,
-      (day, placeUid, placeName, lat, lng) => {
+      ({ day, placeUid, placeName, lat, lng }, callback) => {
         const travelId = socket.data.travelId;
         const arg = { day, placeUid, placeName, lat, lng };
         EVENTS.CREATE_SCHEDULE_EVENT.call(
@@ -225,24 +287,29 @@ const travelBuilder = (io, nsp) => {
           travelId,
           roomTable,
           EVENTS.CREATE_SCHEDULE_EVENT.eventName,
-          arg
+          arg,
+          callback
         );
       }
     );
 
     // delete schedule 이벤트 핸들러
-    socket.on(EVENTS.DELETE_SCHEDULE_EVENT.eventName, (day, turn) => {
-      const travelId = socket.data.travelId;
-      const arg = { day, turn };
-      EVENTS.DELETE_SCHEDULE_EVENT.call(
-        socket,
-        namespace,
-        travelId,
-        roomTable,
-        EVENTS.DELETE_SCHEDULE_EVENT.eventName,
-        arg
-      );
-    });
+    socket.on(
+      EVENTS.DELETE_SCHEDULE_EVENT.eventName,
+      ({ day, turn }, callback) => {
+        const travelId = socket.data.travelId;
+        const arg = { day, turn };
+        EVENTS.DELETE_SCHEDULE_EVENT.call(
+          socket,
+          namespace,
+          travelId,
+          roomTable,
+          EVENTS.DELETE_SCHEDULE_EVENT.eventName,
+          arg,
+          callback
+        );
+      }
+    );
   });
 };
 

@@ -53,11 +53,11 @@ const travelSlice = createSlice({
 		// setTravelInfo(state, { payload }) {
 		// 	state.info = payload
 		// },
-		initSchedule(state, { payload: periodInDays }) {
-			state.schedules = new Array(periodInDays)
-		},
-		setSchedule(state, { payload }) {
+		initSchedule(state, { payload }) {
 			state.schedules = payload
+		},
+		setSchedule(state, { payload: { scheduleIdx, schedule } }) {
+			state.schedules[scheduleIdx] = schedule
 		},
 		deleteSchedule(state, { payload: {scheduleIdx, scheduleId} }){
 			state.schedules[scheduleIdx] = state.schedules[scheduleIdx].filter(place => place.scheduleId !== scheduleId)

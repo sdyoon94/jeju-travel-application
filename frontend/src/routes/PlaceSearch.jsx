@@ -17,6 +17,7 @@ function PlaceSearch() {
   const [spotSearch, setSpotSearch] = useState("")
   const [resultLst, setresultLst] = useState([])
   const selectedSpots = useSelector(state => state.selectedSpots)
+  const socket = useSelector(state => state.auth.auth)
   
   const inputSearch = async(query) => {
     const response = await axios.get(api.place.searchUrl(query))
@@ -53,14 +54,21 @@ function PlaceSearch() {
   const handleInputBtn = () => {
     navigate(`/address/${travelId}/${dayId}`)
   }
-  console.log(useSelector(state => state.travel.schedules[dayId]))
+  
   const handleSubmit = () => {
-    // navigate(`/travel/${travelId}`)
-    dispatch(addSchedule({ dayId, selectedSpots}))
-    dispatch(resetSpot())
+    navigate(`/travel/${travelId}`)
+    socket.emit("grant schedules authority", { day: dayId }, (response) => {
+      if (response.status === "ok") {
+        dispatch(addSchedule({ dayId, selectedSpots}))
+        dispatch(resetSpot())
+        // socket.emit("create schedule")
+      }
+    })
+    
   }
   
   const handleSubmitInputBtn = () => {
+
     navigate(`/address/${travelId}/${dayId}`)
     dispatch(addSchedule({ dayId, selectedSpots}))
     dispatch(resetSpot())
