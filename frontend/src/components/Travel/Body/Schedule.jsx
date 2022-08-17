@@ -9,6 +9,7 @@ import { add, convert, revert } from "components/DateTime/time"
 import { fetchDirection } from "store/modules/directionSlice"
 import "./Schedule.css"
 import { ReactComponent as AddSpot } from 'assets/add.svg'
+import Place from "./Place"
 
 
 const grid = 6
@@ -59,15 +60,26 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 				directionError_ = true
 			}
 
+			const duration = directionError_ ? 
+				timeReqs[0] ? 
+					revert(timeReqs[0]) : 
+						0 : 
+							Math.round(response.payload.directions[0].duration / 60)
+
+			startTime = add(startTime, 0, duration)
+			startTimes_.push(startTime)
+			timeReqs_.push(convert(duration))
+
 			const len = route.length
-			for (let i = 1; i < len; i++) {
-				const stayTime = route[i-1].stayTime
+
+			for (let i = 1; i < len - 1; i++) {
+				const stayTime = route[i].stayTime
 				const duration = 
 					directionError_ ? 
-						timeReqs[i-1] ? 
-							revert(timeReqs[i-1]) :
+						timeReqs[i] ? 
+							revert(timeReqs[i]) :
 								0 :
-								Math.round(response.payload.directions[i-1].duration / 60)
+								Math.round(response.payload.directions[i].duration / 60)
 
 				startTime = add(startTime, stayTime, duration)
 				startTimes_.push(startTime)
@@ -81,27 +93,32 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 
 		fetchData({
 			index: scheduleIdx, 
-			route: travel.schedules[scheduleIdx].slice(1), 
+			route: travel.schedules[scheduleIdx], 
 			vehicle
 		})
+
 	  // eslint-disable-next-line
 	}, [ travel.schedules[scheduleIdx], vehicle ])
 
 	useEffect(() => {
-		const len = startTimes.length
-		const route = travel.schedules[scheduleIdx].slice(1)
+		if (timeReqs.length) {
+			const len = startTimes.length
+			const route = travel.schedules[scheduleIdx]
 
-		let startTime = startTimes[0]
-		const startTimes_ = [ startTime ]
+			let startTime = startTimes[0]
+			const startTimes_ = [ startTime ]
 
-		for (let i = 1; i < len; i++) {
-			const stayTime = route[i-1].stayTime
-
-			startTime = add(startTime, stayTime, revert(timeReqs[i-1]))
+			startTime = add(startTime, 0, revert(timeReqs[0]))
 			startTimes_.push(startTime)
-		}
 
-		setStartTimes(startTimes_)
+			for (let i = 1; i < len - 1; i++) {
+				const stayTime = route[i].stayTime
+
+				startTime = add(startTime, stayTime, revert(timeReqs[i]))
+				startTimes_.push(startTime)
+			}
+			setStartTimes(startTimes_)
+		}
 	  // eslint-disable-next-line
 	}, [ timeReqs ])
 
@@ -201,7 +218,23 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 							}}
 						>
 							{travel.schedules[scheduleIdx].map((_, index) => {
-								if (index === 0) return null
+								if (index === 0 || index === travel.schedules[scheduleIdx].length - 1) {
+									return (<Place 
+										key={index}
+										travel={travel}
+										placeIdx={index}
+										scheduleIdx={scheduleIdx}
+										startTime={startTimes[index]}
+										timeReq={timeReqs[index]}
+										timeReqs={timeReqs}
+										setTimeReqs={setTimeReqs}
+										directionError={directionError}
+										isFirst={index === 0}
+										isLast={index === travel.schedules[scheduleIdx].length - 1}
+										hold={hold}
+										vehicle={vehicle}
+									/>)
+								}
 
 								return (<Draggable key={index} draggableId={index.toString()} index={index}>
 									{(provided, snapshot) => (
@@ -219,13 +252,11 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 												travel={travel}
 												placeIdx={index}
 												scheduleIdx={scheduleIdx}
-												startTime={startTimes[index-1]}
-												timeReq={timeReqs[index-1]}
+												startTime={startTimes[index]}
+												timeReq={timeReqs[index]}
 												timeReqs={timeReqs}
 												setTimeReqs={setTimeReqs}
 												directionError={directionError}
-												isFirst={index === 1}
-												isLast={index === travel.schedules[scheduleIdx].length - 1}
 												hold={hold}
 												vehicle={vehicle}
 											/>

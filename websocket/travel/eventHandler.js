@@ -10,7 +10,7 @@ const CALLBACK_RESPONSE = {
     status: "ok"
   },
   BAD: {
-    statqus: "bad"
+    status: "bad"
   }
 }
 
@@ -156,7 +156,7 @@ const EVENTS = {
         updateStaytime(travelId, roomTable, { day, turn, stayTime })
         callback(CALLBACK_RESPONSE.OK)
         eventEmitter({ socket, namespace, room },
-          CAST_TYPES.BROADCAST_SERVER, eventName, 
+          CAST_TYPES.BROADCAST_CLIENT, eventName, 
           { day, turn, stayTime })
       }
       catch (err) {
@@ -180,7 +180,7 @@ const EVENTS = {
         swapSchedule(travelId, roomTable, { day, turn1, turn2 })
         callback(CALLBACK_RESPONSE.OK)
         eventEmitter({ socket, namespace, room },
-          CAST_TYPES.BROADCAST_SERVER, eventName,
+          CAST_TYPES.BROADCAST_CLIENT, eventName,
           { day, turn1, turn2 })
         }
         catch (err) {
@@ -204,7 +204,7 @@ const EVENTS = {
         createSchedule(travelId, roomTable, { day, placeUid, placeName, lat, lng })
         callback(CALLBACK_RESPONSE.OK)
         eventEmitter({ socket, namespace, room },
-          CAST_TYPES.BROADCAST_SERVER, eventName,
+          CAST_TYPES.BROADCAST_CLIENT, eventName,
           { day, placeUid, placeName, lat, lng })
       }
       catch (err) {
@@ -228,7 +228,7 @@ const EVENTS = {
         deleteSchedule(travelId, roomTable, { day, turn })
         callback(CALLBACK_RESPONSE.OK)
         eventEmitter({ socket, namespace, room },
-          CAST_TYPES.BROADCAST_SERVER, eventName,
+          CAST_TYPES.BROADCAST_CLIENT, eventName,
           { day, turn })
       }
       catch (err) {
