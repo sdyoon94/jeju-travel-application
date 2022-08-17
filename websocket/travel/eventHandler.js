@@ -215,7 +215,7 @@ const EVENTS = {
   DELETE_SCHEDULE_EVENT: {
     eventName: "delete schedule",
     call: (socket, namespace, travelId, roomTable, eventName,
-        { day, turn }) => {
+        { day, turn }, callback) => {
       if (!typeCheck(TYPE_FUNCTION, callback)) {
         return
       }
