@@ -10,7 +10,7 @@ const CALLBACK_RESPONSE = {
     status: "ok"
   },
   BAD: {
-    statqus: "bad"
+    status: "bad"
   }
 }
 
