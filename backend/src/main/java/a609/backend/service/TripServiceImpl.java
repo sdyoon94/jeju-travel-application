@@ -55,7 +55,7 @@ public class TripServiceImpl implements TripService{
         findTripDTO.setPeriodInDays(trip.getPeriodInDays());
         findTripDTO.setBudget(trip.getBudget());
         findTripDTO.setVehicle(trip.getVehicle());
-        findTripDTO.setStyle(trip.getStyle());
+        findTripDTO.setStyle(Integer.parseInt(Integer.toBinaryString(trip.getStyle())));
         //멤버랑
         List<UserTrip> userTrip = userTripRepository.findByTripTripId(trip.getTripId());
         List<UserDTO> user = new ArrayList<>();
@@ -91,7 +91,7 @@ public class TripServiceImpl implements TripService{
             findTripDTO.setPeriodInDays(trip.getPeriodInDays());
             findTripDTO.setBudget(trip.getBudget());
             findTripDTO.setVehicle(trip.getVehicle());
-            findTripDTO.setStyle(trip.getStyle());
+            findTripDTO.setStyle(Integer.parseInt(Integer.toBinaryString(trip.getStyle())));
 
             //멤버랑
             List<UserTrip> userTrip2 = userTripRepository.findByTripTripId(trip.getTripId());
