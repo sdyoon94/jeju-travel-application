@@ -169,13 +169,13 @@ public class Algorithm {
 //        double d = distanceInKilometerByHaversine(lat1,lng1,lat2,lng2);
         //외점
         double distance = 8.0;
-        log.info("------outpoint 위-----------------------" + lat1);
-        log.info(String.valueOf(lat2));
-        log.info(String.valueOf(lng1));
-        log.info(String.valueOf(lng2));
+//        log.info("------outpoint 위-----------------------" + lat1);
+//        log.info(String.valueOf(lat2));
+//        log.info(String.valueOf(lng1));
+//        log.info(String.valueOf(lng2));
         Point outPoint = outPoint(lat1, lng1, lat2, lng2);
-        log.info("-----------------------------" + String.valueOf(outPoint.lat));
-        log.info(String.valueOf(outPoint.lng));
+//        log.info("-----------------------------" + String.valueOf(outPoint.lat));
+//        log.info(String.valueOf(outPoint.lng));
         Place place;
 
 
@@ -191,8 +191,6 @@ public class Algorithm {
 
             for (int i = 0; i < 7; i++) {
                 if ((style & (1 << i)) > 0) {
-
-
                     if (i == 0) {//여유는 액티비티 등산 빼고
                         places = placeRepository.findRelaxByDistance(outPoint.lat, outPoint.lng, distance, placeType, 3, 7);
                         for (Place k : places) {
@@ -201,7 +199,6 @@ public class Algorithm {
                             }
                             resultPlaces.add(k);
                         }
-
                     } else {
                         places = placeRepository.findToursByDistance(outPoint.lat, outPoint.lng, distance, placeType, 6 - i);
                         for (Place k : places) {
@@ -229,8 +226,8 @@ public class Algorithm {
                 distance += 2.0;
             }
         }
-
-        log.info("결과 List size " + String.valueOf(resultPlaces.size()));
+//
+//        log.info("결과 List size " + String.valueOf(resultPlaces.size()));
 
         //인기순
         Collections.sort(resultPlaces, (o1, o2) -> o1.getThumbs() - o2.getThumbs());
@@ -239,7 +236,7 @@ public class Algorithm {
 //
 
         place = resultPlaces.get(0);
-        log.info(String.valueOf(visit[Math.toIntExact(place.getPlaceUid())]));
+//        log.info(String.valueOf(visit[Math.toIntExact(place.getPlaceUid())]));
 
         return place;
     }
@@ -248,16 +245,9 @@ public class Algorithm {
     public Place selectAroundPlace(double lat1, double lng1, int placeType, int style) {//인자 스타일 추가
 
         List<Place> places = new ArrayList<>();
-
-        String st = String.valueOf(style);
-
-        for (int i = 6; i >= 7 - st.length(); i--) {
-            int flag = st.charAt(6 - i) - '0';
-
-            if (flag == 0) continue;
-
-            places = placeRepository.findToursByDistance(lat1, lng1, 8.0, placeType, style);
-
+        for(int i=0;i<7;i++){
+            if((style&(1<<i))==0) continue;
+            placeRepository.findToursByDistance(lat1, lng1, 8.0, placeType, 6 - i).addAll(places);
         }
         if (places.isEmpty()) {//알맞은 스타일 없다면..
             places = placeRepository.findTourByDistance(lat1, lng1, 8.0, placeType);
