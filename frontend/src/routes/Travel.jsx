@@ -12,12 +12,14 @@ import {
 	setTravelInfo,
 	initSchedule,
 	setSchedule,
+	deleteSchedule,
 } from "store/modules/travelSlice";
 import { initSocket } from "store/modules/socketSlice";
 import axios from "axios";
 import api from "api";
 import "./Travel.css";
 import "routes/Inputs/CreateLoading.css";
+
 
 import { io } from "socket.io-client";
 
