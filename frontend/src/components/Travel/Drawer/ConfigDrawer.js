@@ -28,6 +28,7 @@ function ConfigDrawer({ travel, setTravel }) {
 
   const toggleDrawer = () => {
     setIsDrawerOpened(true);
+    console.log(travel.info);
     // socket.emit("grant travelinfo authority",()=>);
   };
   const closeDrawer = () => {
@@ -42,7 +43,7 @@ function ConfigDrawer({ travel, setTravel }) {
     const mapfn = (arg) => Number(arg);
     const arr = Array.from(str, mapfn);
     const emptyArr = Array(7 - arr.length).fill(0);
-
+    console.log([...emptyArr, ...arr]);
     return [...emptyArr, ...arr];
   };
 
@@ -364,9 +365,13 @@ function ConfigDrawer({ travel, setTravel }) {
             key={value.name}
             fullScreen={value.isFull}
             open={open[value.name]}
-            onClose={() => {
-              handleClose(value.name);
-            }}
+            onClose={
+              value.name === "rerecommend"
+                ? () => {}
+                : () => {
+                    handleClose(value.name);
+                  }
+            }
           >
             {value.isFull && (
               <div className="dialog-btns-top">
@@ -406,7 +411,7 @@ function ConfigDrawer({ travel, setTravel }) {
                   }}
                 >
                   {" "}
-                  {value.name === "rerecommend" ? "필요없어요" : "취소"}{" "}
+                  {value.name === "rerecommend" ? "취소" : "취소"}{" "}
                 </Button>
                 <Button
                   variant="contained"
