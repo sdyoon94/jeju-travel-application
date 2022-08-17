@@ -18,21 +18,25 @@ const updateTravelInfo = async (travelId, roomTable, token) => {
 
   checkArgs(budget, startDate, style, tripName, vehicle)
 
-  await axios({
-    method: "put",
-    url: `${APIS.HOST_SERVER}/trip/update/${travelId}`,
-    validateStatus: status => status === 200,
-    headers: {
-      Authorization: token
-    },
-    data: {
-      budget,
-      startDate,
-      style,
-      tripName,
-      vehicle
-    }
-  })
+  try {
+    await axios({
+      method: "put",
+      url: `${APIS.HOST_SERVER}/trip/update/${travelId}`,
+      validateStatus: status => status === 200,
+      headers: {
+        Authorization: token
+      },
+      data: {
+        startDate,
+        style,
+        tripName,
+        vehicle
+      }
+    })
+  }
+  catch (err) {
+    throw err
+  }
 }
 
 const updateSchedule = async (day, turn, travelId, roomTable, token) => {
@@ -41,22 +45,27 @@ const updateSchedule = async (day, turn, travelId, roomTable, token) => {
 
   checkArgs(scheduleId, placeUid, placeName, stayTime, lat, lng)
 
-  await axios({
-    method: "put",
-    url: `${APIS.HOST_SERVER}/schedule/${scheduleId}`,
-    validateStatus: status => status === 200,
-    headers: {
-      Authorization: token
-    },
-    data: { 
-      placeUid, 
-      placeName, 
-      stayTime, 
-      lat, 
-      lng,
-      turn
-    }
-  })
+  try {
+    await axios({
+      method: "put",
+      url: `${APIS.HOST_SERVER}/schedule/${scheduleId}`,
+      validateStatus: status => status === 200,
+      headers: {
+        Authorization: token
+      },
+      data: { 
+        placeUid, 
+        placeName, 
+        stayTime, 
+        lat, 
+        lng,
+        turn
+      }
+    })
+  }
+  catch (err) {
+    throw err
+  }
 }
 
 const createSchedule = async (day, turn, travelId, roomTable, token) => {
@@ -65,23 +74,28 @@ const createSchedule = async (day, turn, travelId, roomTable, token) => {
 
   checkArgs(placeUid, placeName, stayTime, lat, lng)
 
-  await axios({
-    method: "post",
-    url: `${APIS.HOST_SERVER}/schedule/${travelId}`,
-    validateStatus: status => status === 200,
-    headers: {
-      Authorization: token
-    },
-    data: {
-      day,
-      placeUid,
-      placeName,
-      stayTime,
-      lat,
-      lng,
-      turn
-    }
-  })
+  try {
+    await axios({
+      method: "post",
+      url: `${APIS.HOST_SERVER}/schedule/${travelId}`,
+      validateStatus: status => status === 200,
+      headers: {
+        Authorization: token
+      },
+      data: {
+        day,
+        placeUid,
+        placeName,
+        stayTime,
+        lat,
+        lng,
+        turn
+      }
+    })
+  }
+  catch (err) {
+    throw err
+  }
 }
 
 const deleteSchedule = async (index, travelId, roomTable, token) => {
@@ -90,14 +104,19 @@ const deleteSchedule = async (index, travelId, roomTable, token) => {
 
   checkArgs(scheduleId)
 
-  await axios({
-    method: "delete",
-    url: `${APIS.HOST_SERVER}/schedule/${scheduleId}`,
-    validateStatus: status => status === 200,
-    headers: {
-      Authorization: token
-    }
-  })
+  try {
+    await axios({
+      method: "delete",
+      url: `${APIS.HOST_SERVER}/schedule/${scheduleId}`,
+      validateStatus: status => status === 200,
+      headers: {
+        Authorization: token
+      }
+    })
+  }
+  catch (err) {
+    throw err
+  }
 }
 
 const updateAllSchedule = async (travelId, roomTable, token) => {

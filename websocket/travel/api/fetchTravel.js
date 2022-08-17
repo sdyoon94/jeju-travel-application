@@ -4,29 +4,39 @@ import { APIS } from "../apiHandler.js"
 
 // ===== Fetch API requests start =====
 const fetchTravelInfo = async (travelId, token) => {
-  const response = await axios({
-    method: "get",
-    url: `${APIS.HOST_SERVER}/trip/showTripInfo/${travelId}`,
-    validateStatus: status => status === 200,
-    headers: {
-      Authorization: token
-    }
-  })
+  try {
+    const response = await axios({
+      method: "get",
+      url: `${APIS.HOST_SERVER}/trip/showTripInfo/${travelId}`,
+      validateStatus: status => status === 200,
+      headers: {
+        Authorization: token
+      }
+    })
 
-  return response.data.tripInfo
+    return response.data.tripInfo
+  }
+  catch (err) {
+    throw err
+  }
 }
 
 const fetchSchedule = async (day, travelId, token) => {
-  const response = await axios({
-    method: "get",
-    url: `${APIS.HOST_SERVER}/schedule?day=${day}&tripId=${travelId}`,
-    validateStatus: status => status === 200,
-    headers: {
-      Authorization: token
-    }
-  })
-
-  return response.data["일자별 Schedule List"]
+  try {
+    const response = await axios({
+      method: "get",
+      url: `${APIS.HOST_SERVER}/schedule?day=${day}&tripId=${travelId}`,
+      validateStatus: status => status === 200,
+      headers: {
+        Authorization: token
+      }
+    })
+  
+    return response.data["일자별 Schedule List"]
+  }
+  catch (err) {
+    throw err
+  }
 }
 
 const fetchAllSchedule = (travelId, roomTable, token) => {
@@ -42,20 +52,29 @@ const fetchAllSchedule = (travelId, roomTable, token) => {
 }
 
 const fetchTravel = async (travelId, roomTable, token) => {
-  const travelInfo = await fetchTravelInfo(travelId, token)
+  try {
+    const travelInfo = await fetchTravelInfo(travelId, token)
+
+    addTravelInfo(travelId, roomTable, travelInfo)
+    initSchedules(travelId, roomTable, travelInfo)
+    initAuthorities(travelId, roomTable, travelInfo)
+  }
+  catch (err) {
+    throw err
+  }
   
-  addTravelInfo(travelId, roomTable, travelInfo)
-  initSchedules(travelId, roomTable, travelInfo)
-  initAuthorities(travelId, roomTable, travelInfo)
+  try {
+    const schedules = await fetchAllSchedule(travelId, roomTable, token)
+    schedules.forEach((scheduleList, day) => {
+      addSchedule(travelId, roomTable, scheduleList, day)
+    })
 
-  const schedules = await fetchAllSchedule(travelId, roomTable, token)
-  schedules.forEach((scheduleList, day) => {
-    addSchedule(travelId, roomTable, scheduleList, day)
-  })
-
-  roomTable[travelId].fetched = true
-  release(travelId, roomTable)
-  return "실행됨"
+    roomTable[travelId].fetched = true
+    release(travelId, roomTable)  
+  }
+  catch (err) {
+    throw err
+  }
 }
 // ===== Fetch API requests end =====
 
