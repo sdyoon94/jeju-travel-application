@@ -82,7 +82,7 @@ public class FileServiceImpl implements FileService {
 
 //            user.setImagePath("http://i7a609.p.ssafy.io:8080" + savePath);
             user.setImagePath("https://i7a609.p.ssafy.io/api/images" + savePath);
-            user.setDbImagePath(savePath);
+
 
             userRepository.save(user);
         } catch (Exception e) {
@@ -99,22 +99,6 @@ public class FileServiceImpl implements FileService {
     }
 
 
-    @Override
-    public int deleteById(String token) {
-        Long id = ((Long) jwtUtil.parseJwtToken(token).get("id"));
-
-        User targetUser = userRepository.findOneByKakaoId(id);
-        if (targetUser.getDbImagePath() != null) {
-            File file = new File(targetUser.getDbImagePath());
-            file.delete();
-            targetUser.setImagePath("");
-            targetUser.setDbImagePath("");
-            userRepository.save(targetUser);
-            return 1;
-        } else {
-            return 0;
-        }
-    }
 
     private String uploadDir = System.getProperty("user.dir") + "\\files";
 

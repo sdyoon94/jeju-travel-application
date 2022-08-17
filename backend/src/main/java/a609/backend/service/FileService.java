@@ -8,6 +8,5 @@ public interface FileService {
     void uploadFile(MultipartFile file, String token);
     User findImageById(String token);
 
-    int deleteById(String token);
 
 }
