@@ -13,6 +13,7 @@ import {
 	initSchedule,
 	setSchedule,
 	deleteSchedule,
+	swapSchedule
 } from "store/modules/travelSlice";
 import { initSocket } from "store/modules/socketSlice";
 import axios from "axios";
@@ -117,12 +118,17 @@ function Travel({ params }) {
 					setError(403);
 				}
 			})
+
 			socket.on("delete schedule", ({ day, turn }) => {
 				dispatch(deleteSchedule({day,turn}))
 				console.log("삭제성공", day, turn)
-			})	
-			}
-		}, [ socket ])
+			})
+
+			socket.on("swap schedule", ({day, turn1, turn2}) => {
+				dispatch(swapSchedule({ day, turn1, turn2 }))
+			})
+		}
+	}, [ socket ])
 		
 
 	const connectSocket = () => {
