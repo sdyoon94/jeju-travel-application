@@ -174,7 +174,6 @@ function Travel({ params }) {
 								</Link>
 							</div>
 								<ConfigDrawer
-									socket={socket }
 								travel={travel}
 								setTravel={(v) => {
 									dispatch(setTravel(v));

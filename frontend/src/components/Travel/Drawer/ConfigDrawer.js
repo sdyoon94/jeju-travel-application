@@ -1,5 +1,6 @@
 import { Drawer } from "@mui/material";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 import { ReactComponent as Settings } from "assets/settings.svg";
 
@@ -15,13 +16,13 @@ import Exit from "components/EditModal/ExitTravel";
 import ReRecommend from "components/EditModal/ReRecommend";
 import Fix from "routes/ScheduleFix";
 
-import { parseISO, addDays } from "date-fns";
+import { parseISO, addDays, format } from "date-fns";
 
 import "./ConfigDrawer.css";
 import "globalStyle.css";
 import "components/EditModal/ModalCommon.css";
 
-function ConfigDrawer({ travel, setTravel, socket }) {
+function ConfigDrawer({ travel, setTravel }) {
   ///// Drawer 조작 부분 /////
   const [isDrawerOpened, setIsDrawerOpened] = useState(false);
 
@@ -141,12 +142,51 @@ function ConfigDrawer({ travel, setTravel, socket }) {
     rerecommend: false,
   });
 
+  const socket = useSelector((state) => state.socket.socket);
+
+  const socketInfoSubmit = () => {
+    // 데이터 재 가공
+    data = {
+      ...info,
+      startDate: format(info.range[0].startDate, "yyyy-MM-dd"),
+      style: info.style.join(""),
+    };
+    socket.emit("여행정보수정내용저장", data, (response) => {
+      if (response.status === "ok") {
+        alert("여행정보가 변경되었습니다");
+      } else if (response.status === "bad") {
+        alert("여행정보변경에 실패했습니다 다시 시도해주세요");
+      }
+    });
+  };
+
+  const socketSchedulesubmit = () => {
+    // ..... 지운이가 짤거 여행정보변경 emit
+  };
+
+  const grant = () => {
+    socket.emit("grant schedules authority", (response) => {
+      if (response.status === "bad") {
+        alert("현재 다른 사용자가 수정 중 입니다 잠시만 기다려 주세요");
+      }
+    });
+  };
+
+  const revoke = () => {
+    socket.emit("revoke travelinfo authority", (response) => {
+      console.log("권한뺏김")
+    })
+
   // 모달 열기
   const handleClickOpen = (formName) => {
+    if (formName === "exit") {
+    }
+
     setOpen({
       ...open,
       [formName]: true,
     });
+    grant();
   };
 
   //취소 버튼 시 동작
@@ -157,6 +197,14 @@ function ConfigDrawer({ travel, setTravel, socket }) {
     //재추천-취소
     if (formName === "rerecommend") {
       console.log("변경실행");
+      socketInfoSubmit();
+      alert("그냥 정보만 변경 되었음");
+    }
+
+    if (formName === "fix") {
+      console.log("변경실행");
+      socketInfoSubmit();
+      alert("그냥 정보만 변경 되었음");
     }
 
     setOpen({
@@ -164,8 +212,9 @@ function ConfigDrawer({ travel, setTravel, socket }) {
       [formName]: false,
     });
 
-    // !!!!!!!! Drawer의 state 초기화 시켜주기 (수정중 취소를 누르고 다시 들어오면 변경중이던 데이터가 남아있음)
+    revoke()
 
+    // !!!!!!!! Drawer의 state 초기화 시켜주기 (수정중 취소를 누르고 다시 들어오면 변경중이던 데이터가 남아있음)
     setInfo(initialInfo);
   };
 
@@ -176,11 +225,6 @@ function ConfigDrawer({ travel, setTravel, socket }) {
   // 나머지 ===>  수정요청
 
   const handleConfirm = (name) => {
-    // console.log(initialInfo[name])
-    // console.log(info[name])
-    // console.log(JSON.stringify(initialInfo[name]))
-    // console.log(JSON.stringify(info[name]))
-
     //재추천일 때
     if (name === "rerecommend") {
       setOpen({
@@ -194,10 +238,12 @@ function ConfigDrawer({ travel, setTravel, socket }) {
 
     if (name === "fix") {
       console.log("재주천");
+      /// 재추천 요청
       setOpen({
         ...open,
         [name]: false,
       });
+      // 재추천 EMIT ㄲ////////////////////!!!!!!!!!
       return;
     }
 
@@ -224,6 +270,7 @@ function ConfigDrawer({ travel, setTravel, socket }) {
         });
       } else {
         console.log("인포정보그냥변경");
+        socketInfoSubmit();
         handleClose(name);
       }
     }
