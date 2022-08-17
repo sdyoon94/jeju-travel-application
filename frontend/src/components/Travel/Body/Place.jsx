@@ -12,7 +12,7 @@ function Place({ travel, placeIdx, scheduleIdx, startTime, timeReq, timeReqs, se
 
 	return (
 		<>
-			{isFirst && !hold && 
+			{isFirst &&
 				<StartTime 
 					style={{padding: "0vh 2vw"}} 
 					travel={travel}
@@ -26,11 +26,13 @@ function Place({ travel, placeIdx, scheduleIdx, startTime, timeReq, timeReqs, se
 
 			<div className="place-info place-box">
 				<span className="overflow-x-dots">{travel.schedules[scheduleIdx][placeIdx].placeName}</span>
-				<StartTime
-					travel={travel}
-					placeIdx={placeIdx}
-					scheduleIdx={scheduleIdx}
-				/>
+				{ !isFirst && !isLast &&
+					<StartTime
+						travel={travel}
+						placeIdx={placeIdx}
+						scheduleIdx={scheduleIdx}
+					/>
+				}
 			</div>
 
 			{!isLast && !hold &&
