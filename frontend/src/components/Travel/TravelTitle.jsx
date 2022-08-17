@@ -10,6 +10,15 @@ const KAKAO_API_KEY = "03817511d5315ef223b0e6861c8f729e"
 const STYLE_COUNT = 7
 const STYLE_FORMAT = ["식도락", "전통 시장", "포토스팟", "체험/액티비티", "유명관광지", "자연", "여유"]
 
+const integerToArray = (n) => {
+  const str = String(n);
+  const mapfn = (arg) => Number(arg);
+  const arr = Array.from(str, mapfn);
+  const emptyArr = Array(7 - arr.length).fill(0);
+  console.log([...emptyArr, ...arr]);
+  return [...emptyArr, ...arr];
+};
+
 function TravelTitle({ travel, auth }) {
 
   const [styles, setStyles] = useState([])
@@ -38,8 +47,10 @@ function TravelTitle({ travel, auth }) {
   useEffect(() => {
     if (travel.info.style) {
       const styles_ = []
+      const styleArr = integerToArray(travel.info.style)
+
       for (let i = 0; i < STYLE_COUNT; i++) {
-        if (String(travel.info.style).charAt(i) === '1') {
+        if (styleArr[i]) {
           styles_.push(STYLE_FORMAT[i])
         }
       }
