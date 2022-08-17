@@ -38,7 +38,13 @@ public class TripScheduleController {
     @PostMapping("/recommend/{tripId}")
     public ResponseEntity<Map<String,Object>> recommendScheduleList(@PathVariable Long tripId,@RequestBody Map<String,Schedule[]> schedules){
         Map<String, Object> resultMap = new HashMap<>();
-        System.out.println(Arrays.toString(schedules.get(0)));
+        System.out.println("**********************************************************************************************");
+        System.out.println("**********************************************************************************************");
+        System.out.println("**********************************************************************************************");
+        System.out.println("********************"+Arrays.toString(schedules.get(0))+"*************************************");
+        System.out.println("**********************************************************************************************");
+        System.out.println("**********************************************************************************************");
+        System.out.println("**********************************************************************************************");
         try {
             tripScheduleService.recommendScheduleList(schedules, tripId);
             resultMap.put("message","재추천 success");
