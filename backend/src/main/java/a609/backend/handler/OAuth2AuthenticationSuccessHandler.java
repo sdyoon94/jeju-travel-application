@@ -33,10 +33,11 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         User user;
         if((user = userRepository.findOneByKakaoId(id))==null){
             Map<String, Object> properties = (Map<String, Object>) oAuth2User.getAttributes().get("properties");
+            System.out.println(properties.toString());
             user = User.builder()
                     .kakaoId(id)
                     .nickname((String)properties.get("nickname"))
-                    .imagePath((String) properties.get("profile_image_url"))
+                    .imagePath((String)properties.get("profile_image"))
                     .build();
         }
         String accessToken = jwtUtil.generateJwtToken(user);
