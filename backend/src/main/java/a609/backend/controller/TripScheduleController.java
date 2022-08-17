@@ -45,6 +45,7 @@ public class TripScheduleController {
             tripScheduleService.recommendScheduleList(schedules, tripId);
             resultMap.put("message","재추천 success");
         }catch (Exception e){
+            e.printStackTrace();
             resultMap.put("message","재추천 fail");
         }
         return new ResponseEntity<Map<String,Object>>(resultMap, HttpStatus.OK);
