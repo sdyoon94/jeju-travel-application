@@ -8,10 +8,10 @@ import MapDrawer from "./Drawer/MapDrawer";
 import "./TravelBody.css";
 import { useSelector } from "react-redux";
 
-var onClickNext = [];
-var onClickPrev = [];
+function buildOnClickHandler({ periodInDays, setScheduleIdx, setOnClickNext, setOnClickPrev }) {
+	const onClickNext = []
+	const onClickPrev = []
 
-function buildOnClickHandler({ periodInDays, setScheduleIdx }) {
 	for (let day = 1; day <= periodInDays; day++) {
 		const blur = () => {
 			Array.from(document.getElementsByClassName("day-" + day)).forEach(
@@ -53,11 +53,13 @@ function buildOnClickHandler({ periodInDays, setScheduleIdx }) {
 			blur();
 			next();
 		});
+		setOnClickNext(onClickNext)
 
 		onClickPrev.push(() => {
 			blur();
 			prev();
 		});
+		setOnClickPrev(onClickPrev)
 	}
 }
 
@@ -65,6 +67,8 @@ function TravelBody({ setSchedule }) {
 	const travel = useSelector((state) => state.travel);
 	const [scheduleIdx, setScheduleIdx] = useState(0);
 	const [dates, setDates] = useState([]);
+	const [onClickNext, setOnClickNext] = useState([])
+	const [onClickPrev, setOnClickPrev] = useState([])
 
 	useEffect(() => {
 		const dates_ = [];
@@ -87,6 +91,8 @@ function TravelBody({ setSchedule }) {
 		buildOnClickHandler({
 			periodInDays: travel.info.periodInDays,
 			setScheduleIdx,
+			setOnClickNext,
+			setOnClickPrev
 		});
 	}, [travel.info.periodInDays, travel.info.startDate]);
 
