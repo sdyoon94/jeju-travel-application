@@ -45,6 +45,10 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 	const [ startTimes, setStartTimes ] = useState([ convert(travel.schedules[scheduleIdx][0].stayTime) ])
 	const [ timeReqs, setTimeReqs ] = useState([])
 	const [ directionError, setDirectionError ] = useState(false)
+	const [ visibility, setVisibility ] = useState("visible")
+
+	const setPlaceholderProps = useState({})[1]
+	const [ hold, setHold ] = useState(false)
 
 	// schedules 혹은 vehicle이 변경되었을 때 경로를 다시 탐색
 	useEffect(() => {
@@ -122,15 +126,23 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 	  // eslint-disable-next-line
 	}, [ timeReqs ])
 
+	useEffect(() => {
+		if (hold) {
+			console.log("aaa");
+			setVisibility("hidden")
+		}
+		else {
+			console.log("bbb");
+			setVisibility("visible")
+		}
+	}, [ hold ])
+
 	const reorder = (list, startIndex, endIndex) => {
 		const result = Array.from(list)
 		const [removed] = result.splice(startIndex, 1)
 		result.splice(endIndex, 0, removed)
 		return result
 	}
-
-	const setPlaceholderProps = useState({})[1]
-	const [ hold, setHold ] = useState(false)
 
 	const onDragEnd = result => {
 		setHold(false)
@@ -233,6 +245,7 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 										isLast={index === travel.schedules[scheduleIdx].length - 1}
 										hold={hold}
 										vehicle={vehicle}
+										visibility={visibility}
 									/>)
 								}
 
