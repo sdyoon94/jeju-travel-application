@@ -9,11 +9,13 @@ import a609.backend.db.repository.TripRepository;
 import a609.backend.payload.response.ScheduleDTO;
 import a609.backend.util.Algorithm;
 import lombok.extern.slf4j.Slf4j;
+import net.bytebuddy.TypeCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -196,6 +198,7 @@ public class TripScheduleServiceImpl implements TripScheduleService {
             int originScheduleCnt = Math.toIntExact(scheduleRepository.countByTripTripIdAndDay(tripId, day));
 
             Schedule[] scheduleList = schedules.get(String.valueOf(day));//day별 스케줄리스트
+            Arrays.sort(scheduleList,(a,b)->{return Integer.compare(a.getTurn(),b.getTurn());});
 
             Schedule startSchedule;
             if (day == 0) {
@@ -224,15 +227,11 @@ public class TripScheduleServiceImpl implements TripScheduleService {
 
             int cnt = 0;//추가해야될 일정 수
             for (Schedule fixedSchedule : scheduleList) {//고정된 일정
+
                 int fixedScheduleTurn=1;
                 try{
 
-                    System.out.println(fixedSchedule.getScheduleId());
-                    System.out.println("==========1========");
-                    System.out.println(scheduleRepository.findOneByScheduleId(fixedSchedule.getScheduleId()));
-                    System.out.println("=========2=========");
                     fixedScheduleTurn = scheduleRepository.findOneByScheduleId(fixedSchedule.getScheduleId()).getTurn();
-                    System.out.println(fixedScheduleTurn);
 
                 }catch (Exception e){
                     e.printStackTrace();
