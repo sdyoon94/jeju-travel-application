@@ -163,27 +163,18 @@ public class TripServiceImpl implements TripService{
     }
 
     @Override
+    @Transactional
     public void updateTrip(Long tripId,Trip trip) {
         Trip originTrip = tripRepository.findOneByTripId(tripId);
-        if(trip.getTripName() != null){
-            originTrip.setTripName(trip.getTripName());
-        }
-        if(trip.getTripMember() != null){
-            originTrip.setTripMember(trip.getTripMember());
-        }
-        if(trip.getBudget() != null){
-            originTrip.setBudget(trip.getBudget());
-        }
-        if(trip.getStartDate() != null){
-            originTrip.setStartDate(trip.getStartDate());
-        }
-        if(trip.getStyle() != null){
-            originTrip.setStyle(trip.getStyle());
-        }
-        tripRepository.save(originTrip);
+        originTrip.setTripName(trip.getTripName());
+        originTrip.setBudget(trip.getBudget());
+        originTrip.setStartDate(trip.getStartDate());
+        originTrip.setStyle(Integer.parseInt(trip.getStyle().toString(),2));
+        originTrip.setVehicle(trip.getVehicle());
     }
 
     @Override
+    @Transactional
     public void deleteTrip(Long tripId) {
         tripRepository.deleteTripByTripId(tripId);
     }
@@ -195,7 +186,5 @@ public class TripServiceImpl implements TripService{
         Long kakaoId= (Long)jwtUtil.parseJwtToken(jwt).get("id");
         userTripRepository.deleteByTripTripIdAndUserKakaoId(tripId, kakaoId);
     }
-
-
 
 }

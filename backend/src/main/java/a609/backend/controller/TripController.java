@@ -49,7 +49,7 @@ public class TripController {
         Map<String, Object> resultMap = new HashMap<>();
         FindTripDTO tripInfo = tripService.showTripInfo(tripId, (String)header.get("authorization"));
         if(tripInfo==null) {
-            resultMap.put("message", "너는 권한이 없어요");
+            resultMap.put("message", "너는 권한이 없어요 짜샤");
             return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.FORBIDDEN);
         }
         resultMap.put("tripInfo", tripInfo);
