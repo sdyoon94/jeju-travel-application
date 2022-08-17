@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@ToString
 public class Schedule {
 
     //turn이 0인 스케쥴을 만들어서 소요시간을 시작시간으로 설정해준다.
