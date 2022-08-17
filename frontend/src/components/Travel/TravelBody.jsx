@@ -21,8 +21,7 @@ function buildOnClickHandler({ periodInDays, setScheduleIdx }) {
 			);
 		};
 		let nextDay = day + 1;
-		console.log("p", periodInDays);
-		console.log(nextDay);
+
 		if (nextDay > periodInDays) {
 			nextDay = 1;
 		}

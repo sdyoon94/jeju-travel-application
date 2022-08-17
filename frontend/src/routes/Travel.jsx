@@ -13,6 +13,7 @@ import {
 	initSchedule,
 	setSchedule,
 } from "store/modules/travelSlice";
+import { initSocket } from "store/modules/socketSlice";
 import axios from "axios";
 import api from "api";
 import "./Travel.css";
@@ -96,20 +97,50 @@ function Travel({ params }) {
 	// 	updateState(travelId)
 	// 	// eslint-disable-next-line
 	// }, [])
-	const[socket,setSocket] = useState()
-	const connectSocket = () => {
-		const data = {
-			auth: { token },
-			query: { travelId },
-		};
-		const socket = io("http://localhost:5000/travel", data);
 
-		socket.on("get travel", (data) => {
-			dispatch(setTravelInfo(data.travel.travelInfo));
-			dispatch(setSchedule(data.travel.schedules));
-			setIsLoaded(true);
-		});
-		setSocket(socket)
+
+	const socket = useSelector(state => state.socket.socket)
+
+	useEffect(() => {
+		if (socket) {
+			socket.on("get travel", (data) => {
+				dispatch(setTravelInfo(data.travel.travelInfo));
+				dispatch(setSchedule(data.travel.schedules));
+				setIsLoaded(true);
+				setError(false)
+			});
+
+			socket.on("error", (err) => {
+				console.log(err, "err")
+				if (err === 403) {
+					setError(403)
+				}
+			})
+		}
+	}, [ socket ])
+
+	const connectSocket = () => {
+		// const data = {
+		// 	auth: { token },
+		// 	query: { travelId },
+		// };
+		// const socket = io("http://localhost:5000/travel", data);
+		dispatch(initSocket(travelId))
+
+		// socket.on("get travel", (data) => {
+		// 	dispatch(setTravelInfo(data.travel.travelInfo));
+		// 	dispatch(setSchedule(data.travel.schedules));
+		// 	setIsLoaded(true);
+		// 	setError(false)
+		// });
+
+		// socket.on("error", (err) => {
+		// 	console.log(err, "err")
+		// 	if (err === 403) {
+		// 		setError(403)
+		// 	}
+		// })
+
 	};
 
 	useEffect(() => {
