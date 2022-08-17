@@ -21,20 +21,11 @@ function SwipeToDelete({ travel, placeIdx, scheduleIdx, startTime, timeReq, time
 
 
   const fetchDelete = async (scheduleId) => {
-
-    socket.emit("delete schedule", {day: scheduleIdx, turn: placeIdx}, (response) => {
-      // console.log("delete", response)
+    socket.emit("delete schedule", {day: scheduleIdx, turn: placeIdx}, ({ status }) => {
+      if (status === "ok") {
+        dispatch(deleteSchedule({day: scheduleIdx, turn: placeIdx}))
+      }
     })
-    // const response = await axios({
-    //   method: "delete",=
-    //   url: api.schedule.scheduleUrl(scheduleId),
-    //   headers: {
-    //     Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`
-    //   }
-    // })
-    // if (response.status === 200) {
-    //   dispatch(deleteSchedule({scheduleIdx, scheduleId})) >>> 리덕스 없애는 애
-    // }
 	}
   
 
