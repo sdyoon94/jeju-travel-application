@@ -10,9 +10,19 @@ function ScheduleFix({ newRecommend }) {
   const { travelId } = useParams()
 	const travels = useSelector((state) => state.travel.schedules)
 	const initial = travels.reduce((acc, value, idx) => {
-		acc[idx] = [travels[idx][value.length - 1]]
+		acc[idx] = [{...travels[idx][value.length - 1], turn: 100}]
 		return acc
 	}, {})
+
+	const turns = {}
+
+	travels.forEach((scheduleList, day) => {
+		scheduleList.forEach((schedule, turn) => {
+			const { scheduleId } = schedule
+
+			turns[scheduleId] = turn
+		})
+	})
 
 	const [fixedSpots, setFixedSpots] = useState(initial);
 
@@ -20,7 +30,10 @@ function ScheduleFix({ newRecommend }) {
 		if (selected) {
 			setFixedSpots({
 				...fixedSpots,
-				[travelIdx]: [...fixedSpots[travelIdx], payload],
+				[travelIdx]: [...fixedSpots[travelIdx], {
+					...payload,
+					turn: turns[payload.scheduleId]
+				}],
 			})
 		} else {
 			let newArr = fixedSpots[travelIdx].filter((item) => {
@@ -36,6 +49,7 @@ function ScheduleFix({ newRecommend }) {
   const token = useSelector(state => state.auth.token)
 
   const fetchNewRecommend = async() => {
+		console.log(fixedSpots)
     const response = await(axios({
       method: "post",
       url: `https://i7a609.p.ssafy.io/api/v1/schedule/recommend/${travelId}`,
