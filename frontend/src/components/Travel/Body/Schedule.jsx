@@ -129,7 +129,11 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 			schedule
 		})
 
-		socket.emit("revoke schedules authority", { day: scheduleIdx})
+		// socket.emit("swap schedule", { day: scheduleIdx, turn1: result.source.index, turn2: result.destination.index})
+
+		socket.emit("revoke schedules authority", { day: scheduleIdx }, (response) => {
+			console.log(response)
+		})
 		
 		// setRoute(route => reorder(route, result.source.index, result.destination.index))
   } 
