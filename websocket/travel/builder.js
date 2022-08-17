@@ -1,6 +1,6 @@
 import jwtDecode from "jwt-decode"
 
-import { initalize, dispatch, create, pushSocket, popSocket } from "./stateManager.js"
+import { initalize, dispatch, create, pushSocket, popSocket, revokeAllAuthorities } from "./stateManager.js"
 import { createTravelLogger } from "./logger.js"
 import { EVENTS } from "./eventHandler.js"
 import { fetchTravel, fetchTravelInfo } from "./api/fetchTravel.js"
@@ -108,7 +108,9 @@ const travelBuilder = (io, nsp) => {
     pushSocket(socket, travelId, roomTable)
 
     socket.on("disconnect", async (reason) => {
-      const { travelId, token } = socket.data
+      const { travelId, token, id } = socket.data
+
+      revokeAllAuthorities(travelId, roomTable, { id })
 
       if (travelId && popSocket(socket, travelId, roomTable) === 0) {
         try {
