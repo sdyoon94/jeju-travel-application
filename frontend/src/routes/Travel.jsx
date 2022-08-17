@@ -98,27 +98,47 @@ function Travel({ params }) {
 	// 	// eslint-disable-next-line
 	// }, [])
 
+	const socket = useSelector(state => state.socket.socket)
+
+	useEffect(() => {
+		if (socket) {
+			socket.on("get travel", (data) => {
+				dispatch(setTravelInfo(data.travel.travelInfo));
+				dispatch(setSchedule(data.travel.schedules));
+				setIsLoaded(true);
+				setError(false)
+			});
+
+			socket.on("error", (err) => {
+				console.log(err, "err")
+				if (err === 403) {
+					setError(403)
+				}
+			})
+		}
+	}, [ socket ])
+
 	const connectSocket = () => {
-		const data = {
-			auth: { token },
-			query: { travelId },
-		};
-		const socket = io("http://localhost:5000/travel", data);
-		dispatch(initSocket(socket))
+		// const data = {
+		// 	auth: { token },
+		// 	query: { travelId },
+		// };
+		// const socket = io("http://localhost:5000/travel", data);
+		dispatch(initSocket(travelId))
 
-		socket.on("get travel", (data) => {
-			dispatch(setTravelInfo(data.travel.travelInfo));
-			dispatch(setSchedule(data.travel.schedules));
-			setIsLoaded(true);
-			setError(false)
-		});
+		// socket.on("get travel", (data) => {
+		// 	dispatch(setTravelInfo(data.travel.travelInfo));
+		// 	dispatch(setSchedule(data.travel.schedules));
+		// 	setIsLoaded(true);
+		// 	setError(false)
+		// });
 
-		socket.on("error", (err) => {
-			console.log(err, "err")
-			if (err === 403) {
-				setError(403)
-			}
-		})
+		// socket.on("error", (err) => {
+		// 	console.log(err, "err")
+		// 	if (err === 403) {
+		// 		setError(403)
+		// 	}
+		// })
 	};
 
 	useEffect(() => {
