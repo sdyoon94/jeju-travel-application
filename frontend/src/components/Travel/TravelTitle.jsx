@@ -113,7 +113,7 @@ function TravelTitle({ travel, auth }) {
         <span className="travel-info-content">
           {travel.info.startDate ? travel.info.startDate : format(new Date(), "yyyy-MM-dd")} ~ {endDate}
         </span>
-        <span className="travel-info-content">₩{travel.info.budget}만원</span>
+        {/* <span className="travel-info-content">₩{travel.info.budget}만원</span> */}
       </div>
       <div className="travel-style-container subcontent-size">
         {
