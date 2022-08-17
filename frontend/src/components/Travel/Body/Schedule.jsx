@@ -122,17 +122,19 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 		}
 		setPlaceholderProps({})
 
-		const schedule = reorder(travel.schedules[scheduleIdx], result.source.index, result.destination.index)
-
-		setSchedule({ 
-			scheduleIdx, 
-			schedule
+		socket.emit("swap schedule", { day: scheduleIdx, turn1: result.source.index, turn2: result.destination.index}, (response) => {
+			if (response.status === "ok") {
+				const schedule = reorder(travel.schedules[scheduleIdx], result.source.index, result.destination.index)
+				setSchedule({ 
+					scheduleIdx, 
+					schedule
+				})
+			}
+			console.log("swap", response)
 		})
 
-		// socket.emit("swap schedule", { day: scheduleIdx, turn1: result.source.index, turn2: result.destination.index})
-
 		socket.emit("revoke schedules authority", { day: scheduleIdx }, (response) => {
-			console.log(response)
+			console.log("revoke", response)
 		})
 		
 		// setRoute(route => reorder(route, result.source.index, result.destination.index))

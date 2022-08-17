@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react"
 import "./SwipeToDelete.css"
 import Place from "./Place"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { deleteSchedule } from "store/modules/travelSlice"
 import api from "api"
 import axios from "axios"
@@ -16,19 +16,25 @@ function SwipeToDelete({ travel, placeIdx, scheduleIdx, startTime, timeReq, time
   const draggedRef = useRef(false)
   const dispatch = useDispatch()
   const { scheduleId } = travel.schedules[scheduleIdx][placeIdx]
+  const socket = useSelector(state => state.socket.socket)
 
 
   const fetchDelete = async (scheduleId) => {
-    const response = await axios({
-      method: "delete",
-      url: api.schedule.scheduleUrl(scheduleId),
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`
-      }
+    console.log(scheduleIdx, placeIdx)
+
+    socket.emit("delete schedule", {day: scheduleIdx, turn: placeIdx}, (response) => {
+      console.log("delete", response)
     })
-    if (response.status === 200) {
-      dispatch(deleteSchedule({scheduleIdx, scheduleId}))
-    }
+    // const response = await axios({
+    //   method: "delete",=
+    //   url: api.schedule.scheduleUrl(scheduleId),
+    //   headers: {
+    //     Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`
+    //   }
+    // })
+    // if (response.status === 200) {
+    //   dispatch(deleteSchedule({scheduleIdx, scheduleId}))
+    // }
 	}
 
   useEffect(() => {

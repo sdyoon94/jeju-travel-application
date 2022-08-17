@@ -125,7 +125,6 @@ const addSchedule = (travelId, roomTable, schedule, index) => {
 
 
 // ===== state management functions start =====
-
 // INPUT_ERRORS
 const INPUT_ERRORS = {
   UNAUTHORIZED_MEMBER_ERROR: new Error("unauthorized member error"),
@@ -267,10 +266,10 @@ const revokeAllAuthorities = (travelId, roomTable, { id }) => {
   const authorities = roomTable[travelId].authorities
 
   authorities.schedules.forEach(authority => {
-    checkAuthority(authority, id) && revoke(authority)
+    checkAuthority(authority, id) && revokeAuthority(authority)
   })
 
-  checkAuthority(authorities.travelInfo, id) && revoke(authorities.travelInfo)
+  checkAuthority(authorities.travelInfo, id) && revokeAuthority(authorities.travelInfo)
 }
 
 // CHECK_TRAVELINFO_AUTHORITY
