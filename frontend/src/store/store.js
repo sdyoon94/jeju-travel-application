@@ -11,6 +11,7 @@ import selectedSpots from "./modules/selectedSpotsSlice"
 import inputValues from './modules/inputValuesSlice'
 
 import travelJoin from "./modules/travelJoinSlice"
+import socket from "./modules/socketSlice"
 
 const rootReducer = combineReducers({
     travel,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
     selectedSpots,
     inputValues,
     travelJoin,
+    socket
 })
 
 

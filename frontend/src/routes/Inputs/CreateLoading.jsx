@@ -11,8 +11,6 @@ function CreateLoading() {
   const navigate = useNavigate()
 
   const [mention, setMention] = useState("즐거운 여행이 됐으면 좋겠어요!")
-  console.log(travelUid)
-  console.log(mention)
 
   useEffect(() => {
     if (typeof travelUid === "string") {
