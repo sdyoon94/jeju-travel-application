@@ -114,9 +114,14 @@ function Travel({ params }) {
 				if (err === 403) {
 					setError(403);
 				}
-			});
-		}
-	}, [socket]);
+			})
+			socket.on("delete schedule", ({ day, turn }) => {
+				dispatch(deleteSchedule({day,turn}))
+				console.log("삭제성공", day, turn)
+			})	
+			}
+		}, [ socket ])
+		
 
 	const connectSocket = () => {
 		dispatch(initSocket(travelId));
@@ -135,7 +140,7 @@ function Travel({ params }) {
 		// 	}
 		// })
 	};
-
+ 
 	useEffect(() => {
 		connectSocket();
 		console.log("socket...please");
