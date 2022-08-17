@@ -20,8 +20,8 @@ function ExitTravel({inputValues,setInputValues}) {
 
   return (
     <div className="title-container">
-      <div className="title-header">
-        <div className="inline-block subcontentfont-weight title-size text-center" >
+      <div className="title-header" style={{display:"grid", justifyContent:"center"} }>
+        <div className="inline-block subcontentfont-weight title-size text-center">
           <span>여행을 </span>
           <span style={{color: 'red'}}>삭제 </span>
           <span>하시겠어요?</span>

@@ -98,6 +98,7 @@ function Travel({ params }) {
 	// 	// eslint-disable-next-line
 	// }, [])
 
+
 	const socket = useSelector(state => state.socket.socket)
 
 	useEffect(() => {
@@ -139,6 +140,7 @@ function Travel({ params }) {
 		// 		setError(403)
 		// 	}
 		// })
+
 	};
 
 	useEffect(() => {
@@ -172,7 +174,7 @@ function Travel({ params }) {
 									/>
 								</Link>
 							</div>
-							<ConfigDrawer
+								<ConfigDrawer
 								travel={travel}
 								setTravel={(v) => {
 									dispatch(setTravel(v));
