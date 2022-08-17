@@ -199,21 +199,12 @@ public class TripScheduleServiceImpl implements TripScheduleService {
         Trip trip = firstAirPortSchedule.getTrip();
 
         log.info("***************"+schedules.get("0"));
-
         for (int day = 0; day < schedules.size(); day++) {//day별로
-
-
             //원래 일정갯수로
             int originScheduleCnt = Math.toIntExact(scheduleRepository.countByTripTripIdAndDay(tripId, day));
 
             Schedule[] scheduleList = schedules.get(String.valueOf(day));//day별 스케줄리스트
-            if (scheduleList.length==0) {//날짜가 비었으면
-                for (int turn = 0; turn < originScheduleCnt; turn++) {
-                    deleteOriginalSchedule(turn, day, trip.getTripId()); //해당 day의 기존일정 전부 삭제
-                }
-                this.registerSchedule(trip, day, visit, false, 0, 0, 0, 0);//처음부터 새로 생성해줘야
-                continue;
-            }
+
             Schedule startSchedule;
             if (day == 0) {
                 startSchedule = firstAirPortSchedule;//공항
@@ -229,12 +220,16 @@ public class TripScheduleServiceImpl implements TripScheduleService {
             log.info(String.valueOf(fixedScheduledCnt));
 
             int placeType = 0;
-            Place startPlace = placeRepository.findOneByPlaceUid(startSchedule.getPlaceUid());
-            Place endPlace = null;
+//            Place startPlace = placeRepository.findOneByPlaceUid(startSchedule.getPlaceUid());
+            double startLat = startSchedule.getLat();
+            double startLng = startSchedule.getLng();
+//            Place endPlace = null;
+            double endLat = 0.0;
+            double endLng = 0.0;
+
             int startTurn = 0;
             int endTurn = 0;
             int forTurn=1;
-
 
             int cnt = 0;//추가해야될 일정 수
             for (Schedule fixedSchedule : scheduleList) {//고정된 일정
@@ -244,25 +239,25 @@ public class TripScheduleServiceImpl implements TripScheduleService {
                     if (fixedScheduleTurn == turn) {//고정된 번호 같다면
                         if (cnt > 0) {//추가해야될게 있다면
 
-                            endPlace = placeRepository.findOneByPlaceUid(fixedSchedule.getPlaceUid());
+                            endLat = fixedSchedule.getLat();
+                            endLng = fixedSchedule.getLng();
+
+//                            endPlace = placeRepository.findOneByPlaceUid(fixedSchedule.getPlaceUid());
                             endTurn = turn;
 
-                            binarySearch(startTurn, endTurn,trip,day,cnt,startPlace,endPlace);
-//                            //----------------------------------------
-//                            int targetTurn = startTurn + endTurn / 2;
-//
-//                            Long originalTargetPlaceUid = scheduleRepository.findByTripTripIdAndDayAndTurn(trip.getTripId(), day, targetTurn).getPlaceUid();//타겟 아이디
-//                            deleteOriginalSchedule(targetTurn, day, trip.getTripId()); //기존일정 삭제
-//                            placeType = placeRepository.findOneByPlaceUid(originalTargetPlaceUid).getPlaceType();//타겟 타입구하기
-//                            log.info("***targetTurn***" + targetTurn);
-//
-//                            reCreateSchedule(startPlace, endPlace, cnt, placeType, trip.getStyle(), targetTurn, day, trip); //타겟 turn에 대한 새로운 일정 구하기
-                            //-----------------------------------------
-                            startPlace = endPlace;
-                            forTurn =turn;
+                            binarySearch(startTurn, endTurn,trip,day,cnt,startLat,startLng,endLat,endLng);
+
+                            startLat = endLat;
+                            startLng = endLng;
+//                            startPlace = endPlace;
+
+                            startTurn = turn;
+                            forTurn =turn+1;
                             break;
                         } else {
-                            startPlace = placeRepository.findOneByPlaceUid(fixedSchedule.getPlaceUid());
+                            startLat = fixedSchedule.getLat();
+                            startLng = fixedSchedule.getLng();
+//                            startPlace = placeRepository.findOneByPlaceUid(fixedSchedule.getPlaceUid());
                             startTurn = turn;
                         }
                         cnt=0;
@@ -288,10 +283,10 @@ public class TripScheduleServiceImpl implements TripScheduleService {
     }
 
 
-    public Place reCreateSchedule(Place startPlace, Place endPlace, int cnt, int placeType, int style, int targetTurn, int day, Trip trip) {
+    public Place reCreateSchedule(double startLat,double startLng,double endLat,double endLng, int cnt, int placeType, int style, int targetTurn, int day, Trip trip) {
 
-        double lat = (startPlace.getLat() + endPlace.getLat()) / 2.0;
-        double lng = (startPlace.getLng() + endPlace.getLng()) / 2.0;
+        double lat = (startLat + endLat) / 2.0;
+        double lng = (startLng + endLng) / 2.0;
 
         Place place = algorithm.selectAroundPlace(lat, lng, placeType, style);
 
@@ -313,31 +308,31 @@ public class TripScheduleServiceImpl implements TripScheduleService {
     }
 
     // 재귀적 탐색
-    public void binarySearch(int startTurn, int endTurn,Trip trip,int day,int cnt,Place startPlace,Place endPlace) {
+    public void binarySearch(int startTurn, int endTurn,Trip trip,int day,int cnt,double startLat,double startLng,double endLat, double endLng) {
         int targetTurn = (startTurn + endTurn) / 2;
 
-        log.info("***targetTurn***" + targetTurn);
-        log.info("***startTurn***" + startTurn);
-        log.info("***endTurn***" + endTurn);
+        log.info("startTurn***   " + startTurn);
+        log.info("endTurn***   " + endTurn);
+
         if (endTurn-startTurn==1) {
             return;
         }
 
         Long originalTargetPlaceUid = scheduleRepository.findByTripTripIdAndDayAndTurn(trip.getTripId(), day, targetTurn).getPlaceUid();//타겟 아이디
-        log.info("********딜리트가 안되는 이유는?***"+targetTurn+"day:"+day+"tripId"+trip.getTripId());
+        log.info("딜리트가 안되는 이유는?******  targetTurn: "+targetTurn+" day: "+day+" tripId: "+trip.getTripId());
         deleteOriginalSchedule(targetTurn, day, trip.getTripId()); //기존일정 삭제
         int placeType = placeRepository.findOneByPlaceUid(originalTargetPlaceUid).getPlaceType();//타겟 타입구하기
 
         //새로운 장소
-        Place targetPlace = reCreateSchedule(startPlace, endPlace, cnt, placeType, trip.getStyle(), targetTurn, day, trip);
+        Place targetPlace = reCreateSchedule(startLat,startLng,endLat,endLng,cnt, placeType, trip.getStyle(), targetTurn, day, trip);
 
         if (targetTurn > startTurn) {
 
-            binarySearch(startTurn, targetTurn,trip,day,cnt,startPlace,targetPlace); // 왼쪽 부분 탐색
+            binarySearch(startTurn, targetTurn,trip,day,cnt,startLat,startLng,targetPlace.getLat(),targetPlace.getLng()); // 왼쪽 부분 탐색
         }
         if (targetTurn < endTurn) {
 
-            binarySearch(targetTurn, endTurn,trip,day,cnt,targetPlace,endPlace); // 오른쪽 부분 탐색
+            binarySearch(targetTurn, endTurn,trip,day,cnt,targetPlace.getLat(),targetPlace.getLng(),endLat,endLng); // 오른쪽 부분 탐색
         }
     }
 
