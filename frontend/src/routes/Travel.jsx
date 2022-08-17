@@ -116,9 +116,14 @@ function Travel({ params }) {
 					setError(403)
 				}
 			})
-		}
-	}, [ socket ])
-
+			socket.on("delete schedule", ({ day, turn }) => {
+				dispatch(deleteSchedule({day,turn}))
+				console.log("삭제성공", day, turn)
+			})
+				
+			}
+		}, [ socket ])
+		
 	const connectSocket = () => {
 		// const data = {
 		// 	auth: { token },
@@ -142,7 +147,7 @@ function Travel({ params }) {
 		// })
 
 	};
-
+ 
 	useEffect(() => {
 		connectSocket();
 		console.log("socket...please")
