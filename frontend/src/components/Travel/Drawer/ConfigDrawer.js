@@ -83,7 +83,8 @@ function ConfigDrawer({ travel, setTravel }) {
       [ky]: val,
     });
   };
-
+  const [ newRecommend, setNewRecommend ] = useState(false)
+  
   const forms = [
     {
       name: "tripName",
@@ -114,7 +115,7 @@ function ConfigDrawer({ travel, setTravel }) {
     },
     {
       name: "fix",
-      form: <Fix inputValues={info} setInputValues={editInfo}></Fix>,
+      form: <Fix inputValues={info} setInputValues={editInfo} newRecommend={newRecommend} ></Fix>,
       isFull: true,
     },
     {
@@ -228,21 +229,24 @@ function ConfigDrawer({ travel, setTravel }) {
   // 재추천상황 ===> 재추천요청
   // 나머지 ===>  수정요청
 
+
   const handleConfirm = (name) => {
     //재추천일 때
     if (name === "rerecommend") {
+      setNewRecommend(false)
       setOpen({
         ...open,
         [name]: false,
         ["fix"]: true,
       });
-
+      
       return;
     }
-
+    
     if (name === "fix") {
       console.log("재주천");
       /// 재추천 요청
+      setNewRecommend(true)
       setOpen({
         ...open,
         [name]: false,
