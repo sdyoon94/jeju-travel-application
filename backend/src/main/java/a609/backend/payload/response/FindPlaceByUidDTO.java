@@ -22,6 +22,7 @@ public class FindPlaceByUidDTO {
         this.tag = Arrays.stream(
                 place.getTag().replaceAll(" ","").split(","))
                 .collect(Collectors.toList());
+        tag=tag.subList(0,Math.min(tag.size(),5));
         this.imgPath = place.getImgPath();
         this.roadAddress = place.getRoadAddress();
     }
