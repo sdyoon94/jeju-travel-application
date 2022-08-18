@@ -39,7 +39,6 @@ const travelSlice = createSlice({
 	initialState,
 	reducers: {
 		setTravelInfo(state, { payload }) {
-			console.log(payload)
 			state.info = payload
 		},
 		editStayTime(state, { payload: {scheduleIdx, placeIdx, stayTime} }) {
