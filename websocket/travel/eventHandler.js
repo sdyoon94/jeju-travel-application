@@ -221,7 +221,7 @@ const EVENTS = {
         callback(CALLBACK_RESPONSE.OK)
         eventEmitter({ socket, namespace, room },
           CAST_TYPES.BROADCAST_CLIENT, eventName,
-          { day, placeUid, placeName, lat, lng })
+          { day, spots})
       }
       catch (err) {
         callback(CALLBACK_RESPONSE.BAD)
