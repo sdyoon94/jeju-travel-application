@@ -237,6 +237,25 @@ const travelBuilder = (io, nsp) => {
       }
     );
 
+    // revoke all authority 이벤트 핸들러
+    socket.on(
+      EVENTS.REVOKE_ALL_AUTHORITY_EVENT.eventName,
+      (callback) => {
+        const travelId = socket.data.travelId;
+        const id = socket.data.id;
+        const arg = { id }
+        EVENTS.REVOKE_ALL_AUTHORITY_EVENT.call(
+          socket,
+          namespace,
+          travelId,
+          roomTable,
+          EVENTS.REVOKE_ALL_AUTHORITY_EVENT.eventName,
+          arg,
+          callback
+        )
+      }
+    )
+
     // update staytime 이벤트 핸들러
     socket.on(
       EVENTS.UPDATE_STAYTIME_EVENT.eventName,
