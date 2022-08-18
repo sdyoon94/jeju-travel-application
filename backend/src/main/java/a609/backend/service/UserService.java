@@ -18,5 +18,5 @@ public interface UserService extends OAuth2UserService<OAuth2UserRequest, OAuth2
 
     void deleteUser(String token);
 
-    Map<String, Object> refreshToken(String accessToken, String refreshToken);
+    Map<String, Object> refreshToken(String refreshToken);
 }

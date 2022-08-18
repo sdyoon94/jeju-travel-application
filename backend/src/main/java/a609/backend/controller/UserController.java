@@ -57,10 +57,9 @@ public class UserController {
 
     @GetMapping("/auth/refresh")
     public ResponseEntity<?> refreshToken(@RequestHeader Map<String, Object> header) {
-        String accessToken = (String) header.get("authorization");
         String refreshToken = (String) header.get("refreshToken");
 
-        Map<String, Object> resultMap = userService.refreshToken(accessToken, refreshToken);
+        Map<String, Object> resultMap = userService.refreshToken(refreshToken);
         if(resultMap != null){
             return new ResponseEntity<>(resultMap, HttpStatus.OK);
         }else{

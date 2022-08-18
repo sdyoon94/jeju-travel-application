@@ -122,9 +122,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void logout(String token) {
         User user = userRepository.findOneByKakaoId((Long)jwtUtil.parseJwtToken(token).get("id"));
-//        String refreshdToken = user.getRefreshToken();
-//        String accessToken = KakaoUtil.updateAccessToken(refreshdToken);
-        KakaoUtil.kakaoLogout((Long)jwtUtil.parseJwtToken(token).get("id"));
+        user.setRefreshToken("");
+        userRepository.save(user);
     }
 
     @Override
@@ -139,22 +138,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Object> refreshToken(String accessToken, String refreshToken){
-        Long id;
-        if((id = (Long)jwtUtil.parseJwtToken(accessToken).get("id")) == jwtUtil.parseJwtToken(refreshToken).get("id")){
-            User user = searchByKakaoId(id);
-            if (jwtUtil.validateJwtToken(refreshToken) == HttpStatus.OK
-                    && user.getRefreshToken().equals(refreshToken.substring(7))) {
-                String newAccessToken = jwtUtil.generateJwtToken(user);
-                String newRefreshToken = jwtUtil.generateRefreshToken(id);
-                user.setRefreshToken(newRefreshToken);
-                userRepository.save(user);
+    public Map<String, Object> refreshToken(String refreshToken){
+        Long id = (Long)jwtUtil.parseJwtToken(refreshToken).get("id");
+        User user = searchByKakaoId(id);
+        if (jwtUtil.validateJwtToken(refreshToken) == HttpStatus.OK
+                && refreshToken.substring(7).equals(user.getRefreshToken())) {
+            String newAccessToken = jwtUtil.generateJwtToken(user);
+            String newRefreshToken = jwtUtil.generateRefreshToken(id);
+            user.setRefreshToken(newRefreshToken);
+            userRepository.save(user);
 
-                Map<String, Object> tokens = new HashMap<>(2);
-                tokens.put("accessToken", newAccessToken);
-                tokens.put("refreshToken", newRefreshToken);
-                return tokens;
-            }
+            Map<String, Object> tokens = new HashMap<>(2);
+            tokens.put("accessToken", newAccessToken);
+            tokens.put("refreshToken", newRefreshToken);
+            return tokens;
         }
         return null;
     }
