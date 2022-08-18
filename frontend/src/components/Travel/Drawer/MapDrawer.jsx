@@ -61,7 +61,10 @@ function MapDrawer({ travel, scheduleIdx }) {
   const [route, setRoute] = useState(travel.schedules[scheduleIdx]);
   const [date, setDate] = useState(
     travel.info.startDate
-      ? format(addDays(travel.info.startDate, scheduleIdx))
+      ? format(
+          addDays(new Date(travel.info.startDate), scheduleIdx),
+          "yyyy-MM-dd"
+        )
       : ""
   );
 
@@ -84,7 +87,10 @@ function MapDrawer({ travel, scheduleIdx }) {
     setDay(scheduleIdx + 1);
     setDate(
       travel.info.startDate
-        ? format(addDays(travel.info.startDate, scheduleIdx))
+        ? format(
+            addDays(new Date(travel.info.startDate), scheduleIdx),
+            "yyyy-MM-dd"
+          )
         : ""
     );
   }, [travel.info.startDate, scheduleIdx]);
