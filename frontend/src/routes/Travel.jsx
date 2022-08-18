@@ -135,9 +135,9 @@ function Travel({ params }) {
 					stayTime
 				}))
 			})
-			// socket.on("put travel info ", ({ tripName, startDate, style, vehicle }) => {
-			// 	dispatch(setTravel)
-			// })
+			socket.on("put travel info ", (response) => {
+				dispatch(setTravelInfo(response))
+			})
 		}
 	}, [ socket ])
 		
