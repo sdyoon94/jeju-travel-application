@@ -15,7 +15,6 @@ const integerToArray = (n) => {
   const mapfn = (arg) => Number(arg);
   const arr = Array.from(str, mapfn);
   const emptyArr = Array(7 - arr.length).fill(0);
-  console.log([...emptyArr, ...arr]);
   return [...emptyArr, ...arr];
 };
 
