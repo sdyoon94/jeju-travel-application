@@ -76,7 +76,7 @@ function TravelBody({ setSchedule }) {
 		for (let day = 0; day < travel.info.periodInDays; day++) {
 			dates_.push(
 				travel.info.startDate
-					? format(addDays(travel.info.startDate), day)
+					? format(addDays(new Date(travel.info.startDate), day), "yyyy-MM-dd")
 					: ""
 			);
 		}

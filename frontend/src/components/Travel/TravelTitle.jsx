@@ -31,7 +31,7 @@ const buildDate = (startDate, periodInDays) => {
 
   if (startDate) {
     return `${startDate} ~ ${format(
-      addDays(startDate, periodInDays - 1),
+      addDays(new Date(startDate), periodInDays - 1),
       "yyyy-MM-dd"
     )} (${period})`
   }
