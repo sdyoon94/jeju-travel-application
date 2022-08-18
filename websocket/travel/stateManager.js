@@ -425,7 +425,7 @@ const deleteSchedule = (travelId, roomTable, { day, turn }) => {
 // PUT_TRAVELINFO
 const putTravelInfo = (travelId, roomTable, 
     { tripName, startDate, style, vehicle }) => {
-  if (tripName) {
+  if (tripName && typeof tripName === "string" && tripName.length > 0 && tripName.length <= 10) {
     roomTable[travelId].travelInfo.tripName = tripName
   }
   if (startDate && startDate.match(DATE_REGEXP)) {
