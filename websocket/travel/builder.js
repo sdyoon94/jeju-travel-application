@@ -238,23 +238,20 @@ const travelBuilder = (io, nsp) => {
     );
 
     // revoke all authority 이벤트 핸들러
-    socket.on(
-      EVENTS.REVOKE_ALL_AUTHORITY_EVENT.eventName,
-      (callback) => {
-        const travelId = socket.data.travelId;
-        const id = socket.data.id;
-        const arg = { id }
-        EVENTS.REVOKE_ALL_AUTHORITY_EVENT.call(
-          socket,
-          namespace,
-          travelId,
-          roomTable,
-          EVENTS.REVOKE_ALL_AUTHORITY_EVENT.eventName,
-          arg,
-          callback
-        )
-      }
-    )
+    socket.on(EVENTS.REVOKE_ALL_AUTHORITY_EVENT.eventName, (callback) => {
+      const travelId = socket.data.travelId;
+      const id = socket.data.id;
+      const arg = { id };
+      EVENTS.REVOKE_ALL_AUTHORITY_EVENT.call(
+        socket,
+        namespace,
+        travelId,
+        roomTable,
+        EVENTS.REVOKE_ALL_AUTHORITY_EVENT.eventName,
+        arg,
+        callback
+      );
+    });
 
     // update staytime 이벤트 핸들러
     socket.on(
@@ -298,7 +295,10 @@ const travelBuilder = (io, nsp) => {
       ({ day, spots }, callback) => {
         const travelId = socket.data.travelId;
         // placeUid, placeName, lat, lng
-        const arg = { day, spots };
+        const arg = {
+          day,
+          spots: spots.map((spot) => ({ ...spot, stayTime: 0 })),
+        };
         EVENTS.CREATE_SCHEDULE_EVENT.call(
           socket,
           namespace,

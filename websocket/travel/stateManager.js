@@ -401,13 +401,9 @@ const createSchedule = (travelId, roomTable,
     throw INPUT_ERRORS.RANGE_ERROR_TURN
   }
 
-  spots.forEach(({placeUid, placeName, lat, lng}) => {
+  spots.forEach(spot => {
     scheduleList.push({
-      placeUid,
-      placeName, 
-      lat, 
-      lng, 
-      stayTime: 0,
+      ...spot,
       status: DATA_STATUSES.CREATED
     })
   })
