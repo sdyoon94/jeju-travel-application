@@ -1,5 +1,5 @@
 import Header from "components/Header/Header"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import axios from "axios"
@@ -16,7 +16,7 @@ function PlaceSearch() {
   const dispatch = useDispatch()
   const [spotSearch, setSpotSearch] = useState("")
   const [resultLst, setresultLst] = useState([])
-  const selectedSpots = useSelector(state => state.selectedSpots)
+  const selectedSpots = useSelector(state => state.selectedSpots.list)
   const socket = useSelector(state => state.socket.socket)
   
   const inputSearch = async(query) => {
@@ -56,23 +56,55 @@ function PlaceSearch() {
   }
   
   const handleSubmit = () => {
-    navigate(`/travel/${travelId}`)
     socket.emit("grant schedules authority", { day: dayId }, (response) => {
       if (response.status === "ok") {
-        dispatch(addSchedule({ dayId, selectedSpots}))
-        dispatch(resetSpot())
-        // socket.emit("create schedule")
+        const data = {
+          day: dayId,
+          spots: selectedSpots
+        }
+        socket.emit("create schedule", data, (response) => {
+          if (response.status === "ok") {
+            dispatch(addSchedule({ dayId, selectedSpots}))
+            socket.emit("revoke schedules authority", (_) => { })
+            dispatch(resetSpot())
+            navigate(`/travel/${travelId}`)
+            return
+          }
+          socket.emit("revoke schedules authority", (_) => { })
+        })
       }
     })
-    
   }
   
   const handleSubmitInputBtn = () => {
-
-    navigate(`/address/${travelId}/${dayId}`)
-    dispatch(addSchedule({ dayId, selectedSpots}))
-    dispatch(resetSpot())
+    socket.emit("grant schedules authority", { day: dayId }, (response) => {
+      console.log(response)
+      if (response.status === "ok") {
+        const data = {
+          day: dayId,
+          spots: selectedSpots
+        }
+        socket.emit("create schedule", data, (response) => {
+          console.log(response)
+          if (response.status === "ok") {
+            dispatch(addSchedule({ dayId, selectedSpots}))
+            socket.emit("revoke schedules authority", (_) => { })
+            dispatch(resetSpot())
+            navigate(`/address/${travelId}/${dayId}`)
+            return
+          }
+          socket.emit("revoke schedules authority", (_) => { })
+        })
+      }
+    })
   }
+
+  useEffect(() => {
+    if (!socket) {
+      navigate(`/travel/${travelId}`)
+    }
+  }, [socket])
+  
 
   return (
     <>
@@ -88,7 +120,7 @@ function PlaceSearch() {
           />
         </div>
       </div>
-      { selectedSpots.length === 0 ? null : <SelectedSpots /> }
+      { selectedSpots.length === 0 ? null : <SelectedSpots selectedSpots={selectedSpots} /> }
       <SearchBody spotSearch={spotSearch} resultLst={resultLst} />
       { selectedSpots.length !== 0 && resultLst.length === 0 && spotSearch &&
         <div className="text-center">

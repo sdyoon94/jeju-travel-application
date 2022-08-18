@@ -1,23 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-const initialState = []
+const initialState = {
+  list: []
+}
 
 const selectedSpotsSlice = createSlice({
-  name: "selectedSpotSlices",
+  name: "selectedSpots",
   initialState,
   reducers: {
     addSpot(state, { payload }) {
-      state.push({
-        ...payload,
-        // stayTime: "60"
+      state.list.push({
+        ...payload
       })
     },
     deleteSpot(state, { payload }) {
-      return state.filter(spot => spot.placeUid !==  payload)
+      state.list = state.list.filter(spot => spot.placeUid !== payload)
     },
     resetSpot(state, action) {
-      return []
+      state.list = []
     }
   }
 })

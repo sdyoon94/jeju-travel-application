@@ -3,16 +3,23 @@ import Header from "components/Header/Header"
 import DaumPostcodeEmbed from 'react-daum-postcode'
 import axios from "axios"
 import "./AddressInput.css"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
+import { addSchedule } from "store/modules/travelSlice"
 
 const KAKAO_HOST = "https://dapi.kakao.com"
 const REST_API = "d6be80d86882188a8c483752bb1c2070"
 
 
 function AddressInput() {
+  const socket = useSelector((state) => state.socket.socket)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const [inputAddress, setInputAddress] = useState("")
   const [addressName, setAddressName] = useState("")
-  const { dayId } = useParams()
+  const { travelId, dayId } = useParams()
   const [xy, setXY] = useState({
     lat: "",
     lng: ""
@@ -57,11 +64,26 @@ function AddressInput() {
     // 소켓 보내는 부분
     const payload = {
       day: dayId,
-      spot: [{
+      spots: [{
         placeName: addressName,
         ...xy
       }]
     }
+
+    socket.emit("grant schedules authority", { day: dayId }, (response) => {
+      if (response.status === "ok") {
+        socket.emit("create schedule", payload, (response) => {
+          if (response.status === "ok") {
+            dispatch(addSchedule({ dayId, selectedSpots: payload.spots}))
+            socket.emit("revoke schedules authority", { day: dayId }, (_) => {})
+            navigate(`/travel/${travelId}`)
+            return
+          }
+          socket.emit("revoke schedules authority", { day: dayId }, (_) => {})
+        })
+      }
+    })
+    
     console.log(payload)
   }
 
