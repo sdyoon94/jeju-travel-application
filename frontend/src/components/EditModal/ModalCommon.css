@@ -1,16 +1,10 @@
-.full-modal {
-  
-  /* display : grid; 
-  justify-content: stretch; */
-  
+.full-modal {  
 }
 
 .small-modal {
-
 }
 
 .modal-container{
-
 }
 
 
@@ -41,7 +35,6 @@
 }
 
 .dialog-btns-bottom {
-  /* position:absolute; */
   bottom: 0vh;
   display:grid;
   grid-template-columns: 1fr 1fr;

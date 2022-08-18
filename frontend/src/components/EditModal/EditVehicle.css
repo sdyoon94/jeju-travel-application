@@ -16,9 +16,7 @@
 
 .vehicle-body {
   display:grid;
-  /* grid-template-rows: 1fr 11fr; */
   justify-content: center;
-  /* justify-items: center; */
   align-items: center;
   align-content: center;
   grid-gap: 10vw;
@@ -34,7 +32,6 @@
   height: 15vh;
   border-top: 1px solid #1E88E5 ;
 
-  /* grid-auto-columns: minmax(50,100); */
 }
 
 div.vehicle-select-btns button {
@@ -42,11 +39,7 @@ div.vehicle-select-btns button {
   display:grid;
   grid-template-rows: 5fr 2fr;
   gap : 0.5vh;
-  /* width: 28vw; */
-  /* height: 40px; */
   border:none;
-  /* border-radius: 10px; */
-  /* border-color : linear-gradient(40deg, rgb(199, 121, 208),  rgb(75, 192, 200),  #2b3074); */
 }
 
 

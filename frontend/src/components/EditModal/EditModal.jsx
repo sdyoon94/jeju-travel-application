@@ -9,16 +9,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 
 function EditModal({open, onClose, target, travel,setTravel}) {
-  
-  // const [open, setOpen] = useState(open1);
-
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
-
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
 
   return (
     <div>
@@ -38,10 +28,6 @@ function EditModal({open, onClose, target, travel,setTravel}) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          {/* <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
-            Agree
-          </Button> */}
         </DialogActions>
       </Dialog>
     </div>

@@ -54,7 +54,6 @@ function SwipeToDelete({ travel, placeIdx, scheduleIdx, startTime, timeReq, time
   const onDragStart = (clientX) => {
     // grant
     socket.emit("grant schedules authority", {day: scheduleIdx}, (response) => {
-			// console.log("delete authority", response)
       if (response.status === "ok") {
         setAuthority(true)
       }
@@ -130,7 +129,6 @@ function SwipeToDelete({ travel, placeIdx, scheduleIdx, startTime, timeReq, time
   useEffect(() => {
     if (authority === false) {
       socket.emit("revoke schedules authority", { day: scheduleIdx }, (response) => {
-        // console.log("revoke", response)
       })
     }
   }, [authority])

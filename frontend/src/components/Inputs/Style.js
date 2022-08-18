@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "globalStyle.css";
 import "./Style.css";
 import { ReactComponent as Photospot } from "assets/styles/photospot.svg";
@@ -9,7 +8,6 @@ import { ReactComponent as Eat } from "assets/styles/eat.svg"
 import { ReactComponent as Crown } from "assets/styles/crown.svg"
 import { ReactComponent as Relax } from "assets/styles/relax.svg"
 
-// const imgg = <input type="image" src="https://item.kakaocdn.net/do/493188dee481260d5c89790036be0e66f604e7b0e6900f9ac53a43965300eb9a" style={{border: "double", height: "80px", width:"170px"}}/>
 
 // 여행 스타일 선택
 function Style({ inputValues, setInputValues }) {
@@ -55,7 +53,6 @@ function Style({ inputValues, setInputValues }) {
     },
   ];
 
-  // const [clicked, setClicked] = useState(inputValues.style)
 
   const isClicked = (i) => {
     console.log(inputValues.style);

@@ -75,30 +75,8 @@ function MemberCnt(props) {
       </div>
       <div className="departure-body">
         <div></div>
-        {show && <div className="warning2">최소 1 최대 8 ㄱㄱ하셈</div>}
-        {/* <label className="input-box" for="member-cnt-input">
-          <label className="input-label" htmlFor="select-departure">
-            출발지
-          </label>
-          <ExampleTextField
-            className="select-departure"
-            id="select-departure"
-            select
-            value={departure}
-            onChange={handleChangeDeparture}
-            InputProps={{ style: { fontSize: 20 } }}
-          >
-            {departures.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </ExampleTextField>
-        </label> */}
+        {show && <div className="warning2">동행가능인원은 1~8명 이에요</div>}
         <label className="membercnt-input-box" htmlFor="member-cnt-input">
-          {/* <label className="input-label" htmlFor="member-cnt-input">
-            인원수
-          </label> */}
           <div className="control-member-cnt">
             <button className="member-cnt-btn" onClick={decrementCount}>
               <Minus width="5vw" height="5vw"></Minus>
@@ -109,9 +87,7 @@ function MemberCnt(props) {
               type="number"
               value={props.inputValues.maxMemberCnt}
               onChange={handleChangeMemberCnt}
-              // variant="standard"
               InputProps={{ style: { fontSize : '5vw' }, endAdornment: <InputAdornment position="start"><div style={{fontSize : '5vw', color:"black" }}>명</div></InputAdornment>}}
-              // autoFocus
               disabled
             />
             <button className="member-cnt-btn" onClick={incrementCount}>

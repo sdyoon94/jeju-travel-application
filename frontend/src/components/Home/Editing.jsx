@@ -17,7 +17,6 @@ function EditIng ({ nickname, profileImg, handleNickname, handleProfileImg, setF
       const reader = new FileReader()
       const formData = new FormData()
       formData.append("file", img)
-      // for (const keyValue of formData) console.log('11', keyValue)
       reader.onload = () => {
         if(reader.readyState === 2){
         handleProfileImg(reader.result)
