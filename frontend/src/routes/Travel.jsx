@@ -16,7 +16,7 @@ import {
 	swapSchedule,
 	editStayTime,
 	setIsLoaded,
-	addSchedule
+	createSchedule
 } from "store/modules/travelSlice";
 import { initSocket } from "store/modules/socketSlice";
 import "./Travel.css";
@@ -81,7 +81,7 @@ function Travel({ params }) {
 			socket.on("create schedule", (response)=>{
 				const day = response.day
 				const spots = response.spots
-				dispatch(addSchedule({dayId : day, selectedSpots: spots}))
+				dispatch(createSchedule({ day, spots }))
 			})
 		}
 	}, [ socket ])

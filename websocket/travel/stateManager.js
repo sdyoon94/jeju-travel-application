@@ -220,6 +220,21 @@ const grantSchedulesAuthority = (travelId, roomTable, { id, day }) => {
   logger.info(logMsgBuilder("grant schedules authority", roomTable[travelId].authorities.schedules))
 }
 
+// GRANT_ALL_AUTHORITIES
+const grantAllAuthorities = (travelId, roomTable, { id }) => {
+  const idIndex = getIdIndex(travelId, roomTable, id)
+  if (idIndex < 0) {
+    throw INPUT_ERRORS.UNAUTHORIZED_MEMBER_ERROR
+  }
+
+  const authorities = roomTable[travelId].authorities
+
+  authorities.schedules.forEach(authority => {
+    grantAuthority(authority, id)
+  })
+
+  grantAuthority(authorities.travelInfo, id)
+}
 
 // REVOKE
 const revokeAuthority = (authority) => {
@@ -469,7 +484,7 @@ export { isInitialized, initalize, create }
 export { isTerminated, isBlocked, terminate, remove, dispatch, release }
 export { addTravelInfo, initSchedules, initAuthorities, addSchedule }
 export { pushSocket, popSocket }
-export { grantTravelInfoAuthority, grantSchedulesAuthority }
+export { grantTravelInfoAuthority, grantSchedulesAuthority, grantAllAuthorities }
 export { revokeTravelInfoAuthority, revokeSchedulesAuthority, revokeAllAuthorities }
 export { checkTravelInfoAuthority, checkSchedulesAuthority }
 export { updateStaytime, swapSchedule, createSchedule, deleteSchedule }
