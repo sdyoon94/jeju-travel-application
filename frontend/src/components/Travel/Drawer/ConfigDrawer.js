@@ -22,6 +22,8 @@ import "./ConfigDrawer.css";
 import "globalStyle.css";
 import "components/EditModal/ModalCommon.css";
 import {setTravelInfo} from "store/modules/travelSlice"
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function ConfigDrawer({ travel, setTravel }) {
   ///// Drawer 조작 부분 /////
@@ -37,6 +39,7 @@ function ConfigDrawer({ travel, setTravel }) {
   };
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   ///// Modal 조작 부분 /////
 
   //스타일 속성 정수형에서 배열로
@@ -45,7 +48,6 @@ function ConfigDrawer({ travel, setTravel }) {
     const mapfn = (arg) => Number(arg);
     const arr = Array.from(str, mapfn);
     const emptyArr = Array(7 - arr.length).fill(0);
-    console.log([...emptyArr, ...arr]);
     return [...emptyArr, ...arr];
   };
 
@@ -75,6 +77,34 @@ function ConfigDrawer({ travel, setTravel }) {
   };
 
   const [info, setInfo] = useState(initialInfo);
+  // 여행정보 변경 후 Drawer state 재설정
+  useEffect(()=>{
+    setInfo({
+      ...travel.info,
+      range: travel.info.startDate
+        ? [
+            {
+              startDate: parseISO(travel.info.startDate),
+              endDate: addDays(
+                parseISO(travel.info.startDate),
+                travel.info.periodInDays - 1
+              ),
+              key: "selection",
+            },
+          ]
+        : [
+            {
+              startDate: new Date(),
+              endDate: addDays(new Date(), travel.info.periodInDays - 1),
+              key: "selection",
+            },
+          ],
+      // style : integerToArray(travel.info.style),
+      style: integerToArray(travel.info.style),
+    }) 
+  },[travel.info])
+
+
 
   // form 들로부터 올라온 변경값 저장
   const editInfo = (params) => {
@@ -156,6 +186,7 @@ function ConfigDrawer({ travel, setTravel }) {
       style: info.style.join(""),
     };
     socket.emit("put travel info", data, (response) => {
+      console.log(data)
       if (response.status === "ok") {
         dispatch(setTravelInfo(data))
         alert("여행정보가 변경되었습니다");
@@ -165,20 +196,7 @@ function ConfigDrawer({ travel, setTravel }) {
     });
   };
 
-  const socketSchedulesubmit = () => {
-    // ..... 지운이가 짤거 여행정보변경 emit
-  };
-
-  const grant = () => {
-    console.log("그랜트 실행");
-    socket.emit("grant travelinfo authority", (response) => {
-      if (response.status === "bad") {
-        alert("현재 다른 사용자가 수정 중 입니다 잠시만 기다려 주세요");
-      }
-      console.log(response.status);
-    });
-  };
-
+  // 수정권한 뺏음
   const revoke = () => {
     socket.emit("revoke travelinfo authority", (response) => {
     });
@@ -187,13 +205,24 @@ function ConfigDrawer({ travel, setTravel }) {
   // 모달 열기
   const handleClickOpen = (formName) => {
     if (formName === "exit") {
-    }
-
-    setOpen({
-      ...open,
-      [formName]: true,
-    });
-    grant();
+      // 여행 Exit 용 grant 새로 만들기
+      // 자신이 마지막 여행 멤버라면 -> 여행 삭제
+      // 자신 제외 다른 멤버가 남아 있으면 -> 본인만 memberlist에서 삭제
+    } 
+    
+    socket.emit("grant travelinfo authority", (response) => {
+    if (response.status === 'ok') {
+      setOpen({
+        ...open,
+        [formName]: true,
+      })
+    } else if (response.status === 'bad') {
+      alert("현재 다른 사용자가 수정 중 입니다 잠시 후 다시 시도해주세요")
+    } else {
+      console.log("그랜트 ok/bad 도 아닌 오류")
+    } 
+     
+    })
   };
 
   //취소 버튼 시 동작
@@ -258,11 +287,16 @@ function ConfigDrawer({ travel, setTravel }) {
     }
 
     if (name === "exit") {
-      console.log("여행탈퇴");
+      socket.emit("여행탈퇴", (response)=>{
+        if (response.status === "ok"){
+          /////////
+        }
+      })
       setOpen({
         ...open,
         [name]: false,
       });
+      window.location.replace("/")
       return;
     }
 

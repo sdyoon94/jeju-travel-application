@@ -37,7 +37,6 @@ function TravelName({inputValues,setInputValues}) {
               id="travel-name"
               type="text"
               value={inputValues.tripName}
-              // inputProps={{ minDuration, maxDuration }}
               onChange={handleChange}
               variant="standard"
               InputProps={{style:{fontSize: 15, textAlign: "center"}}}
@@ -48,7 +47,7 @@ function TravelName({inputValues,setInputValues}) {
                   }
               }
             }}
-            inputProps={{ maxLength: 10 }}
+            inputProps={{ maxLength: 10, minLength: 1}}
             />
             {/* <label className="input-label" htmlFor="number-duration">
               만원
