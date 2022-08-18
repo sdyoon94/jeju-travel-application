@@ -100,21 +100,29 @@
 #### 여행 계획 생성
 
 - 동행자, 여행 기간, 여행 스타일, 전체 일정 시작 시간과 끝나는 시간을 작성합니다.
-![inputs](/uploads/0393c5150d59db291f13645e30e64bb5/inputs.gif)
+  ![inputs](/uploads/0393c5150d59db291f13645e30e64bb5/inputs.gif)
 
 #### 여행 계획 조회
+
 - 여행 제목, 여행 기간, 여행 스타일을 조회할 수 있습니다.
 - 여행 기간 별로 스케쥴을 확인할 수 있습니다.
 - 지도 아이콘을 클릭하여 장소 위치와 상세 정보를 확인할 수 있습니다.
-    - 상세 정보 중 제목 클릭 시, 네이버 제목 검색 결과가 나타납니다.
-![plan](README-images/plan.png)
-![map](/uploads/e5a597ee0e0b6fce7e355dc59b8762d1/map.gif)
+  - 상세 정보 중 제목 클릭 시, 네이버 제목 검색 결과가 나타납니다.
 
+
+
+![planPage.png](C:\Users\jiunHan\Desktop\S07P12A609\README-images\planPage.png)
 
 #### 여행 계획 수정
+
 1. 여행 정보 수정
+- 우상단에 위치한 톱니바퀴 아이콘 클릭시 여행 계획 정보를 수정할 수 있습니다.
 - 여행 제목, 여행 기간, 여행 스타일을 수정할 수 있습니다.
 - 여행 스타일 수정시 여행 계획을 재추천받을 수 있습니다.
+
+![drawer.png](C:\Users\jiunHan\Desktop\S07P12A609\README-images\drawer.png)
+
+
 
 2. 여행 일정 수정
 - 드래그 앤 드랍으로 여행 일정 위치를 수정할 수 있습니다.
@@ -123,9 +131,18 @@
 - 플러스 버튼을 통해 여행 일정을 추가할 수 있습니다.
 
 ![dnd](/uploads/b55156af107df9c76e5f8cb8ccbd7c51/dnd.gif)
-![search](/uploads/f21e2cf875383971974e7af863af38b0/search.gif)
+![search](/uploads/f21e2cf875383971974e7af863af38b0/search.gif) 
+
+
+
+![userInputA.png](C:\Users\jiunHan\Desktop\S07P12A609\README-images\userInputA.png)
 
 #### 여행 공유하기
+
 - 카카오톡 초대하기 버튼을 눌러 여행을 초대할 수 있습니다.
-// 초대당했을 때 화면과 여행 참여하기 화면 
+
+![invite.png](C:\Users\jiunHan\Desktop\S07P12A609\README-images\invite.png)
+
+
+
 
