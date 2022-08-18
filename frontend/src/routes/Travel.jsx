@@ -74,6 +74,9 @@ function Travel({ params }) {
 					stayTime
 				}))
 			})
+			socket.on("put travel info ", (response) => {
+				dispatch(setTravelInfo(response))
+			})
 		}
 	}, [ socket ])
 		
