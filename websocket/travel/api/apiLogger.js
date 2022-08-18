@@ -19,7 +19,7 @@ const logApiError = (apiName, err, ...args) => {
     msg += `{headers: ${JSON.stringify(err.response.headers)}}, `
   }
   else if (err.request) {
-    msg += `{request: ${JSON.stringify(err.request)}}, `
+    msg += `{request: ${err.request}}, `
   }
   else {
     msg += `{message: ${JSON.stringify(err.message)}}, `
