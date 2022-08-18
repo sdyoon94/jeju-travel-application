@@ -39,12 +39,8 @@
 .warning {
   position: absolute;
   z-index:1;
-  /* bottom: 10vh; */
-  /* font-size: 2vw; */
-  /* line-height: 3vw; */
   left: 50%;
   transform: translate(-50%,-50%);  
-  /* color:rgb(233, 91, 202) */
   color: #dc3545;
 
   font-size: 1.5vh;
@@ -62,19 +58,10 @@
   z-index:1;
   left: 50%;
   transform: translate(-50%,-50%);  
-  
-  
-  /* bottom: 12vh;
-  font-size: 2vw;
-  line-height: 3vw; */
-  
   bottom: calc(10vw + (15vh - 10vw)/2 + 2vh);
   font-size: 1.5vh;
   line-height: 2vh;
   width:80%;
   text-align: center;
-  
-  
-  /* color:rgb(233, 91, 202); */
   color: #dc3545;
 }

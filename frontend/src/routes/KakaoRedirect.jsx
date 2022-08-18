@@ -28,7 +28,6 @@ function KakaoRedirect() {
         navigate("/", { replace: true })
       }
     }
-    // eslint-disable-next-line
   }, [accessToken])
   
   

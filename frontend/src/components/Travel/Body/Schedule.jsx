@@ -150,7 +150,6 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
         if (response.status === "bad") {
           return;
         }
-        console.log("authority", response);
         // schedule swap 요청
         socket.emit(
           "swap schedule",
@@ -171,13 +170,11 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
                 schedule,
               });
             }
-            console.log("swap", response);
             // schedule 권한 회수 요청
             socket.emit(
               "revoke schedules authority",
               { day: scheduleIdx },
               (response) => {
-                console.log("revoke", response);
               }
             );
           }
@@ -225,7 +222,6 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
   const socket = useSelector((state) => state.socket.socket);
 
   const onDragStart = (e) => {
-    console.log("drag start");
     setHold(true);
   };
 

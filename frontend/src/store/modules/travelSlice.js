@@ -51,9 +51,6 @@ const travelSlice = createSlice({
 		setTravel(state, { payload }) {
 			state[payload[0]] = payload[1]
 		},
-		// setTravelInfo(state, { payload }) {
-		// 	state.info = payload
-		// },
 		initSchedule(state, { payload }) {
 			state.schedules = payload
 		},
@@ -81,16 +78,6 @@ const travelSlice = createSlice({
 			state.schedules[day].splice(-1, 0, ...spots)
 		}
 	},
-	// extraReducers: (builder) => {
-	// 	builder
-	// 		.addCase(deleteSchedule.fulfilled, (state, action) => {
-	// 			console.log(action.payload)
-	// 		})
-	// 		.addCase(deleteSchedule.rejected, (state, action) => {
-	// 			console.log(action.payload)
-	// 			state.error = action.payload
-	// 		})
-	// }
 })
 
 const { actions, reducer } = travelSlice

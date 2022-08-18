@@ -30,7 +30,6 @@ export const createTravel = createAsyncThunk(
   "inputValues/createTravel",
   async (fake, thunkAPI) => {
     const state = thunkAPI.getState();
-    console.log(fake);
     try {
       const response = await axios({
         method: "post",
@@ -69,9 +68,6 @@ const inputValuesSlice = createSlice({
     },
     resetInputValues: (state) => {
       Object.assign(state, initialState)
-      // console.log(state)
-      // console.log(state.inputValues)
-      // console.log(state.style)
     },
   },
   extraReducers: (builder) => {
@@ -80,7 +76,6 @@ const inputValuesSlice = createSlice({
         state.travelUid = payload.tripId
       })
       .addCase(createTravel.rejected, (state, { payload }) => {
-        // state.error = payload;
         state.travelUid = "오류가 발생 했습니다 다시 시도해주세요"
       });
   },

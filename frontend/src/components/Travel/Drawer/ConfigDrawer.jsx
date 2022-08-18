@@ -261,7 +261,6 @@ function ConfigDrawer({ travel, setTravel }) {
     } else if (response.status === 'bad') {
       alert("현재 다른 사용자가 수정 중 입니다 잠시 후 다시 시도해주세요")
     } else {
-      console.log("그랜트 ok/bad 도 아닌 오류")
     } 
      
     })
@@ -332,7 +331,6 @@ function ConfigDrawer({ travel, setTravel }) {
 
     // 실제로 변경 된 값이 있는지 판단
     if (JSON.stringify(initialInfo[name]) === JSON.stringify(info[name])) {
-      console.log("그냥꺼짐");
       handleClose(name);
     } else {
       if (name === "budget" || name === "style") {
@@ -342,7 +340,6 @@ function ConfigDrawer({ travel, setTravel }) {
           ["rerecommend"]: true,
         });
       } else {
-        console.log("인포정보그냥변경"); 
         socketInfoSubmit();
         handleClose(name);
       }
@@ -397,17 +394,6 @@ function ConfigDrawer({ travel, setTravel }) {
           {" "}
           여행 스타일 수정{" "}
         </p>
-        {/* <p className="content-size content-weight" onClick={()=>{handleClickOpen("budget")}}> 여행경비변경 </p> */}
-        {/* <p
-          className="content-size content-weight"
-          onClick={() => {
-            handleClickOpen("vehicle");
-          }}
-        >
-          {" "}
-          이동수단 변경{" "}
-        </p> */}
-        {/* <p className="content-size content-weight" onClick={()=>{handleClickOpen("fix")}} > 여행지 고정  </p> */}
         <p
           className="content-size content-weight red"
           onClick={() => {

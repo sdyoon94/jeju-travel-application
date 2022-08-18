@@ -13,8 +13,6 @@ const fetchNewRecommend = async(travelId, token, fixedSpots) => {
       data: fixedSpots
     }))
 
-    console.log(response.data);
-
     if (response.data.message && 
         response.data.message.endsWith("success")) {
       return

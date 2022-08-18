@@ -55,7 +55,6 @@ function Style({ inputValues, setInputValues }) {
 
 
   const isClicked = (i) => {
-    console.log(inputValues.style);
     let newArray = [...inputValues.style];
     newArray[i] = newArray[i] * -1 + 1;
     setInputValues(["style", newArray]);

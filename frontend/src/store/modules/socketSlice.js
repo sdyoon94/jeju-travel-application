@@ -27,13 +27,10 @@ const socketSlice = createSlice({
         auth: { token: sessionStorage.getItem("accessToken") },
         query: { travelId },
       };
-      // http://localhost:5000/travel
-      // wss://i7a609.p.ssafy.io/travel
       const socket = io("wss://i7a609.p.ssafy.io/travel", data);
       state.socket = socket
       state.travelId = travelId
       socket.on("connect", () => {
-        console.log("connected")
       })
     },
     addSwapScheduleEvent(state, { payload: { setSchedule, travel } }) {

@@ -15,8 +15,6 @@ function MemberCnt(props) {
       props.setInputValues(["maxMemberCnt", event.target.value]);
       setShow(false);
     } else if (8 < event.target.value) {
-      console.log(event.target.value);
-      console.log(typeof event.target.value);
       props.setInputValues(["maxMemberCnt", "8"]);
       setShow(true);
     }
