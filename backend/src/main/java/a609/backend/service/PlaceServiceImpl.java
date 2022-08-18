@@ -44,13 +44,10 @@ public class PlaceServiceImpl implements PlaceService{
         List<Integer> tripStyles = new ArrayList<>();
         tripStyles.add(9);
         for(int i=0;i<7;i++){
-            if((style&(1<<i))==0){
+            if((style&(1<<i))!=0){
                 tripStyles.add(6-i);
             }
         }
-        System.out.println("==========================================");
-        System.out.println(tripStyles);
-        System.out.println("==========================================");
         for (Schedule schedule : scheduleNow) {
             List<Place> tourByDistance = placeRepository.findRecommendByDistance(schedule.getLat(), schedule.getLng(), 5D, tripStyles);
             for (Place place : tourByDistance) {
@@ -63,7 +60,7 @@ public class PlaceServiceImpl implements PlaceService{
             tempList.add(place);
         }
 
-        Collections.sort(tempList, (o1, o2) -> o1.getThumbs() - o2.getThumbs());
+        Collections.sort(tempList, (o1, o2) -> -(o1.getThumbs() - o2.getThumbs()));
         System.out.println("============================");
         System.out.println(tempList);
         System.out.println("============================");
