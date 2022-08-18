@@ -1,3 +1,7 @@
+.place-search {
+  height: calc(var(--vh,1vh)*100)
+}
+
 .search-input {
   position: relative;
   width: 66vw;
