@@ -140,6 +140,22 @@ const EVENTS = {
       }
     }
   },
+  REVOKE_ALL_AUTHORITY_EVENT: {
+    eventName: "revoke all authority",
+    call: (socket, namespace, travelId, roomTable, eventName, 
+        { id }, callback) => {
+      if (!typeCheck(TYPE_FUNCTION, callback)) {
+        return
+      }
+      try {
+        revokeAllAuthorities(travelId, roomTable, { id })
+        callback(CALLBACK_RESPONSE.OK)
+      }
+      catch (err) {
+        callback(CALLBACK_RESPONSE.BAD)
+      }
+    }
+  },
   UPDATE_STAYTIME_EVENT: {
     eventName: "update staytime",
     call: (socket, namespace, travelId, roomTable, eventName, 

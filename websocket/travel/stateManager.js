@@ -343,9 +343,8 @@ const updateStaytime = (travelId, roomTable, { day, turn, stayTime }) => {
 
 // SWAP_SCHEDULE
 const swap = (scheduleList, turn1, turn2) => {
-  const temp = scheduleList[turn1]
-  scheduleList[turn1] = scheduleList[turn2]
-  scheduleList[turn2] = temp
+  const [removed] = scheduleList.splice(turn1, 1);
+  scheduleList.splice(turn2, 0, removed);
 }
 
 const swapSchedule = (travelId, roomTable, { day, turn1, turn2 }) => {
@@ -362,11 +361,13 @@ const swapSchedule = (travelId, roomTable, { day, turn1, turn2 }) => {
 
   swap(scheduleList, turn1, turn2)
 
-  if (scheduleList[turn1].status === DATA_STATUSES.ORIGINAL) {
-    scheduleList[turn1].status = DATA_STATUSES.UPDATED
-  }
-  if (scheduleList[turn2].status === DATA_STATUSES.ORIGINAL) {
-    scheduleList[turn2].status = DATA_STATUSES.UPDATED
+  const start = turn1 < turn2 ? turn1 : turn2;
+  const end   = turn1 > turn2 ? turn1 : turn2;
+
+  for (let turn = start; turn <= end; turn++) {
+    if (scheduleList[turn].status === DATA_STATUSES.ORIGINAL) {
+      scheduleList[turn].status = DATA_STATUSES.UPDATED
+    }
   }
 
   logger.info(logMsgBuilder("update staytime", roomTable[travelId].schedules[day]))

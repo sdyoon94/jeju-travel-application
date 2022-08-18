@@ -60,9 +60,8 @@ const travelSlice = createSlice({
 			state.schedules[scheduleIdx] = schedule
 		},
 		swapSchedule(state, { payload: { day, turn1, turn2 } }) {
-			const temp = state.schedules[day][turn1]
-			state.schedules[day][turn1] = state.schedules[day][turn2]
-			state.schedules[day][turn2] = temp
+			const [removed] = state.schedules[day].splice(turn1, 1);
+			state.schedules[day].splice(turn2, 0, removed);
 		},
 		deleteSchedule(state, { payload: {day, turn} }){
 			state.schedules[day].splice(turn, 1)
