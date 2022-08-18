@@ -1,11 +1,8 @@
-# README
-
 # 놀멍쉬멍
 
 ---
 
 > 놀멍쉬멍은 “놀면서 쉬면서”라는 의미의 제주도 방언입니다.
-> 
 
 ## 📅프로젝트 진행 기간
 
@@ -68,7 +65,7 @@
 
 - ERD
 
-![ERD.png](README%20bafa1a513c3944a5b3f90d712008a6a6/ERD.png)
+![ERD.png](README-images/ERD.png)
 
 [놀멍쉬멍 기능명세서.pdf](README%20bafa1a513c3944a5b3f90d712008a6a6/%25EB%2586%2580%25EB%25A9%258D%25EC%2589%25AC%25EB%25A9%258D_%25EA%25B8%25B0%25EB%258A%25A5%25EB%25AA%2585%25EC%2584%25B8%25EC%2584%259C.pdf)
 
@@ -86,7 +83,7 @@
 
 - 카카오톡을 이용하여 회원가입 및 로그인을 진행할 수 있습니다.
 
-![Untitled](README%20bafa1a513c3944a5b3f90d712008a6a6/Untitled.png)
+![Untitled](README-images/login.png)
 
 ### 메인화면
 
@@ -94,12 +91,10 @@
 - 현재 참여중인 여행이 없을 경우 여행 명언이 표시됩니다.
 - “제주도로 떠나기” 혹은 “제주도로 또 가기” 버튼을 눌러 여행을 생성할 수 있습니다.
 
-![Untitled](README%20bafa1a513c3944a5b3f90d712008a6a6/Untitled%201.png)
+![Untitled](README-images/home1.png)
 
-![Untitled](README%20bafa1a513c3944a5b3f90d712008a6a6/Untitled%202.png)
+![Untitled](README-images/home2.png)
 
 ### 여행 생성
 
 - 동행자, 여행 기간, 여행 스타일, 전체 일정 시작 시간과 끝나는 시간을 작성합니다.
-
-### 여행
