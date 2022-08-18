@@ -83,6 +83,22 @@ function Travel({ params }) {
 				const spots = response.spots
 				dispatch(createSchedule({ day, spots }))
 			})
+			socket.on("recommend", ({status,travel}) => {
+				switch (status) {
+					case "in process":
+						dispatch(setIsLoaded(false))
+						break
+					case 'complete':
+						dispatch(setIsLoaded(true))
+						dispatch(setTravelInfo(travel.travelInfo))
+						dispatch(initSchedule(travel.schedules))
+						break
+					case 'fail':
+						dispatch(setIsLoaded(true))
+						alert("서버가 불안정 합니다 새로고침 후 다시 이용해주세요")
+						break
+				}
+			})
 		}
 	}, [ socket ])
 		
