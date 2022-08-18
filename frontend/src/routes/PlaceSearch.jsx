@@ -87,14 +87,12 @@ function PlaceSearch() {
   
   const handleSubmitInputBtn = () => {
     socket.emit("grant schedules authority", { day: dayId }, (response) => {
-      console.log(response)
       if (response.status === "ok") {
         const data = {
           day: dayId,
           spots: selectedSpots
         }
         socket.emit("create schedule", data, (response) => {
-          console.log(response)
           if (response.status === "ok") {
             dispatch(addSchedule({ dayId, selectedSpots}))
             socket.emit("revoke schedules authority", (_) => { })

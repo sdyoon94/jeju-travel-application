@@ -4,7 +4,6 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import New from "./routes/Inputs/New";
-// import App from './App'
 import Travel from "routes/Travel";
 import Home from "./routes/Home";
 import KakaoLogin from "routes/KakaoLogin";

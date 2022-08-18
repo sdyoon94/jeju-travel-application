@@ -98,12 +98,6 @@ function New() {
     setScreenSize();
   },[params.input]);
 
-  // useEffect(() => {
-  //   setScreenSize();
-  // },[window.innerHeight]);
-  // document.get
- 
-
   const nextRoute = function () {
     if (params.input === "membercnt" && inputValues.maxMemberCnt >= 2) {
       setShow(false);
@@ -127,13 +121,6 @@ function New() {
         setShow(false);
         navigate("/new/time");
       }
-    // } else if (params.input === "budget") {
-    //   if (inputValues.budget === "") {
-    //     setShow(true);
-    //   } else {
-    //     setShow(false);
-    //     navigate("/new/time");
-    //   }
     } else if (params.input === "time") {
       if (inputValues.startTime === "" || inputValues.endTime === "") {
         setShow(true);
@@ -142,19 +129,11 @@ function New() {
 
         navigate('/loading', {replace:true})
         dispatch(createTravel("123"));
-        console.log("next");
         dispatch(resetInputValues())
-        console.log("state리셋")
       }
     }
   };
 
-  // const saveAndNext = function (event) {
-  //   event.preventDefault();
-
-  //   const route = "/new/" + nextRoute();
-  //   navigate(route);
-  // };
   useEffect(()=>{
     setShow(false);
   }, [inputValues])

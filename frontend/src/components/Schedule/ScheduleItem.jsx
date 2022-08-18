@@ -6,7 +6,6 @@ function ScheduleItem({ handleFixedSpots, schedule, travelIdx, isFirst, isLast})
 	});
 
 	const [selected, setSelected] = useState(false);
-	// console.log(schedule)
 	const handleScheduleFix = (e) => {
 		setSelected(!selected);
 		if (!selected) {

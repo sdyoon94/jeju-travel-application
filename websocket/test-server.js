@@ -22,5 +22,4 @@ const io = new Server(httpServer, {
 travelBuilder(io, TRAVEL_NAMESPACE)
 
 httpServer.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}...`)
 })

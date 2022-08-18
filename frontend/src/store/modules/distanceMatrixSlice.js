@@ -12,10 +12,6 @@ const loader = new Loader({
 const fetchDistanceMatrix = createAsyncThunk(
     "google/maps/api/distancematrix",
     async ({ index, vehicle, route }) => {
-        console.log(index);
-        console.log(vehicle);
-        console.log(route);
-
         const google = await loader.load()
 
         var service = new google.maps.DistanceMatrixService()
@@ -54,7 +50,6 @@ const distanceMatrixSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchDistanceMatrix.fulfilled, (state, action) => {
             state.distanceMatrices.push(action.payload)
-            console.log(state.distanceMatrices);
         })
     }
 })
@@ -62,5 +57,4 @@ const distanceMatrixSlice = createSlice({
 const { actions, reducer } = distanceMatrixSlice
 
 export { fetchDistanceMatrix }
-// export const {  } = actions
 export default reducer

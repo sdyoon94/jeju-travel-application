@@ -117,7 +117,6 @@ function TravelTitle({ travel, auth }) {
         <span className="travel-info-content">
           {date}
         </span>
-        {/* <span className="travel-info-content">₩{travel.info.budget}만원</span> */}
       </div>
       <div className="travel-style-container subcontent-size">
         {styles.map((style, i) => (
@@ -127,7 +126,6 @@ function TravelTitle({ travel, auth }) {
         ))}
       </div>
       <div id="kakao-link-btn" onClick={share}>
-        {/* Kakao share button */}
         <span className="subcontent-size">초대하기</span>
         <img
           src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"

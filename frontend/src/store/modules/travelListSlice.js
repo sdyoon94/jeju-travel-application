@@ -36,10 +36,6 @@ const travelListSlice = createSlice({
           return true
         }
       })
-      console.log(targetId,targetIndex)
-      console.log(state)
-      console.log(state.travelList)
-      console.log(payload)
       state.travelList[targetIndex] = payload
     },
   },

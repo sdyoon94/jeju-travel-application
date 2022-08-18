@@ -92,8 +92,6 @@ function AddressInput() {
         })
       }
     })
-    
-    console.log(payload)
   }
 
   return (

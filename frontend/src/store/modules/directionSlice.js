@@ -18,7 +18,6 @@ const KAKAO_WAYPOINTS_PATH = "/v1/waypoints/directions"
 const PROXY_SERVER_DOMAIN = "http://localhost:3001"
 
 const GOOGLE_API_KEY = "AIzaSyA_Kp9lPUVHWZ5i3blrGYJRk8yG70ZovsM"
-// const GOOGLE_MAPS_DOMAIN = "https://maps.googleapis.com"
 
 const GOOGLE_DISTANCEMAT_PATH = "/maps/api/distancematrix/json"
 
@@ -92,7 +91,6 @@ const buildKakaoDirectionsConfig = (route) => {
             waypoints
         }
 
-        // const url = KAKAO_WAYPOINTS_DIRECTIONS_URL
         const url = `${KAKAO_NAVI_DOMAIN + KAKAO_WAYPOINTS_PATH}`
 
         return {

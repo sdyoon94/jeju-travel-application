@@ -421,7 +421,6 @@ const EVENTS = {
           }
         );
       } catch (err) {
-        console.log(err)
         eventEmitter(
           { socket, namespace, room },
           CAST_TYPES.BROADCAST_SERVER,

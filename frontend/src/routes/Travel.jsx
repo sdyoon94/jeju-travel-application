@@ -22,7 +22,6 @@ import { initSocket } from "store/modules/socketSlice";
 import "./Travel.css";
 import "routes/Inputs/CreateLoading.css";
 
-// const socket = io('http://localhost:5000/travel', data)
 
 function Travel({ params }) {
 	const token = useSelector((state) => state.auth.token);
@@ -49,7 +48,6 @@ function Travel({ params }) {
 			});
 
 			socket.on("error", (err) => {
-				console.log(err, "err");
 				if (err === 403) {
 					setError(403);
 				}
@@ -61,7 +59,6 @@ function Travel({ params }) {
 
 			socket.on("delete schedule", ({ day, turn }) => {
 				dispatch(deleteSchedule({day,turn}))
-				console.log("삭제성공", day, turn)
 			})
 
 			socket.on("swap schedule", ({day, turn1, turn2}) => {
@@ -148,12 +145,9 @@ function Travel({ params }) {
 						</div>
 						<TravelTitle travel={travel} auth={auth} />
 						<TravelBody
-							// travel={travel}
 							setSchedule={(v) => {
 								dispatch(setSchedule(v));
 							}}
-							// scheduleIdx={scheduleIdx}
-							// setScheduleIdx={setScheduleIdx}
 						/>
 					</>
 				) : (

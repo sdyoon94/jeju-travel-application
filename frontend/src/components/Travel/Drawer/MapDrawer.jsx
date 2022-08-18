@@ -44,17 +44,6 @@ const divideCenter = (center, len) => {
   center.lat /= len;
   center.lng /= len;
 };
-// tag 처리 함수
-// const buildTags = (tag) => {
-//   const tags = tag.split(",")
-//   if (tags.length === 0) {
-//     return "#태그없음"
-//   }
-//   if (tags.length === 1) {
-//     return `#${tag}`
-//   }
-//   return tags.reduce((prev, curr) => `#${prev} #${curr}`)
-// }
 
 function MapDrawer({ travel, scheduleIdx }) {
   const [day, setDay] = useState(scheduleIdx + 1);
@@ -80,7 +69,6 @@ function MapDrawer({ travel, scheduleIdx }) {
 
   useEffect(() => {
     setRoute(travel.schedules[scheduleIdx]);
-    // eslint-disable-next-line
   }, [travel.schedules[scheduleIdx], scheduleIdx]);
 
   useEffect(() => {
