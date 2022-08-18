@@ -14,9 +14,9 @@ const checkArgs = (...args) => {
 
 const updateTravelInfo = async (travelId, roomTable, token) => {
   const travelInfo = roomTable[travelId].travelInfo
-  const { budget, startDate, style, tripName, vehicle } = travelInfo
+  const { startDate, style, tripName, vehicle } = travelInfo
 
-  checkArgs(budget, startDate, style, tripName, vehicle)
+  checkArgs(startDate, style, tripName, vehicle)
 
   try {
     await axios({
@@ -43,7 +43,7 @@ const updateSchedule = async (day, turn, travelId, roomTable, token) => {
   const schedule = roomTable[travelId].schedules[day][turn]
   const { scheduleId, placeUid, placeName, stayTime, lat, lng } = schedule
 
-  checkArgs(scheduleId, placeUid, placeName, stayTime, lat, lng)
+  checkArgs(scheduleId, placeUid, placeName, lat, lng)
 
   try {
     await axios({
