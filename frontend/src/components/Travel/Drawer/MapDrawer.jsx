@@ -108,14 +108,6 @@ function MapDrawer({ travel, scheduleIdx }) {
     googleMapsApiKey: API_KEY
   })
 
-  // const navigate = useNavigate()
-  // const handleNaverSearch = (e) => {
-  //   console.log(e.target.innerText)
-  //   navigate(`/https://m.search.naver.com/search.naver?query=제주공항`)
-  // }
-
-  // console.log(document.getElementById("place-name").innerText)
-
   const PlaceInfo = () => {
     return (
     <div id="place">
@@ -188,7 +180,7 @@ function MapDrawer({ travel, scheduleIdx }) {
           const getData = () => {
             promise.then((res) => {
               document.getElementById("place-name").innerText = res.placeName
-              document.getElementById("place-link").href = `https://m.search.naver.com/search.naver?query=${res.placeName}`
+              document.getElementById("place-link").href = `https://m.search.naver.com/search.naver?query=제주${res.placeName}`
               document.getElementById("place-name").style.display = "block"
               document.getElementById("place-image").src = res.imgPath ? res.imgPath : "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Jeju_Island.jpg/320px-Jeju_Island.jpg"
               document.getElementById("place-image").style.display = "block"
