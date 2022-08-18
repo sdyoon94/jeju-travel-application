@@ -95,5 +95,5 @@ const travelSlice = createSlice({
 
 const { actions, reducer } = travelSlice
 
-export const { editStartTime, editStayTime, setTravel, setTravelInfo, initSchedule, setSchedule, swapSchedule, deleteSchedule, addSchedule, setIsLoaded } = actions
+export const { editStartTime, editStayTime, setTravel, setTravelInfo, initSchedule, setSchedule, swapSchedule, deleteSchedule, addSchedule, setIsLoaded, createSchedule } = actions
 export default reducer
