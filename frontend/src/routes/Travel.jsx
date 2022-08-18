@@ -1,4 +1,4 @@
-import React, { useEffect, useState, usePrams } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -13,16 +13,12 @@ import {
 	initSchedule,
 	setSchedule,
 	deleteSchedule,
-	swapSchedule
+	swapSchedule,
+	editStayTime
 } from "store/modules/travelSlice";
 import { initSocket } from "store/modules/socketSlice";
-import axios from "axios";
-import api from "api";
 import "./Travel.css";
 import "routes/Inputs/CreateLoading.css";
-
-
-import { io } from "socket.io-client";
 
 // const socket = io('http://localhost:5000/travel', data)
 
@@ -126,6 +122,14 @@ function Travel({ params }) {
 
 			socket.on("swap schedule", ({day, turn1, turn2}) => {
 				dispatch(swapSchedule({ day, turn1, turn2 }))
+			})
+
+			socket.on("update staytime", ({day, turn, stayTime}) => {
+				dispatch(editStayTime({ 
+					scheduleIdx: day, 
+					placeIdx: turn, 
+					stayTime
+				}))
 			})
 		}
 	}, [ socket ])

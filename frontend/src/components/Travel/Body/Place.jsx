@@ -6,6 +6,7 @@ import Exclamation from "./Exclamation";
 import "./Place.css";
 import "globalStyle.css";
 import TimeReq from "./TimeReq";
+import StayTime from "./StayTime";
 
 function Place({
   travel,
@@ -22,6 +23,7 @@ function Place({
   vehicle,
   visibility,
 }) {
+
 	return (
     <>
       {isFirst && (
@@ -44,7 +46,7 @@ function Place({
           {travel.schedules[scheduleIdx][placeIdx].placeName}
         </span>
         {!isFirst && !isLast && (
-          <StartTime
+          <StayTime
             travel={travel}
             placeIdx={placeIdx}
             scheduleIdx={scheduleIdx}

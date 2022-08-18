@@ -135,11 +135,9 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 
 	useEffect(() => {
 		if (hold) {
-			console.log("aaa");
 			setVisibility("hidden")
 		}
 		else {
-			console.log("bbb");
 			setVisibility("visible")
 		}
 	}, [ hold ])
@@ -153,39 +151,48 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 
 	const onDragEnd = (result) => {
 		setHold(false);
-		if (!result.destination) {
-			return;
-		}
 		setPlaceholderProps({});
 
+		// schedule 권한 요청
 		socket.emit(
-			"swap schedule",
-			{
-				day: scheduleIdx,
-				turn1: result.source.index,
-				turn2: result.destination.index,
-			},
-			(response) => {
-				if (response.status === "ok") {
-					const schedule = reorder(
-						travel.schedules[scheduleIdx],
-						result.source.index,
-						result.destination.index
-					);
-					setSchedule({
-						scheduleIdx,
-						schedule,
-					});
-				}
-				console.log("swap", response);
-			}
-		);
-
-		socket.emit(
-			"revoke schedules authority",
+			"grant schedules authority",
 			{ day: scheduleIdx },
 			(response) => {
-				console.log("revoke", response);
+				if (response.status === "bad") {
+					return;
+				}
+				console.log("authority", response);
+				// schedule swap 요청
+				socket.emit(
+					"swap schedule",
+					{
+						day: scheduleIdx,
+						turn1: result.source.index,
+						turn2: result.destination.index,
+					},
+					(response) => {
+						if (response.status === "ok") {
+							const schedule = reorder(
+								travel.schedules[scheduleIdx],
+								result.source.index,
+								result.destination.index
+							);
+							setSchedule({
+								scheduleIdx,
+								schedule,
+							});
+						}
+						console.log("swap", response);
+					}
+				);
+				// schedule 권한 회수 요청
+				socket.emit(
+					"revoke schedules authority",
+					{ day: scheduleIdx },
+					(response) => {
+						console.log("revoke", response);
+					}
+				);
 			}
 		);
 
@@ -231,17 +238,8 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
 	const socket = useSelector((state) => state.socket.socket);
 
 	const onDragStart = (e) => {
+		console.log("drag start")
 		setHold(true);
-		socket.emit(
-			"grant schedules authority",
-			{ day: scheduleIdx },
-			(response) => {
-				if (response.status === "bad") {
-					onDragEnd();
-				}
-				console.log("authority", response);
-			}
-		);
 	};
 
 	return (

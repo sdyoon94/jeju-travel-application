@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import "rc-time-picker/assets/index.css";
 import { useSelector } from "react-redux";
 
-function StartTime({ travel, placeIdx, scheduleIdx, ...rest }) {
+function StayTime({ travel, placeIdx, scheduleIdx, ...rest }) {
   const dispatch = useDispatch();
 
   const socket = useSelector((state) => state.socket.socket);
@@ -26,36 +26,27 @@ function StartTime({ travel, placeIdx, scheduleIdx, ...rest }) {
       stayTime: minute,
     };
 
-    socket.emit(
-      "grant schedules authority",
-      { day: scheduleIdx },
-      (response) => {
-        if (response.status === "ok") {
-          socket.emit("update staytime", data, (response) => {
-            if (response.status === "ok") {
-              if (placeIdx === 0) {
-                dispatch(
-                  editStartTime({ scheduleIdx, placeIdx, stayTime: minute })
-                );
-              } else {
-                dispatch(
-                  editStayTime({ scheduleIdx, placeIdx, stayTime: minute })
-                );
-              }
-              setStartTime(value);
-            } 
-            socket.emit(
-              "revoke schedules authority",
-              { day: scheduleIdx },
-              (_) => {}
-            );
-          });
+    socket.emit("update staytime", data, (response) => {
+      if (response.status === "ok") {
+        if (placeIdx === 0) {
+          dispatch(
+            editStartTime({ scheduleIdx, placeIdx, stayTime: minute })
+          );
         } else {
-          // 다른 사용자가 수정 중일 때
-         }
+          dispatch(
+            editStayTime({ scheduleIdx, placeIdx, stayTime: minute })
+          );
+        }
+        setStartTime(value);
+        socket.emit("revoke ")
       }
-    );
-  };
+      socket.emit(
+        "revoke schedules authority",
+        { day: scheduleIdx },
+        (_) => {}
+      );
+    });
+  }
 
   useEffect(() => {
     setStartTime(
@@ -79,4 +70,4 @@ function StartTime({ travel, placeIdx, scheduleIdx, ...rest }) {
   );
 }
 
-export default StartTime;
+export default StayTime;
