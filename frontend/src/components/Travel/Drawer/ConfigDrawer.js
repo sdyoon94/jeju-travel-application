@@ -234,13 +234,13 @@ function ConfigDrawer({ travel, setTravel }) {
     if (formName === "rerecommend") {
       console.log("변경실행");
       socketInfoSubmit();
-      alert("그냥 정보만 변경 되었음");
+      // alert("여행 정보가 변경 되었습니다");
     }
 
     if (formName === "fix") {
       console.log("변경실행");
       socketInfoSubmit();
-      alert("그냥 정보만 변경 되었음");
+      // alert("그냥 정보만 변경 되었음");
     }
 
     setOpen({
@@ -313,7 +313,7 @@ function ConfigDrawer({ travel, setTravel }) {
           ["rerecommend"]: true,
         });
       } else {
-        console.log("인포정보그냥변경");
+        console.log("인포정보그냥변경"); 
         socketInfoSubmit();
         handleClose(name);
       }
