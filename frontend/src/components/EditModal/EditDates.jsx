@@ -7,31 +7,16 @@ import { ko } from "date-fns/locale";
 import { useState } from "react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
-// import axios from "axios";
-import { format, differenceInDays,parseISO} from "date-fns";
+
+
 
 
 function Calender({inputValues,setInputValues}) {
-  // const [show, setShow] = useState(false);
-  // const [warningMessage, setWarningMessage] = useState("")
   const [isFirst, setIsFirst] = useState(true)
-
-  // const [range, setRange] = useState(inputValues.range)
-
   const handleChange = (item) => {
-
-    // setRange([item.selection])
-
     const startDate = isFirst? item.selection.startDate : item.selection.endDate
     const endDate = addDays(startDate, inputValues.periodInDays - 1)
-    
     const newRange = [{
-      // startDate: item.selection.startDate < item.selection.endDate? item.selection.startDate:item.selection.endDate,
-      // startDate : item.selection.startDate ===  inputValues.range.startDate ? item.selection.endDate : item.selection.startDate,
-      
-      // startDate : isFirst? item.selection.startDate : item.selection.endDate,
-      // endDate: addDays(this.startDate, inputValues.periodInDays - 1),
-      
       startDate : startDate,
       endDate : endDate,
       key: "selection",
@@ -45,7 +30,6 @@ function Calender({inputValues,setInputValues}) {
 
   return (
     <div className="edit-dates-container">
-      {/* <button onClick={abc}>button</button> */}
       <div className="dates-header">
       <div className="inline-block subcontentfont-weight title-size" >
           <span>여행 </span>
@@ -59,10 +43,8 @@ function Calender({inputValues,setInputValues}) {
       <div className="adates-body">
         <DateRange
           locale={ko}
-          // onChange={(item) => setInputValues(['range',[item.selection]])}
           onChange={(item)=> handleChange(item)}
           showSelectionPreview={false}
-          // moveRangeOnFirstSelection={true}
           retainEndDateOnFirstSelection={true}
           months={1}
           ranges={inputValues.range}
@@ -70,12 +52,10 @@ function Calender({inputValues,setInputValues}) {
           direction="vertical"
           scroll={{ enabled: true}}
           minDate={new Date()}
-          // maxDate={addDays(state[0].startDate, 30)}
           showDateDisplay={false}
           color={"#1E88E5"}
         />
       </div>
-      {/* {show && <div className="warning2">{warningMessage}</div>} */}
       </div>
   );
 }

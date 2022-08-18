@@ -22,7 +22,6 @@
   font-style: bold;
   font-weight: 700;
   line-height: 4vh;
-  /* width: 70vw; */
 }
 
 /***** body *****/
@@ -34,48 +33,17 @@
   
 }
 
-/* .input-btn {
-  width:100%;
-  position: -webkit-sticky;
-  
-} */
 
 .membercnt-input-box {
   width: 60vw;
   background-color: transparent;
   height: 7vh;
-  /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
   border-radius: 10px;
   display: grid;
-  /* grid-template-columns: 4fr 7fr; */
   justify-content: stretch;
-  
-
-  /* justify-items: center; */
-  
+ 
 }
 
-/* .input-label{
-  //동행자
-
-position: absolute;
-width: 87px;
-height: 29px;
-left: 55px;
-top: 446px;
-
-font-family: 'Inter';
-font-style: bold;
-font-weight: 700;
-font-size: 20px;
-line-height: 3vh;
-display: flex;
-align-items: center;
-justify-content: center;
-
-color: #000000;
-
-} */
 
 .select-departure {
   width:150px;
@@ -85,7 +53,6 @@ color: #000000;
 }
 
 .member-cnt-input {
-  /* width: 150px !important; */
   background-color: transparent !important;
   align-items: center;
   align-self: center;
@@ -98,19 +65,12 @@ color: #000000;
   border: none !important;
   justify-self: center;
   grid-template-columns: 3fr 3fr 3fr;
-  /* justify-self: stretch; */
 }
-/* .member-cnt-input{
-  border: none !important;
-  width: 18vw;
-} */
+
 
 .member-cnt-btn {
   background-color: transparent;
   border: none;
-
-  /* font-size: 40px; */
-
 }
 
 

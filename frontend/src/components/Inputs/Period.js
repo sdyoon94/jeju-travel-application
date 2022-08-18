@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { TextField } from "@mui/material";
-// import MenuItem from "@mui/material/MenuItem";
-// import { styled } from "@mui/material/styles";
 import "globalStyle.css";
 import "./Period.css";
 
@@ -9,9 +7,6 @@ import "./Period.css";
 function Period(props) {
   const [show, setShow] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
-
-  // let alertMessage = "";
-
   const bak = props.inputValues.periodInDays;
   const il = () => {
     if (props.inputValues.periodInDays) {
@@ -106,12 +101,6 @@ function Period(props) {
             일
           </label>
         </div>
-
-        {/* <div className="period-body2">
-          <p className="body2-ment">
-            추후에 동행자와 함께<br></br> 날짜를 정할 수 있습니다.
-          </p>
-        </div> */}
       </div>
     </div>
   );

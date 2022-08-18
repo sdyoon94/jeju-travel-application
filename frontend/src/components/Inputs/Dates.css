@@ -3,13 +3,9 @@
   grid-template-rows: 4fr 7fr;
   height:100%;
   justify-content: stretch;
-  /* gap: 3rem; */
   
 }
 
-/* #standard-number {
-  background-color:  rgba(217, 217, 217, 1) !important;
-} */
 
 /****** header ******/
 .dates-header {
@@ -27,7 +23,6 @@
   display:grid;
   justify-content: stretch;
   align-items: center;
-  /* border : 2px solid gray; */
 }
 
 .adates-body > div {
@@ -41,32 +36,8 @@
 
 .adates-body div {
   font-size: 2.6vw;
-  /* font-size : 1.2vh;
-  justify-self: stretch;
-  justify-content: center; */
-}
-/* .dates-input {
-  display: grid;
-  grid-row: 2/3;
-  align-self: end; 
-  font-size: 25px;
-  font-weight: 700;
-  color:rgba(30, 136, 229, 1);
-  width:50vw;
-  line-height: 5vh;
 }
 
 
-
-
-.dates-input-body {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  justify-self: center;
-  font-size: 25px;
-  font-weight: 700;
-  color:black;
-
-} */
 
 

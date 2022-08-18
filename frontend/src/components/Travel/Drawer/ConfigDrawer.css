@@ -23,18 +23,9 @@ div header {
 
 
 .travel-drawer p {
-    /* line-height: 4vw;     */
     text-align: center;
     margin-block-end: 1vh;
     margin-block-start: 1.5vh;
     
 
 }
-
-/* .travel-drawer hr{
-    border: 1px solid black;
-    margin-block-start: 10px !important;
-    margin-block-end: 0.1em;
-    margin-inline-start: 2px;
-    margin-inline-end: 2px;
-} */

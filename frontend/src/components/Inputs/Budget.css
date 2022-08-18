@@ -26,10 +26,6 @@
   display: grid;
   width:60vw;
   grid-template-columns: 5fr 2fr;
-  /* font-weight: 700;
-  color:rgba(30, 136, 229, 1);
-  width:50vw;
-  line-height: 5vh; */
 }
 
 
@@ -58,15 +54,3 @@
   color: #000000;
 
 }
-
-/* .warning {
-  position: absolute;
-  z-index:1;
-  top: 52vh;
-  font-size: 10px;
-  font-family: 'Inter';
-  font-style: italic;
-  font-weight: 700;
-  line-height: 30px;
-  color:rgb(190, 11, 11)
-} */

@@ -15,9 +15,7 @@
 
 .style-body {
   display:grid;
-  /* grid-template-rows: 1fr 11fr; */
   justify-content: center;
-  /* justify-items: center; */
   align-items: center;
   align-content: center;
   grid-gap: 10vw;
@@ -29,7 +27,6 @@
   grid-template-columns: 1fr 1fr;
   justify-items: start;
   width: 70vw;
-  /* grid-auto-columns: minmax(50,100); */
 }
 
 div.style-select-btns button {
@@ -39,19 +36,15 @@ div.style-select-btns button {
   width: 28vw;
   height: 40px;
   border-radius: 10px;
-  /* border-color : linear-gradient(40deg, rgb(199, 121, 208),  rgb(75, 192, 200),  #2b3074); */
 }
 
 .style-icon {
-  /* height: 20px;
-  width: 20px; */
   border: none;
   align-self:center;
 }
 
 button span {
   align-self:center;
-  /* font-size: 3vw; */
   font-family: 'JejuGothic';
   font-style: normal;
   font-weight: 400;

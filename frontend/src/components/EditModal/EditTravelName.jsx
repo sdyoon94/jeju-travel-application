@@ -5,18 +5,7 @@ import "./EditTravelName.css";
 
 // 여행 경비 입력
 function TravelName({inputValues,setInputValues}) {
-  // const [show, setShow] = useState(false);
-
-  // const handleChange = (event) => {
-  //   if (0 <= event.target.value && event.target.value <= 9999) {
-  //     props.setInputValues(["title", event.target.value]);
-  //     setShow(false);
-  //   } else if (event.target.value >= 10000) {
-  //     props.setInputValues(["title", "9999"]);
-  //     setShow(true);
-  //   }
-  // };
-
+  
   const handleChange = (event) => {
     setInputValues(['tripName',event.target.value])
   }
@@ -49,9 +38,6 @@ function TravelName({inputValues,setInputValues}) {
             }}
             inputProps={{ maxLength: 10, minLength: 1}}
             />
-            {/* <label className="input-label" htmlFor="number-duration">
-              만원
-            </label> */}
         </div>
       </div>
     </div>

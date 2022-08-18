@@ -14,23 +14,17 @@ import Place from "./Place";
 const grid = 6;
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: "none",
-  // padding: grid,
   paddingBottom: "1vh",
   margin: isDragging ? `0 0 ${grid}px 0` : "0px",
-  // background: isDragging ? "rgba(0, 0, 0, 0.25)" : "white",
   ...draggableStyle,
 });
 const getListStyle = () => ({
-  // padding: grid,
   width: "80vw",
   position: "relative",
   margin: "auto",
 });
 
 const queryAttr = "data-rbd-drag-handle-draggable-id";
-
-// const VEHICLE_CAR = "car"
-// const VEHICLE_TRANSIT = "walk"
 
 function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
   const navigate = useNavigate();
@@ -51,7 +45,6 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
   const setPlaceholderProps = useState({})[1];
   const [hold, setHold] = useState(false);
 
-  // schedules 혹은 vehicle이 변경되었을 때 경로를 다시 탐색
   useEffect(() => {
     const fetchData = async ({ index, route, vehicle }) => {
       let startTime = convert(travel.schedules[scheduleIdx][0].stayTime);
@@ -107,7 +100,6 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
       vehicle,
     });
 
-    // eslint-disable-next-line
   }, [travel.schedules[scheduleIdx], vehicle]);
 
   useEffect(() => {
@@ -129,7 +121,6 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
       }
       setStartTimes(startTimes_);
     }
-    // eslint-disable-next-line
   }, [timeReqs]);
 
   useEffect(() => {
@@ -193,8 +184,6 @@ function Schedule({ day, travel, scheduleIdx, setSchedule, vehicle }) {
         );
       }
     );
-
-    // setRoute(route => reorder(route, result.source.index, result.destination.index))
   };
 
   const onDragUpdate = (update) => {

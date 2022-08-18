@@ -34,7 +34,6 @@ function Vehicle({ inputValues, setInputValues }) {
   
   const setButton = (myName) => {
     return {
-      // border: inputValues.vehicle[i] ? "2px solid #1565C0" :"2px solid #8C8C8C",
       color: isSelected(myName)
     };
   };

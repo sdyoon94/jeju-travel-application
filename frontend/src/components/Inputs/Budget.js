@@ -35,7 +35,6 @@ function Budget(props) {
               name="bak"
               type="number"
               value={props.inputValues.budget}
-              // inputProps={{ minDuration, maxDuration }}
               onChange={handleChange}
               variant="standard"
               InputProps={{style:{fontSize: 20, textAlign: "center"}}}

@@ -274,15 +274,11 @@ function ConfigDrawer({ travel, setTravel }) {
   const handleClose = (formName) => {
     //재추천-취소
     if (formName === "rerecommend") {
-      console.log("변경실행");
       socketInfoSubmit();
-      // alert("여행 정보가 변경 되었습니다");
     }
 
     if (formName === "fix") {
-      console.log("변경실행");
       socketInfoSubmit();
-      // alert("그냥 정보만 변경 되었음");
     }
 
     setOpen({
@@ -292,7 +288,7 @@ function ConfigDrawer({ travel, setTravel }) {
 
     revoke();
 
-    // !!!!!!!! Drawer의 state 초기화 시켜주기 (수정중 취소를 누르고 다시 들어오면 변경중이던 데이터가 남아있음)
+    //Drawer의 state 초기화 시켜주기
     setInfo(initialInfo);
   };
 
@@ -315,10 +311,8 @@ function ConfigDrawer({ travel, setTravel }) {
     }
     
     if (name === "fix") {
-      // console.log("재주천");
       /// 재추천 요청
       editInfoDirect()
-      // setNewRecommend(true)
       setOpen({
         ...open,
         [name]: false,
@@ -327,10 +321,6 @@ function ConfigDrawer({ travel, setTravel }) {
     }
 
     if (name === "exit") {
-      // socket.emit("여행탈퇴", (response)=>{
-      //   if (response.status === "ok"){
-      //   }
-      // })
       exitTravel()
       setOpen({
         ...open,
@@ -340,12 +330,11 @@ function ConfigDrawer({ travel, setTravel }) {
       return;
     }
 
-    // 실제로 변경 된 값이 있는지 판단 => 변경 값없으면 걍 꺼줌
+    // 실제로 변경 된 값이 있는지 판단
     if (JSON.stringify(initialInfo[name]) === JSON.stringify(info[name])) {
       console.log("그냥꺼짐");
       handleClose(name);
     } else {
-      // style/budget의 경우 재추천 물어보기
       if (name === "budget" || name === "style") {
         setOpen({
           ...open,
@@ -358,11 +347,9 @@ function ConfigDrawer({ travel, setTravel }) {
         handleClose(name);
       }
     }
-
-    // style/budget/fix 창에서 확인 클릭시 자기는 닫고 재추천 모달 열기
   };
 
-  // 모달 버튼 이름 바꿔주기
+  // 모달 버튼 이름 변경 함수
   const buttonName = (name) => {
     if (name === "exit") {
       return "삭제하기";
@@ -411,7 +398,7 @@ function ConfigDrawer({ travel, setTravel }) {
           여행 스타일 수정{" "}
         </p>
         {/* <p className="content-size content-weight" onClick={()=>{handleClickOpen("budget")}}> 여행경비변경 </p> */}
-        <p
+        {/* <p
           className="content-size content-weight"
           onClick={() => {
             handleClickOpen("vehicle");
@@ -419,7 +406,7 @@ function ConfigDrawer({ travel, setTravel }) {
         >
           {" "}
           이동수단 변경{" "}
-        </p>
+        </p> */}
         {/* <p className="content-size content-weight" onClick={()=>{handleClickOpen("fix")}} > 여행지 고정  </p> */}
         <p
           className="content-size content-weight red"
