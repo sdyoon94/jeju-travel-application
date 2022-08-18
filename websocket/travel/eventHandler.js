@@ -20,7 +20,7 @@ import {
   createSchedule,
   deleteSchedule,
 } from "./stateManager.js";
-import { fetchNewRecommend } from "./api/recommendTravel";
+import { fetchNewRecommend } from "./api/recommendTravel.js";
 import { fetchTravel } from "./api/fetchTravel.js";
 
 const CALLBACK_RESPONSE = {
@@ -386,6 +386,7 @@ const EVENTS = {
       eventName,
       fixedSpots
     ) => {
+      const room = travelId;
       const id = socket.data.id;
       const token = socket.data.token;
       let isGranted = false;
@@ -420,6 +421,7 @@ const EVENTS = {
           }
         );
       } catch (err) {
+        console.log(err)
         eventEmitter(
           { socket, namespace, room },
           CAST_TYPES.BROADCAST_SERVER,
