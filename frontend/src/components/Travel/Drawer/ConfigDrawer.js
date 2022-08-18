@@ -22,6 +22,7 @@ import "./ConfigDrawer.css";
 import "globalStyle.css";
 import "components/EditModal/ModalCommon.css";
 import {setTravelInfo} from "store/modules/travelSlice"
+import {changeTravelList} from "store/modules/travelListSlice"
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -31,7 +32,6 @@ function ConfigDrawer({ travel, setTravel }) {
 
   const toggleDrawer = () => {
     setIsDrawerOpened(true);
-    console.log(travel.info);
     // socket.emit("grant travelinfo authority",()=>);
   };
   const closeDrawer = () => {
@@ -186,9 +186,9 @@ function ConfigDrawer({ travel, setTravel }) {
       style: info.style.join(""),
     };
     socket.emit("put travel info", data, (response) => {
-      console.log(data)
       if (response.status === "ok") {
         dispatch(setTravelInfo(data))
+        dispatch(changeTravelList(data)) // TravelList
         alert("여행정보가 변경되었습니다");
       } else if (response.status === "bad") {
         alert("여행정보변경에 실패했습니다 다시 시도해주세요");

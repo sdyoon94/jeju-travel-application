@@ -28,7 +28,21 @@ export const getTravelInfo = createAsyncThunk(
 const travelListSlice = createSlice({
   name: 'travelList',
   initialState,
-  reducers: {},
+  reducers: {
+    changeTravelList(state,{ payload }){
+      const targetId = payload.tripId
+      const targetIndex = state.travelList.findIndex((elem)=>{
+        if(elem.tripId === targetId) {
+          return true
+        }
+      })
+      console.log(targetId,targetIndex)
+      console.log(state)
+      console.log(state.travelList)
+      console.log(payload)
+      state.travelList[targetIndex] = payload
+    },
+  },
   extraReducers: (builder) => {
     builder
     .addCase(getTravelInfo.fulfilled, (state, { payload }) => {
@@ -39,5 +53,5 @@ const travelListSlice = createSlice({
 })
 
 const { actions, reducer } = travelListSlice
-export const { createPost } = actions
+export const { createPost, changeTravelList} = actions
 export default reducer
