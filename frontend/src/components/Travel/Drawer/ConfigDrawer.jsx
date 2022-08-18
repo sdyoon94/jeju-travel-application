@@ -131,6 +131,22 @@ function ConfigDrawer({ travel, setTravel }) {
     }
 
   }
+  // 다이렉트 여행 나가기
+  const exitTravel = async()=>{
+    try {
+      await axios({
+        method : "delete",
+        url : `https://i7a609.p.ssafy.io/api/v1/trip/user/${travelId}`,
+        headers:{
+          Authorization: `Bearer ${token}`
+        },
+      })
+      alert("여행이 삭제되었습니다")
+    }
+    catch (err) {
+      alert("오류가 발생 했습니다 다시 시도 해주세요")
+    }
+  }
 
   // form 들로부터 올라온 변경값 저장
   const editInfo = (params) => {
@@ -311,11 +327,11 @@ function ConfigDrawer({ travel, setTravel }) {
     }
 
     if (name === "exit") {
-      socket.emit("여행탈퇴", (response)=>{
-        if (response.status === "ok"){
-          /////////
-        }
-      })
+      // socket.emit("여행탈퇴", (response)=>{
+      //   if (response.status === "ok"){
+      //   }
+      // })
+      exitTravel()
       setOpen({
         ...open,
         [name]: false,
