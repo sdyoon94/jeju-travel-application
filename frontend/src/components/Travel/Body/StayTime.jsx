@@ -38,7 +38,6 @@ function StayTime({ travel, placeIdx, scheduleIdx, ...rest }) {
           );
         }
         setStartTime(value);
-        socket.emit("revoke ")
       }
       socket.emit(
         "revoke schedules authority",

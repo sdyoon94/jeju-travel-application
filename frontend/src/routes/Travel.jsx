@@ -113,6 +113,10 @@ function Travel({ params }) {
 				if (err === 403) {
 					setError(403);
 				}
+				socket.emit(
+					"revoke all authority",
+					(_) => {}
+				);
 			})
 
 			socket.on("delete schedule", ({ day, turn }) => {
