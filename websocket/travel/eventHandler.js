@@ -207,7 +207,7 @@ const EVENTS = {
   CREATE_SCHEDULE_EVENT: {
     eventName: "create schedule",
     call: (socket, namespace, travelId, roomTable, eventName,
-        { day, placeUid, placeName, lat, lng }, callback) => {
+        { day, spots }, callback) => {
       if (!typeCheck(TYPE_FUNCTION, callback)) {
         return
       }
@@ -217,7 +217,7 @@ const EVENTS = {
           id: socket.data.id, 
           day 
         })
-        createSchedule(travelId, roomTable, { day, placeUid, placeName, lat, lng })
+        createSchedule( travelId, roomTable, { day, spots })
         callback(CALLBACK_RESPONSE.OK)
         eventEmitter({ socket, namespace, room },
           CAST_TYPES.BROADCAST_CLIENT, eventName,

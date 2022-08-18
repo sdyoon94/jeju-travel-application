@@ -2,8 +2,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { deleteSpot } from "store/modules/selectedSpotsSlice"
 
 
-function SelectedSpots() {
-  const selected = useSelector(state => state.selectedSpots)
+function SelectedSpots({ selectedSpots }) {
   const dispatch = useDispatch()
 
   const handleDelete = (e) => {
@@ -13,7 +12,7 @@ function SelectedSpots() {
 
   return(
     <div className="selected-box">
-      {selected.map(place => 
+      {selectedSpots.map(place => 
         <div key={place.placeUid} className="inline-block">
           <span className="subcontent-size">{place.placeName} 
             <span id={place.placeUid} onClick={handleDelete} style={{cursor: "pointer"}}> X</span>

@@ -17,7 +17,7 @@ const updateTravelInfo = async (travelId, roomTable, token) => {
   const travelInfo = roomTable[travelId].travelInfo
   const { startDate, style, tripName, vehicle } = travelInfo
 
-  logApiInfo("create schedule", 
+  logApiInfo("update travel info", 
     { key: "startDate", value: startDate },
     { key: "style", value: style },
     { key: "tripName", value: tripName },

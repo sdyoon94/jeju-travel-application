@@ -10,6 +10,7 @@ const reorder = (list, startIndex, endIndex) => {
 
 const initialState = {
   socket: null,
+  presentTravelId: -1,
 };
 
 const socketSlice = createSlice({
@@ -30,6 +31,7 @@ const socketSlice = createSlice({
       // wss://i7a609.p.ssafy.io/travel
       const socket = io("wss://i7a609.p.ssafy.io/travel", data);
       state.socket = socket
+      state.travelId = travelId
       socket.on("connect", () => {
         console.log("connected")
       })

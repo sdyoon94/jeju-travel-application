@@ -375,25 +375,29 @@ const swapSchedule = (travelId, roomTable, { day, turn1, turn2 }) => {
 
 // CREATE_SCHEDULE
 const createSchedule = (travelId, roomTable,
-    { day, placeUid, placeName, lat, lng }) => {
+    { day, spots }) => {
   if (!checkDay(travelId, roomTable, day)) {
     throw INPUT_ERRORS.RANGE_ERROR_DAY
   }
 
   const scheduleList = roomTable[travelId].schedules[day]
-  if (scheduleList.length === 0) {
+  const len = scheduleList.length
+  if (len <= 0) {
     throw INPUT_ERRORS.RANGE_ERROR_TURN
   }
 
-  const len = scheduleList.push({
-    placeUid,
-    placeName,
-    lat,
-    lng,
-    status: DATA_STATUSES.CREATED
+  spots.forEach(({placeUid, placeName, lat, lng}) => {
+    scheduleList.push({
+      placeUid,
+      placeName, 
+      lat, 
+      lng, 
+      stayTime: 0,
+      status: DATA_STATUSES.CREATED
+    })
   })
 
-  swap(scheduleList, len-1, len-2)
+  swap(scheduleList, len-1, scheduleList.length-1)
 
   logger.info(logMsgBuilder("create schedule", roomTable[travelId].schedules[day]))
 }

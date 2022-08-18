@@ -14,7 +14,8 @@ import {
 	setSchedule,
 	deleteSchedule,
 	swapSchedule,
-	editStayTime
+	editStayTime,
+	setIsLoaded
 } from "store/modules/travelSlice";
 import { initSocket } from "store/modules/socketSlice";
 import "./Travel.css";
@@ -29,82 +30,20 @@ function Travel({ params }) {
 	const dispatch = useDispatch();
 
 	const [error, setError] = useState(null);
-	const [isLoaded, setIsLoaded] = useState(false);
-	// const [scheduleIdx, setScheduleIdx] = useState(0)
 
 	// get travel
 	const travel = useSelector((state) => state.travel);
 	const auth = useSelector((state) => state.auth);
-
-	// useEffect(() => {
-	// 	const buildTravelInfoConfig = (travelId) => ({
-	// 		method: "get",
-	// 		url: api.travel.createTravelInfoUrl(travelId),
-	// 		headers: {
-	// 			Authorization: `Bearer ${token}`
-	// 		}
-	// 	})
-
-	// 	const buildTravelScheduleConfig = (travelId, day) => ({
-	// 		method: "get",
-	// 		url: api.travel.createTravelScheduleUrl(travelId, day),
-	// 		headers: {
-	// 			Authorization: `Bearer ${token}`
-	// 		}
-	// 	})
-
-	// 	const fetchData = async (travelId) => {
-	// 		const response = await axios(buildTravelInfoConfig(travelId))
-
-	// 		if (response.status === 200) {
-	// 			setError(false)
-	// 			const info = response.data.tripInfo
-
-	// 			const { periodInDays } = info
-	// 			// dispatch(setTravelInfo(info))
-	// 			dispatch(initSchedule({ payload: periodInDays }))
-
-	// 			dispatch(initDirection(periodInDays))
-
-	// 			for (let day = 0; day < periodInDays; day++) {
-	// 				const response = await axios(buildTravelScheduleConfig(travelId, day))
-
-	// 				if (response.status === 200) {
-	// 					const schedule = response.data["일자별 Schedule List"]
-
-	// 					schedule.forEach(place => {
-	// 						if (!place.stayTime) {
-	// 							place.stayTime = 60
-	// 						}
-	// 					})
-
-	// 					// dispatch(setSchedule({ scheduleIdx: day, schedule }))
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-
-	// 	const updateState = async (travelId) => {
-	// 		try {
-	// 			const _ = await fetchData(travelId)
-	// 			setIsLoaded(true)
-	// 		}
-	// 		catch (err) {
-	// 			setError(err.response.status)
-	// 		}
-	// 	}
-	// 	updateState(travelId)
-	// 	// eslint-disable-next-line
-	// }, [])
-
 	const socket = useSelector((state) => state.socket.socket);
+	const presentTravelId = useSelector((state) => state.socket.presentTravelId)
+	const isLoaded = useSelector((state) => state.travel.isLoaded);
 
 	useEffect(() => {
 		if (socket) {
 			socket.on("get travel", (data) => {
 				dispatch(setTravelInfo(data.travel.travelInfo));
 				dispatch(initSchedule(data.travel.schedules));
-				setIsLoaded(true);
+				dispatch(setIsLoaded(true));
 				setError(false);
 			});
 
@@ -144,26 +83,13 @@ function Travel({ params }) {
 
 	const connectSocket = () => {
 		dispatch(initSocket(travelId));
-
-		// socket.on("get travel", (data) => {
-		// 	dispatch(setTravelInfo(data.travel.travelInfo));
-		// 	dispatch(setSchedule(data.travel.schedules));
-		// 	setIsLoaded(true);
-		// 	setError(false)
-		// });
-
-		// socket.on("error", (err) => {
-		// 	console.log(err, "err")
-		// 	if (err === 403) {
-		// 		setError(403)
-		// 	}
-		// })
 	};
  
 	useEffect(() => {
-		connectSocket();
-		console.log("socket...please");
-	}, []);
+		if (!socket || presentTravelId !== travelId) {
+			connectSocket();
+		}
+	}, [  ]);
 
 	return (
 		<>

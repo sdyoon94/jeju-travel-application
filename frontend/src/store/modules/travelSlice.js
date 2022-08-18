@@ -30,6 +30,7 @@ const initialState = {
 		member: []
 	},
 	schedules: [],
+	isLoaded: false,
 	error: null
 }
 
@@ -68,6 +69,9 @@ const travelSlice = createSlice({
 		},
 		addSchedule(state, { payload: { dayId, selectedSpots} }) {
 			state.schedules[dayId].push(...selectedSpots)
+		},
+		setIsLoaded(state, { payload }) {
+			state.isLoaded = payload
 		}
 	},
 	// extraReducers: (builder) => {
@@ -84,5 +88,5 @@ const travelSlice = createSlice({
 
 const { actions, reducer } = travelSlice
 
-export const { editStartTime, editStayTime, setTravel, setTravelInfo, initSchedule, setSchedule, swapSchedule, deleteSchedule, addSchedule } = actions
+export const { editStartTime, editStayTime, setTravel, setTravelInfo, initSchedule, setSchedule, swapSchedule, deleteSchedule, addSchedule, setIsLoaded } = actions
 export default reducer

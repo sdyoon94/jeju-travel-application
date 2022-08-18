@@ -295,9 +295,10 @@ const travelBuilder = (io, nsp) => {
     // create schedule 이벤트 핸들러
     socket.on(
       EVENTS.CREATE_SCHEDULE_EVENT.eventName,
-      ({ day, placeUid, placeName, lat, lng }, callback) => {
+      ({ day, spots }, callback) => {
         const travelId = socket.data.travelId;
-        const arg = { day, placeUid, placeName, lat, lng };
+        // placeUid, placeName, lat, lng
+        const arg = { day, spots };
         EVENTS.CREATE_SCHEDULE_EVENT.call(
           socket,
           namespace,
