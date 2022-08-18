@@ -83,7 +83,7 @@
 
 - 카카오톡을 이용하여 회원가입 및 로그인을 진행할 수 있습니다.
 
-![Untitled](README-images/login.png)
+![login](README-images/login.png)
 
 ### 메인화면
 
@@ -91,10 +91,11 @@
 - 현재 참여중인 여행이 없을 경우 여행 명언이 표시됩니다.
 - “제주도로 떠나기” 혹은 “제주도로 또 가기” 버튼을 눌러 여행을 생성할 수 있습니다.
 
-![Untitled](README-images/home1.png)
+![home1](README-images/home1.png)
 
-![Untitled](README-images/home2.png)
+![home2](README-images/home2.png)
 
 ### 여행 생성
 
 - 동행자, 여행 기간, 여행 스타일, 전체 일정 시작 시간과 끝나는 시간을 작성합니다.
+![inputs](/uploads/0393c5150d59db291f13645e30e64bb5/inputs.gif)
