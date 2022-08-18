@@ -10,15 +10,16 @@ import { getTravelInfo } from "store/modules/travelListSlice"
 function TravelList() {
   const dispatch = useDispatch()
   const socket = useSelector((state => state.socket.socket))
-
-  useEffect(() => {
-    if (!socket){
-      dispatch(getTravelInfo())
-    }
-  }, [])
-
   const travels = useSelector((state => state.travelList.travelList))
   const nickName = useSelector((state => state.auth.nickname)) || sessionStorage.getItem("nickname")
+
+  useEffect(() => {
+    if (!socket || !travels.length){
+      dispatch(getTravelInfo())
+    }
+  
+  }, [])
+
   return (
     <>
       {travels.length 
