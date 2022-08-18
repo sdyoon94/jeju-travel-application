@@ -117,7 +117,7 @@ function PlaceSearch() {
   
 
   return (
-    <>
+    <div className="place-search">
       <Header style={{ margin: "3vh 4vw"}} />
       <div className="text-center">
         <img className="search-icon" alt="searchIcon" src="/icons/searchIcon.png" />
@@ -151,7 +151,7 @@ function PlaceSearch() {
           <RecommendList />
         </div>
       }
-    </>
+    </div>
   )
 }
 
