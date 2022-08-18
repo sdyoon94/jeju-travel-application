@@ -5,6 +5,7 @@ import "./ScheduleFix.css"
 import axios from "axios"
 import { useParams } from "react-router-dom"
 
+
 function ScheduleFix({ newRecommend }) {
   console.log("newRecommend", newRecommend)
   const { travelId } = useParams()
@@ -48,19 +49,23 @@ function ScheduleFix({ newRecommend }) {
 
   const token = useSelector(state => state.auth.token)
 
-  const fetchNewRecommend = async() => {
-		console.log(fixedSpots)
-    const response = await(axios({
-      method: "post",
-      url: `https://i7a609.p.ssafy.io/api/v1/schedule/recommend/${travelId}`,
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      data: fixedSpots
+  // const fetchNewRecommend = async() => {
+	// 	console.log(fixedSpots)
+  //   const response = await(axios({
+  //     method: "post",
+  //     url: `https://i7a609.p.ssafy.io/api/v1/schedule/recommend/${travelId}`,
+  //     headers: {
+  //       Authorization: `Bearer ${token}`
+  //     },
+  //     data: fixedSpots
     
-    }))
-    console.log("재추천 받은 여행", response.data)
-  }
+  //   }))
+  //   console.log("재추천 받은 여행", response.data)
+  // }
+	const socket = useSelector((state) => state.socket.socket)
+	const fetchNewRecommend = () => {
+		socket.emit("recommend", fixedSpots)
+	}
 
   useEffect(() => {
 		if (newRecommend) {

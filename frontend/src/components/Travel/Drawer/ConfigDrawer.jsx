@@ -275,14 +275,13 @@ function ConfigDrawer({ travel, setTravel }) {
     }
     
     if (name === "fix") {
-      console.log("재주천");
+      // console.log("재주천");
       /// 재추천 요청
       setNewRecommend(true)
       setOpen({
         ...open,
         [name]: false,
       });
-      // 재추천 EMIT ㄲ////////////////////!!!!!!!!!
       return;
     }
 
