@@ -12,6 +12,11 @@ import api from "api"
 import "./placesearch.css"
 
 function PlaceSearch() {
+  function setScreenSize() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  }
+
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [spotSearch, setSpotSearch] = useState("")
@@ -23,6 +28,10 @@ function PlaceSearch() {
     const response = await axios.get(api.place.searchUrl(query))
     setresultLst(response.data.findPlaces)
   }
+
+  useEffect(() => {
+    setScreenSize()
+  },[spotSearch])
 
   const handleSpotChange = (e) => {
     setSpotSearch(e.target.value)
@@ -103,11 +112,12 @@ function PlaceSearch() {
     if (!socket) {
       navigate(`/travel/${travelId}`)
     }
+  // eslint-disable-next-line
   }, [socket])
   
 
   return (
-    <>
+    <div className="place-search">
       <Header style={{ margin: "3vh 4vw"}} />
       <div className="text-center">
         <img className="search-icon" alt="searchIcon" src="/icons/searchIcon.png" />
@@ -141,7 +151,7 @@ function PlaceSearch() {
           <RecommendList />
         </div>
       }
-    </>
+    </div>
   )
 }
 

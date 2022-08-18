@@ -1,7 +1,7 @@
 import { Drawer } from "@mui/material";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
+import axios from "axios"
 import { ReactComponent as Settings } from "assets/settings.svg";
 
 import Dialog from "@mui/material/Dialog";
@@ -22,7 +22,8 @@ import "./ConfigDrawer.css";
 import "globalStyle.css";
 import "components/EditModal/ModalCommon.css";
 import {setTravelInfo} from "store/modules/travelSlice"
-import { useNavigate } from "react-router-dom";
+import {changeTravelList} from "store/modules/travelListSlice"
+import { useNavigate, useParams} from "react-router-dom";
 import { useEffect } from "react";
 
 function ConfigDrawer({ travel, setTravel }) {
@@ -31,7 +32,6 @@ function ConfigDrawer({ travel, setTravel }) {
 
   const toggleDrawer = () => {
     setIsDrawerOpened(true);
-    console.log(travel.info);
     // socket.emit("grant travelinfo authority",()=>);
   };
   const closeDrawer = () => {
@@ -104,7 +104,33 @@ function ConfigDrawer({ travel, setTravel }) {
     }) 
   },[travel.info])
 
+  /// 다이렉트 여행정보 수정 axios function
+  const token = useSelector(state => state.auth.token)
+  const { travelId } = useParams()
+  const editInfoDirect = async() =>{
+    const data = {
+      ...info,
+      startDate: format(info.range[0].startDate, "yyyy-MM-dd"),
+      style: info.style.join(""),
+    };
+    
+    try {
+      await axios({
+        method: "put",
+        url: `https://i7a609.p.ssafy.io/api/v1/trip/update/${travelId}`,
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        data: data
+      })
+      setNewRecommend(true)
+      return 
+    }
+    catch (err) {
+      alert("오류가 발생했습니다 잠시 후 다시 시도해주세요")
+    }
 
+  }
 
   // form 들로부터 올라온 변경값 저장
   const editInfo = (params) => {
@@ -186,9 +212,9 @@ function ConfigDrawer({ travel, setTravel }) {
       style: info.style.join(""),
     };
     socket.emit("put travel info", data, (response) => {
-      console.log(data)
       if (response.status === "ok") {
         dispatch(setTravelInfo(data))
+        dispatch(changeTravelList(data)) // TravelList
         alert("여행정보가 변경되었습니다");
       } else if (response.status === "bad") {
         alert("여행정보변경에 실패했습니다 다시 시도해주세요");
@@ -259,8 +285,6 @@ function ConfigDrawer({ travel, setTravel }) {
   // 나가기상황 ===> 소켓접근 권한 제거, 남은 인원이 한명 일 때는 버튼 이름 여행삭제 (?????????????????)
   // 재추천상황 ===> 재추천요청
   // 나머지 ===>  수정요청
-
-
   const handleConfirm = (name) => {
     //재추천일 때
     if (name === "rerecommend") {
@@ -275,14 +299,14 @@ function ConfigDrawer({ travel, setTravel }) {
     }
     
     if (name === "fix") {
-      console.log("재주천");
+      // console.log("재주천");
       /// 재추천 요청
-      setNewRecommend(true)
+      editInfoDirect()
+      // setNewRecommend(true)
       setOpen({
         ...open,
         [name]: false,
       });
-      // 재추천 EMIT ㄲ////////////////////!!!!!!!!!
       return;
     }
 

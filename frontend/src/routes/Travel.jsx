@@ -15,7 +15,8 @@ import {
 	deleteSchedule,
 	swapSchedule,
 	editStayTime,
-	setIsLoaded
+	setIsLoaded,
+	createSchedule
 } from "store/modules/travelSlice";
 import { initSocket } from "store/modules/socketSlice";
 import "./Travel.css";
@@ -76,6 +77,27 @@ function Travel({ params }) {
 			})
 			socket.on("put travel info ", (response) => {
 				dispatch(setTravelInfo(response))
+			})
+			socket.on("create schedule", (response)=>{
+				const day = response.day
+				const spots = response.spots
+				dispatch(createSchedule({ day, spots }))
+			})
+			socket.on("recommend", ({status,travel}) => {
+				switch (status) {
+					case "in process":
+						dispatch(setIsLoaded(false))
+						break
+					case 'complete':
+						dispatch(setIsLoaded(true))
+						dispatch(setTravelInfo(travel.info))
+						dispatch(initSchedule(travel.schedules))
+						break
+					case 'fail':
+						dispatch(setIsLoaded(true))
+						alert("서버가 불안정 합니다 새로고침 후 다시 이용해주세요")
+						break
+				}
 			})
 		}
 	}, [ socket ])

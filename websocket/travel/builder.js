@@ -7,12 +7,14 @@ import {
   pushSocket,
   popSocket,
   revokeAllAuthorities,
+  grantAllAuthorities,
 } from "./stateManager.js";
 import { createTravelLogger } from "./logger.js";
 import { EVENTS } from "./eventHandler.js";
 import { fetchTravel, fetchTravelInfo } from "./api/fetchTravel.js";
 import { updateAllSchedule, updateTravelInfo } from "./api/updateTravel.js";
 import { logApiError } from "./api/apiLogger.js";
+import { eventEmitter } from "./emitter.js";
 
 const logger = createTravelLogger("namespace");
 
@@ -238,23 +240,20 @@ const travelBuilder = (io, nsp) => {
     );
 
     // revoke all authority 이벤트 핸들러
-    socket.on(
-      EVENTS.REVOKE_ALL_AUTHORITY_EVENT.eventName,
-      (callback) => {
-        const travelId = socket.data.travelId;
-        const id = socket.data.id;
-        const arg = { id }
-        EVENTS.REVOKE_ALL_AUTHORITY_EVENT.call(
-          socket,
-          namespace,
-          travelId,
-          roomTable,
-          EVENTS.REVOKE_ALL_AUTHORITY_EVENT.eventName,
-          arg,
-          callback
-        )
-      }
-    )
+    socket.on(EVENTS.REVOKE_ALL_AUTHORITY_EVENT.eventName, (callback) => {
+      const travelId = socket.data.travelId;
+      const id = socket.data.id;
+      const arg = { id };
+      EVENTS.REVOKE_ALL_AUTHORITY_EVENT.call(
+        socket,
+        namespace,
+        travelId,
+        roomTable,
+        EVENTS.REVOKE_ALL_AUTHORITY_EVENT.eventName,
+        arg,
+        callback
+      );
+    });
 
     // update staytime 이벤트 핸들러
     socket.on(
@@ -298,7 +297,10 @@ const travelBuilder = (io, nsp) => {
       ({ day, spots }, callback) => {
         const travelId = socket.data.travelId;
         // placeUid, placeName, lat, lng
-        const arg = { day, spots };
+        const arg = {
+          day,
+          spots: spots.map((spot) => ({ ...spot, stayTime: 0 })),
+        };
         EVENTS.CREATE_SCHEDULE_EVENT.call(
           socket,
           namespace,
@@ -346,6 +348,19 @@ const travelBuilder = (io, nsp) => {
         );
       }
     );
+
+    socket.on(EVENTS.RECOMMEND_EVENT.eventName, async (fixedSpots) => {
+      const travelId = socket.data.travelId;
+
+      EVENTS.RECOMMEND_EVENT.call(
+        socket,
+        namespace,
+        travelId,
+        roomTable,
+        EVENTS.RECOMMEND_EVENT.eventName,
+        fixedSpots
+      );
+    });
   });
 };
 

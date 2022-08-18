@@ -1,11 +1,10 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Header from "components/Header/Header"
 import DaumPostcodeEmbed from 'react-daum-postcode'
 import axios from "axios"
 import "./AddressInput.css"
 import { useNavigate, useParams } from "react-router-dom"
-import { useSelector } from "react-redux"
-import { useDispatch } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { addSchedule } from "store/modules/travelSlice"
 
 const KAKAO_HOST = "https://dapi.kakao.com"
@@ -13,10 +12,16 @@ const REST_API = "d6be80d86882188a8c483752bb1c2070"
 
 
 function AddressInput() {
+  function setScreenSize() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  }
+
+  
   const socket = useSelector((state) => state.socket.socket)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
+  
   const [inputAddress, setInputAddress] = useState("")
   const [addressName, setAddressName] = useState("")
   const { travelId, dayId } = useParams()
@@ -24,6 +29,10 @@ function AddressInput() {
     lat: "",
     lng: ""
   })
+  
+  useEffect(() => {
+    setScreenSize()
+  },[inputAddress])
 
   const fetchXY = async(fullAddress) => {
     const response = await axios({
