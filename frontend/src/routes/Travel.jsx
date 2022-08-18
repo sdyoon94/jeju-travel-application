@@ -90,7 +90,7 @@ function Travel({ params }) {
 						break
 					case 'complete':
 						dispatch(setIsLoaded(true))
-						dispatch(setTravelInfo(travel.travelInfo))
+						dispatch(setTravelInfo(travel.info))
 						dispatch(initSchedule(travel.schedules))
 						break
 					case 'fail':
