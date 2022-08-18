@@ -7,12 +7,14 @@ import {
   pushSocket,
   popSocket,
   revokeAllAuthorities,
+  grantAllAuthorities,
 } from "./stateManager.js";
 import { createTravelLogger } from "./logger.js";
 import { EVENTS } from "./eventHandler.js";
 import { fetchTravel, fetchTravelInfo } from "./api/fetchTravel.js";
 import { updateAllSchedule, updateTravelInfo } from "./api/updateTravel.js";
 import { logApiError } from "./api/apiLogger.js";
+import { eventEmitter } from "./emitter.js";
 
 const logger = createTravelLogger("namespace");
 
@@ -346,6 +348,19 @@ const travelBuilder = (io, nsp) => {
         );
       }
     );
+
+    socket.on(EVENTS.RECOMMEND_EVENT.eventName, async (fixedSpots) => {
+      const travelId = socket.data.travelId;
+
+      EVENTS.RECOMMEND_EVENT.call(
+        socket,
+        namespace,
+        travelId,
+        roomTable,
+        EVENTS.RECOMMEND_EVENT.eventName,
+        fixedSpots
+      );
+    });
   });
 };
 

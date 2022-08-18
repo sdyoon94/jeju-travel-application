@@ -13,7 +13,10 @@ const fetchNewRecommend = async(travelId, token, fixedSpots) => {
       data: fixedSpots
     }))
 
-    if (response && response.message && response.message.endsWith("success")) {
+    console.log(response.data);
+
+    if (response.data.message && 
+        response.data.message.endsWith("success")) {
       return
     }
     else {
@@ -25,4 +28,4 @@ const fetchNewRecommend = async(travelId, token, fixedSpots) => {
   }
 }
 
-export default { fetchNewRecommend }
+export { fetchNewRecommend }
