@@ -442,9 +442,18 @@ const putTravelInfo = (travelId, roomTable,
     roomTable[travelId].travelInfo.vehicle = vehicle
   }
 
-  const { travelId, tripName, startDate, periodInDays, budget, vehicle, style, member } = roomTable[travelId].travelInfo
+  const { tripName_, startDate_, periodInDays, budget, vehicle_, style_, member } = roomTable[travelId].travelInfo
 
-  return { tripId: travelId, tripName, startDate, periodInDays, budget, vehicle, style, member }
+  return { 
+    tripId: travelId, 
+    tripName: tripName_, 
+    startDate: startDate_, 
+    periodInDays, 
+    budget, 
+    vehicle: vehicle_, 
+    style: style_, 
+    member 
+  }
 }
 
 
