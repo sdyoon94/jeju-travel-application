@@ -78,7 +78,7 @@
 
 - ERD
 
-![ERD.png](README-asset/ERD.png)
+![ERD.jpg](README-asset/ERD.jpg)
 
 [기능명세서.pdf](docs/기능명세서.pdf)
 
