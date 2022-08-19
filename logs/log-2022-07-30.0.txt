@@ -1,0 +1,727 @@
+[INFO ] 01:14:51.108 a609.backend.BackendApplication - Starting BackendApplication using Java 1.8.0_192 on DESKTOP-KVCQHCD with PID 2532 (C:\Users\SSAFY\Desktop\Sub2\S07P12A609\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\Sub2\S07P12A609)
+[INFO ] 01:14:51.111 a609.backend.BackendApplication - The following 1 profile is active: "oauth"
+[INFO ] 01:14:51.156 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[INFO ] 01:14:51.156 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[INFO ] 01:14:52.103 o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[INFO ] 01:14:52.168 o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 49 ms. Found 2 JPA repository interfaces.
+[INFO ] 01:14:52.692 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+[INFO ] 01:14:52.700 o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] 01:14:52.700 o.a.catalina.core.StandardService - Starting service [Tomcat]
+[INFO ] 01:14:52.700 o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.64]
+[INFO ] 01:14:52.778 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[INFO ] 01:14:52.778 o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1622 ms
+[INFO ] 01:14:53.002 org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.9.Final
+[INFO ] 01:14:53.120 o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+[INFO ] 01:14:53.210 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[INFO ] 01:14:53.407 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[INFO ] 01:14:53.417 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+[INFO ] 01:14:54.067 o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[INFO ] 01:14:54.073 o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[WARN ] 01:14:54.579 o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[INFO ] 01:14:54.803 o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2ad02bb6, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@53982ba6, org.springframework.security.web.context.SecurityContextPersistenceFilter@47753758, org.springframework.security.web.header.HeaderWriterFilter@2b43dcc1, org.springframework.web.filter.CorsFilter@4bae1fb5, org.springframework.security.web.authentication.logout.LogoutFilter@1e6c7939, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@227c50da, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@38b680da, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@4da5eea8, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@381b52ad, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@75e3a137, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@43bf7746, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@13bd4383, org.springframework.security.web.session.SessionManagementFilter@3f16fbbd, org.springframework.security.web.access.ExceptionTranslationFilter@15b24343, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1dd8b62d]
+[INFO ] 01:14:55.083 o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[INFO ] 01:14:55.100 o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+[INFO ] 01:14:55.230 o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] 01:14:55.246 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] 01:14:55.459 a609.backend.BackendApplication - Started BackendApplication in 4.898 seconds (JVM running for 5.9)
+[INFO ] 01:15:54.700 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[INFO ] 01:15:54.700 o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[INFO ] 01:15:54.704 o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+[ERROR] 01:16:10.291 o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+java.lang.ClassCastException: java.lang.Long cannot be cast to java.lang.String
+	at a609.backend.service.UserServiceImpl.loadUser(UserServiceImpl.java:53)
+	at org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationProvider.authenticate(OAuth2LoginAuthenticationProvider.java:117)
+	at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:182)
+	at org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter.attemptAuthentication(OAuth2LoginAuthenticationFilter.java:195)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:227)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:217)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter.doFilterInternal(OAuth2AuthorizationRequestRedirectFilter.java:178)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1787)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+[INFO ] 01:18:16.682 a609.backend.BackendApplication - Starting BackendApplication using Java 1.8.0_192 on DESKTOP-KVCQHCD with PID 17312 (C:\Users\SSAFY\Desktop\Sub2\S07P12A609\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\Sub2\S07P12A609)
+[INFO ] 01:18:16.683 a609.backend.BackendApplication - The following 1 profile is active: "oauth"
+[INFO ] 01:18:16.724 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[INFO ] 01:18:16.724 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[INFO ] 01:18:17.591 o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[INFO ] 01:18:17.645 o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 45 ms. Found 2 JPA repository interfaces.
+[INFO ] 01:18:18.185 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+[INFO ] 01:18:18.192 o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] 01:18:18.193 o.a.catalina.core.StandardService - Starting service [Tomcat]
+[INFO ] 01:18:18.193 o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.64]
+[INFO ] 01:18:18.276 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[INFO ] 01:18:18.277 o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1551 ms
+[INFO ] 01:18:18.529 org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.9.Final
+[INFO ] 01:18:18.686 o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+[INFO ] 01:18:18.803 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[INFO ] 01:18:18.973 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[INFO ] 01:18:18.986 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+[INFO ] 01:18:19.660 o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[INFO ] 01:18:19.667 o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[WARN ] 01:18:20.177 o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[INFO ] 01:18:20.423 o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5704b9c6, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@35b62899, org.springframework.security.web.context.SecurityContextPersistenceFilter@49f6923c, org.springframework.security.web.header.HeaderWriterFilter@160ae946, org.springframework.web.filter.CorsFilter@1dea950f, org.springframework.security.web.authentication.logout.LogoutFilter@27ddde52, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@30b28f55, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@703ffe11, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@52431495, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@3f66b40f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2a0a6554, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@678226c7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4ddee0ac, org.springframework.security.web.session.SessionManagementFilter@85833a1, org.springframework.security.web.access.ExceptionTranslationFilter@12c70e1a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4b362f10]
+[INFO ] 01:18:20.694 o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[INFO ] 01:18:20.712 o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+[INFO ] 01:18:20.833 o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] 01:18:20.847 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] 01:18:21.055 a609.backend.BackendApplication - Started BackendApplication in 4.81 seconds (JVM running for 5.719)
+[INFO ] 01:18:29.065 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[INFO ] 01:18:29.065 o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[INFO ] 01:18:29.066 o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+[ERROR] 01:19:15.744 o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+java.lang.ClassCastException: java.lang.Long cannot be cast to java.lang.String
+	at a609.backend.handler.OAuth2AuthenticationSuccessHandler.onAuthenticationSuccess(OAuth2AuthenticationSuccessHandler.java:28)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.successfulAuthentication(AbstractAuthenticationProcessingFilter.java:329)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:237)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:217)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter.doFilterInternal(OAuth2AuthorizationRequestRedirectFilter.java:178)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1787)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+[INFO ] 01:19:44.645 a609.backend.BackendApplication - Starting BackendApplication using Java 1.8.0_192 on DESKTOP-KVCQHCD with PID 16908 (C:\Users\SSAFY\Desktop\Sub2\S07P12A609\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\Sub2\S07P12A609)
+[INFO ] 01:19:44.646 a609.backend.BackendApplication - The following 1 profile is active: "oauth"
+[INFO ] 01:19:44.691 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[INFO ] 01:19:44.691 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[INFO ] 01:19:45.540 o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[INFO ] 01:19:45.601 o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 50 ms. Found 2 JPA repository interfaces.
+[INFO ] 01:19:46.119 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+[INFO ] 01:19:46.126 o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] 01:19:46.126 o.a.catalina.core.StandardService - Starting service [Tomcat]
+[INFO ] 01:19:46.126 o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.64]
+[INFO ] 01:19:46.214 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[INFO ] 01:19:46.214 o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1523 ms
+[INFO ] 01:19:46.439 org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.9.Final
+[INFO ] 01:19:46.565 o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+[INFO ] 01:19:46.650 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[INFO ] 01:19:46.800 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[INFO ] 01:19:46.811 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+[INFO ] 01:19:47.448 o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[INFO ] 01:19:47.455 o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[WARN ] 01:19:47.956 o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[INFO ] 01:19:48.196 o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@552144f1, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6a26162a, org.springframework.security.web.context.SecurityContextPersistenceFilter@1cd2dbd1, org.springframework.security.web.header.HeaderWriterFilter@4e42beda, org.springframework.web.filter.CorsFilter@7fbd2422, org.springframework.security.web.authentication.logout.LogoutFilter@1b5b23b6, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@390a3d7f, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@348ca4c, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@73290b09, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@525d1444, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6246c14b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@471ee3a9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@d84c432, org.springframework.security.web.session.SessionManagementFilter@11c3c7c1, org.springframework.security.web.access.ExceptionTranslationFilter@58c486ca, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5880b3b1]
+[INFO ] 01:19:48.510 o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[INFO ] 01:19:48.527 o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+[INFO ] 01:19:48.664 o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] 01:19:48.680 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] 01:19:48.892 a609.backend.BackendApplication - Started BackendApplication in 4.671 seconds (JVM running for 5.448)
+[INFO ] 01:20:43.293 a609.backend.BackendApplication - Starting BackendApplication using Java 1.8.0_192 on DESKTOP-KVCQHCD with PID 2452 (C:\Users\SSAFY\Desktop\Sub2\S07P12A609\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\Sub2\S07P12A609)
+[INFO ] 01:20:43.295 a609.backend.BackendApplication - The following 1 profile is active: "oauth"
+[INFO ] 01:20:43.338 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[INFO ] 01:20:43.338 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[INFO ] 01:20:44.202 o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[INFO ] 01:20:44.263 o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 51 ms. Found 2 JPA repository interfaces.
+[INFO ] 01:20:44.787 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+[INFO ] 01:20:44.794 o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] 01:20:44.794 o.a.catalina.core.StandardService - Starting service [Tomcat]
+[INFO ] 01:20:44.795 o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.64]
+[INFO ] 01:20:44.872 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[INFO ] 01:20:44.872 o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1534 ms
+[INFO ] 01:20:45.097 org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.9.Final
+[INFO ] 01:20:45.208 o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+[INFO ] 01:20:45.288 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[INFO ] 01:20:45.474 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[INFO ] 01:20:45.485 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+[INFO ] 01:20:46.153 o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[INFO ] 01:20:46.160 o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[WARN ] 01:20:46.681 o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[INFO ] 01:20:46.906 o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4329fd7, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5ced1ecb, org.springframework.security.web.context.SecurityContextPersistenceFilter@27d0320b, org.springframework.security.web.header.HeaderWriterFilter@428a4e3b, org.springframework.web.filter.CorsFilter@5aa5911e, org.springframework.security.web.authentication.logout.LogoutFilter@7e34a95d, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@19fd4238, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@2553de31, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@9f7f41c, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@28539e2c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@c05fedf, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@47ff690d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@388f60d6, org.springframework.security.web.session.SessionManagementFilter@d50d4be, org.springframework.security.web.access.ExceptionTranslationFilter@5d63a3e, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3f6cebed]
+[INFO ] 01:20:47.196 o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[INFO ] 01:20:47.213 o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+[INFO ] 01:20:47.340 o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] 01:20:47.355 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] 01:20:47.556 a609.backend.BackendApplication - Started BackendApplication in 4.68 seconds (JVM running for 5.462)
+[INFO ] 01:21:11.097 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[INFO ] 01:21:11.097 o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[INFO ] 01:21:11.098 o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+[ERROR] 01:21:16.868 o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+java.lang.ClassCastException: java.lang.Long cannot be cast to [C
+	at a609.backend.handler.OAuth2AuthenticationSuccessHandler.onAuthenticationSuccess(OAuth2AuthenticationSuccessHandler.java:28)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.successfulAuthentication(AbstractAuthenticationProcessingFilter.java:329)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:237)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:217)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter.doFilterInternal(OAuth2AuthorizationRequestRedirectFilter.java:178)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1787)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+[INFO ] 01:22:00.280 a609.backend.BackendApplication - Starting BackendApplication using Java 1.8.0_192 on DESKTOP-KVCQHCD with PID 10752 (C:\Users\SSAFY\Desktop\Sub2\S07P12A609\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\Sub2\S07P12A609)
+[INFO ] 01:22:00.281 a609.backend.BackendApplication - The following 1 profile is active: "oauth"
+[INFO ] 01:22:00.325 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[INFO ] 01:22:00.325 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[INFO ] 01:22:01.171 o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[INFO ] 01:22:01.226 o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 47 ms. Found 2 JPA repository interfaces.
+[INFO ] 01:22:01.782 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+[INFO ] 01:22:01.789 o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] 01:22:01.789 o.a.catalina.core.StandardService - Starting service [Tomcat]
+[INFO ] 01:22:01.790 o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.64]
+[INFO ] 01:22:01.872 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[INFO ] 01:22:01.873 o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1547 ms
+[INFO ] 01:22:02.118 org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.9.Final
+[INFO ] 01:22:02.239 o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+[INFO ] 01:22:02.331 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[INFO ] 01:22:02.481 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[INFO ] 01:22:02.492 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+[INFO ] 01:22:03.176 o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[INFO ] 01:22:03.183 o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[WARN ] 01:22:03.669 o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[INFO ] 01:22:03.889 o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1d91dc88, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@297d5abc, org.springframework.security.web.context.SecurityContextPersistenceFilter@16ef99a0, org.springframework.security.web.header.HeaderWriterFilter@15afb275, org.springframework.web.filter.CorsFilter@4d3073b8, org.springframework.security.web.authentication.logout.LogoutFilter@739c048, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@5981f9fc, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@7c01732c, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@3ae6c2d5, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@22035801, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@282ec927, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@61fe2d05, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3165b555, org.springframework.security.web.session.SessionManagementFilter@743bc508, org.springframework.security.web.access.ExceptionTranslationFilter@513c14ff, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7261afe7]
+[INFO ] 01:22:04.175 o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[INFO ] 01:22:04.193 o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+[INFO ] 01:22:04.316 o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] 01:22:04.330 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] 01:22:04.538 a609.backend.BackendApplication - Started BackendApplication in 4.677 seconds (JVM running for 5.469)
+[INFO ] 01:22:15.319 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[INFO ] 01:22:15.319 o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[INFO ] 01:22:15.320 o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+[ERROR] 01:22:21.723 o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+java.lang.ClassCastException: org.springframework.security.oauth2.core.user.DefaultOAuth2User cannot be cast to a609.backend.db.entity.User
+	at a609.backend.util.JwtUtil.generateJwtToken(JwtUtil.java:22)
+	at a609.backend.handler.OAuth2AuthenticationSuccessHandler.onAuthenticationSuccess(OAuth2AuthenticationSuccessHandler.java:34)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.successfulAuthentication(AbstractAuthenticationProcessingFilter.java:329)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:237)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:217)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter.doFilterInternal(OAuth2AuthorizationRequestRedirectFilter.java:178)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1787)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+[INFO ] 01:31:06.019 a609.backend.BackendApplication - Starting BackendApplication using Java 1.8.0_192 on DESKTOP-KVCQHCD with PID 16028 (C:\Users\SSAFY\Desktop\Sub2\S07P12A609\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\Sub2\S07P12A609)
+[INFO ] 01:31:06.020 a609.backend.BackendApplication - The following 1 profile is active: "oauth"
+[INFO ] 01:31:06.063 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[INFO ] 01:31:06.064 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[INFO ] 01:31:06.867 o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[INFO ] 01:31:06.929 o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 55 ms. Found 2 JPA repository interfaces.
+[INFO ] 01:31:07.435 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+[INFO ] 01:31:07.443 o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] 01:31:07.443 o.a.catalina.core.StandardService - Starting service [Tomcat]
+[INFO ] 01:31:07.443 o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.64]
+[INFO ] 01:31:07.523 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[INFO ] 01:31:07.524 o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1460 ms
+[INFO ] 01:31:07.694 o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+[INFO ] 01:31:07.727 org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.9.Final
+[INFO ] 01:31:07.844 o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+[INFO ] 01:31:07.915 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[INFO ] 01:31:08.130 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[INFO ] 01:31:08.141 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+[INFO ] 01:31:08.720 o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[INFO ] 01:31:08.728 o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[WARN ] 01:31:09.173 o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[INFO ] 01:31:09.395 o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@68cad938, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@64a13f74, org.springframework.security.web.context.SecurityContextPersistenceFilter@43edcd2e, org.springframework.security.web.header.HeaderWriterFilter@6d15b2d3, org.springframework.web.filter.CorsFilter@337a4ca6, org.springframework.security.web.authentication.logout.LogoutFilter@2b3f511e, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@10fd8ec, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@6bfa061d, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@1b2ca221, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@56b8ed35, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@446fdab8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@19bd12e2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6805edc3, org.springframework.security.web.session.SessionManagementFilter@342f98aa, org.springframework.security.web.access.ExceptionTranslationFilter@7b50752d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7e34a95d]
+[INFO ] 01:31:09.672 o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[INFO ] 01:31:09.691 o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+[INFO ] 01:31:09.807 o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] 01:31:09.821 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] 01:31:10.007 a609.backend.BackendApplication - Started BackendApplication in 4.405 seconds (JVM running for 5.176)
+[INFO ] 01:31:22.881 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[INFO ] 01:31:22.881 o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[INFO ] 01:31:22.882 o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+[INFO ] 01:31:23.234 a609.backend.service.UserServiceImpl - 오오스2유저 어트리뷰트엔 무엇이 들었을까? : {id=2357644795, connected_at=2022-07-29T07:28:13Z, properties={nickname=윤성도, profile_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, thumbnail_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg}, kakao_account={profile_nickname_needs_agreement=false, profile_image_needs_agreement=false, profile={nickname=윤성도, thumbnail_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg, profile_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, is_default_image=false}, has_email=true, email_needs_agreement=false, is_email_valid=true, is_email_verified=true, email=sdyoon94@nate.com}}
+[INFO ] 01:31:23.367 a609.backend.util.JwtUtil - 어센티케이션 프린시플엔 무엇이 들었을까? : Name: [2357644795], Granted Authorities: [[USER]], User Attributes: [{id=2357644795, connected_at=2022-07-29T07:28:13Z, properties={nickname=윤성도, profile_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, thumbnail_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg}, kakao_account={profile_nickname_needs_agreement=false, profile_image_needs_agreement=false, profile={nickname=윤성도, thumbnail_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg, profile_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, is_default_image=false}, has_email=true, email_needs_agreement=false, is_email_valid=true, is_email_verified=true, email=sdyoon94@nate.com}}]
+[ERROR] 01:31:23.370 o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+java.lang.ClassCastException: org.springframework.security.oauth2.core.user.DefaultOAuth2User cannot be cast to a609.backend.db.entity.User
+	at a609.backend.util.JwtUtil.generateJwtToken(JwtUtil.java:25)
+	at a609.backend.handler.OAuth2AuthenticationSuccessHandler.onAuthenticationSuccess(OAuth2AuthenticationSuccessHandler.java:34)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.successfulAuthentication(AbstractAuthenticationProcessingFilter.java:329)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:237)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:217)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter.doFilterInternal(OAuth2AuthorizationRequestRedirectFilter.java:178)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1787)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+[INFO ] 02:50:06.596 a609.backend.BackendApplication - Starting BackendApplication using Java 1.8.0_192 on DESKTOP-KVCQHCD with PID 16628 (C:\Users\SSAFY\Desktop\Sub2\S07P12A609\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\Sub2\S07P12A609)
+[INFO ] 02:50:06.597 a609.backend.BackendApplication - The following 1 profile is active: "oauth"
+[INFO ] 02:50:06.634 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[INFO ] 02:50:06.635 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[INFO ] 02:50:07.398 o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[INFO ] 02:50:07.445 o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 40 ms. Found 2 JPA repository interfaces.
+[INFO ] 02:50:07.912 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+[INFO ] 02:50:07.918 o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] 02:50:07.918 o.a.catalina.core.StandardService - Starting service [Tomcat]
+[INFO ] 02:50:07.918 o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.64]
+[INFO ] 02:50:07.988 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[INFO ] 02:50:07.988 o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1353 ms
+[INFO ] 02:50:08.153 o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+[INFO ] 02:50:08.184 org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.9.Final
+[INFO ] 02:50:08.292 o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+[INFO ] 02:50:08.363 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[INFO ] 02:50:08.549 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[INFO ] 02:50:08.559 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+[INFO ] 02:50:09.145 o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[INFO ] 02:50:09.154 o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[WARN ] 02:50:09.582 o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[INFO ] 02:50:09.780 o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@20edc86a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6d173f71, org.springframework.security.web.context.SecurityContextPersistenceFilter@706eb8f7, org.springframework.security.web.header.HeaderWriterFilter@6c7515da, org.springframework.web.filter.CorsFilter@5c48d420, org.springframework.security.web.authentication.logout.LogoutFilter@1dc5ca0d, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@5b4983e8, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@2ca1e650, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@1edc38dd, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@4951f9a3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4a17ba73, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@76f0e6cb, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7b1d67b, org.springframework.security.web.session.SessionManagementFilter@4a8122d9, org.springframework.security.web.access.ExceptionTranslationFilter@7cf89216, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2bbe8ac5]
+[INFO ] 02:50:10.032 o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[INFO ] 02:50:10.048 o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+[INFO ] 02:50:10.164 o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] 02:50:10.177 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] 02:50:10.379 a609.backend.BackendApplication - Started BackendApplication in 4.203 seconds (JVM running for 5.232)
+[INFO ] 02:50:20.814 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[INFO ] 02:50:20.814 o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[INFO ] 02:50:20.815 o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+[INFO ] 02:50:26.613 a609.backend.service.UserServiceImpl - 오오스2유저 어트리뷰트엔 무엇이 들었을까? : {id=2357644795, connected_at=2022-07-29T07:28:13Z, properties={nickname=윤성도, profile_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, thumbnail_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg}, kakao_account={profile_nickname_needs_agreement=false, profile_image_needs_agreement=false, profile={nickname=윤성도, thumbnail_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg, profile_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, is_default_image=false}, has_email=true, email_needs_agreement=false, is_email_valid=true, is_email_verified=true, email=sdyoon94@nate.com}}
+[INFO ] 02:50:26.740 a609.backend.util.JwtUtil - 어센티케이션 프린시플엔 무엇이 들었을까? : Name: [2357644795], Granted Authorities: [[USER]], User Attributes: [{id=2357644795, connected_at=2022-07-29T07:28:13Z, properties={nickname=윤성도, profile_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, thumbnail_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg}, kakao_account={profile_nickname_needs_agreement=false, profile_image_needs_agreement=false, profile={nickname=윤성도, thumbnail_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg, profile_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, is_default_image=false}, has_email=true, email_needs_agreement=false, is_email_valid=true, is_email_verified=true, email=sdyoon94@nate.com}}]
+[INFO ] 02:53:27.806 a609.backend.BackendApplication - Starting BackendApplication using Java 1.8.0_192 on DESKTOP-KVCQHCD with PID 14428 (C:\Users\SSAFY\Desktop\Sub2\S07P12A609\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\Sub2\S07P12A609)
+[INFO ] 02:53:27.807 a609.backend.BackendApplication - The following 1 profile is active: "oauth"
+[INFO ] 02:53:27.848 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[INFO ] 02:53:27.848 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[INFO ] 02:53:28.619 o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[INFO ] 02:53:28.670 o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 44 ms. Found 2 JPA repository interfaces.
+[INFO ] 02:53:29.158 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+[INFO ] 02:53:29.164 o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] 02:53:29.165 o.a.catalina.core.StandardService - Starting service [Tomcat]
+[INFO ] 02:53:29.165 o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.64]
+[INFO ] 02:53:29.239 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[INFO ] 02:53:29.239 o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1391 ms
+[INFO ] 02:53:29.399 o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+[INFO ] 02:53:29.433 org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.9.Final
+[INFO ] 02:53:29.550 o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+[INFO ] 02:53:29.624 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[INFO ] 02:53:29.773 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[INFO ] 02:53:29.784 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+[INFO ] 02:53:30.438 o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[INFO ] 02:53:30.445 o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[WARN ] 02:53:30.896 o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[INFO ] 02:53:31.112 o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4bee670d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6c390c4d, org.springframework.security.web.context.SecurityContextPersistenceFilter@1f0acacf, org.springframework.security.web.header.HeaderWriterFilter@3c1d90cc, org.springframework.web.filter.CorsFilter@4fc0bc11, org.springframework.security.web.authentication.logout.LogoutFilter@6297b03b, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@382f3f18, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@140e7bea, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@47940ff9, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@3c92e20e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4e047731, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4552607f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4fc3c9e, org.springframework.security.web.session.SessionManagementFilter@2a1e67a0, org.springframework.security.web.access.ExceptionTranslationFilter@27456dce, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@92dfea0]
+[INFO ] 02:53:31.381 o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[INFO ] 02:53:31.399 o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+[INFO ] 02:53:31.512 o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] 02:53:31.524 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] 02:53:31.729 a609.backend.BackendApplication - Started BackendApplication in 4.315 seconds (JVM running for 5.057)
+[INFO ] 02:53:54.898 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[INFO ] 02:53:54.898 o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[INFO ] 02:53:54.899 o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+[INFO ] 02:54:00.800 a609.backend.service.UserServiceImpl - 오오스2유저 어트리뷰트엔 무엇이 들었을까? : {id=2357644795, connected_at=2022-07-29T07:28:13Z, properties={nickname=윤성도, profile_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, thumbnail_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg}, kakao_account={profile_nickname_needs_agreement=false, profile_image_needs_agreement=false, profile={nickname=윤성도, thumbnail_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg, profile_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, is_default_image=false}, has_email=true, email_needs_agreement=false, is_email_valid=true, is_email_verified=true, email=sdyoon94@nate.com}}
+[INFO ] 02:54:00.924 a609.backend.util.JwtUtil - 어센티케이션 프린시플엔 무엇이 들었을까? : Name: [2357644795], Granted Authorities: [[USER]], User Attributes: [{id=2357644795, connected_at=2022-07-29T07:28:13Z, properties={nickname=윤성도, profile_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, thumbnail_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg}, kakao_account={profile_nickname_needs_agreement=false, profile_image_needs_agreement=false, profile={nickname=윤성도, thumbnail_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg, profile_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, is_default_image=false}, has_email=true, email_needs_agreement=false, is_email_valid=true, is_email_verified=true, email=sdyoon94@nate.com}}]
+[INFO ] 02:54:57.768 a609.backend.BackendApplication - Starting BackendApplication using Java 1.8.0_192 on DESKTOP-KVCQHCD with PID 14536 (C:\Users\SSAFY\Desktop\Sub2\S07P12A609\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\Sub2\S07P12A609)
+[INFO ] 02:54:57.769 a609.backend.BackendApplication - The following 1 profile is active: "oauth"
+[INFO ] 02:54:57.811 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[INFO ] 02:54:57.811 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[INFO ] 02:54:58.558 o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[INFO ] 02:54:58.607 o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 42 ms. Found 2 JPA repository interfaces.
+[INFO ] 02:54:59.071 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+[INFO ] 02:54:59.077 o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] 02:54:59.077 o.a.catalina.core.StandardService - Starting service [Tomcat]
+[INFO ] 02:54:59.077 o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.64]
+[INFO ] 02:54:59.154 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[INFO ] 02:54:59.154 o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1342 ms
+[INFO ] 02:54:59.318 o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+[INFO ] 02:54:59.355 org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.9.Final
+[INFO ] 02:54:59.459 o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+[INFO ] 02:54:59.529 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[INFO ] 02:54:59.697 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[INFO ] 02:54:59.707 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+[INFO ] 02:55:01.237 o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[INFO ] 02:55:01.244 o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[WARN ] 02:55:01.668 o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[INFO ] 02:55:01.863 o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@257d1dd0, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@32ed7daf, org.springframework.security.web.context.SecurityContextPersistenceFilter@7cf31dd9, org.springframework.security.web.header.HeaderWriterFilter@26be8aa, org.springframework.web.filter.CorsFilter@3c6ca549, org.springframework.security.web.authentication.logout.LogoutFilter@3242d321, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@1b7aafcc, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@226a0407, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@42231eb8, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@3df50ab, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@69ffa464, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@285c406f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4e015e9d, org.springframework.security.web.session.SessionManagementFilter@242e96db, org.springframework.security.web.access.ExceptionTranslationFilter@4fb23b91, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@176fdb7d]
+[INFO ] 02:55:02.096 o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[INFO ] 02:55:02.112 o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+[INFO ] 02:55:02.225 o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] 02:55:02.237 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] 02:55:02.415 a609.backend.BackendApplication - Started BackendApplication in 5.022 seconds (JVM running for 5.885)
+[INFO ] 02:55:16.081 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[INFO ] 02:55:16.081 o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[INFO ] 02:55:16.084 o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+[INFO ] 02:55:16.445 a609.backend.service.UserServiceImpl - 오오스2유저 어트리뷰트엔 무엇이 들었을까? : {id=2357644795, connected_at=2022-07-29T07:28:13Z, properties={nickname=윤성도, profile_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, thumbnail_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg}, kakao_account={profile_nickname_needs_agreement=false, profile_image_needs_agreement=false, profile={nickname=윤성도, thumbnail_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg, profile_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, is_default_image=false}, has_email=true, email_needs_agreement=false, is_email_valid=true, is_email_verified=true, email=sdyoon94@nate.com}}
+[INFO ] 02:55:16.657 a609.backend.util.JwtUtil - 어센티케이션 프린시플엔 무엇이 들었을까? : Name: [2357644795], Granted Authorities: [[USER]], User Attributes: [{id=2357644795, connected_at=2022-07-29T07:28:13Z, properties={nickname=윤성도, profile_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, thumbnail_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg}, kakao_account={profile_nickname_needs_agreement=false, profile_image_needs_agreement=false, profile={nickname=윤성도, thumbnail_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg, profile_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, is_default_image=false}, has_email=true, email_needs_agreement=false, is_email_valid=true, is_email_verified=true, email=sdyoon94@nate.com}}]
+[INFO ] 03:02:51.527 a609.backend.service.UserServiceImpl - 오오스2유저 어트리뷰트엔 무엇이 들었을까? : {id=2357644795, connected_at=2022-07-29T07:28:13Z, properties={nickname=윤성도, profile_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, thumbnail_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg}, kakao_account={profile_nickname_needs_agreement=false, profile_image_needs_agreement=false, profile={nickname=윤성도, thumbnail_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg, profile_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, is_default_image=false}, has_email=true, email_needs_agreement=false, is_email_valid=true, is_email_verified=true, email=sdyoon94@nate.com}}
+[INFO ] 03:02:51.564 a609.backend.util.JwtUtil - 어센티케이션 프린시플엔 무엇이 들었을까? : Name: [2357644795], Granted Authorities: [[USER]], User Attributes: [{id=2357644795, connected_at=2022-07-29T07:28:13Z, properties={nickname=윤성도, profile_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, thumbnail_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg}, kakao_account={profile_nickname_needs_agreement=false, profile_image_needs_agreement=false, profile={nickname=윤성도, thumbnail_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg, profile_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, is_default_image=false}, has_email=true, email_needs_agreement=false, is_email_valid=true, is_email_verified=true, email=sdyoon94@nate.com}}]
+[INFO ] 13:24:00.816 a609.backend.BackendApplication - Starting BackendApplication using Java 1.8.0_192 on DESKTOP-KVCQHCD with PID 17032 (C:\Users\SSAFY\Desktop\Sub2\S07P12A609\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\Sub2\S07P12A609)
+[INFO ] 13:24:00.817 a609.backend.BackendApplication - The following 1 profile is active: "oauth"
+[INFO ] 13:24:00.866 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[INFO ] 13:24:00.866 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[INFO ] 13:24:01.795 o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[INFO ] 13:24:01.852 o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 48 ms. Found 2 JPA repository interfaces.
+[INFO ] 13:24:02.378 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+[INFO ] 13:24:02.385 o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] 13:24:02.385 o.a.catalina.core.StandardService - Starting service [Tomcat]
+[INFO ] 13:24:02.385 o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.64]
+[INFO ] 13:24:02.457 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[INFO ] 13:24:02.458 o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1591 ms
+[INFO ] 13:24:02.629 o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+[INFO ] 13:24:02.667 org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.9.Final
+[INFO ] 13:24:02.774 o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+[INFO ] 13:24:02.843 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[INFO ] 13:24:02.987 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[INFO ] 13:24:02.997 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+[INFO ] 13:24:04.472 o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[INFO ] 13:24:04.479 o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[WARN ] 13:24:04.919 o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[INFO ] 13:24:05.133 o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@14ebb27d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@521a457c, org.springframework.security.web.context.SecurityContextPersistenceFilter@489a210d, org.springframework.security.web.header.HeaderWriterFilter@3d696b71, org.springframework.web.filter.CorsFilter@3e268430, org.springframework.security.web.authentication.logout.LogoutFilter@56d14089, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@4fe79622, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@1bd00e6f, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@2d5ab444, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@fde45d7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@431e7488, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1338857a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@466f660b, org.springframework.security.web.session.SessionManagementFilter@3faf324d, org.springframework.security.web.access.ExceptionTranslationFilter@39966269, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1f5464d3]
+[INFO ] 13:24:05.405 o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[INFO ] 13:24:05.422 o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+[INFO ] 13:24:05.536 o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] 13:24:05.550 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] 13:24:05.733 a609.backend.BackendApplication - Started BackendApplication in 5.358 seconds (JVM running for 6.187)
+[INFO ] 13:27:41.004 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[INFO ] 13:27:41.004 o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[INFO ] 13:27:41.007 o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+[INFO ] 13:27:48.547 a609.backend.service.UserServiceImpl - 오오스2유저 어트리뷰트엔 무엇이 들었을까? : {id=2357644795, connected_at=2022-07-29T07:28:13Z, properties={nickname=윤성도, profile_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, thumbnail_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg}, kakao_account={profile_nickname_needs_agreement=false, profile_image_needs_agreement=false, profile={nickname=윤성도, thumbnail_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg, profile_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, is_default_image=false}, has_email=true, email_needs_agreement=false, is_email_valid=true, is_email_verified=true, email=sdyoon94@nate.com}}
+[INFO ] 13:27:48.753 a609.backend.util.JwtUtil - 어센티케이션 프린시플엔 무엇이 들었을까? : Name: [2357644795], Granted Authorities: [[USER]], User Attributes: [{id=2357644795, connected_at=2022-07-29T07:28:13Z, properties={nickname=윤성도, profile_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, thumbnail_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg}, kakao_account={profile_nickname_needs_agreement=false, profile_image_needs_agreement=false, profile={nickname=윤성도, thumbnail_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg, profile_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, is_default_image=false}, has_email=true, email_needs_agreement=false, is_email_valid=true, is_email_verified=true, email=sdyoon94@nate.com}}]
+[INFO ] 14:00:42.700 a609.backend.BackendApplication - Starting BackendApplication using Java 1.8.0_192 on DESKTOP-KVCQHCD with PID 3488 (C:\Users\SSAFY\Desktop\Sub2\S07P12A609\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\Sub2\S07P12A609)
+[INFO ] 14:00:42.702 a609.backend.BackendApplication - The following 1 profile is active: "oauth"
+[INFO ] 14:00:42.742 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[INFO ] 14:00:42.742 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[INFO ] 14:00:43.511 o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[INFO ] 14:00:43.565 o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 48 ms. Found 2 JPA repository interfaces.
+[INFO ] 14:00:44.057 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+[INFO ] 14:00:44.063 o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] 14:00:44.064 o.a.catalina.core.StandardService - Starting service [Tomcat]
+[INFO ] 14:00:44.064 o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.64]
+[INFO ] 14:00:44.136 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[INFO ] 14:00:44.136 o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1393 ms
+[INFO ] 14:00:44.303 o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+[INFO ] 14:00:44.341 org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.9.Final
+[INFO ] 14:00:44.460 o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+[INFO ] 14:00:44.529 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[INFO ] 14:00:44.704 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[INFO ] 14:00:44.716 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+[INFO ] 14:00:46.106 o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[INFO ] 14:00:46.113 o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[WARN ] 14:00:46.554 o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[INFO ] 14:00:46.762 o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@55812be, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5ea45ca5, org.springframework.security.web.context.SecurityContextPersistenceFilter@1e75a9ae, org.springframework.security.web.header.HeaderWriterFilter@1dac9162, org.springframework.web.filter.CorsFilter@45393949, org.springframework.security.web.authentication.logout.LogoutFilter@211b180a, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@39003eff, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@36ef2809, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@144eb649, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@17ca38e7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@73ad388f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7f2fabf2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@52c20542, org.springframework.security.web.session.SessionManagementFilter@7cd2ceb6, org.springframework.security.web.access.ExceptionTranslationFilter@e52106a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@132500b3]
+[INFO ] 14:00:47.014 o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[INFO ] 14:00:47.032 o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+[INFO ] 14:00:47.158 o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] 14:00:47.172 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] 14:00:47.361 a609.backend.BackendApplication - Started BackendApplication in 5.112 seconds (JVM running for 5.908)
+[INFO ] 14:00:55.477 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[INFO ] 14:00:55.477 o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[INFO ] 14:00:55.480 o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+[INFO ] 14:01:20.460 a609.backend.BackendApplication - Starting BackendApplication using Java 1.8.0_192 on DESKTOP-KVCQHCD with PID 5492 (C:\Users\SSAFY\Desktop\Sub2\S07P12A609\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\Sub2\S07P12A609)
+[INFO ] 14:01:20.461 a609.backend.BackendApplication - The following 1 profile is active: "oauth"
+[INFO ] 14:01:20.502 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[INFO ] 14:01:20.502 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[INFO ] 14:01:21.337 o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[INFO ] 14:01:21.390 o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 45 ms. Found 2 JPA repository interfaces.
+[INFO ] 14:01:21.902 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+[INFO ] 14:01:21.908 o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] 14:01:21.909 o.a.catalina.core.StandardService - Starting service [Tomcat]
+[INFO ] 14:01:21.909 o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.64]
+[INFO ] 14:01:21.985 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[INFO ] 14:01:21.985 o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1482 ms
+[INFO ] 14:01:22.164 o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+[INFO ] 14:01:22.205 org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.9.Final
+[INFO ] 14:01:22.314 o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+[INFO ] 14:01:22.386 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[INFO ] 14:01:22.531 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[INFO ] 14:01:22.541 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+[INFO ] 14:01:24.083 o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[INFO ] 14:01:24.090 o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[WARN ] 14:01:24.551 o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[INFO ] 14:01:24.804 o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@226a0407, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1079bc3a, org.springframework.security.web.context.SecurityContextPersistenceFilter@5cdb2e13, org.springframework.security.web.header.HeaderWriterFilter@508e020b, org.springframework.web.filter.CorsFilter@60deeb23, org.springframework.security.web.authentication.logout.LogoutFilter@5c2c8e61, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@5436b3c0, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@747ab783, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@2ac791fe, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@a0091fa, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@77b656e6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@21809ffb, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7838e681, org.springframework.security.web.session.SessionManagementFilter@145c2e97, org.springframework.security.web.access.ExceptionTranslationFilter@b61afcc, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@320b7819]
+[INFO ] 14:01:25.150 o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[INFO ] 14:01:25.172 o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+[INFO ] 14:01:25.296 o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] 14:01:25.314 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] 14:01:25.564 a609.backend.BackendApplication - Started BackendApplication in 5.49 seconds (JVM running for 6.268)
+[INFO ] 14:01:31.961 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[INFO ] 14:01:31.961 o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[INFO ] 14:01:31.963 o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+[INFO ] 14:01:36.114 a609.backend.service.UserServiceImpl - 유저리퀘스트엔 무엇이 들었을까? : org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest@1ac181cb
+[INFO ] 14:01:36.199 a609.backend.service.UserServiceImpl - 오오스2유저 어트리뷰트엔 무엇이 들었을까? : {id=2357644795, connected_at=2022-07-29T07:28:13Z, properties={nickname=윤성도, profile_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, thumbnail_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg}, kakao_account={profile_nickname_needs_agreement=false, profile_image_needs_agreement=false, profile={nickname=윤성도, thumbnail_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg, profile_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, is_default_image=false}, has_email=true, email_needs_agreement=false, is_email_valid=true, is_email_verified=true, email=sdyoon94@nate.com}}
+[INFO ] 14:01:36.422 a609.backend.util.JwtUtil - 어센티케이션 프린시플엔 무엇이 들었을까? : Name: [2357644795], Granted Authorities: [[USER]], User Attributes: [{id=2357644795, connected_at=2022-07-29T07:28:13Z, properties={nickname=윤성도, profile_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, thumbnail_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg}, kakao_account={profile_nickname_needs_agreement=false, profile_image_needs_agreement=false, profile={nickname=윤성도, thumbnail_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg, profile_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, is_default_image=false}, has_email=true, email_needs_agreement=false, is_email_valid=true, is_email_verified=true, email=sdyoon94@nate.com}}]
+[INFO ] 14:01:38.609 a609.backend.service.UserServiceImpl - 유저리퀘스트엔 무엇이 들었을까? : org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest@4030dd50
+[INFO ] 14:01:38.669 a609.backend.service.UserServiceImpl - 오오스2유저 어트리뷰트엔 무엇이 들었을까? : {id=2357644795, connected_at=2022-07-29T07:28:13Z, properties={nickname=윤성도, profile_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, thumbnail_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg}, kakao_account={profile_nickname_needs_agreement=false, profile_image_needs_agreement=false, profile={nickname=윤성도, thumbnail_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg, profile_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, is_default_image=false}, has_email=true, email_needs_agreement=false, is_email_valid=true, is_email_verified=true, email=sdyoon94@nate.com}}
+[INFO ] 14:01:38.696 a609.backend.util.JwtUtil - 어센티케이션 프린시플엔 무엇이 들었을까? : Name: [2357644795], Granted Authorities: [[USER]], User Attributes: [{id=2357644795, connected_at=2022-07-29T07:28:13Z, properties={nickname=윤성도, profile_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, thumbnail_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg}, kakao_account={profile_nickname_needs_agreement=false, profile_image_needs_agreement=false, profile={nickname=윤성도, thumbnail_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg, profile_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, is_default_image=false}, has_email=true, email_needs_agreement=false, is_email_valid=true, is_email_verified=true, email=sdyoon94@nate.com}}]
+[INFO ] 14:03:06.102 a609.backend.BackendApplication - Starting BackendApplication using Java 1.8.0_192 on DESKTOP-KVCQHCD with PID 10520 (C:\Users\SSAFY\Desktop\Sub2\S07P12A609\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\Sub2\S07P12A609)
+[INFO ] 14:03:06.104 a609.backend.BackendApplication - The following 1 profile is active: "oauth"
+[INFO ] 14:03:06.156 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[INFO ] 14:03:06.156 o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[INFO ] 14:03:07.070 o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[INFO ] 14:03:07.128 o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 50 ms. Found 2 JPA repository interfaces.
+[INFO ] 14:03:07.672 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+[INFO ] 14:03:07.678 o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] 14:03:07.679 o.a.catalina.core.StandardService - Starting service [Tomcat]
+[INFO ] 14:03:07.679 o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.64]
+[INFO ] 14:03:07.764 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[INFO ] 14:03:07.765 o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1608 ms
+[INFO ] 14:03:07.973 o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+[INFO ] 14:03:08.011 org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.9.Final
+[INFO ] 14:03:08.130 o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+[INFO ] 14:03:08.203 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[INFO ] 14:03:08.348 com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[INFO ] 14:03:08.358 org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+[INFO ] 14:03:09.877 o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[INFO ] 14:03:09.883 o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[WARN ] 14:03:10.429 o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[INFO ] 14:03:10.681 o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6bc2d7c3, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@43da6efe, org.springframework.security.web.context.SecurityContextPersistenceFilter@338dc81, org.springframework.security.web.header.HeaderWriterFilter@6bfacf92, org.springframework.web.filter.CorsFilter@62f7e794, org.springframework.security.web.authentication.logout.LogoutFilter@563cd7ed, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@2980066e, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@5f035976, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@5ce42b50, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@6ff154b1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@189c6fb0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7b3416cd, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1270ea43, org.springframework.security.web.session.SessionManagementFilter@1579a15e, org.springframework.security.web.access.ExceptionTranslationFilter@78e28c29, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3482305e]
+[INFO ] 14:03:10.990 o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[INFO ] 14:03:11.009 o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+[INFO ] 14:03:11.145 o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] 14:03:11.160 o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] 14:03:11.369 a609.backend.BackendApplication - Started BackendApplication in 5.782 seconds (JVM running for 6.602)
+[INFO ] 14:03:13.099 o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[INFO ] 14:03:13.099 o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[INFO ] 14:03:13.103 o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+[INFO ] 14:03:13.391 a609.backend.service.UserServiceImpl - 유저리퀘스트엔 무엇이 들었을까? : org.springframework.security.oauth2.core.OAuth2AccessToken@5c2678d0
+[INFO ] 14:03:13.391 a609.backend.service.UserServiceImpl - 어디셔널 : {refresh_token_expires_in=5183999}
+[INFO ] 14:03:13.481 a609.backend.service.UserServiceImpl - 오오스2유저 어트리뷰트엔 무엇이 들었을까? : {id=2357644795, connected_at=2022-07-29T07:28:13Z, properties={nickname=윤성도, profile_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, thumbnail_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg}, kakao_account={profile_nickname_needs_agreement=false, profile_image_needs_agreement=false, profile={nickname=윤성도, thumbnail_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg, profile_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, is_default_image=false}, has_email=true, email_needs_agreement=false, is_email_valid=true, is_email_verified=true, email=sdyoon94@nate.com}}
+[INFO ] 14:03:13.689 a609.backend.util.JwtUtil - 어센티케이션 프린시플엔 무엇이 들었을까? : Name: [2357644795], Granted Authorities: [[USER]], User Attributes: [{id=2357644795, connected_at=2022-07-29T07:28:13Z, properties={nickname=윤성도, profile_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, thumbnail_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg}, kakao_account={profile_nickname_needs_agreement=false, profile_image_needs_agreement=false, profile={nickname=윤성도, thumbnail_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg, profile_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, is_default_image=false}, has_email=true, email_needs_agreement=false, is_email_valid=true, is_email_verified=true, email=sdyoon94@nate.com}}]
+[INFO ] 14:13:14.345 a609.backend.service.UserServiceImpl - 유저리퀘스트엔 무엇이 들었을까? : org.springframework.security.oauth2.core.OAuth2AccessToken@d29fc45d
+[INFO ] 14:13:14.345 a609.backend.service.UserServiceImpl - 어디셔널 : {refresh_token_expires_in=5183999}
+[INFO ] 14:13:14.415 a609.backend.service.UserServiceImpl - 오오스2유저 어트리뷰트엔 무엇이 들었을까? : {id=2357644795, connected_at=2022-07-29T07:28:13Z, properties={nickname=윤성도, profile_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, thumbnail_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg}, kakao_account={profile_nickname_needs_agreement=false, profile_image_needs_agreement=false, profile={nickname=윤성도, thumbnail_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg, profile_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, is_default_image=false}, has_email=true, email_needs_agreement=false, is_email_valid=true, is_email_verified=true, email=sdyoon94@nate.com}}
+[INFO ] 14:13:14.442 a609.backend.util.JwtUtil - 어센티케이션 프린시플엔 무엇이 들었을까? : Name: [2357644795], Granted Authorities: [[USER]], User Attributes: [{id=2357644795, connected_at=2022-07-29T07:28:13Z, properties={nickname=윤성도, profile_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, thumbnail_image=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg}, kakao_account={profile_nickname_needs_agreement=false, profile_image_needs_agreement=false, profile={nickname=윤성도, thumbnail_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_110x110.jpg, profile_image_url=http://k.kakaocdn.net/dn/GfVci/btrzw1Zdt94/JTgsgESc7wcBAOwKS3dBZK/img_640x640.jpg, is_default_image=false}, has_email=true, email_needs_agreement=false, is_email_valid=true, is_email_verified=true, email=sdyoon94@nate.com}}]
