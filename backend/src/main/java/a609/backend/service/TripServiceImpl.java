@@ -53,7 +53,6 @@ public class TripServiceImpl implements TripService{
         findTripDTO.setTripName(trip.getTripName());
         findTripDTO.setStartDate(trip.getStartDate());
         findTripDTO.setPeriodInDays(trip.getPeriodInDays());
-        findTripDTO.setBudget(trip.getBudget());
         findTripDTO.setVehicle(trip.getVehicle());
         findTripDTO.setStyle(Integer.parseInt(Integer.toBinaryString(trip.getStyle())));
         //멤버랑
@@ -89,7 +88,6 @@ public class TripServiceImpl implements TripService{
             findTripDTO.setTripName(trip.getTripName());
             findTripDTO.setStartDate(trip.getStartDate());
             findTripDTO.setPeriodInDays(trip.getPeriodInDays());
-            findTripDTO.setBudget(trip.getBudget());
             findTripDTO.setVehicle(trip.getVehicle());
             findTripDTO.setStyle(Integer.parseInt(Integer.toBinaryString(trip.getStyle())));
 
@@ -167,7 +165,6 @@ public class TripServiceImpl implements TripService{
     public void updateTrip(Long tripId,Trip trip) {
         Trip originTrip = tripRepository.findOneByTripId(tripId);
         originTrip.setTripName(trip.getTripName());
-        originTrip.setBudget(trip.getBudget());
         originTrip.setStartDate(trip.getStartDate());
         originTrip.setStyle(Integer.parseInt(trip.getStyle().toString(),2));
         originTrip.setVehicle(trip.getVehicle());

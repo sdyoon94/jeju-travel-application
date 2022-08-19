@@ -61,9 +61,6 @@ public class PlaceServiceImpl implements PlaceService{
         }
 
         Collections.sort(tempList, (o1, o2) -> -(o1.getThumbs() - o2.getThumbs()));
-        System.out.println("============================");
-        System.out.println(tempList);
-        System.out.println("============================");
         return tempList.stream().map(o -> new FindPlaceDTO(o)).collect(Collectors.toList()).subList(0,Math.min(tempList.size(),7));
     }
 

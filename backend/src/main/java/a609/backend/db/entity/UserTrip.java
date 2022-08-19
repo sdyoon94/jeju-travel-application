@@ -25,6 +25,4 @@ public class UserTrip {
     @JoinColumn(name = "KAKAO_ID")
     private User user;
 
-    @Column(name="VOTE_DATE")
-    private LocalDate voteDate;
 }
