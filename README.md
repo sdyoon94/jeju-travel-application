@@ -59,21 +59,36 @@
 - Webex
 - Notion
 
+## 팀원 소개
+
+1. FE
+  - 김창현님: 클라이언트 소켓, 여행 생성 수정
+  - 이진오님: 외부 API 연동, TCP 소케통신, BE
+  - 한지운님: 디자인, PM
+
+2. BE
+  - 김지건님: DB, 서비스로직, 디버깅
+  - 양소정님: 데이터 가공, 여행 일정 알고리즘
+  - 윤성도님: CI/CD, HTTPS, 스피링 시큐리티
+
+
 ## 📖프로젝트 산출물
 
 ---
 
 - ERD
 
-![ERD.png](README-images/ERD.png)
+![ERD.png](README-asset/ERD.png)
 
-![기능명세서.pdf](README-images/기능명세서.pdf)
+[기능명세서.pdf](docs/기능명세서.pdf)
 
 ## 📖프로젝트 결과물
 
 ---
 
 [포팅_메뉴얼.docx](exec/포팅_메뉴얼.docx)
+
+[최종_발표.pdf](docs/%EC%84%9C%EC%9A%B8_6%EB%B0%98_A609_%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pdf)
 
 ## 💎놀멍쉬멍 서비스 화면
 
@@ -83,7 +98,7 @@
 
 - 카카오톡을 이용하여 회원가입 및 로그인을 진행할 수 있습니다.
 
-![login](README-images/login.png)
+![login](README-asset/login.png)
 
 ### 메인화면
 
@@ -91,9 +106,9 @@
 - 현재 참여중인 여행이 없을 경우 여행 명언이 표시됩니다.
 - “제주도로 떠나기” 혹은 “제주도로 또 가기” 버튼을 눌러 여행을 생성할 수 있습니다.
 
-![home1](README-images/home1.png)
+![home1](README-asset/home1.png)
 
-![home2](README-images/home2.png)
+![home2](README-asset/home2.png)
 
 ### 여행 계획
 
@@ -106,11 +121,12 @@
 #### 여행 계획 조회
 
 - 여행 제목, 여행 기간, 여행 스타일을 조회할 수 있습니다.
-- 여행 기간 별로 스케쥴을 확인할 수 있습니다.
+- 여행 일자 별로 스케쥴과 일자 내부의 일정의 시작시간과 소요시간을 확인할 수 있습니다.
+- 여행 일정 간의 자동차 이동시간을 확인할 수 있습니다.
 - 지도 아이콘을 클릭하여 장소 위치와 상세 정보를 확인할 수 있습니다.
   - 상세 정보 중 제목 클릭 시, 네이버 제목 검색 결과가 나타납니다.
 
-![planPage](README-images/planPage.png)
+![planPage](README-asset/planPage.png)
 
 #### 여행 계획 수정
 
@@ -118,8 +134,9 @@
 - 우상단에 위치한 톱니바퀴 아이콘 클릭시 여행 계획 정보를 수정할 수 있습니다.
 - 여행 제목, 여행 기간, 여행 스타일을 수정할 수 있습니다.
 - 여행 스타일 수정시 여행 계획을 재추천받을 수 있습니다.
+- 여행을 삭제할 수 있습니다.
 
-![drawer.png](README-images/drawer.png)
+![drawer.png](README-asset/drawer.png)
 
 ![newTrip](/uploads/21d35b38cb4cd9aa5781fff1155f026a/newTrip.gif)
 
@@ -128,18 +145,21 @@
 - 왼쪽 스와이프 하면 여행 일정을 삭제할 수 있습니다.
 - 엑스 표시가 있는 시간 부분을 수정할 수 있습니다. (일정 시작 시간과 소요시간 수정 가능합니다. )
 - 플러스 버튼을 통해 여행 일정을 추가할 수 있습니다.
+  - 검색어가 없을 경우 여행 스타일에 따른 추천 장소가 나타납니다.
+  - 사용자가 직접 주소를 통해 장소를 추가할 수도 있습니다.
+- 여행 일정 수정시 동행자에게 실시간으로 편집 내용이 반영됩니다.
 
 ![dnd](/uploads/b55156af107df9c76e5f8cb8ccbd7c51/dnd.gif)
 
 ![search](/uploads/f21e2cf875383971974e7af863af38b0/search.gif) 
 
-![userInputA](README-images/userInputA.png)
+![userInputA](README-asset/userInputA.png)
 
 #### 여행 공유하기
 
 - 카카오톡 초대하기 버튼을 눌러 여행을 초대할 수 있습니다.
 
-![invite](README-images/invite.png)
+![invite](README-asset/invite.png)
 
 ![invite1](/uploads/363b94ba6e6865c15f2adc6c16933489/invite1.gif)
 
