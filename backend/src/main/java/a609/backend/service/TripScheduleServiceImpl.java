@@ -231,7 +231,7 @@ public class TripScheduleServiceImpl implements TripScheduleService {
                 int fixedScheduleTurn=1;
                 try{
 
-                    fixedScheduleTurn = scheduleRepository.findOneByScheduleId(fixedSchedule.getScheduleId()).getTurn();
+                    fixedScheduleTurn = fixedSchedule.getTurn();
 
                 }catch (Exception e){
                     e.printStackTrace();

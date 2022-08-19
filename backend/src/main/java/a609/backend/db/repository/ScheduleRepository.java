@@ -23,8 +23,8 @@ public interface ScheduleRepository extends JpaRepository<Schedule,Long> {
 
     // 여행일정을 id로 검색 후 day,턴으로 소팅해서 가져옴
     List<Schedule> findByTripTripIdOrderByDayAscTurnAsc(Long tripId);
-    // 여행 일자별로 고정된거 빼고 날리기
-    void deleteByTripTripIdAndDayAndIsFixedFalse(Long tripId, Integer day);
+    // 여행 일자별로 날리기
+    void deleteByTripTripIdAndDay(Long tripId, Integer day);
 
     Schedule findByTripTripIdAndDayAndTurn(Long tripId,int day,int turn);
     Long countByTripTripIdAndDay(Long tripId,int day);

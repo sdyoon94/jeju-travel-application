@@ -32,9 +32,6 @@ public class Trip {
     @Column(name="PERIOD")
     private Integer periodInDays;
 
-    @Column(name="BUDGET")
-    private Integer budget;
-
     @Column(name="START_TIME")
     private LocalTime startTime;
     // LocalTime starttime = LocalTime.of( ~~~);
@@ -49,9 +46,6 @@ public class Trip {
 
     @Column(name="STYLE")
     private Integer style;
-
-    @Column(name="CREATOR_ID")
-    private Long creatorId;
 
     @OneToMany(mappedBy="trip", cascade = CascadeType.ALL)
     List<Schedule> schedules = new ArrayList<>();

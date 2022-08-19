@@ -41,20 +41,10 @@ public class Schedule {
     @Column(name="STAY_TIME")
     private Integer stayTime;
 
-    @Column(name="COST")
-    private Integer cost;
-
-    @Column(name="IS_FIXED")
-    private Boolean isFixed;
-
     @Column(name="DAY")
     private Integer day;
 
     @Column(name="TURN")
     private Integer turn;
-
-    //좀이따 날리기
-    @Column(name="IS_CUSTOM")
-    private Boolean isCustom;
 
 }
