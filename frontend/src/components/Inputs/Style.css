@@ -1,0 +1,51 @@
+.style-container {
+  display:grid ;
+  grid-template-rows: 4fr 7fr;
+  height:100%;
+}
+
+
+.style-header {
+  display:grid;
+  align-content: end;
+  justify-content: start;
+  line-height: 10vw;
+}
+
+
+.style-body {
+  display:grid;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  grid-gap: 10vw;
+}
+
+.style-select-btns {
+  display:grid;
+  grid-row-gap: 3vw;
+  grid-template-columns: 1fr 1fr;
+  justify-items: start;
+  width: 70vw;
+}
+
+div.style-select-btns button {
+  background-color: transparent;
+  display:grid;
+  grid-template-columns: 2fr 5fr;
+  width: 28vw;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.style-icon {
+  border: none;
+  align-self:center;
+}
+
+button span {
+  align-self:center;
+  font-family: 'JejuGothic';
+  font-style: normal;
+  font-weight: 400;
+}

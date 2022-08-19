@@ -1,0 +1,77 @@
+.departure-container {
+  display:grid ;
+  grid-template-rows: 4fr 7fr;
+  height:100%;
+}
+
+/***** header *****/
+.departure-header {
+  display:grid;
+  align-content: end;
+  justify-content: center;
+  justify-items: start;
+  justify-content: stretch;
+  line-height: 10vw;
+  margin-left: 3vw;
+}
+
+/* 어디서, 몇 명이서 떠나시나요? */
+.mention {
+  font-family: 'Inter';
+  font-size: 25px;
+  font-style: bold;
+  font-weight: 700;
+  line-height: 4vh;
+}
+
+/***** body *****/
+.departure-body {
+  display:grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  justify-content: center;
+  align-items: end;
+  
+}
+
+
+.membercnt-input-box {
+  width: 60vw;
+  background-color: transparent;
+  height: 7vh;
+  border-radius: 10px;
+  display: grid;
+  justify-content: stretch;
+ 
+}
+
+
+.select-departure {
+  width:150px;
+  background-color: transparent !important;
+  display:flex;
+  justify-self:end;
+}
+
+.member-cnt-input {
+  background-color: transparent !important;
+  align-items: center;
+  align-self: center;
+  justify-items: center;
+  text-justify: center;
+}
+
+.control-member-cnt{
+  display:grid;
+  border: none !important;
+  justify-self: center;
+  grid-template-columns: 3fr 3fr 3fr;
+}
+
+
+.member-cnt-btn {
+  background-color: transparent;
+  border: none;
+}
+
+
+

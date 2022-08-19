@@ -1,0 +1,49 @@
+.full-modal {  
+}
+
+.small-modal {
+}
+
+.modal-container{
+}
+
+
+.full-dialog-content{
+  height: 85%;
+  display:grid;
+  align-items: center;
+  grid-template-columns: 80vw;
+  justify-content: center;
+}
+
+.small-dialog-content{
+  height: 25vh;
+  display:grid;
+  align-items: center;
+  grid-template-columns: 70vw;
+  justify-content: center;
+}
+
+.dialog-btns-top {
+  position:absolute;
+  top : 4vh;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-between;
+  width: 100%;
+  gap : 50vw;
+}
+
+.dialog-btns-bottom {
+  bottom: 0vh;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-between;
+  width: 100%;
+  gap : 1px;
+  height:5.5vh;
+}
+
+.dialog-btns-bottom button{
+  border-radius: 0;
+}

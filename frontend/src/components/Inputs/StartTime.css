@@ -1,0 +1,54 @@
+.startTime-container {
+  display:grid ;
+  grid-template-rows: 4fr 7fr;
+  height:100%;
+}
+
+/***** header *****/
+.startTime-header {
+  display:grid;
+  align-content: end;
+  justify-content: center;
+  line-height: 10vw;
+}
+
+/***** body *****/
+.startTime-body {
+  display:grid;
+  gap : 1rem;
+  justify-content: center;
+  align-content: center;
+  align-items: start;
+  
+}
+
+
+.time-input-box{
+  width: 65vw;
+  height: 7vh;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 3fr 4fr;
+}
+
+.input-label{
+font-weight: 700;
+font-size: 20px;
+line-height: 3vh;
+display: flex;
+align-items: center;
+justify-content: center;
+
+color: #000000;
+
+
+}
+.select-startTime {
+  width: auto;
+  display:flex;
+  justify-self:end;
+  align-self: center;
+}
+
+
+

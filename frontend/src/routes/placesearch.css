@@ -1,0 +1,79 @@
+.place-search {
+  height: calc(var(--vh,1vh)*100)
+}
+
+.search-input {
+  position: relative;
+  width: 66vw;
+  height: 5vh;
+  border: none;
+  font-size: 5vw;
+}
+
+.search-input-container {
+  width: 80vw;
+  display: inline-block;
+  border-bottom: 2px solid black;
+}
+
+.search-input:focus {
+  outline: none;
+}
+
+.search-icon {
+  position: relative;
+  width: 4vw;
+  top: .3vh;
+  left: 5vw;
+}
+
+.search-img {
+  width: 13vw;
+  height: 13vw;
+  border-radius: 50%;
+}
+
+.recommend-spots {
+  height: 61vh;
+  overflow: scroll;
+}
+
+.recommend-spot {
+  width: 80vw;
+  margin-left: 10vw;
+}
+
+.recommend-spot span {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.selected-box {
+  width: 79vw;
+  margin: 2vh 10vw 0 10vw;
+  border: 1px solid #808080;
+  box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2);
+  border-radius: 10px;
+  height: 32px;
+    overflow-x: scroll;
+}
+
+.selected-box > div {
+  margin: 3px 3px;
+  padding: 5px;
+  background: #D9D9D9;
+  border-radius: 10px;
+}
+
+.select-click {
+  font-size: 3vw;
+  background: #D9D9D9;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.search-top-margin {
+  margin-top: 2vh;
+}
+

@@ -1,0 +1,47 @@
+.kakao-box {
+  width: 53vw;
+  margin-top: 2vh;
+}
+
+.kakao-box-wrapper {
+  height: 10vh;
+}
+
+.travel-join-container {
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("../../public/icons/jejuInvite.jpg");
+}
+
+.travel-join-title {
+  height: 10vh;
+  padding: 24vh 0vw 0vh;
+  text-align: center;
+}
+
+.travel-join-title > p {
+  margin: 1vh;
+}
+
+.travel-join-body {
+  height: 20vh;
+  padding: 5vh 0vw 0vh;
+  display: grid;
+  text-align: center;
+  grid-template-rows: auto auto auto;
+}
+
+.travel-join-btn {
+  background: #1E88E5;
+  margin: auto;
+  border: none;
+  width: 75vw;
+  height: 12vw;
+  font-size: 4vw;
+  text-align: center;
+  border-radius: 10px;
+  color: #FFFFFF;
+}
+
+

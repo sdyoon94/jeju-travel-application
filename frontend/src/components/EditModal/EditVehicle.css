@@ -1,0 +1,47 @@
+.vehicle-container {
+  display:grid ;
+  grid-template-rows: 4fr 7fr;
+  height:100%;
+}
+
+
+.vehicle-header {
+  display:grid;
+  align-content: end;
+  justify-content: center;
+  line-height: 8vw;
+
+}
+
+
+.vehicle-body {
+  display:grid;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  grid-gap: 10vw;
+}
+
+.vehicle-select-btns {
+  display:grid;
+  grid-row-gap: 3vw;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+  width: 60vw;
+  height: 15vh;
+  border-top: 1px solid #1E88E5 ;
+
+}
+
+div.vehicle-select-btns button {
+  background-color: transparent;
+  display:grid;
+  grid-template-rows: 5fr 2fr;
+  gap : 0.5vh;
+  border:none;
+}
+
+
+
+

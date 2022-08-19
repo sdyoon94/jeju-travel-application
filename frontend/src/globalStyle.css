@@ -1,0 +1,119 @@
+:root {
+  /* --vh: 100%; */
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+
+* {
+  font-family: "JejuGothic" !important;
+}
+
+@font-face {
+  font-family: "JejuGothic";
+  font-weight: normal;
+  src: url("./fonts/JejuGothic.ttf");
+}
+
+@font-face {
+  font-family: "JejuHallasan";
+  src: url("./fonts/JejuHallasan.ttf");
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.block {
+  display: block;
+}
+
+.inline {
+  display: inline;
+}
+
+.link {
+  text-decoration: none ;
+  color: inherit;
+}
+
+.color-1 {
+  color: #1E88E5;
+}
+
+.gray {
+  color: #8C8C8C;
+}
+
+.red {
+  color: #dc3545;
+}
+
+.title-size {
+  font-size: 6vw;
+}
+
+.title-weight {
+  font-weight: 700;
+}
+
+.subtitle-size {
+  font-size: 5vw;
+}
+
+.subtitle-weight {
+  font-weight: 600;
+}
+
+.content-size {
+  font-size: 4vw;
+}
+
+.content-weight {
+  font-weight: 500;
+}
+
+.subcontent-size {
+  font-size: 3vw;
+}
+
+.subcontent-weight {
+  font-weight: 400;
+}
+
+.overflow-x-dots {
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.text-center {
+  text-align: center;
+}
+
+input {
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
+
+.gamgyul {
+  width: 6vw;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 9vw;
+  left: 10vw;
+}
+
+@media screen and (max-height: 500px) {
+  .logo {
+    display:none;
+  }
+}
+
+

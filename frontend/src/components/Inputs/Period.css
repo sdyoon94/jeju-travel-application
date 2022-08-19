@@ -1,0 +1,44 @@
+.period-container {
+  display:grid ;
+  grid-template-rows: 4fr 7fr;
+  height:100%;
+}
+
+
+/****** header ******/
+.period-header {
+  display:grid;
+  align-content: end;
+  justify-content: start ;
+  line-height: 10vw ;
+}
+
+.period-body {
+  display:grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.period-input {
+  width:60vw;
+  display:grid;
+  grid-template-columns: 3fr 2fr 3fr 2fr;
+  justify-content: center;
+}
+
+.input-label{
+  
+  font-family: 'Inter';
+  font-style: bold;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #000000;
+
+}
+
+

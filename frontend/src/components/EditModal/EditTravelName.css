@@ -1,0 +1,56 @@
+.travel-name-container {
+  display: grid;
+  grid-template-rows: 4fr 7fr;
+  height:100%;
+}
+
+
+
+/****** header ******/
+.travel-name-header {
+  display:grid;
+  align-content: end;
+  justify-content: center;
+  line-height: 8vw;
+  
+}
+
+/****** body ******/
+.travel-name-body {
+  display:grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.travel-name-input {
+  display: grid;
+  width:60vw;
+  justify-content: center;
+}
+
+
+
+
+.travel-name-input-body {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  justify-self: center;
+  font-size: 25px;
+  font-weight: 700;
+  color:black;
+
+}
+
+.input-label{
+  font-family: 'Inter';
+  font-style: bold;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 3vh;
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+
+  color: #000000;
+
+}
