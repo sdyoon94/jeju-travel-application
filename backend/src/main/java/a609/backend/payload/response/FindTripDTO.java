@@ -1,6 +1,5 @@
 package a609.backend.payload.response;
 
-import a609.backend.db.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 

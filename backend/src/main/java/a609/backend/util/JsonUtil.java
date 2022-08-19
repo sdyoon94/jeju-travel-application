@@ -1,18 +1,5 @@
 package a609.backend.util;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import org.apache.tomcat.util.json.JSONParser;
-
-
-import java.io.*;
-import java.net.HttpURLConnection;
-
-import java.net.URL;
-
 public class JsonUtil {
     public static void main(String[] args) throws IOException {
 
