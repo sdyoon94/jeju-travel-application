@@ -116,7 +116,7 @@
 
 - 동행자, 여행 기간, 여행 스타일, 전체 일정 시작 시간과 끝나는 시간을 작성합니다.
 
-![inputs](/uploads/0393c5150d59db291f13645e30e64bb5/inputs.gif)
+![inputs](https://user-images.githubusercontent.com/99027846/187189570-6d296616-2deb-4bb8-90be-07798204bae9.gif)
 
 #### 여행 계획 조회
 
@@ -138,7 +138,8 @@
 
 ![drawer.png](README-asset/drawer.png)
 
-![newTrip](/uploads/21d35b38cb4cd9aa5781fff1155f026a/newTrip.gif)
+![newTrip](https://user-images.githubusercontent.com/99027846/187188929-12e714e8-add2-4b75-9663-8a69b0e092f7.gif)
+
 
 2. 여행 일정 수정
 - 드래그 앤 드랍으로 여행 일정 위치를 수정할 수 있습니다.
@@ -149,9 +150,9 @@
   - 사용자가 직접 주소를 통해 장소를 추가할 수도 있습니다.
 - 여행 일정 수정시 동행자에게 실시간으로 편집 내용이 반영됩니다.
 
-![dnd](/uploads/b55156af107df9c76e5f8cb8ccbd7c51/dnd.gif)
+![dnd](https://user-images.githubusercontent.com/99027846/187189144-acd859b3-7353-4525-acd6-c23d222f4f8b.gif)
 
-![search](/uploads/f21e2cf875383971974e7af863af38b0/search.gif) 
+![search](https://user-images.githubusercontent.com/99027846/187189212-919957e9-1ff6-4fdd-838e-481e74877909.gif)
 
 ![userInputA](README-asset/userInputA.png)
 
@@ -161,7 +162,7 @@
 
 ![invite](README-asset/invite.png)
 
-![invite1](/uploads/363b94ba6e6865c15f2adc6c16933489/invite1.gif)
+![invite1](https://user-images.githubusercontent.com/99027846/187189297-bedcdf93-6ba9-4755-a7f1-be38c8b60b9e.gif)
 
 
 
